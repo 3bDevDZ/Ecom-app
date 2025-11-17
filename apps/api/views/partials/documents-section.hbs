@@ -1,0 +1,24 @@
+<div class="documents-section">
+    <h2 class="documents-title">Documents</h2>
+    <div class="documents-grid">
+        {{#each order.documents}}
+            <div class="document-card">
+                <div class="document-icon">{{getDocumentIcon this.type}}</div>
+                <div class="document-info">
+                    <div class="document-name">{{this.name}}</div>
+                    <div class="document-date">{{formatDate this.createdAt}}</div>
+                </div>
+                <div class="document-actions">
+                    <a href="{{this.url}}" target="_blank" class="btn-action btn-view" title="View document">
+                        <span class="action-icon">👁️</span>
+                        View
+                    </a>
+                    <a href="{{this.url}}" download class="btn-action btn-download" title="Download document">
+                        <span class="action-icon">⬇️</span>
+                        Download
+                    </a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

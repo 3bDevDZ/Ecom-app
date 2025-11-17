@@ -15,10 +15,6 @@ body {
   color: #1a1a1a;
 }
 
-.app {
-  min-height: 100vh;
-}
-
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
