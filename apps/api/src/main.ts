@@ -5,6 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import session from 'express-session';
+import { engine } from 'express-handlebars';
 import { handlebarsHelpers } from './infrastructure/helpers/handlebars-helpers';
 
 /**
@@ -27,16 +28,20 @@ async function bootstrap() {
     }),
   );
 
-  // Configure view engine (Handlebars)
-  app.setBaseViewsDir(join(__dirname, 'views'));
-  app.setViewEngine('hbs');
+  // Configure view engine (Express Handlebars with layouts)
+  const viewsPath = join(__dirname, 'views');
+  const expressApp = app.getHttpAdapter().getInstance();
 
-  // Register Handlebars helpers and partials
-  const hbs = require('hbs');
-  hbs.registerPartials(join(__dirname, 'views', 'partials'));
-  Object.keys(handlebarsHelpers).forEach((helperName) => {
-    hbs.registerHelper(helperName, (handlebarsHelpers as any)[helperName]);
-  });
+  expressApp.engine('hbs', engine({
+    extname: '.hbs',
+    layoutsDir: join(viewsPath, 'layouts'),
+    partialsDir: join(viewsPath, 'partials'),
+    defaultLayout: 'base',
+    helpers: handlebarsHelpers,
+  }));
+
+  app.setBaseViewsDir(viewsPath);
+  app.setViewEngine('hbs');
 
   // Serve static assets
   app.useStaticAssets(join(__dirname, 'public'));

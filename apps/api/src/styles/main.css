@@ -1,13 +1,33 @@
-// Tailwind CSS Directives
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-// Google Fonts
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap');
 
-// Base Styles
+/* Tailwind CSS Directives */
+@import "tailwindcss";
+
+/* Theme Configuration */
+@theme {
+  /* Colors */
+  --color-primary: #0A2540;
+  --color-primary-hover: #0d2f52;
+  --color-secondary: #00C49A;
+  --color-secondary-hover: #00ad88;
+  --color-background-light: #F8F9FA;
+  --color-background-dark: #101922;
+  --color-text-light: #495057;
+  --color-text-dark: #E0E0E0;
+  --color-text-headings: #2C3E50;
+  --color-text-headings-dark: #FFFFFF;
+
+  /* Font Families */
+  --font-display: 'Manrope', sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Base Styles */
 @layer base {
   * {
     margin: 0;
@@ -25,12 +45,12 @@
     @apply bg-background-dark text-text-dark;
   }
 
-  // Material Symbols Icons Config
+  /* Material Symbols Icons Config */
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 
-  // Scrollbar Styling
+  /* Scrollbar Styling */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -48,7 +68,7 @@
     }
   }
 
-  // Focus Styles for Accessibility
+  /* Focus Styles for Accessibility */
   button:focus-visible,
   a:focus-visible,
   input:focus-visible,
@@ -58,15 +78,15 @@
   }
 }
 
-// Custom Component Styles
+/* Custom Component Styles */
 @layer components {
-  // Navigation
+  /* Navigation */
   .nav-link {
     @apply text-sm font-medium leading-normal text-text-headings transition-colors hover:text-primary;
     @apply dark:text-text-headings-dark dark:hover:text-secondary;
   }
 
-  // Buttons
+  /* Buttons */
   .btn {
     @apply flex items-center justify-center overflow-hidden rounded-lg px-4 py-2;
     @apply font-bold leading-normal tracking-[0.015em] transition-all;
@@ -100,7 +120,7 @@
     @apply h-8 px-3 text-xs;
   }
 
-  // Cards
+  /* Cards */
   .card {
     @apply bg-white dark:bg-slate-800/50 rounded-lg shadow-card;
     @apply transition-shadow hover:shadow-md;
@@ -118,7 +138,7 @@
     @apply p-6 border-t border-gray-200 dark:border-gray-700;
   }
 
-  // Forms
+  /* Forms */
   .form-group {
     @apply mb-4;
   }
@@ -132,7 +152,7 @@
   .form-textarea {
     @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2;
     @apply text-text-light placeholder:text-slate-400;
-    @apply focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-50;
+    @apply focus:border-primary focus:ring-2 focus:ring-primary/50;
     @apply dark:border-slate-700 dark:bg-slate-800 dark:text-text-dark;
     @apply dark:focus:border-secondary dark:focus:ring-secondary;
     @apply transition-colors;
@@ -142,9 +162,10 @@
     @apply border-red-500 focus:border-red-500 focus:ring-red-500;
   }
 
-  // Product Cards
+  /* Product Cards */
   .product-card {
-    @apply card p-4 group;
+    @apply bg-white dark:bg-slate-800/50 rounded-lg shadow-card p-4;
+    @apply transition-shadow hover:shadow-md;
   }
 
   .product-image-wrapper {
@@ -176,7 +197,7 @@
     @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
   }
 
-  // Header/Navigation
+  /* Header/Navigation */
   .header {
     @apply sticky top-0 z-50 flex items-center justify-center;
     @apply whitespace-nowrap border-b border-solid border-slate-200/80;
@@ -185,12 +206,12 @@
     @apply sm:px-8 md:px-10;
   }
 
-  // Footer
+  /* Footer */
   .footer {
     @apply w-full bg-white dark:bg-slate-900/50 border-t border-gray-200 dark:border-gray-800;
   }
 
-  // Page Layout
+  /* Page Layout */
   .page-container {
     @apply mx-auto max-w-7xl px-4 py-8 sm:px-8 md:px-10;
   }
@@ -208,7 +229,7 @@
   }
 }
 
-// Custom Utilities
+/* Custom Utilities */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
