@@ -28,18 +28,18 @@ async function bootstrap() {
   );
 
   // Configure view engine (Handlebars)
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setBaseViewsDir(join(__dirname, 'views'));
   app.setViewEngine('hbs');
 
   // Register Handlebars helpers and partials
   const hbs = require('hbs');
-  hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
+  hbs.registerPartials(join(__dirname, 'views', 'partials'));
   Object.keys(handlebarsHelpers).forEach((helperName) => {
     hbs.registerHelper(helperName, (handlebarsHelpers as any)[helperName]);
   });
 
   // Serve static assets
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(join(__dirname, 'public'));
 
   // Enable CORS for API endpoints
   app.enableCors({
