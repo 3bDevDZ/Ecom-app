@@ -19,6 +19,11 @@
             "glob": "**/*",
             "input": "apps/api/public",
             "output": "public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/api/views",
+            "output": "views"
           }
         ],
         "webpackConfig": "apps/api/webpack.config.js"
