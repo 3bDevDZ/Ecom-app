@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>B2B Client Portal - Login/Sign Up</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark">
+    <div
+        class="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden p-4 group/design-root">
+        <main class="w-full max-w-md">
+            <!-- Logo Placeholder -->
+            <div class="flex justify-center items-center mb-6">
+                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-3xl">
+                        storefront
+                    </span>
+                </div>
+            </div>
+            <!-- Headline and Body Text -->
+            <h1
+                class="text-[#0d141b] dark:text-white tracking-light text-[32px] font-bold leading-tight px-4 text-center pb-3 pt-6">
+                Welcome Back</h1>
+            <p
+                class="text-[#4c739a] dark:text-gray-400 text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">
+                Sign in to your B2B account</p>
+            <!-- Segmented Buttons for Login/Sign Up -->
+            <div class="flex px-4 py-3">
+                <div
+                    class="flex h-10 flex-1 items-center justify-center rounded-lg bg-gray-200 dark:bg-background-dark p-1">
+                    <label
+                        class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-white has-[:checked]:dark:bg-gray-700 has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-[#0d141b] dark:has-[:checked]:text-white text-[#4c739a] dark:text-gray-400 text-sm font-medium leading-normal">
+                        <span class="truncate">Login</span>
+                        <input checked="" class="invisible w-0" name="auth-toggle" type="radio" value="Login" />
+                    </label>
+                    <label
+                        class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-white has-[:checked]:dark:bg-gray-700 has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-[#0d141b] dark:has-[:checked]:text-white text-[#4c739a] dark:text-gray-400 text-sm font-medium leading-normal">
+                        <span class="truncate">Sign Up</span>
+                        <input class="invisible w-0" name="auth-toggle" type="radio" value="Sign Up" />
+                    </label>
+                </div>
+            </div>
+            <!-- Form Fields -->
+            <div class="flex flex-col gap-4 px-4 py-3">
+                <!-- Work Email Field -->
+                <label class="flex flex-col w-full">
+                    <p class="text-[#0d141b] dark:text-white text-base font-medium leading-normal pb-2">Work Email</p>
+                    <input
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d141b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#4c739a] p-[15px] text-base font-normal leading-normal"
+                        placeholder="you@company.com" type="email" value="" />
+                </label>
+                <!-- Password Field -->
+                <label class="flex flex-col w-full">
+                    <div class="flex justify-between items-center pb-2">
+                        <p class="text-[#0d141b] dark:text-white text-base font-medium leading-normal">Password</p>
+                        <a class="text-primary text-sm font-medium hover:underline" href="#">Forgot Password?</a>
+                    </div>
+                    <div class="flex w-full flex-1 items-stretch">
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg rounded-r-none border-r-0 text-[#0d141b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#4c739a] p-[15px] pr-2 text-base font-normal leading-normal"
+                            placeholder="Enter your password" type="password" value="" />
+                        <button aria-label="Toggle password visibility"
+                            class="text-[#4c739a] dark:text-gray-400 flex border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 items-center justify-center px-4 rounded-r-lg border-l-0 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="material-symbols-outlined">visibility_off</span>
+                        </button>
+                    </div>
+                </label>
+            </div>
+            <!-- Primary CTA Button -->
+            <div class="px-4 py-3">
+                <button
+                    class="flex w-full items-center justify-center rounded-lg bg-primary h-14 px-6 text-base font-bold text-white shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] hover:bg-opacity-90">
+                    Sign In
+                </button>
+            </div>
+            <!-- SSO Options -->
+            <div class="flex items-center gap-4 px-4 py-3">
+                <hr class="w-full border-gray-300 dark:border-gray-600" />
+                <p class="text-sm font-medium text-[#4c739a] dark:text-gray-400">OR</p>
+                <hr class="w-full border-gray-300 dark:border-gray-600" />
+            </div>
+            <div class="flex flex-col gap-4 px-4 pt-3 pb-6">
+                <!-- Google SSO Button -->
+                <button
+                    class="flex h-14 w-full items-center justify-center gap-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 text-base font-medium text-[#0d141b] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <svg class="h-6 w-6" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_1033_383)">
+                            <path
+                                d="M22.56 12.25C22.56 11.45 22.49 10.68 22.36 9.93H12V14.4H18.2C17.96 15.93 17.22 17.21 16.09 18.06V20.69H19.92C21.66 19.16 22.56 16.92 22.56 14.15V12.25Z"
+                                fill="#4285F4"></path>
+                            <path
+                                d="M12 23C14.97 23 17.47 22.02 19.29 20.4L15.46 17.77C14.52 18.42 13.37 18.82 12 18.82C9.62 18.82 7.6 17.31 6.82 15.24H2.86V17.97C4.68 21.04 8.03 23 12 23Z"
+                                fill="#34A853"></path>
+                            <path
+                                d="M6.82 15.24C6.58 14.54 6.42 13.78 6.42 13C6.42 12.22 6.58 11.46 6.82 10.76V8.03H2.86C2.02 9.62 1.5 11.25 1.5 13C1.5 14.75 2.02 16.38 2.86 17.97L6.82 15.24Z"
+                                fill="#FBBC05"></path>
+                            <path
+                                d="M12 7.18C13.43 7.18 14.69 7.66 15.63 8.56L19.38 4.93C17.47 3.18 14.97 2 12 2C8.03 2 4.68 3.96 2.86 7.03L6.82 9.76C7.6 7.69 9.62 6.18 12 6.18V7.18Z"
+                                fill="#EA4335"></path>
+                        </g>
+                        <defs>
+                            <clippath id="clip0_1033_383">
+                                <rect fill="white" height="24" width="24"></rect>
+                            </clippath>
+                        </defs>
+                    </svg>
+                    <span>Sign in with Google</span>
+                </button>
+                <!-- Microsoft SSO Button -->
+                <button
+                    class="flex h-14 w-full items-center justify-center gap-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 text-base font-medium text-[#0d141b] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <svg class="h-6 w-6" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.235 11.231H21V21H11.235V11.231Z" fill="#F25022"></path>
+                        <path d="M3 11.231H10.252V21H3V11.231Z" fill="#00A4EF"></path>
+                        <path d="M11.235 3H21V10.248H11.235V3Z" fill="#7FBA00"></path>
+                        <path d="M3 3H10.252V10.248H3V3Z" fill="#FFB900"></path>
+                    </svg>
+                    <span>Sign in with Microsoft</span>
+                </button>
+            </div>
+            <!-- Footer -->
+            <div class="px-4 text-center">
+                <p class="text-xs text-[#4c739a] dark:text-gray-500">
+                    © 2024 Your Company, Inc. <a class="font-medium hover:underline text-primary" href="#">Contact
+                        Support</a>
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

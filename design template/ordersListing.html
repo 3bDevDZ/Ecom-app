@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Order History</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <!-- TopAppBar -->
+        <div class="sticky top-0 z-10 flex flex-col bg-background-light dark:bg-background-dark">
+            <div class="flex items-center p-4 pb-2 justify-between border-b border-gray-200 dark:border-gray-800">
+                <div class="text-gray-800 dark:text-gray-200 flex size-10 shrink-0 items-center justify-center">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </div>
+                <h2 class="text-lg font-bold flex-1 text-center text-gray-900 dark:text-white">Order History</h2>
+                <div class="flex size-10 shrink-0 items-center justify-center"></div>
+            </div>
+        </div>
+        <!-- SearchBar and Filter -->
+        <div class="px-4 py-4 flex gap-3 items-center">
+            <label class="flex flex-col min-w-40 h-12 w-full">
+                <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                    <div
+                        class="text-gray-500 dark:text-gray-400 flex bg-gray-100 dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <input
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-gray-800 focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                        placeholder="Search by Order # or Product..." value="" />
+                </div>
+            </label>
+            <button
+                class="flex size-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+                <span class="material-symbols-outlined">filter_list</span>
+            </button>
+        </div>
+        <!-- Chips / Filter Pills -->
+        <div class="flex gap-2 p-3 px-4 overflow-x-auto">
+            <button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary pl-4 pr-4">
+                <p class="text-white text-sm font-medium leading-normal">All</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-gray-800 pl-4 pr-4">
+                <p class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Processing</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-gray-800 pl-4 pr-4">
+                <p class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Shipped</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-gray-800 pl-4 pr-4">
+                <p class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Delivered</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-gray-800 pl-4 pr-4">
+                <p class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Cancelled</p>
+            </button>
+        </div>
+        <!-- Order List -->
+        <div class="flex flex-col gap-4 p-4">
+            <!-- Order Card 1 -->
+            <div
+                class="flex flex-col gap-4 bg-white dark:bg-background-dark p-4 rounded-xl border border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <div class="flex flex-col">
+                        <p class="text-gray-900 dark:text-white text-base font-semibold">#ORD-12345</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">June 15, 2024</p>
+                    </div>
+                    <div
+                        class="flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/40 px-3 py-1">
+                        <p class="text-blue-600 dark:text-blue-300 text-xs font-medium">Shipped</p>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gray-200 dark:bg-gray-800"></div>
+                <div class="flex items-center justify-between">
+                    <p class="text-gray-900 dark:text-white text-lg font-bold">$1,250.75</p>
+                    <button class="flex items-center gap-1 text-primary text-sm font-semibold">
+                        View Details
+                        <span class="material-symbols-outlined text-lg">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Order Card 2 -->
+            <div
+                class="flex flex-col gap-4 bg-white dark:bg-background-dark p-4 rounded-xl border border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <div class="flex flex-col">
+                        <p class="text-gray-900 dark:text-white text-base font-semibold">#ORD-12344</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">June 12, 2024</p>
+                    </div>
+                    <div
+                        class="flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900/40 px-3 py-1">
+                        <p class="text-green-600 dark:text-green-300 text-xs font-medium">Delivered</p>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gray-200 dark:bg-gray-800"></div>
+                <div class="flex items-center justify-between">
+                    <p class="text-gray-900 dark:text-white text-lg font-bold">$850.00</p>
+                    <button class="flex items-center gap-1 text-primary text-sm font-semibold">
+                        View Details
+                        <span class="material-symbols-outlined text-lg">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Order Card 3 -->
+            <div
+                class="flex flex-col gap-4 bg-white dark:bg-background-dark p-4 rounded-xl border border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <div class="flex flex-col">
+                        <p class="text-gray-900 dark:text-white text-base font-semibold">#ORD-12343</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">June 10, 2024</p>
+                    </div>
+                    <div
+                        class="flex items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/40 px-3 py-1">
+                        <p class="text-orange-600 dark:text-orange-300 text-xs font-medium">Processing</p>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gray-200 dark:bg-gray-800"></div>
+                <div class="flex items-center justify-between">
+                    <p class="text-gray-900 dark:text-white text-lg font-bold">$3,420.00</p>
+                    <button class="flex items-center gap-1 text-primary text-sm font-semibold">
+                        View Details
+                        <span class="material-symbols-outlined text-lg">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Order Card 4 -->
+            <div
+                class="flex flex-col gap-4 bg-white dark:bg-background-dark p-4 rounded-xl border border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <div class="flex flex-col">
+                        <p class="text-gray-900 dark:text-white text-base font-semibold">#ORD-12342</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">June 5, 2024</p>
+                    </div>
+                    <div class="flex items-center justify-center rounded-full bg-red-100 dark:bg-red-900/40 px-3 py-1">
+                        <p class="text-red-600 dark:text-red-300 text-xs font-medium">Cancelled</p>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gray-200 dark:bg-gray-800"></div>
+                <div class="flex items-center justify-between">
+                    <p class="text-gray-900 dark:text-white text-lg font-bold">$215.50</p>
+                    <button class="flex items-center gap-1 text-primary text-sm font-semibold">
+                        View Details
+                        <span class="material-symbols-outlined text-lg">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Empty State (Example, commented out) -->
+        <!-- 
+        <div class="flex flex-col items-center justify-center text-center p-10 mt-10">
+            <div class="flex items-center justify-center size-24 bg-gray-100 dark:bg-gray-800 rounded-full mb-6">
+                <span class="material-symbols-outlined text-5xl text-gray-400 dark:text-gray-500">receipt_long</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">No Orders Yet</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 max-w-xs mt-1">You have no past orders. Your future orders will appear here.</p>
+            <button class="mt-6 h-11 px-6 flex items-center justify-center rounded-lg bg-primary text-white font-semibold">
+                Start Shopping
+            </button>
+        </div>
+        -->
+    </div>
+</body>
+
+</html>

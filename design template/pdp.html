@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Product Detail Page</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+
+        .peer:checked~.peer-checked\:block {
+            display: block;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display">
+    <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <div
+            class="sticky top-0 z-10 flex items-center bg-background-light dark:bg-background-dark p-4 justify-between border-b border-slate-200 dark:border-slate-800">
+            <div
+                class="flex size-10 shrink-0 items-center justify-center rounded-full text-slate-800 dark:text-slate-200">
+                <span class="material-symbols-outlined text-2xl">arrow_back</span>
+            </div>
+            <h2
+                class="text-slate-900 dark:text-slate-50 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 truncate text-center">
+                Titanium Hex Bolt</h2>
+            <div class="flex w-10 items-center justify-center">
+                <button
+                    class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-transparent text-slate-800 dark:text-slate-200 gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+                    <span class="material-symbols-outlined text-2xl">favorite_border</span>
+                </button>
+            </div>
+        </div>
+        <div
+            class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pt-4">
+            <div class="flex items-stretch px-4 gap-3">
+                <div class="flex h-full flex-1 flex-col gap-4 rounded-xl min-w-[80vw] sm:min-w-80">
+                    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl flex flex-col bg-slate-200 dark:bg-slate-800"
+                        data-alt="Titanium Hex Bolt on a white background"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBKHPgbItQMzBodBwYhiBXwHyq2zyDWpHLSEqum8NawBAWdd_x3Bvj-Tf-yBUE4m-lZxY8Ky88FsOSoaCnQfatgZ2t8t-D1RATrKlQmYHeq-YmSgoOSF4nFOhaeV-62Ud9lcN6IyI9-bLh_K5QroQGAUSAqAg3JeuJJDUSkuIJ9nvYfMKbZF2lBY4oMXp0akwFPw5wV89BD4LPx05l1azjzlCOgsPyw19YR04_CGbuKSmLpkBSYScm9EfAgdTFOMkwJDoHokUnKK7Za");'>
+                    </div>
+                </div>
+                <div class="flex h-full flex-1 flex-col gap-4 rounded-xl min-w-[80vw] sm:min-w-80">
+                    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl flex flex-col bg-slate-200 dark:bg-slate-800"
+                        data-alt="Technical drawing of the hex bolt with dimensions"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6RqlPivoqYFxJ9ADfp797dJocp0trz02WP3_nhYsbbUADJeLmU4eru0idQ1cE2oYpmhFwKu_KbcvHs4Yv4jLJg1jcwqMxqNgoRdoo4GF4awr0O1nxF5el3lfL7dyh4358h9PzEMv83Qg2JQDH81qeVKYtvCmd5afarp1TeSsuUfHUnDyx-9Q26in1hT6wQsNR5YjDWnZx0k6vPkTjeRpUihUMOC3TpS_-z2edfguJHngoV2pFwYEL3284SaAqLz0_eASYS6sAr9sI");'>
+                    </div>
+                </div>
+                <div class="flex h-full flex-1 flex-col gap-4 rounded-xl min-w-[80vw] sm:min-w-80">
+                    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl flex flex-col bg-slate-200 dark:bg-slate-800"
+                        data-alt="Close-up of the bolt's thread"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJwzn3KQEHrjs5F21IFstrzzocSEJXjZu4kTSpCMDHW_3NtNVG-SfJ85GYvVCDJpsoMvqZeUE-dK28YIRTYXHtevbmGUAOtc_lJ-PDFexHgJ9wnN6KEUT9w21B09-4A4TPrPlaJo--1-ezpQL8z7xGCHOWYtamMGGiNqG_KIDU8lM7rqsUPZ9dVLLxQgZrlJiuLB4NYewqjWNhzP_QRNNoYX9Q3tpW1BaaYL6kA971Q0KuuHHYV04ob6UUHSXLnvoWi2G_sGjMC9uH");'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-4">
+            <h1
+                class="text-slate-900 dark:text-slate-50 tracking-tight text-3xl font-bold leading-tight text-left pt-2">
+                Grade 5 Titanium Hex Bolt</h1>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal pt-2">SKU: THB-G5-M12-L50
+            </p>
+            <p class="text-slate-800 dark:text-slate-200 text-base font-normal leading-normal pt-4">High-strength,
+                corrosion-resistant titanium bolt for aerospace, automotive, and marine applications. Lightweight and
+                durable for critical fastening needs.</p>
+        </div>
+        <div class="p-4 border-y border-slate-200 dark:border-slate-800">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-slate-900 dark:text-slate-50 text-3xl font-bold">$12.50 <span
+                            class="text-base font-normal text-slate-500 dark:text-slate-400">/ unit</span></p>
+                    <a class="text-primary text-sm font-semibold hover:underline mt-1 inline-block" href="#">View volume
+                        discounts</a>
+                </div>
+                <div class="flex items-center gap-2 rounded-full border border-slate-300 dark:border-slate-700 p-1">
+                    <button
+                        class="flex items-center justify-center size-8 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                        <span class="material-symbols-outlined text-xl">remove</span>
+                    </button>
+                    <input
+                        class="w-12 border-0 bg-transparent text-center font-semibold text-slate-900 dark:text-slate-50 p-0 focus:ring-0"
+                        type="text" value="100" />
+                    <button
+                        class="flex items-center justify-center size-8 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                        <span class="material-symbols-outlined text-xl">add</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 mt-4">
+                <span class="material-symbols-outlined text-green-500">check_circle</span>
+                <p class="text-green-600 dark:text-green-400 font-semibold">In Stock</p>
+                <p class="text-slate-500 dark:text-slate-400 text-sm ml-1">(Multiple variants)</p>
+            </div>
+        </div>
+        <div class="px-4 py-2 space-y-2 pb-28">
+            <div class="border-b border-slate-200 dark:border-slate-800">
+                <details class="group">
+                    <summary class="flex items-center justify-between py-4 cursor-pointer">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-50">Specifications</h3>
+                        <span
+                            class="material-symbols-outlined text-slate-600 dark:text-slate-400 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <div class="pb-4 text-slate-700 dark:text-slate-300 space-y-2">
+                        <div class="flex justify-between text-sm"><span>Material:</span> <span
+                                class="font-medium text-slate-800 dark:text-slate-200">Titanium Alloy (Grade 5)</span>
+                        </div>
+                        <div class="flex justify-between text-sm"><span>Diameter:</span> <span
+                                class="font-medium text-slate-800 dark:text-slate-200">12mm</span></div>
+                        <div class="flex justify-between text-sm"><span>Length:</span> <span
+                                class="font-medium text-slate-800 dark:text-slate-200">50mm</span></div>
+                        <div class="flex justify-between text-sm"><span>Weight:</span> <span
+                                class="font-medium text-slate-800 dark:text-slate-200">25g</span></div>
+                        <div class="flex justify-between text-sm"><span>Tensile Strength:</span> <span
+                                class="font-medium text-slate-800 dark:text-slate-200">950 MPa</span></div>
+                    </div>
+                </details>
+            </div>
+            <div class="border-b border-slate-200 dark:border-slate-800">
+                <details class="group">
+                    <summary class="flex items-center justify-between py-4 cursor-pointer">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-50">Technical Documents</h3>
+                        <span
+                            class="material-symbols-outlined text-slate-600 dark:text-slate-400 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <div class="pb-4 text-primary space-y-2">
+                        <a class="flex items-center gap-2 text-sm font-medium hover:underline" href="#">
+                            <span class="material-symbols-outlined text-lg">description</span>
+                            <span>Product Datasheet.pdf</span>
+                        </a>
+                        <a class="flex items-center gap-2 text-sm font-medium hover:underline" href="#">
+                            <span class="material-symbols-outlined text-lg">description</span>
+                            <span>Installation Manual.pdf</span>
+                        </a>
+                    </div>
+                </details>
+            </div>
+            <div class="border-b border-slate-200 dark:border-slate-800">
+                <details class="group">
+                    <summary class="flex items-center justify-between py-4 cursor-pointer">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-50">Shipping Information</h3>
+                        <span
+                            class="material-symbols-outlined text-slate-600 dark:text-slate-400 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <div class="pb-4 text-slate-700 dark:text-slate-300 space-y-2 text-sm">
+                        <p>Ships from our central warehouse in Chicago, IL. Standard shipping takes 3-5 business days.
+                            Expedited options available at checkout. Packaged in cases of 500 units.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+        <div
+            class="fixed bottom-0 left-0 right-0 p-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-slate-200 dark:border-slate-800">
+            <label
+                class="w-full h-14 bg-primary text-white text-lg font-bold rounded-xl flex items-center justify-center gap-3 cursor-pointer"
+                for="variant-modal">
+                <span class="material-symbols-outlined">style</span>
+                <span>Select Variants</span>
+            </label>
+        </div>
+        <input class="peer hidden" id="variant-modal" type="checkbox" />
+        <label class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm hidden peer-checked:block cursor-pointer"
+            for="variant-modal"></label>
+        <div
+            class="fixed bottom-0 left-0 right-0 z-50 h-[85vh] bg-background-light dark:bg-background-dark rounded-t-2xl shadow-lg transform translate-y-full peer-checked:translate-y-0 transition-transform duration-300 ease-in-out flex flex-col">
+            <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-slate-50">Select Variants</h3>
+                <label class="cursor-pointer text-slate-500 dark:text-slate-400" for="variant-modal">
+                    <span class="material-symbols-outlined">close</span>
+                </label>
+            </div>
+            <div class="p-4 flex gap-4 items-start border-b border-slate-200 dark:border-slate-800">
+                <img alt="Titanium Hex Bolt" class="w-20 h-20 rounded-lg object-cover bg-slate-200 dark:bg-slate-800"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKHPgbItQMzBodBwYhiBXwHyq2zyDWpHLSEqum8NawBAWdd_x3Bvj-Tf-yBUE4m-lZxY8Ky88FsOSoaCnQfatgZ2t8t-D1RATrKlQmYHeq-YmSgoOSF4nFOhaeV-62Ud9lcN6IyI9-bLh_K5QroQGAUSAqAg3JeuJJDUSkuIJ9nvYfMKbZF2lBY4oMXp0akwFPw5wV89BD4LPx05l1azjzlCOgsPyw19YR04_CGbuKSmLpkBSYScm9EfAgdTFOMkwJDoHokUnKK7Za" />
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-slate-50">Grade 5 Titanium Hex Bolt</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Starting from <span
+                            class="font-semibold text-slate-800 dark:text-slate-200">$12.50</span></p>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-slate-900 dark:text-slate-50">M12 x 50mm</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">SKU: THB-G5-M12-L50</p>
+                        </div>
+                        <p class="font-bold text-slate-900 dark:text-slate-50">$12.50</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-3">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm text-green-500">check_circle</span>
+                            <p class="text-sm text-green-600 dark:text-green-400 font-semibold">In Stock</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">(5,420 available)</p>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 rounded-full border border-slate-300 dark:border-slate-700 p-1">
+                            <button
+                                class="flex items-center justify-center size-7 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                                <span class="material-symbols-outlined text-lg">remove</span>
+                            </button>
+                            <input
+                                class="w-10 border-0 bg-transparent text-center font-semibold text-slate-900 dark:text-slate-50 p-0 text-sm focus:ring-0"
+                                type="text" value="100" />
+                            <button
+                                class="flex items-center justify-center size-7 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                                <span class="material-symbols-outlined text-lg">add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-slate-900 dark:text-slate-50">M12 x 75mm</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">SKU: THB-G5-M12-L75</p>
+                        </div>
+                        <p class="font-bold text-slate-900 dark:text-slate-50">$14.00</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-3">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm text-green-500">check_circle</span>
+                            <p class="text-sm text-green-600 dark:text-green-400 font-semibold">In Stock</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">(3,105 available)</p>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 rounded-full border border-slate-300 dark:border-slate-700 p-1">
+                            <button
+                                class="flex items-center justify-center size-7 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                                <span class="material-symbols-outlined text-lg">remove</span>
+                            </button>
+                            <input
+                                class="w-10 border-0 bg-transparent text-center font-semibold text-slate-900 dark:text-slate-50 p-0 text-sm focus:ring-0"
+                                type="text" value="0" />
+                            <button
+                                class="flex items-center justify-center size-7 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                                <span class="material-symbols-outlined text-lg">add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-slate-900 dark:text-slate-50">M14 x 60mm</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">SKU: THB-G5-M14-L60</p>
+                        </div>
+                        <p class="font-bold text-slate-900 dark:text-slate-50">$15.75</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-3">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm text-orange-500">warning</span>
+                            <p class="text-sm text-orange-600 dark:text-orange-400 font-semibold">Low Stock</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">(150 available)</p>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 rounded-full border border-slate-300 dark:border-slate-700 p-1">
+                            <button
+                                class="flex items-center justify-center size-7 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                                <span class="material-symbols-outlined text-lg">remove</span>
+                            </button>
+                            <input
+                                class="w-10 border-0 bg-transparent text-center font-semibold text-slate-900 dark:text-slate-50 p-0 text-sm focus:ring-0"
+                                type="text" value="0" />
+                            <button
+                                class="flex items-center justify-center size-7 rounded-full text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700">
+                                <span class="material-symbols-outlined text-lg">add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="p-4 bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-slate-600 dark:text-slate-400">1 variant selected</span>
+                    <span class="font-bold text-lg text-slate-900 dark:text-slate-50">Total: $1,250.00</span>
+                </div>
+                <button
+                    class="w-full h-14 bg-primary text-white text-lg font-bold rounded-xl flex items-center justify-center gap-3">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    <span>Add to Cart</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
