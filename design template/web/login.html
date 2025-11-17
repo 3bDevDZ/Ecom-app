@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>B2B Platform - Sign In</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white">
+    <div class="relative flex min-h-screen w-full flex-col">
+        <header class="absolute top-0 left-0 w-full px-4 sm:px-6 lg:px-8 py-4 z-10">
+            <div class="flex items-center gap-3 text-current">
+                <div class="size-6">
+                    <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"
+                            fill="currentColor" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Our B2B Platform</h2>
+            </div>
+        </header>
+        <main class="flex h-screen w-full flex-1">
+            <div class="flex h-full w-full">
+                <!-- Left Column (Branding Panel) -->
+                <div
+                    class="hidden lg:flex lg:w-1/2 bg-gray-100 dark:bg-background-dark/50 relative items-center justify-center p-12">
+                    <div class="absolute inset-0 bg-cover bg-center"
+                        data-alt="Modern office with professionals collaborating"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCl7H1UbQm281oJwUp-O1hvpK7KiejvE5tJvQ29bb3vFIlSEUPV3_Gj8nHXUb9sTJSnHpDels9bixuR8h2YGBUm1LmB8F3wlBXBM8lz3qMTSjwqsezeYv5LQ-gbVS10w-Wlq3yV3KtoynX8O_m_rqxX_67wPx73duWh9BwBy85n6zdYRygMwKCfhSKU6Cax1ebwKRVBSMi-nL6L5tDJN_JjMGjTPBMyzqQVwtgJ0DiYhckjgMaFEqCPHI-5liyn1X6tfrzdiRYWvA');">
+                    </div>
+                    <div class="absolute inset-0 bg-primary/70 dark:bg-background-dark/80"></div>
+                    <div class="relative z-10 flex flex-col gap-8 max-w-md text-white">
+                        <div class="flex flex-col gap-4 text-left">
+                            <h1 class="text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl">Powering Your
+                                Business Success</h1>
+                            <h2 class="text-base font-normal leading-normal text-white/90">Access our suite of tools
+                                designed to streamline your operations and drive growth.</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column (Form Panel) -->
+                <div
+                    class="flex w-full lg:w-1/2 items-center justify-center bg-white dark:bg-background-dark p-6 sm:p-12">
+                    <div class="flex w-full max-w-md flex-col gap-8">
+                        <!-- Heading -->
+                        <div class="flex min-w-72 flex-col gap-2">
+                            <p
+                                class="text-[#111418] dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">
+                                Sign in to your account</p>
+                            <p class="text-[#617589] dark:text-gray-400 text-base font-normal leading-normal">Welcome
+                                back! Please enter your details.</p>
+                        </div>
+                        <!-- Segmented Buttons -->
+                        <div
+                            class="flex h-10 w-full items-center justify-center rounded-lg bg-[#f0f2f4] dark:bg-white/10 p-1">
+                            <label
+                                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-white/20 has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-[#111418] dark:has-[:checked]:text-white text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal">
+                                <span class="truncate">Sign In</span>
+                                <input checked="" class="invisible w-0" name="auth-toggle" type="radio"
+                                    value="Sign In" />
+                            </label>
+                            <label
+                                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-white/20 has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-[#111418] dark:has-[:checked]:text-white text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal">
+                                <span class="truncate">Create Account</span>
+                                <input class="invisible w-0" name="auth-toggle" type="radio" value="Create Account" />
+                            </label>
+                        </div>
+                        <!-- Sign In Form -->
+                        <div class="flex w-full flex-col gap-4">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <p class="text-[#111418] dark:text-white text-sm font-medium leading-normal pb-2">Work
+                                    Email</p>
+                                <input
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe0e6] dark:border-white/20 bg-white dark:bg-white/5 focus:border-primary dark:focus:border-primary h-12 placeholder:text-[#617589] px-4 text-base font-normal leading-normal"
+                                    placeholder="you@company.com" type="email" value="" />
+                            </label>
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <div class="flex justify-between items-center pb-2">
+                                    <p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">
+                                        Password</p>
+                                    <a class="text-primary hover:underline text-sm font-medium" href="#">Forgot
+                                        Password?</a>
+                                </div>
+                                <input
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe0e6] dark:border-white/20 bg-white dark:bg-white/5 focus:border-primary dark:focus:border-primary h-12 placeholder:text-[#617589] px-4 text-base font-normal leading-normal"
+                                    placeholder="••••••••" type="password" value="" />
+                            </label>
+                            <button
+                                class="flex mt-2 w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                                <span class="truncate">Sign In</span>
+                            </button>
+                        </div>
+                        <!-- SSO/Social Login -->
+                        <div class="flex flex-col gap-4">
+                            <div class="relative flex items-center">
+                                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+                                <span class="flex-shrink mx-4 text-sm text-[#617589] dark:text-gray-400">OR</span>
+                                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+                            </div>
+                            <button
+                                class="flex w-full cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-lg h-12 px-5 bg-white dark:bg-white/5 border border-gray-300 dark:border-white/20 text-[#111418] dark:text-white text-base font-medium leading-normal hover:bg-gray-50 dark:hover:bg-white/10 transition-colors">
+                                <img alt="Google logo" class="w-5 h-5"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAddxZUeDzc6Pj1m4V0NIvaBAbS57N37p2-8bAqCoqkEYS0SqwpXkMEGzb43q6FJew5xrYNkuYOJwM66H0yE9nyYB798TMwlwUljIEYFkXgcVzzBSik8p3K9WcDKfsS_0cs0GGUt4EYDkf4_yjIfXE1ynC6Nj_mHDEQKJ0MyFitDqiC7M29i1tWQpgUCLPAU5Mkjpo4N-W1qCJK_ItKu-C5amAdWBs5ibzLYzaugJlcpxnFUQF1HfU7cOV2Tgxh1aLAtgHYBEHSUg" />
+                                <span class="truncate">Sign in with Google</span>
+                            </button>
+                            <button
+                                class="flex w-full cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-lg h-12 px-5 bg-white dark:bg-white/5 border border-gray-300 dark:border-white/20 text-[#111418] dark:text-white text-base font-medium leading-normal hover:bg-gray-50 dark:hover:bg-white/10 transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewbox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.745 10.745V0.916H0.917V10.745H10.745Z" fill="#F25022"></path>
+                                    <path d="M22.083 10.745V0.916H12.254V10.745H22.083Z" fill="#7FBA00"></path>
+                                    <path d="M10.745 22.084V12.255H0.917V22.084H10.745Z" fill="#00A4EF"></path>
+                                    <path d="M22.083 22.084V12.255H12.254V22.084H22.083Z" fill="#FFB900"></path>
+                                </svg>
+                                <span class="truncate">Sign in with Microsoft</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="absolute bottom-0 w-full p-4 bg-transparent">
+            <div class="flex justify-center items-center text-xs text-gray-500 dark:text-gray-400 gap-x-6">
+                <p>© 2024 Our B2B Platform</p>
+                <a class="hover:underline" href="#">Terms of Service</a>
+                <a class="hover:underline" href="#">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

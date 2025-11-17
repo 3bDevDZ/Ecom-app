@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>B2B Product Catalog</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col">
+        <!-- Top Nav Bar -->
+        <header
+            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-700 px-6 py-3 bg-white dark:bg-background-dark sticky top-0 z-30">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-3 text-gray-900 dark:text-white">
+                    <div class="size-6 text-primary">
+                        <span class="material-symbols-outlined !text-3xl"> all_inbox </span>
+                    </div>
+                    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">B2B Solutions</h2>
+                </div>
+            </div>
+            <div class="flex flex-1 justify-center px-8">
+                <nav class="flex items-center gap-9">
+                    <a class="text-sm font-medium leading-normal text-gray-800 dark:text-gray-300"
+                        href="#">Dashboard</a>
+                    <a class="text-sm font-bold leading-normal text-primary" href="#">Products</a>
+                    <a class="text-sm font-medium leading-normal text-gray-800 dark:text-gray-300" href="#">Orders</a>
+                    <a class="text-sm font-medium leading-normal text-gray-800 dark:text-gray-300" href="#">Lists</a>
+                    <a class="text-sm font-medium leading-normal text-gray-800 dark:text-gray-300" href="#">Support</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="flex cursor-pointer items-center justify-center rounded-lg h-10 w-10 bg-background-light dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                    <span class="material-symbols-outlined"> notifications </span>
+                </button>
+                <button
+                    class="flex cursor-pointer items-center justify-center rounded-lg h-10 w-10 bg-background-light dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                    <span class="material-symbols-outlined"> shopping_cart </span>
+                </button>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                    data-alt="User profile picture"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDRF9MNCa3KmsZA-unXIvmLFNfq6sc8WvGqAYrv_koxTHqxnBTaxURTm7MgCl-Q-UQ7iQT5hRMTxxQVDR4P89lG__TAup6yaDOB9aFE1Xbodc-ccbEPOPWVlVewHfLiIps1PkYlND3LG1FIlGmCJViWapYVKqOawAMhhjfQqfISGpF5FfChWDQW2NzKvbcm045fx9YaI7Y30m9kgQ_JAhSU9oy34TJJdMuoZLTRpvXZan3NSGIrdFPpBycdijYCK2J6WG4H8OAxaA");'>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <aside
+                class="w-80 flex-shrink-0 bg-white dark:bg-background-dark border-r border-gray-200 dark:border-gray-700 p-6 flex flex-col gap-6">
+                <div class="flex flex-col gap-6 sticky top-24">
+                    <div>
+                        <label class="flex flex-col min-w-40 h-11 w-full">
+                            <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                                <div
+                                    class="text-gray-500 flex border-none bg-background-light dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+                                    <span class="material-symbols-outlined"> search </span>
+                                </div>
+                                <input
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-background-light dark:bg-gray-800 h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 pl-2 text-sm font-normal leading-normal"
+                                    placeholder="Search by keyword, SKU..." value="" />
+                            </div>
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+                        <details class="flex flex-col border-t border-gray-200 dark:border-gray-700 py-2 group" open="">
+                            <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                                <p class="text-sm font-medium leading-normal text-gray-900 dark:text-gray-100">Brand</p>
+                                <div
+                                    class="text-gray-700 dark:text-gray-300 group-open:rotate-180 transition-transform">
+                                    <span class="material-symbols-outlined"> expand_more </span>
+                                </div>
+                            </summary>
+                            <div class="pl-2 pt-2 flex flex-col">
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input checked=""
+                                        class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark"
+                                        type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">
+                                        InnovateX</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark"
+                                        type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">
+                                        Quantum Systems</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input checked=""
+                                        class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark"
+                                        type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">Apex
+                                        Solutions</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark"
+                                        type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">
+                                        Stellar Corp</p>
+                                </label>
+                            </div>
+                        </details>
+                        <details class="flex flex-col border-t border-gray-200 dark:border-gray-700 py-2 group">
+                            <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                                <p class="text-sm font-medium leading-normal text-gray-900 dark:text-gray-100">
+                                    Availability</p>
+                                <div
+                                    class="text-gray-700 dark:text-gray-300 group-open:rotate-180 transition-transform">
+                                    <span class="material-symbols-outlined"> expand_more </span>
+                                </div>
+                            </summary>
+                            <div class="pl-2 pt-2 flex flex-col">
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark"
+                                        type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">In
+                                        Stock</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark"
+                                        type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">On
+                                        Sale</p>
+                                </label>
+                            </div>
+                        </details>
+                        <details
+                            class="flex flex-col border-t border-b border-gray-200 dark:border-gray-700 py-2 group">
+                            <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                                <p class="text-sm font-medium leading-normal text-gray-900 dark:text-gray-100">
+                                    Compliance</p>
+                                <div
+                                    class="text-gray-700 dark:text-gray-300 group-open:rotate-180 transition-transform">
+                                    <span class="material-symbols-outlined"> expand_more </span>
+                                </div>
+                            </summary>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal pb-2 pt-2">
+                                Checklist items for compliance standards would go here.</p>
+                        </details>
+                    </div>
+                    <div class="flex flex-col gap-2 mt-4">
+                        <button
+                            class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em]">Apply
+                            Filters (4)</button>
+                        <button
+                            class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-transparent text-gray-700 dark:text-gray-300 gap-2 text-sm font-medium leading-normal hover:bg-gray-100 dark:hover:bg-gray-800">Clear
+                            All</button>
+                    </div>
+                </div>
+            </aside>
+            <!-- Products Grid -->
+            <main class="flex-1 p-8">
+                <div class="flex flex-col gap-6">
+                    <!-- Header Bar -->
+                    <div class="flex items-center justify-between">
+                        <nav aria-label="Breadcrumb">
+                            <ol class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+                                <li><a class="hover:underline" href="#">Products</a></li>
+                                <li><span class="material-symbols-outlined !text-base">chevron_right</span></li>
+                                <li><a class="font-medium text-gray-800 dark:text-gray-200" href="#">Industrial
+                                        Components</a></li>
+                            </ol>
+                        </nav>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <label class="text-sm text-gray-600 dark:text-gray-400" for="sort-by">Sort by:</label>
+                                <select
+                                    class="form-select text-sm font-medium bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary focus:border-primary p-2"
+                                    id="sort-by">
+                                    <option>Best Match</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                    <option>Product Name</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg p-1">
+                                <button
+                                    class="p-1.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                    <span class="material-symbols-outlined !text-xl">grid_view</span>
+                                </button>
+                                <button class="p-1.5 rounded-md text-gray-500 dark:text-gray-400">
+                                    <span class="material-symbols-outlined !text-xl">view_list</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- Product Card 1 -->
+                        <div
+                            class="flex flex-col bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group">
+                            <div class="relative">
+                                <div class="bg-center bg-no-repeat aspect-square bg-cover w-full"
+                                    data-alt="High-performance industrial gear motor"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCB4t1aUzpHHUcvEqBntk0pbQsVEHYHL50zlr-8ndFH3pkS3IOk_-sQuLsW_RLzdCs0BE-Uby2IStEnjsiZiuKUfYtmZqWgRbGN5rFL-2KPXTdcqMEuC7kvJ_-Js9xXEeCsjnwFCU3Mg9R0peKKeLtCEfcwr_9sc7RCI98lzaaPim44JUmGB9MMrNeox5x_C-fibDDVgiKYJWCJLyuy7oie1EtKZJyDA8olTgfGh8Q3KUoogoHCk_QQ2kvM1MP0LwP-g5x8wbyY9Q");'>
+                                </div>
+                                <input
+                                    class="absolute top-3 left-3 h-5 w-5 rounded border-gray-400 bg-white/50 backdrop-blur-sm text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50"
+                                    type="checkbox" />
+                            </div>
+                            <div class="p-4 flex flex-col gap-3 flex-1">
+                                <h3 class="font-bold text-gray-900 dark:text-white">Precision Gear Motor PGM-1000</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SKU: 789-PGM-1000</p>
+                                <div class="flex-1"></div>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-lg font-extrabold text-gray-900 dark:text-white">$850.00</p>
+                                    <span
+                                        class="inline-flex items-center gap-1.5 rounded-full bg-green-100 dark:bg-green-900/50 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300">
+                                        <span class="size-1.5 rounded-full bg-green-500"></span> In Stock
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2">
+                                <input
+                                    class="form-input w-16 text-center rounded-lg bg-background-light dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary"
+                                    type="number" value="1" />
+                                <button
+                                    class="flex-1 flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/20 text-primary gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/30">Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                        <!-- Product Card 2 -->
+                        <div
+                            class="flex flex-col bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group">
+                            <div class="relative">
+                                <div class="bg-center bg-no-repeat aspect-square bg-cover w-full"
+                                    data-alt="Advanced robotic arm for assembly lines"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDtaPRV5EtHvDLJdIGdCU0MQqAgmRA6bdK-xoEROktO5VWqNDWlyEHlocJwL27dhl4eKATdN_jFJInFiZ45CiV5r27KJBH96XimYqFPdvDwWnX2q_as1HsJ3kgO6X3ey6ELIwJqq6BdBzZ1P7rJvm7Fv7IchVR_B_lyq8qCzWOajq8mXONFliNE7_vgQLgXP4Ovhgm2lZkrkfQEtqlkLT7UmW6aC4FVy8iDDuPZbnJLJ65YxTpXJ7KJDbhjAP6ubna8URuLrmmZ_A");'>
+                                </div>
+                                <input
+                                    class="absolute top-3 left-3 h-5 w-5 rounded border-gray-400 bg-white/50 backdrop-blur-sm text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50"
+                                    type="checkbox" />
+                            </div>
+                            <div class="p-4 flex flex-col gap-3 flex-1">
+                                <h3 class="font-bold text-gray-900 dark:text-white">Robotic Arm Unit RAU-5C</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SKU: 456-RAU-5C</p>
+                                <div class="flex-1"></div>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-lg font-extrabold text-gray-900 dark:text-white">$5,200.00</p>
+                                    <span
+                                        class="inline-flex items-center gap-1.5 rounded-full bg-green-100 dark:bg-green-900/50 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300">
+                                        <span class="size-1.5 rounded-full bg-green-500"></span> In Stock
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2">
+                                <input
+                                    class="form-input w-16 text-center rounded-lg bg-background-light dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary"
+                                    type="number" value="1" />
+                                <button
+                                    class="flex-1 flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90">Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                        <!-- Product Card 3 -->
+                        <div
+                            class="flex flex-col bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group">
+                            <div class="relative">
+                                <div class="bg-center bg-no-repeat aspect-square bg-cover w-full"
+                                    data-alt="Industrial grade power supply unit"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBokyC3r2Hrbh5aZDgQ_Ie0_-LvkHs5wfeMRrxHQfQGDppbJ1ZiKCCQgv-zHhfau3ZkHDB-TfdvjoSz7zjO7E0VqO5BRJfonzCOExxIzuVwdKo-MnK6TDM91D9fXXbdHOl6r4UEG8aHcUH0C0NB2d-934wH9CQrjyBpCfly4jrS8WaRuNhW7h6L7s9HhNK-00dIeIM_H93evH28_qY11i30RYOrmwZsawt2lVQc4MPpt2olRymaYbqzHi-mC0YYkw84gQEarMxSuQ");'>
+                                </div>
+                                <input
+                                    class="absolute top-3 left-3 h-5 w-5 rounded border-gray-400 bg-white/50 backdrop-blur-sm text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50"
+                                    type="checkbox" />
+                            </div>
+                            <div class="p-4 flex flex-col gap-3 flex-1">
+                                <h3 class="font-bold text-gray-900 dark:text-white">Heavy-Duty PSU HD-24V</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SKU: 123-HDP-24V</p>
+                                <div class="flex-1"></div>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-lg font-extrabold text-gray-900 dark:text-white">$275.50</p>
+                                    <span
+                                        class="inline-flex items-center gap-1.5 rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-2 py-1 text-xs font-medium text-yellow-800 dark:text-yellow-300">
+                                        <span class="size-1.5 rounded-full bg-yellow-500"></span> Low Stock
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2">
+                                <input
+                                    class="form-input w-16 text-center rounded-lg bg-background-light dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary"
+                                    type="number" value="1" />
+                                <button
+                                    class="flex-1 flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/20 text-primary gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/30">Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                        <!-- Product Card 4 -->
+                        <div
+                            class="flex flex-col bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group">
+                            <div class="relative">
+                                <div class="bg-center bg-no-repeat aspect-square bg-cover w-full"
+                                    data-alt="High precision sensor module"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCGyPMdLA9J4fenm_oeTlR1fcm7QCpaTlH8blIEPBk-IfcOWLfZS0rmwV97qLZfmhGOLeUg99PbgqHbIPrzcoQDkBbAIpwYU6M5Q2lOUBpdKdvcy6luBaGCS2Fl_evRT9FQdgUUP-qI0njwT4puLONEFSL_CnTwA-jt62-zpHLWZh7wTwaXrZgwKeuQeZNak_uf6YaXqSRJtZAFCOgTp0Looan06o23ntseVnwY0LY1iB1eRgbCBy2LD0VVX5tixL6kJ3eXRt6UmQ");'>
+                                </div>
+                                <input
+                                    class="absolute top-3 left-3 h-5 w-5 rounded border-gray-400 bg-white/50 backdrop-blur-sm text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50"
+                                    type="checkbox" />
+                            </div>
+                            <div class="p-4 flex flex-col gap-3 flex-1">
+                                <h3 class="font-bold text-gray-900 dark:text-white">Sensor Module SM-X1</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SKU: 321-SMX-1</p>
+                                <div class="flex-1"></div>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-lg font-extrabold text-gray-900 dark:text-white">$120.00</p>
+                                    <span
+                                        class="inline-flex items-center gap-1.5 rounded-full bg-red-100 dark:bg-red-900/50 px-2 py-1 text-xs font-medium text-red-700 dark:text-red-300">
+                                        <span class="size-1.5 rounded-full bg-red-500"></span> Out of Stock
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2">
+                                <input
+                                    class="form-input w-16 text-center rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 cursor-not-allowed"
+                                    disabled="" type="number" value="1" />
+                                <button
+                                    class="flex-1 flex max-w-[480px] cursor-not-allowed items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 gap-2 text-sm font-bold leading-normal tracking-[0.015em]"
+                                    disabled="">Add to Cart</button>
+                            </div>
+                        </div>
+                        <!-- More cards would be listed here -->
+                    </div>
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Showing <span class="font-medium">1</span>
+                            to <span class="font-medium">12</span> of <span class="font-medium">97</span> results</p>
+                        <nav class="flex items-center gap-2">
+                            <button
+                                class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <span class="material-symbols-outlined !text-xl">chevron_left</span>
+                            </button>
+                            <button
+                                class="flex items-center justify-center h-9 w-9 rounded-lg border border-primary bg-primary/20 text-primary">1</button>
+                            <button
+                                class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">2</button>
+                            <button
+                                class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">3</button>
+                            <span class="text-gray-500">...</span>
+                            <button
+                                class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">8</button>
+                            <button
+                                class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <span class="material-symbols-outlined !text-xl">chevron_right</span>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

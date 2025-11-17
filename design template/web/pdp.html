@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Product Detail Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "success": "#10B981",
+                        "warning": "#F97316",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <!-- TopNavBar Component -->
+        <header
+            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-slate-200 dark:border-b-slate-700 px-4 sm:px-6 lg:px-10 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-4 text-slate-800 dark:text-white">
+                    <div class="size-6 text-primary">
+                        <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_6_319)">
+                                <path
+                                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                                    fill="currentColor"></path>
+                            </g>
+                            <defs>
+                                <clippath id="clip0_6_319">
+                                    <rect fill="white" height="48" width="48"></rect>
+                                </clippath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h2 class="text-slate-800 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
+                        ProBuild Supply</h2>
+                </div>
+                <label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+                    <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                        <div
+                            class="text-slate-500 dark:text-slate-400 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+                            <span class="material-symbols-outlined text-xl">search</span>
+                        </div>
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-800 dark:text-white focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 focus:border-none h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                            placeholder="Search" value="" />
+                    </div>
+                </label>
+            </div>
+            <div class="flex flex-1 justify-end gap-2 md:gap-8">
+                <div class="hidden lg:flex items-center gap-9">
+                    <a class="text-slate-800 dark:text-white text-sm font-medium leading-normal" href="#">Products</a>
+                    <a class="text-slate-800 dark:text-white text-sm font-medium leading-normal" href="#">Solutions</a>
+                    <a class="text-slate-800 dark:text-white text-sm font-medium leading-normal" href="#">Resources</a>
+                    <a class="text-slate-800 dark:text-white text-sm font-medium leading-normal" href="#">Support</a>
+                </div>
+                <div class="flex gap-2">
+                    <button
+                        class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+                        <span class="truncate">Sign In</span>
+                    </button>
+                    <button
+                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+                        <span class="material-symbols-outlined text-xl">favorite</span>
+                    </button>
+                    <button
+                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+                        <span class="material-symbols-outlined text-xl">shopping_cart</span>
+                    </button>
+                </div>
+                <div class="hidden sm:block bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                    data-alt="User profile picture"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC0zkFAIoNGb9mOTldAqoqLh0jUfXxjzQBgZq_AUEMhbtCiDoZG5Hozb72O_rLu5VZGQ-0LPWVFKMBpKKvltsDhnig4fvCEJxWxRo_5PiPmcWeQOTC1VuzqVFFG4FlFlekC4LFrPUZDs7-L7oEqT5unFy-sEXiUIiA4hCgSm5ix0RCVSNdU7DAxR1x3gmdDOGxIrjzUHhX6Ivs81cHpf_HuAPvArqyhp7tflWOmDJIGBjyLg7iFSYq-Wno-zxXNI-YJBgDB70nAlQ");'>
+                </div>
+            </div>
+        </header>
+        <main class="layout-container flex h-full grow flex-col">
+            <div class="flex flex-1 justify-center py-5">
+                <div class="layout-content-container flex flex-col w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
+                    <!-- Breadcrumbs Component -->
+                    <div class="flex flex-wrap gap-2 py-4">
+                        <a class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal hover:text-primary dark:hover:text-primary"
+                            href="#">Home</a>
+                        <span class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal">/</span>
+                        <a class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal hover:text-primary dark:hover:text-primary"
+                            href="#">Components</a>
+                        <span class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal">/</span>
+                        <a class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal hover:text-primary dark:hover:text-primary"
+                            href="#">Actuators</a>
+                        <span class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal">/</span>
+                        <span class="text-slate-800 dark:text-white text-base font-medium leading-normal">Linear
+                            Actuator 3000</span>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-4">
+                        <!-- Left Column: Image Gallery -->
+                        <div class="flex flex-col gap-4">
+                            <!-- HeaderImage Component -->
+                            <div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl min-h-80 md:min-h-[480px] bg-white dark:bg-slate-800/50"
+                                data-alt="A high-resolution image of the Linear Actuator 3000, showing its metallic body and precision components."
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgWP-xs4xE8fWCM9cZa3y2KOZwtuLzb_qCK1kAg4DiWBGBRdrQltbaDIfXeWX7tedRYCOi-PjOj4bHuz1Bqa3p7ukE6BV7qmJLO0EI5zsyJQCzBvnd44bh77qp9Ky1yCGOb4_k3-oyX3ecIV_rzMR1ilikEi-Oc-Z5fKeKkfUVwOu5TfKGBs9BaZymF5yh_wGckaee5d2X_dxuGXjlxra5x_zmcC_oO5u6bVXAuNo6LSKxtP3tFl32DwYVHnMoswQSjsk2UzQmqQ");'>
+                            </div>
+                            <!-- Carousel Component -->
+                            <div
+                                class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+                                <div class="flex items-stretch p-1 gap-3">
+                                    <div
+                                        class="flex h-full flex-1 cursor-pointer flex-col gap-2 rounded-lg min-w-24 border-2 border-primary">
+                                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-md flex flex-col"
+                                            data-alt="Side view of the Linear Actuator 3000"
+                                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnfqqfP2300DmoaImmLt5CK51CCClmqdLz54pSSM1_2JsdsS-_c9-52ALe2oW1QZ_eRFbNHQagqghRSWkxFhkwclNS5gqSql4YxnUcslv1r1CVZNMxRVbiX_IvCo-nqGSbAe7HAR7cfqRUlDj-_LqPsoEIZ-_hDvVcPut0915fb-ySdfmbmaJOoP79ntmdxU6xZUQ-7w4QohhpqFGG8bd6iXnIXkimmqUnHbGoBONrT1e1QDxbNQSwJvk05Sd5AEcuRtx9zAAVSQ");'>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="flex h-full flex-1 cursor-pointer flex-col gap-2 rounded-lg min-w-24 opacity-60 hover:opacity-100">
+                                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-md flex flex-col"
+                                            data-alt="Detailed view of the mounting bracket for the actuator"
+                                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBGRMF0aAUlrBQvm-u9ouOJ2p0M6b9bXLjhsx5nPknSuKKX8xwVPZdiAnivlYJVhhQ9XX7oolKALdXWb37JITSNGb435Mv_towGE8dgCYr1IpIWdqFeyfsY4sNJdnNLsUuItg_kaWmO-9ixr0OnqA2P70QkjbLiwgfNgRE0zVguPxZk_hUMx3sr78UQf-YG5qPinkshSwU4KyBB5zabKZ5Y3UZGHkbfPjTarIv-tI4P4ojd3-kdk6shs1WGc5hIwG1IMH8tmDM7Rw");'>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="flex h-full flex-1 cursor-pointer flex-col gap-2 rounded-lg min-w-24 opacity-60 hover:opacity-100">
+                                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-md flex flex-col"
+                                            data-alt="The actuator shown in an industrial application setting"
+                                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB5RziLPiLmaQiGxpnUpyonWFf4lWVzMFD8AVBA1IVQ93mXU2yf_wS3b4cal6_8s6FxDSLS4JW_e00SEL1SCm6f3S4vkOYlA_Ane6C96mrprcEovF4cXWYl1rK9PBVvpZQMVSE_PbU5tP7XHysr3Vab5OZ7oNI39SVYFljSoZll_eb-H6faQPt4auMWbEusC4oeFOdllEUN_ePXfUP7OKq4gIHQ2EYgnVMxDyaWCduiCY1GAa6ot4zOjp_LZ4IEnCaJaMCI3Lilng");'>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="flex h-full flex-1 cursor-pointer flex-col gap-2 rounded-lg min-w-24 opacity-60 hover:opacity-100">
+                                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-md flex flex-col"
+                                            data-alt="A technical schematic of the Linear Actuator 3000"
+                                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC5uPkOJLnJRb0iBb2MM6YixH83g4eBuLyEp-RBR9fi4FbcWLZzw3kdVewBoImDWEiU3zvMZy9WEXPE5RiorzaT9OqrsHRBm2RJnHfVwJPRWxdpZRWkZwqOqi1GJN0g6Y3kj8iIBvefd2zZcposwL6-GTWu9cpL7ORj5u0qHY3oWCqUTCSe6CuhitmkybNMShRHbP_F-xX1ggxvrsqLD_lLEcu3TRnwwVC73XSS77ZmJg60wvReA51qjKVuPs6zG-IQ7TKEEU5lLw");'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Right Column: Product Info & Actions -->
+                        <div class="flex flex-col gap-6">
+                            <!-- PageHeading Component -->
+                            <div class="flex flex-wrap justify-between gap-3">
+                                <div class="flex min-w-72 flex-col gap-2">
+                                    <p
+                                        class="text-slate-800 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+                                        Linear Actuator 3000</p>
+                                    <p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">
+                                        SKU: LA-3000-XYZ</p>
+                                </div>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-base">High-performance linear actuator
+                                designed for precision industrial applications. Features a robust, corrosion-resistant
+                                housing and a high-torque motor for reliable operation under heavy loads.</p>
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/20 text-success">
+                                    <span class="material-symbols-outlined text-lg">check_circle</span>
+                                    <span class="text-sm font-semibold">In Stock</span>
+                                </div>
+                                <span class="text-slate-500 dark:text-slate-400 text-sm">Ships in 1-2 business
+                                    days</span>
+                            </div>
+                            <!-- Action Panel -->
+                            <div
+                                class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col gap-6">
+                                <div class="flex flex-col gap-2">
+                                    <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Price per
+                                        unit</span>
+                                    <p class="text-slate-800 dark:text-white text-3xl font-bold">$499.99</p>
+                                    <a class="text-primary text-sm font-semibold hover:underline" href="#">View volume
+                                        pricing</a>
+                                </div>
+                                <div class="flex flex-col sm:flex-row gap-4 items-end">
+                                    <div class="w-full sm:w-auto">
+                                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
+                                            for="quantity">Quantity</label>
+                                        <div
+                                            class="flex items-center rounded-lg border border-slate-300 dark:border-slate-600">
+                                            <button
+                                                class="px-3 py-2 text-slate-500 dark:text-slate-400 rounded-l-lg hover:bg-slate-100 dark:hover:bg-slate-700">-</button>
+                                            <input
+                                                class="w-16 text-center border-0 bg-transparent text-slate-800 dark:text-white focus:ring-0"
+                                                id="quantity" type="text" value="1" />
+                                            <button
+                                                class="px-3 py-2 text-slate-500 dark:text-slate-400 rounded-r-lg hover:bg-slate-100 dark:hover:bg-slate-700">+</button>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="flex w-full sm:flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90">
+                                        <span class="truncate">Add to Cart</span>
+                                    </button>
+                                </div>
+                                <button
+                                    class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-slate-200 dark:hover:bg-slate-600">
+                                    <span class="truncate">Request a Quote</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tabbed Information Section -->
+                    <div class="mt-12">
+                        <div class="border-b border-slate-200 dark:border-slate-700">
+                            <nav aria-label="Tabs" class="-mb-px flex space-x-8">
+                                <a aria-current="page"
+                                    class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-primary border-primary"
+                                    href="#">Description</a>
+                                <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+                                    href="#">Specifications</a>
+                                <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+                                    href="#">Documents</a>
+                                <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+                                    href="#">Reviews</a>
+                            </nav>
+                        </div>
+                        <div class="py-8">
+                            <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Product Overview</h3>
+                                <p>The Linear Actuator 3000 series is engineered for durability and high performance in
+                                    demanding industrial environments. It provides precise, repeatable linear motion
+                                    control, making it ideal for automation, robotics, and manufacturing applications.
+                                    The IP65-rated enclosure ensures protection against dust and water ingress, allowing
+                                    for operation in harsh conditions.</p>
+                                <h4 class="text-lg font-bold text-slate-800 dark:text-white mt-6 mb-2">Key Features</h4>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li>High-efficiency DC motor for low power consumption.</li>
+                                    <li>Stroke lengths available from 50mm to 1000mm.</li>
+                                    <li>Dynamic load capacity up to 3000N.</li>
+                                    <li>Integrated limit switches for end-of-stroke protection.</li>
+                                    <li>Corrosion-resistant aluminum alloy housing.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Related Products Carousel -->
+                    <div class="mt-12">
+                        <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Related Products</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            <div
+                                class="flex flex-col gap-4 rounded-lg bg-white dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
+                                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                                    data-alt="Mounting Bracket for LA-3000"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBkcRBTvH4wL9Wd-O9SXj8UyCiUNFntB9-nLX9g7dVrjG5p65fQfqQe6jZZOnvFQjMIYIZm51VQ5XowJOj6W940-LgGFaAmroMW8GupvpImbkDP2byhqtKyVyrvho6yl1IP9y-aBJE3LPys7uZW9p_vLV-lZWqUwSbNsY2gy-IOnC8Qa_B24RRuSsIBix8I89I2ghmC248Ez3TT8PIVJ7W6EnhUjp98cAIJtaxg23AnT5hFldkLwNs5WscO30M0DSaUMkr-ij_UgA");'>
+                                </div>
+                                <div>
+                                    <p class="text-slate-800 dark:text-white text-base font-semibold leading-normal">
+                                        Mounting Bracket Kit</p>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
+                                        MBK-01</p>
+                                    <p class="text-slate-800 dark:text-white text-base font-bold mt-2">$29.99</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col gap-4 rounded-lg bg-white dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
+                                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                                    data-alt="Controller Unit for linear actuators"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAjyi5s2x4R3BZp42DZYoMmpJ8hTMHdA6kWU9hf8qQnDBofTNHHOWU2-0ZQKXQSKAEg7SviE--6aIkztN7y_RP51IIHyCY54fWvCzlWyk7rjPO_61EvAuL918zOgwg94LCgsQt2fJIjJnLexLkKw60zzEp0by9bQNWRSEoeaZi0cH9qjwGBlPWic4FZa558I4vgizK8HJ0qqMK3PCosULGvbmGXdHQvf_ASFPZJm4alnSlO3pjutrtci6nG9t9ZKx38q0LeaW1-dw");'>
+                                </div>
+                                <div>
+                                    <p class="text-slate-800 dark:text-white text-base font-semibold leading-normal">
+                                        Actuator Control Unit</p>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
+                                        ACU-4B</p>
+                                    <p class="text-slate-800 dark:text-white text-base font-bold mt-2">$149.00</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col gap-4 rounded-lg bg-white dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
+                                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                                    data-alt="Heavy-duty power supply for industrial components"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBXQiqSgEg3s77XvAviDrvY2bC3oMNnFNGpDT4L4C7Qr9cx1sKlzRIEEIyngL9lth6WCxAIuFV9x2trIdNyMJfwlw0ijhtczTNUZBqqt8tnGriS0snW1sXn4yJnAtNCvJDRpSucDHgCY4_jO-5oFVI5bOtGazTdZipo7kWPEC-sro3ZpZEHYBU76AAcymGthUgluaoxAJ1B4ey-lxz9JdVBC-oJh6wuEC3kEKbhOr-yZUczjEu6pu2TgDfurpJEawgdsf2he784eA");'>
+                                </div>
+                                <div>
+                                    <p class="text-slate-800 dark:text-white text-base font-semibold leading-normal">24V
+                                        Power Supply</p>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
+                                        PSU-24V-10A</p>
+                                    <p class="text-slate-800 dark:text-white text-base font-bold mt-2">$75.50</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col gap-4 rounded-lg bg-white dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
+                                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                                    data-alt="Extension cable for actuator connections"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDllOHNaYFN8dngRQGQGj1GdYxNP-DT3al123Yrcl4PB43Iy71SFVan3FYF6DElw60Y95Z4S48WcPq5C8HhsAkmaOniJfbEyhRIAnTAX5S_GJim_DHyjDREf2fcE5Uug43wpwXTeM9mIHJMbO2nYf0ZbxWaZDELF66kGTQmb_YKC0CezgD-VKLQUk3MdtDbJkaQnz317l9U1mIAlY70ClWDsr96cDQUx7Yuj0Cdx_L_bxKTe3FFnezkSgVXH8AFn5OQi3ElwEgtoA");'>
+                                </div>
+                                <div>
+                                    <p class="text-slate-800 dark:text-white text-base font-semibold leading-normal">5m
+                                        Extension Cable</p>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
+                                        EXT-5M</p>
+                                    <p class="text-slate-800 dark:text-white text-base font-bold mt-2">$19.99</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

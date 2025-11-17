@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SourcePlatform - B2B Sourcing Solutions</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0A2540", // Deep blue from user request
+                        "secondary": "#00C49A", // Vibrant teal for accents
+                        "background-light": "#F8F9FA", // Light gray from user request
+                        "background-dark": "#101922",
+                        "text-light": "#495057", // Darker gray for body text
+                        "text-dark": "#E0E0E0",
+                        "text-headings": "#2C3E50", // Dark slate gray for headings
+                        "text-headings-dark": "#FFFFFF",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark">
+    <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            <header
+                class="sticky top-0 z-50 flex items-center justify-center whitespace-nowrap border-b border-solid border-slate-200/80 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:border-slate-800/80 dark:bg-background-dark/80 sm:px-8 md:px-10">
+                <div class="flex w-full max-w-7xl items-center justify-between">
+                    <div class="flex items-center gap-8">
+                        <div class="flex items-center gap-3 text-text-headings dark:text-text-headings-dark">
+                            <div class="size-6 text-primary dark:text-secondary">
+                                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">SourcePlatform</h2>
+                        </div>
+                        <nav class="hidden items-center gap-9 md:flex">
+                            <a class="text-sm font-medium leading-normal text-text-headings transition-colors hover:text-primary dark:text-text-headings-dark dark:hover:text-secondary"
+                                href="#">Products</a>
+                            <a class="text-sm font-medium leading-normal text-text-headings transition-colors hover:text-primary dark:text-text-headings-dark dark:hover:text-secondary"
+                                href="#">Showroom</a>
+                            <a class="text-sm font-medium leading-normal text-text-headings transition-colors hover:text-primary dark:text-text-headings-dark dark:hover:text-secondary"
+                                href="#">About</a>
+                            <a class="text-sm font-medium leading-normal text-text-headings transition-colors hover:text-primary dark:text-text-headings-dark dark:hover:text-secondary"
+                                href="#">Contact</a>
+                        </nav>
+                    </div>
+                    <div class="flex flex-1 items-center justify-end gap-4">
+                        <label class="hidden flex-col min-w-40 !h-10 max-w-64 sm:flex">
+                            <div class="flex h-full w-full flex-1 items-stretch rounded-lg">
+                                <div
+                                    class="flex items-center justify-center rounded-l-lg border-y border-l border-slate-300 bg-white pl-3 text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
+                                    <span class="material-symbols-outlined text-xl">search</span>
+                                </div>
+                                <input
+                                    class="form-input h-full w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg border-y border-r border-slate-300 bg-white px-3 text-sm text-text-light placeholder:text-slate-400 focus:border-primary focus:ring-primary dark:border-slate-700 dark:bg-slate-800 dark:text-text-dark dark:focus:border-secondary dark:focus:ring-secondary"
+                                    placeholder="Search..." value="" />
+                            </div>
+                        </label>
+                        <button
+                            class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] transition-opacity hover:opacity-90">
+                            <span class="truncate">Login / Sign Up</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <main class="flex flex-1 flex-col items-center py-5 sm:py-8 md:py-12">
+                <div class="flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-8 md:px-10 md:gap-16">
+                    <section
+                        class="min-h-[480px] w-full rounded-xl flex flex-col gap-6 bg-cover bg-center bg-no-repeat items-start justify-end px-6 pb-10 sm:px-10 sm:pb-12"
+                        data-alt="Abstract geometric shapes in shades of blue and gray"
+                        style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB5v4lmDBV0A3fJ6JCYv69WZqvUHVdlAfZpWqJYNf9XZMOzJ0aZd1eRQ4jWo4fxqTNzGKRnujHhehChPZOae65cVwVaWsyzlI-SfQP-lwI7hzLwdd3yoLAaZ7KPlUNbMmOtdzBTBnz1QogAHGzWDoO0q00lLuwsCoVqOLEiE4EUxo-UhCXwYzVjb3Gg5IhnagB0lwJEfWrSlpX3j150jvg1wM51TDpoMYp7O7zOa0dtDjc1QC-x7kvOjWz26SZAG5O94yet0JoncQ");'>
+                        <div class="flex max-w-3xl flex-col gap-4 text-left">
+                            <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] sm:text-5xl">The
+                                Premier Sourcing Platform for Your Industry</h1>
+                            <p class="text-slate-200 text-base font-normal leading-normal sm:text-lg">Streamline your
+                                procurement process with our curated selection of high-quality products and reliable
+                                suppliers.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-secondary text-primary text-base font-bold leading-normal tracking-[0.015em] transition-opacity hover:opacity-90">
+                                <span class="truncate">Request a Quote</span>
+                            </button>
+                            <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-white text-text-headings text-base font-bold leading-normal tracking-[0.015em] transition-opacity hover:opacity-90 dark:bg-slate-200">
+                                <span class="truncate">View Catalog</span>
+                            </button>
+                        </div>
+                    </section>
+                    <section class="w-full">
+                        <div class="flex flex-col items-center gap-6 rounded-xl bg-white p-6 dark:bg-slate-800/50">
+                            <h3
+                                class="text-center text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                                Trusted by leading companies worldwide</h3>
+                            <div
+                                class="flex w-full flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:justify-between">
+                                <img class="h-8 w-auto" data-alt="Transistor logo"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7rvkvQkNELwGu71lS-4kkZenoAduC2pSp74ms3rAgGVfGM77I7Em5mwqZz2vtJOUUqjh9jmDj4Y8AxQ20Zsq4MDh6utskB764vgKxfwO0SV8c9GWxq8E15khN5Wjn7OOiMG8-KmDrZFB8iiUTlNJ_aTEZkKmLXcgFG2-hb2ukOSwZ4x0NWcFkPR_6LVjxTm_jVukfW5J8WsplrEyJLK0J6hI-cC6OMs7PKXL02eCf4Eu_CeJGVEif3Ic3YYKZVKEheP_XUo-mJw" />
+                                <img class="h-8 w-auto" data-alt="Reform logo"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuASw9qv-uKdjEpsAZQdeqDRsFtUCXx01VyEBk8ndntoaZNkpqWmJgyherwxI-k6W6g_JEBY-2I1E1ldtkcL10CoSoEzGLWZ8YbKFfA8QufxpS7NNw_8CRkaJpD_gkZx8ukmuMZTS-2p_W9Aq4OOGGTUkS0VyRFV2sNSUb4OQ-GbzMl5tSE4aEAf8y6iFBb7gib097a0f7IgZcxVF9t-7iSb_YJWUtOxMwN74RxjsclC3deBKVTBrj0buO55TSUF_62wHy3lQ_iBrQ" />
+                                <img class="h-8 w-auto" data-alt="Tuple logo"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs89vJFicw83XMmMrkHe-VwjbjqltveRI6ux6zvnyCdQGXqSPRrEhvWt0DMVz2mkL0OFDSLyQANJo3cFi14MTrCSMBPBDBrkE9fOxPrCLGMCZx7OUuSulMPvwsW59afYhUCxBjCKKRRXLTmz94OS_zbSdaSK_pNNl_3VrUjSWoS_Q-R_ksoJ0_ImbgCB6kl4RKiWfvFAdVcatphwOGtoWPduFN_uCYzlB3QVQYIYSR7386Wfe_84UUgjXUsrtLbUErpZN1uVkAbQ" />
+                                <img class="h-8 w-auto" data-alt="SavvyCal logo"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2zvwuQb_gJBHA6ULA7j9RoNuZfHeOP8iUUx7cZl0BV-JeMIGrtU9VbAGsKCZjsCrSQ0crAQg9sxFDJbjLTZ73Qsy-qPCuJVYOJcG_uFsxF1ZYYF8cCeiMrrRU4sYWfwfXMRZI5Rm85aXmLl6nuBSxSIj0Zm53J5mDMdr4bCxKOaJkw1n_dW76MrTH26NvCqAp51XsXpwofsbe31seYbfIDcwJTyWGi_0ULMhIko1fayHLbMFpVoxDqfY5-XoOFFNVntW-8zhFCQ" />
+                                <img class="h-8 w-auto" data-alt="Statamic logo"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPpx6GuO3lJMS-Q9-yqMM2q_ayKkcC8aYBydBwZdKxzz2xG5jZiZ9PW4Kts8F-I1VLXPLjdqVDTJsEJ5sbputSijWn1PbWDogDo4bdVxqpoHfqsD1vaR34ElTgBdtvJlV2xFw9isw4O-bmkxV8t-7LhRG4ggv6S3Ddd-1uaUoiWIkwm2xbBeHPmagnE43XSo7D0MBDw8IwZ7tHZJjj4NWQbqZ5czn1cE3q4AMgXA7Q-NLjFnlenL9sUdovc7jjh3ePLC9Voo7BLw" />
+                            </div>
+                        </div>
+                    </section>
+                    <section class="w-full">
+                        <div class="flex flex-col items-center text-center">
+                            <h2
+                                class="text-text-headings dark:text-text-headings-dark text-2xl font-bold leading-tight tracking-[-0.015em] sm:text-3xl">
+                                Our Product Showroom</h2>
+                            <p class="mt-2 max-w-2xl text-text-light dark:text-text-dark">Explore our curated collection
+                                of high-quality products. Contact us for detailed specifications and partnership
+                                inquiries.</p>
+                        </div>
+                        <div class="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="Industrial metal component with intricate gearing"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCT2n7Cl5klWf3uDoinOHFoEZ814Gs1qkAi7GpyGe1B58MbE3uGQWZedcJOVl_X0HK4FMqJkXcRytvCeRlSjR-M8btDSPpCjRG9JVsdcjiuxGEzI5llOOyPQqwaiy68YnGa0I9XcVm3XjsEQyexf-zB9O_anaRT5-cVyLhrmf-xkOpN55K5-nPKOPsXU0hyWKEd04iRxqN9BZXQocVVJRtllBEvSYVp_CQncI-rxFwYFSidNRHAk3oeXCMhrUi8epgWAOQgnAh-Mg");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Industrial Components</p>
+                                </div>
+                            </div>
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="Modern office setup with multiple monitors and ergonomic chairs"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1S8pTZMySdT2cvr_yn0eDbLDiR9anfM2djnbLqbqXSjX5DSsJQ2qr5JH7Cfql8LX3boIqT1AaAK81rATilClkqKMFRNu06Xadb61XRE_tqFs7ro3T-PiK4att07WFcfIiQbaYNKqkdDOtlVTPoCRfBPpHVnebXx4onFOkNxI2d63o9LB-5jkZlnHuaCrx7zdd8upXzSzkasnqz2ALWWbG9ZewKQDzNn-B_FNpU4emBYIKFcHQ_dfHHtIVMOmpSad2m4pDZooLYw");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Office Technology</p>
+                                </div>
+                            </div>
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="Large rolls of raw plastic material in a warehouse"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmknXevpcjopbHvky4HHpmfvUPLaczHybJqg6KV9WUVRNfwPNrGCP_NdI6iZwxXj8GzBeWLDmCXIOC1uuHMqZAZfcvcXK_JVAaL9C_bO86MORQ-gzfXAva1JIwhwJC5_JflzZ_-w6VmuyKFAlaQ13wHts99h22NESlExrG9wKlpN92YI88hFrIBs4qtEkiHnBf_-LmdSA0yHtDFNc4vlJ8EzZnw8YCa5ORVikJFxv15pKuU8RzKXAedhy_2VKixmyKlNBf_NWBDg");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Raw Materials</p>
+                                </div>
+                            </div>
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="CNC machine cutting a piece of metal with precision"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA12N6KYP2ji4JzmaLcLF1XL0zherjvXN2kSoDxrr3Fhu5t1eQTqxw9d0GnNaGISnb8hCCST-8IkC5NSY6bp4hWCh4gLoH4OlFKFLBWKRaRc0SeN6f6Qhsh0cOXEArAp4EG1kk6xia3vrIRaKfaMw6z69XE2E7hiMHz1l-25DUIt3iBltRDjPvyZ3OLagj-ysu0KJEoORGxv9KZIXojWyzcNvVMOB7aWZU2gMPcM_cbek-uM-oeFGOHaWUrvMsgqj5Y8feQsZbqJA");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Manufacturing Solutions</p>
+                                </div>
+                            </div>
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="Stack of lumber in a warehouse"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD407ECCPiHgqJ360IpvJ6k5M34wkw8OB22mHOL33mmn-ueWO46AAMCVogwN7K0icYKlNsIYs2Rt3DuLR8n5KEXXqusDtsxulFOe3Mp27Rq2P1seheGKrtBRKOiiUQeWv7b5b4JPksfy3xhUe5ldT_D2ROZtVFmlOA_4i3qe6UUEzBmU2dK6yaz6fH6phV5hNILr6mtO3Prfc8r_-ZSJaY2O8MU1xaqukB_ecOVwzZB6wEU6oICoGmot57ebMh0bDGINdH_Q0jP9A");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Construction Supplies</p>
+                                </div>
+                            </div>
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="Collection of electronic circuit boards"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAEMavTC_Z3TW1y3uwpX0cAWaZFskebC10XUo93HHi8aZvSsn0VySgGP07Gymv2MmwRBeHwAshF9IElETNs1pPmVhBx_yt-rk4I07F5NRN8Us5tLN2nfCL-nMS8WNfzxPOmetlTubxDzNzqjJ1nmdb4kTFimn9pKTND3MoOOa73b5sND3fqYPi8Z4wGE8ie2Q-470Mh5fkgFrxuPngquipmZbXHpIVAPlYZvXY0es7liglKaBcwjsu2tyDgb1n3q9AkoId1ULlrmA");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Electronic Components</p>
+                                </div>
+                            </div>
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="Industrial robot arm in an assembly line"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCePsGcgae1vA1cRvvxb94GI0Hxr5asoBHfAl70J27m9ZmsajUXLnwh6q-fQ7Hq4cKYzB5DdGst7PUAs3y_xrUGNz6cY1dqjsjiUCyayZN4RVZKb4g1zNoIyvqpJtvbwjYwBk4E_EeYOU8qeue3ZjoiajpbjUuzMPFZwdrBzZkpQuR8K090JQ70rEOQeSqyXgfXvhGM7_ZLV9FgFjseeCAPa-SdeP6Xt5ibXBuIM4Xp_y2kNg0Wvb7TkT0t7xw1xOvBTYE1wkYL5g");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Automation &amp; Robotics</p>
+                                </div>
+                            </div>
+                            <div
+                                class="group flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800/50">
+                                <div class="relative w-full aspect-square overflow-hidden rounded-md">
+                                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                                        data-alt="A scientist looking through a microscope in a lab"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuASl9F_lOlKKhvnfPvZ9bFcjB05hSUY0E_Jah1_gV_vxyeC8G5CIMOZ-YCQz77aYndpTDEzk6Xjuag8WIP0wICTNYZ1XYlPj4f1F-c4fWXhiRfjboJeqZYb9awaVCzvQan8NVQB8q__NK4Z6Gjhi2jkH_gKl8r4EsarfUVNMbZoJBlmhXZJ9cZbC7b4frvXG0psgy_SWHIzmsqkzbMfMb12Eibi--5BvtJxixSF8T4uef8fDTX1y4pCRFVQW7XygtpCBXcBGixm1A");'>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-base font-semibold text-text-headings dark:text-text-headings-dark">
+                                        Lab Equipment</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="w-full">
+                        <div
+                            class="grid grid-cols-1 gap-10 overflow-hidden rounded-xl bg-white dark:bg-slate-800/50 lg:grid-cols-2">
+                            <div class="flex flex-col justify-center p-6 sm:p-8 lg:p-12">
+                                <h2
+                                    class="text-2xl font-bold text-text-headings dark:text-text-headings-dark sm:text-3xl">
+                                    Visit Our Showroom</h2>
+                                <p class="mt-4 text-text-light dark:text-text-dark">We invite you to visit our physical
+                                    location to experience our products firsthand and discuss your business needs with
+                                    our specialists.</p>
+                                <div class="mt-8 flex flex-col gap-6">
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="flex size-10 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+                                            <span class="material-symbols-outlined">location_on</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-text-headings dark:text-white">Our Address
+                                            </h3>
+                                            <p class="text-text-light dark:text-text-dark">123 Industrial Park, Suite
+                                                456, Metropolis, 10001</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="flex size-10 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-text-headings dark:text-white">Business Hours
+                                            </h3>
+                                            <p class="text-text-light dark:text-text-dark">Monday - Friday: 9:00 AM -
+                                                5:00 PM</p>
+                                            <p class="text-text-light dark:text-text-dark">Saturday &amp; Sunday: By
+                                                Appointment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-64 bg-slate-200 lg:h-auto">
+                                <div class="h-full w-full bg-cover bg-center"
+                                    data-alt="A map showing the location of the business"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBIvEuIOkG5v1JGapQHYfkjqiA07NmDkDdo_QEZJAhTGaMSEHlVfOU1WEDV_gzawnDKxv26WIUlFg-OhWp9IwGPURGrV7xY1Rox-vkdDcoyXLxawONKqL4VUDLFnGM4XGSlIlN-9yicd3V4LesJ0GBS4RA4JtUds8S2INtVTfbO1tjrblnZHSZEPxuXdD-kLFGI7_ydPgbnohrpgXEI1kOyuI7hI8Jv89c1SkG_Kj4QBdqjCB-Ll9hhPkC4MsrZP7OS48UCEWWRYg");'>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="w-full rounded-xl bg-white dark:bg-slate-800/50 p-6 sm:p-8 lg:p-12">
+                        <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+                            <div class="flex flex-col justify-center">
+                                <h2
+                                    class="text-2xl font-bold text-text-headings dark:text-text-headings-dark sm:text-3xl">
+                                    Get in Touch</h2>
+                                <p class="mt-3 text-text-light dark:text-text-dark">Have questions or need a custom
+                                    quote? Our sales team is ready to help you find the perfect solution for your
+                                    business. Fill out the form, and we'll get back to you within 24 hours.</p>
+                            </div>
+                            <form action="#" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8" method="POST">
+                                <div>
+                                    <label
+                                        class="block text-sm font-medium leading-6 text-text-light dark:text-text-dark"
+                                        for="name">Name</label>
+                                    <div class="mt-2.5">
+                                        <input autocomplete="name"
+                                            class="form-input block w-full rounded-md border-0 px-3.5 py-2 text-text-light shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-slate-800 dark:text-text-dark dark:ring-slate-700 dark:focus:ring-secondary sm:text-sm sm:leading-6"
+                                            id="name" name="name" type="text" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-sm font-medium leading-6 text-text-light dark:text-text-dark"
+                                        for="company_name">Company Name</label>
+                                    <div class="mt-2.5">
+                                        <input autocomplete="organization"
+                                            class="form-input block w-full rounded-md border-0 px-3.5 py-2 text-text-light shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-slate-800 dark:text-text-dark dark:ring-slate-700 dark:focus:ring-secondary sm:text-sm sm:leading-6"
+                                            id="company_name" name="company_name" type="text" />
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label
+                                        class="block text-sm font-medium leading-6 text-text-light dark:text-text-dark"
+                                        for="email">Email</label>
+                                    <div class="mt-2.5">
+                                        <input autocomplete="email"
+                                            class="form-input block w-full rounded-md border-0 px-3.5 py-2 text-text-light shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-slate-800 dark:text-text-dark dark:ring-slate-700 dark:focus:ring-secondary sm:text-sm sm:leading-6"
+                                            id="email" name="email" type="email" />
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label
+                                        class="block text-sm font-medium leading-6 text-text-light dark:text-text-dark"
+                                        for="phone_number">Phone Number</label>
+                                    <div class="mt-2.5">
+                                        <input autocomplete="tel"
+                                            class="form-input block w-full rounded-md border-0 px-3.5 py-2 text-text-light shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-slate-800 dark:text-text-dark dark:ring-slate-700 dark:focus:ring-secondary sm:text-sm sm:leading-6"
+                                            id="phone_number" name="phone_number" type="tel" />
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label
+                                        class="block text-sm font-medium leading-6 text-text-light dark:text-text-dark"
+                                        for="message">Message</label>
+                                    <div class="mt-2.5">
+                                        <textarea
+                                            class="form-textarea block w-full rounded-md border-0 px-3.5 py-2 text-text-light shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-slate-800 dark:text-text-dark dark:ring-slate-700 dark:focus:ring-secondary sm:text-sm sm:leading-6"
+                                            id="message" name="message" rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <button
+                                        class="block w-full rounded-lg bg-primary px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                                        type="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </main>
+            <footer class="w-full bg-white dark:bg-slate-900/50">
+                <div class="mx-auto max-w-7xl px-8 py-12">
+                    <div class="flex flex-col items-start justify-between gap-10 md:flex-row">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-3 text-text-headings dark:text-text-headings-dark">
+                                <div class="size-6 text-primary dark:text-secondary">
+                                    <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"
+                                            fill="currentColor"></path>
+                                    </svg>
+                                </div>
+                                <h2 class="text-lg font-bold">SourcePlatform</h2>
+                            </div>
+                            <p class="max-w-xs text-sm text-text-light dark:text-text-dark">Your trusted partner in B2B
+                                procurement and supply chain solutions.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-16">
+                            <div>
+                                <h3 class="font-semibold text-text-headings dark:text-white">Company</h3>
+                                <div class="mt-4 flex flex-col gap-3">
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">About Us</a>
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">Careers</a>
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">Press</a>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-text-headings dark:text-white">Support</h3>
+                                <div class="mt-4 flex flex-col gap-3">
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">Help Center</a>
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">Contact Sales</a>
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">Status</a>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-text-headings dark:text-white">Legal</h3>
+                                <div class="mt-4 flex flex-col gap-3">
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">Privacy Policy</a>
+                                    <a class="text-sm text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary"
+                                        href="#">Terms of Service</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 border-t border-slate-200 pt-8 dark:border-slate-800">
+                        <p class="text-center text-sm text-slate-500 dark:text-slate-400">© 2024 SourcePlatform, Inc.
+                            All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>
