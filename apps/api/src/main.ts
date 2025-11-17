@@ -4,8 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { join } from 'path';
-import * as hbs from 'hbs';
-import * as session from 'express-session';
+import session from 'express-session';
 import { handlebarsHelpers } from './infrastructure/helpers/handlebars-helpers';
 
 /**
@@ -32,12 +31,11 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
-  // Register Handlebars partials
+  // Register Handlebars helpers and partials
+  const hbs = require('hbs');
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
-
-  // Register Handlebars helpers
   Object.keys(handlebarsHelpers).forEach((helperName) => {
-    hbs.registerHelper(helperName, handlebarsHelpers[helperName]);
+    hbs.registerHelper(helperName, (handlebarsHelpers as any)[helperName]);
   });
 
   // Serve static assets
@@ -68,7 +66,12 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  const port = process.env.PORT || 3333;
+  // Try to get port from multiple sources in order of preference
+  const portFromArgs = process.argv.find(arg => arg.startsWith('--port='))?.split('=')[1];
+  const port = parseInt(portFromArgs || '') || 
+               parseInt(process.env.PORT || '') || 
+               parseInt(process.env['nx.raw.port'] || '') || 
+               3333;
   await app.listen(port);
 
   console.log(`\n🚀 Application is running on: http://localhost:${port}`);

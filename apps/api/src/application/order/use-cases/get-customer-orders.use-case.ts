@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { IOrderRepository } from '../../../domain/order/repositories/order.repository.interface';
+import { Injectable, Inject } from '@nestjs/common';
+import type { IOrderRepository } from '../../../domain/order/repositories/order.repository.interface';
+import { ORDER_REPOSITORY } from '../../../infrastructure/tokens';
 import { OrderResponseDto } from '../dtos/order.dto';
 
 /**
@@ -7,7 +8,7 @@ import { OrderResponseDto } from '../dtos/order.dto';
  */
 @Injectable()
 export class GetCustomerOrdersUseCase {
-  constructor(private readonly orderRepository: IOrderRepository) {}
+  constructor(@Inject(ORDER_REPOSITORY) private readonly orderRepository: IOrderRepository) {}
 
   async execute(customerId: string): Promise<OrderResponseDto[]> {
     const orders = await this.orderRepository.findByCustomerId(customerId);

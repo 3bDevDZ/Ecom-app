@@ -21,56 +21,60 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": ".gitignore",
-        "hash": "10546620475598882394"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "14688272390704683536"
-      },
-      {
-        "file": ".prettierrc",
-        "hash": "16267754514737964994"
-      },
-      {
-        "file": "CLAUDE.md",
-        "hash": "11447643924689258394"
-      },
-      {
         "file": "README.md",
         "hash": "1349761335299458653"
-      },
-      {
-        "file": "README_PROJECT.md",
-        "hash": "12770384194390438162"
-      },
-      {
-        "file": "design template/mobile/addToCart.html",
-        "hash": "2378528040400068652"
-      },
-      {
-        "file": "design template/mobile/login.html",
-        "hash": "2140150177185576174"
-      },
-      {
-        "file": "design template/mobile/orderDetails.html",
-        "hash": "7674172756824141780"
-      },
-      {
-        "file": "design template/mobile/ordersListing.html",
-        "hash": "15772582166262931612"
-      },
-      {
-        "file": "design template/mobile/pdp.html",
-        "hash": "5668468366699905774"
       },
       {
         "file": "design template/mobile/plp.html",
         "hash": "4903760549467195832"
       },
       {
-        "file": "design template/mobile/shopingCart.html",
-        "hash": "3385878905584870036"
+        "file": "design template/mobile/pdp.html",
+        "hash": "5668468366699905774"
+      },
+      {
+        "file": "design template/web/landing.html",
+        "hash": "18184343042069100028"
+      },
+      {
+        "file": "design template/mobile/orderDetails.html",
+        "hash": "7674172756824141780"
+      },
+      {
+        "file": "design template/mobile/login.html",
+        "hash": "2140150177185576174"
+      },
+      {
+        "file": "package.json",
+        "hash": "16142251707757588768"
+      },
+      {
+        "file": "tailwind.config.js",
+        "hash": "12967482011022325712"
+      },
+      {
+        "file": "design template/web/orders.html",
+        "hash": "2333204686143770962"
+      },
+      {
+        "file": "design template/mobile/ordersListing.html",
+        "hash": "15772582166262931612"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "1379983966652230747"
+      },
+      {
+        "file": "design template/mobile/addToCart.html",
+        "hash": "2378528040400068652"
+      },
+      {
+        "file": "pnpm-workspace.yaml",
+        "hash": "324862774530036549"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "7982926367379408950"
       },
       {
         "file": "design template/web/addToCart.html",
@@ -81,63 +85,63 @@
         "hash": "7110657194181821727"
       },
       {
-        "file": "design template/web/landing.html",
-        "hash": "18184343042069100028"
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
       },
       {
-        "file": "design template/web/login.html",
-        "hash": "11139477824744536790"
-      },
-      {
-        "file": "design template/web/orderDetails.html",
-        "hash": "17215964585657043421"
-      },
-      {
-        "file": "design template/web/orders.html",
-        "hash": "2333204686143770962"
-      },
-      {
-        "file": "design template/web/pdp.html",
-        "hash": "9540561852625442249"
+        "file": "pnpm-lock.yaml",
+        "hash": "8272867900207989135"
       },
       {
         "file": "design template/web/plp.html",
         "hash": "9470968413430815910"
       },
       {
+        "file": "README_PROJECT.md",
+        "hash": "12770384194390438162"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "14688272390704683536"
+      },
+      {
+        "file": "CLAUDE.md",
+        "hash": "11447643924689258394"
+      },
+      {
         "file": "nx.json",
         "hash": "16798737734475652640"
       },
       {
-        "file": "package.json",
-        "hash": "8816858983684049418"
+        "file": "design template/web/orderDetails.html",
+        "hash": "17215964585657043421"
       },
       {
-        "file": "pnpm-lock.yaml",
-        "hash": "12595570448430283850"
+        "file": "design template/web/login.html",
+        "hash": "11139477824744536790"
+      },
+      {
+        "file": "design template/web/pdp.html",
+        "hash": "9540561852625442249"
+      },
+      {
+        "file": "design template/mobile/shopingCart.html",
+        "hash": "3385878905584870036"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "8744840630969209680"
       },
       {
         "file": "postcss.config.js",
         "hash": "16750483254333733706"
-      },
-      {
-        "file": "tailwind.config.js",
-        "hash": "12967482011022325712"
-      },
-      {
-        "file": "tsconfig.base.json",
-        "hash": "7982926367379408950"
-      },
-      {
-        "file": "tsconfig.json",
-        "hash": "1379983966652230747"
       }
     ],
     "projectFileMap": {
       "api": [
         {
           "file": "apps/api/project.json",
-          "hash": "17014758629267381777"
+          "hash": "10963125074765937679"
         },
         {
           "file": "apps/api/public/css/auth.css",
@@ -180,7 +184,7 @@
         },
         {
           "file": "apps/api/src/application/auth/use-cases/login.use-case.ts",
-          "hash": "3981660591174105314",
+          "hash": "15361063202671496788",
           "deps": [
             "npm:@nestjs/common"
           ]
@@ -196,14 +200,14 @@
         },
         {
           "file": "apps/api/src/application/order/use-cases/get-customer-orders.use-case.ts",
-          "hash": "15248126570261199436",
+          "hash": "14545997312912667802",
           "deps": [
             "npm:@nestjs/common"
           ]
         },
         {
           "file": "apps/api/src/application/order/use-cases/get-order-details.use-case.ts",
-          "hash": "9892391321971757586",
+          "hash": "9294650178237069438",
           "deps": [
             "npm:@nestjs/common"
           ]
@@ -250,7 +254,7 @@
         },
         {
           "file": "apps/api/src/infrastructure/auth.module.ts",
-          "hash": "13025741115379632832",
+          "hash": "17917292399553494733",
           "deps": [
             "npm:@nestjs/common"
           ]
@@ -286,7 +290,7 @@
         },
         {
           "file": "apps/api/src/infrastructure/order.module.ts",
-          "hash": "17467251032176576548",
+          "hash": "8597556934493002161",
           "deps": [
             "npm:@nestjs/common"
           ]
@@ -313,15 +317,19 @@
           ]
         },
         {
+          "file": "apps/api/src/infrastructure/tokens.ts",
+          "hash": "17503886623691041163"
+        },
+        {
           "file": "apps/api/src/main.ts",
-          "hash": "9478639599895702055",
+          "hash": "14456257780568779657",
           "deps": [
             "npm:@nestjs/core",
             "npm:@nestjs/platform-express",
             "npm:@nestjs/common",
             "npm:@nestjs/swagger",
-            "npm:hbs",
-            "npm:express-session"
+            "npm:express-session",
+            "npm:hbs"
           ]
         },
         {
@@ -330,7 +338,7 @@
         },
         {
           "file": "apps/api/tsconfig.app.json",
-          "hash": "3171572500325445971"
+          "hash": "2995071328148596273"
         },
         {
           "file": "apps/api/tsconfig.json",
@@ -442,7 +450,7 @@
         },
         {
           "file": "apps/api/webpack.config.js",
-          "hash": "14036322274545275972",
+          "hash": "8175586800105513289",
           "deps": [
             "npm:@nx/webpack"
           ]
@@ -450,5 +458,5 @@
       ]
     }
   },
-  "externalNodesHash": "135602982415745481"
+  "externalNodesHash": "17247965092611602062"
 }

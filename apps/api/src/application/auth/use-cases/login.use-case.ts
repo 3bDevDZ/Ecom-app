@@ -1,12 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { IUserRepository } from '../../../domain/user/user.repository.interface';
+import { Injectable, UnauthorizedException, Inject } from '@nestjs/common';
+import type { IUserRepository } from '../../../domain/user/user.repository.interface';
+import { USER_REPOSITORY } from '../../../infrastructure/tokens';
 
 /**
  * Login Use Case
  */
 @Injectable()
 export class LoginUseCase {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(@Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository) {}
 
   async execute(email: string, password: string): Promise<any> {
     const user = await this.userRepository.findByEmail(email);
