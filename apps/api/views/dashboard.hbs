@@ -1,99 +1,252 @@
-{{> navigation}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{{title}} - E-commerce Platform</title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
 
-<div class="dashboard">
-    <div class="dashboard-header">
-        <h1 class="dashboard-title">Welcome back, {{user.name}}!</h1>
-        <p class="dashboard-subtitle">Here's what's happening with your account today.</p>
-    </div>
-
-    <div class="dashboard-stats">
-        <div class="stat-card">
-            <div class="stat-icon">📦</div>
-            <div class="stat-content">
-                <div class="stat-label">Total Orders</div>
-                <div class="stat-value">{{recentOrders.length}}</div>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🚚</div>
-            <div class="stat-content">
-                <div class="stat-label">In Transit</div>
-                <div class="stat-value">1</div>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">✅</div>
-            <div class="stat-content">
-                <div class="stat-label">Delivered</div>
-                <div class="stat-value">0</div>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🛒</div>
-            <div class="stat-content">
-                <div class="stat-label">Cart Items</div>
-                <div class="stat-value">0</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="dashboard-content">
-        <div class="dashboard-main">
-            <div class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title">Recent Orders</h2>
-                    <a href="/orders" class="section-link">View All →</a>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col">
+        <!-- Top Navigation Bar -->
+        <header class="header">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-3 text-gray-900 dark:text-white">
+                    <div class="size-6 text-primary">
+                        <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">E-commerce Platform</h2>
                 </div>
+            </div>
+            <div class="flex flex-1 justify-center px-8">
+                <nav class="flex items-center gap-9">
+                    <a class="nav-link text-primary" href="/dashboard">Dashboard</a>
+                    <a class="nav-link" href="/products">Products</a>
+                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link" href="/orders">Orders</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="btn btn-sm btn-outline">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="btn btn-sm btn-outline">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="text-right">
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">{{user.name}}</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">Administrator</p>
+                    </div>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 bg-gray-200 dark:bg-gray-700">
+                        <span class="material-symbols-outlined size-10 flex items-center justify-center text-gray-600 dark:text-gray-400">person</span>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-                {{#if recentOrders}}
-                    <div class="orders-list">
-                        {{#each recentOrders}}
-                            <a href="/orders/{{this.id}}" class="order-item">
-                                <div class="order-info">
-                                    <div class="order-id">Order #{{this.id}}</div>
-                                    <div class="order-date">{{formatDate this.createdAt}}</div>
-                                </div>
-                                <div class="order-status">
-                                    <span class="status-badge status-{{this.status}}">{{this.status}}</span>
-                                </div>
-                                <div class="order-total">
-                                    {{formatMoney this.totalAmount.amount this.totalAmount.currency}}
-                                </div>
+        <!-- Main Content -->
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <aside class="w-80 flex-shrink-0 bg-white dark:bg-background-dark border-r border-gray-200 dark:border-gray-700 p-6 flex flex-col gap-6">
+                <div class="flex flex-col gap-6 sticky top-24">
+                    <!-- Quick Actions -->
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
+                        <div class="space-y-2">
+                            <a href="/products" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                <span class="material-symbols-outlined text-primary">storefront</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Browse Products</span>
                             </a>
-                        {{/each}}
+                            <a href="/orders" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                <span class="material-symbols-outlined text-primary">receipt_long</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">View Orders</span>
+                            </a>
+                            <a href="/cart" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                <span class="material-symbols-outlined text-primary">shopping_cart</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Cart (0)</span>
+                            </a>
+                        </div>
                     </div>
-                {{else}}
-                    <div class="empty-state">
-                        <div class="empty-icon">📦</div>
-                        <p class="empty-title">No orders yet</p>
-                        <p class="empty-text">Start shopping to see your orders here</p>
-                        <a href="/products" class="btn btn-primary">Browse Products</a>
-                    </div>
-                {{/if}}
-            </div>
-        </div>
 
-        <div class="dashboard-sidebar">
-            <div class="section-card">
-                <h3 class="section-title">Quick Actions</h3>
-                <div class="quick-actions">
-                    <a href="/products" class="action-button">
-                        <span class="action-icon">🛍️</span>
-                        <span>Shop Products</span>
-                    </a>
-                    <a href="/orders" class="action-button">
-                        <span class="action-icon">📋</span>
-                        <span>View Orders</span>
-                    </a>
-                    <a href="/profile" class="action-button">
-                        <span class="action-icon">👤</span>
-                        <span>Edit Profile</span>
-                    </a>
+                    <!-- Recent Activity -->
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-4">Recent Activity</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <span class="material-symbols-outlined text-green-600 mt-0.5">check_circle</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Order Completed</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Order #ORD-2024-001 delivered</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <span class="material-symbols-outlined text-blue-600 mt-0.5">local_shipping</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Package Shipped</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Your order is on the way</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </aside>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 p-8">
+                <div class="flex flex-col gap-6">
+                    <!-- Welcome Header -->
+                    <div class="bg-gradient-primary rounded-xl p-6 text-white">
+                        <h1 class="text-2xl font-bold mb-2">Welcome back, {{user.name}}!</h1>
+                        <p class="text-blue-100">Here's what's happening with your account today.</p>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Orders</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{recentOrders.length}}</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-3xl text-primary">receipt_long</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">In Transit</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-white">1</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-3xl text-orange-500">local_shipping</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Delivered</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-white">2</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-3xl text-green-500">check_circle</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Cart Items</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-white">0</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-3xl text-purple-500">shopping_cart</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Recent Orders</h2>
+                                <a href="/orders" class="text-sm font-medium text-primary hover:underline">View All →</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {{#if recentOrders}}
+                                <div class="space-y-4">
+                                    {{#each recentOrders}}
+                                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                        <div class="flex items-center gap-4">
+                                            <span class="material-symbols-outlined text-blue-600">receipt_long</span>
+                                            <div>
+                                                <p class="font-medium text-gray-900 dark:text-white">Order #{{this.id}}</p>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">{{formatDate this.createdAt}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-4">
+                                            <span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 dark:bg-green-900/50 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300">
+                                                <span class="size-1.5 rounded-full bg-green-500"></span> {{this.status}}
+                                            </span>
+                                            <p class="font-medium text-gray-900 dark:text-white">{{formatMoney this.totalAmount.amount this.totalAmount.currency}}</p>
+                                        </div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            {{else}}
+                                <div class="text-center py-8">
+                                    <span class="material-symbols-outlined text-4xl text-gray-400 mb-4">receipt_long</span>
+                                    <p class="text-gray-600 dark:text-gray-400 mb-4">No orders yet</p>
+                                    <a href="/products" class="btn btn-primary">
+                                        <span class="material-symbols-outlined">shopping_cart</span>
+                                        Start Shopping
+                                    </a>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Account Summary</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Member since</span>
+                                        <span class="text-sm font-medium text-gray-900 dark:text-white">January 2024</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Total spent</span>
+                                        <span class="text-sm font-medium text-gray-900 dark:text-white">$1,247.89</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Favorite category</span>
+                                        <span class="text-sm font-medium text-gray-900 dark:text-white">Electronics</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Recommended Products</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-3">
+                                    <a href="/products" class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                        <span class="material-symbols-outlined text-blue-600">headphones</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Wireless Headphones</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">$299.99</p>
+                                        </div>
+                                    </a>
+                                    <a href="/products" class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                        <span class="material-symbols-outlined text-blue-600">smartwatch</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Smart Watch</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">$399.99</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
-</div>
+</body>
+</html>

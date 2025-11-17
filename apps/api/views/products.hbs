@@ -1,56 +1,227 @@
-{{> navigation}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{{title}} - E-commerce Platform</title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
 
-<div class="products-page">
-    <div class="page-header">
-        <h1 class="page-title">Products</h1>
-        <p class="page-subtitle">Discover our amazing collection</p>
-    </div>
-
-    <div class="products-filters">
-        <div class="filter-group">
-            <select class="filter-select">
-                <option>All Categories</option>
-                <option>Electronics</option>
-                <option>Accessories</option>
-                <option>Clothing</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <select class="filter-select">
-                <option>Sort by: Featured</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Newest First</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="products-grid">
-        {{#each products}}
-            <div class="product-card">
-                <a href="/products/{{this.id}}" class="product-link">
-                    <div class="product-image-wrapper">
-                        <img src="{{this.image}}" alt="{{this.name}}" class="product-image">
-                        {{#if this.inStock}}
-                            <span class="product-badge badge-success">In Stock</span>
-                        {{else}}
-                            <span class="product-badge badge-danger">Out of Stock</span>
-                        {{/if}}
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col">
+        <!-- Top Nav Bar -->
+        <header class="header">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-3 text-gray-900 dark:text-white">
+                    <div class="size-6 text-primary">
+                        <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
                     </div>
-                    <div class="product-details">
-                        <div class="product-category">{{this.category}}</div>
-                        <h3 class="product-name">{{this.name}}</h3>
-                        <div class="product-rating">
-                            <span class="stars">⭐⭐⭐⭐⭐</span>
-                            <span class="rating-value">{{this.rating}}</span>
-                        </div>
-                        <div class="product-footer">
-                            <div class="product-price">${{this.price}}</div>
-                            <button class="btn btn-sm btn-primary">Add to Cart</button>
-                        </div>
-                    </div>
-                </a>
+                    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">E-commerce Platform</h2>
+                </div>
             </div>
-        {{/each}}
+            <div class="flex flex-1 justify-center px-8">
+                <nav class="flex items-center gap-9">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                    <a class="nav-link text-primary" href="/products">Products</a>
+                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link" href="/orders">Orders</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="btn btn-sm btn-outline">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="btn btn-sm btn-outline">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                </button>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDRF9MNCa3KmsZA-unXIvmLFNfq6sc8WvGqAYrv_koxTHqxnBTaxURTm7MgCl-Q-UQ7iQT5hRMTxxQVDR4P89lG__TAup6yaDOB9aFE1Xbodc-ccbEPOPWVlVewHfLiIps1PkYlND3LG1FIlGmCJViWapYVKqOawAMhhjfQqfISGpF5FfChWDQW2NzKvbcm045fx9YaI7Y30m9kgQ_JAhSU9oy34TJJdMuoZLTRpvXZan3NSGIrdFPpBycdijYCK2J6WG4H8OAxaA");'></div>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <aside class="w-80 flex-shrink-0 bg-white dark:bg-background-dark border-r border-gray-200 dark:border-gray-700 p-6 flex flex-col gap-6">
+                <div class="flex flex-col gap-6 sticky top-24">
+                    <div>
+                        <label class="flex flex-col min-w-40 h-11 w-full">
+                            <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                                <div class="text-gray-500 flex border-none bg-background-light dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+                                    <span class="material-symbols-outlined">search</span>
+                                </div>
+                                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-background-light dark:bg-gray-800 h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 pl-2 text-sm font-normal leading-normal" placeholder="Search products..." value="" />
+                            </div>
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+                        <details class="flex flex-col border-t border-gray-200 dark:border-gray-700 py-2 group" open="">
+                            <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                                <p class="text-sm font-medium leading-normal text-gray-900 dark:text-gray-100">Category</p>
+                                <div class="text-gray-700 dark:text-gray-300 group-open:rotate-180 transition-transform">
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                </div>
+                            </summary>
+                            <div class="pl-2 pt-2 flex flex-col">
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input checked="" class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">Electronics</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">Accessories</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">Clothing</p>
+                                </label>
+                            </div>
+                        </details>
+                        <details class="flex flex-col border-t border-gray-200 dark:border-gray-700 py-2 group">
+                            <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                                <p class="text-sm font-medium leading-normal text-gray-900 dark:text-gray-100">Price Range</p>
+                                <div class="text-gray-700 dark:text-gray-300 group-open:rotate-180 transition-transform">
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                </div>
+                            </summary>
+                            <div class="pl-2 pt-2 flex flex-col">
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">Under $100</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">$100 - $500</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">$500+</p>
+                                </label>
+                            </div>
+                        </details>
+                        <details class="flex flex-col border-t border-gray-200 dark:border-gray-700 py-2 group">
+                            <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                                <p class="text-sm font-medium leading-normal text-gray-900 dark:text-gray-100">Availability</p>
+                                <div class="text-gray-700 dark:text-gray-300 group-open:rotate-180 transition-transform">
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                </div>
+                            </summary>
+                            <div class="pl-2 pt-2 flex flex-col">
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">In Stock</p>
+                                </label>
+                                <label class="flex items-center gap-x-3 py-2 flex-row">
+                                    <input class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark" type="checkbox" />
+                                    <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">On Sale</p>
+                                </label>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="flex flex-col gap-2 mt-4">
+                        <button class="btn btn-primary w-full">Apply Filters (2)</button>
+                        <button class="btn btn-outline w-full">Clear All</button>
+                    </div>
+                </div>
+            </aside>
+            <!-- Products Grid -->
+            <main class="flex-1 p-8">
+                <div class="flex flex-col gap-6">
+                    <!-- Header Bar -->
+                    <div class="flex items-center justify-between">
+                        <nav aria-label="Breadcrumb">
+                            <ol class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+                                <li><a class="hover:underline" href="/dashboard">Dashboard</a></li>
+                                <li><span class="material-symbols-outlined !text-base">chevron_right</span></li>
+                                <li><a class="font-medium text-gray-800 dark:text-gray-200" href="/products">Products</a></li>
+                            </ol>
+                        </nav>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <label class="text-sm text-gray-600 dark:text-gray-400" for="sort-by">Sort by:</label>
+                                <select class="form-select text-sm font-medium bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary focus:border-primary p-2" id="sort-by">
+                                    <option>Best Match</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                    <option>Product Name</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg p-1">
+                                <button class="p-1.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                    <span class="material-symbols-outlined !text-xl">grid_view</span>
+                                </button>
+                                <button class="p-1.5 rounded-md text-gray-500 dark:text-gray-400">
+                                    <span class="material-symbols-outlined !text-xl">view_list</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {{#each products}}
+                        <div class="product-card">
+                            <div class="relative">
+                                <div class="product-image-wrapper">
+                                    <div class="product-image" data-alt="{{this.name}}" style='background-image: url("{{this.image}}");'></div>
+                                </div>
+                                {{#if this.inStock}}
+                                <span class="product-badge badge-success">
+                                    <span class="size-1.5 rounded-full bg-green-500"></span> In Stock
+                                </span>
+                                {{else}}
+                                <span class="product-badge badge-danger">
+                                    <span class="size-1.5 rounded-full bg-red-500"></span> Out of Stock
+                                </span>
+                                {{/if}}
+                            </div>
+                            <div class="p-4 flex flex-col gap-3 flex-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900/50 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-300">{{this.category}}</span>
+                                </div>
+                                <h3 class="font-bold text-gray-900 dark:text-white">{{this.name}}</h3>
+                                <div class="flex items-center gap-1">
+                                    <div class="flex text-yellow-400">
+                                        {{#times this.rating}}<span class="material-symbols-outlined !text-sm">star</span>{{/times}}
+                                    </div>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">({{this.rating}})</span>
+                                </div>
+                                <div class="flex-1"></div>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-lg font-extrabold text-gray-900 dark:text-white">${{this.price}}</p>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2">
+                                <input class="form-input w-16 text-center" type="number" value="1" />
+                                <button class="flex-1 flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 {{#if this.inStock}}btn btn-primary{{else}}bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed{{/if}} gap-2 text-sm font-bold leading-normal tracking-[0.015em] transition-colors" {{#unless this.inStock}}disabled{{/unless}}>
+                                    <span class="material-symbols-outlined">shopping_cart</span>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Showing <span class="font-medium">1</span> to <span class="font-medium">{{products.length}}</span> of <span class="font-medium">{{products.length}}</span> results</p>
+                        <nav class="flex items-center gap-2">
+                            <button class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <span class="material-symbols-outlined !text-xl">chevron_left</span>
+                            </button>
+                            <button class="flex items-center justify-center h-9 w-9 rounded-lg border border-primary bg-primary/20 text-primary">1</button>
+                            <button class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">2</button>
+                            <button class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">3</button>
+                            <span class="text-gray-500">...</span>
+                            <button class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">8</button>
+                            <button class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <span class="material-symbols-outlined !text-xl">chevron_right</span>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
-</div>
+</body>
+</html>

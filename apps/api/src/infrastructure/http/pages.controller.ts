@@ -1,5 +1,5 @@
 import { Controller, Get, Render, Session, Res, Param, Query } from '@nestjs/common';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { GetOrderDetailsUseCase } from '../../application/order/use-cases/get-order-details.use-case';
 import { GetCustomerOrdersUseCase } from '../../application/order/use-cases/get-customer-orders.use-case';
 import { prepareOrderData } from '../helpers/handlebars-helpers';

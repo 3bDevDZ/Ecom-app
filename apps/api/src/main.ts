@@ -27,19 +27,24 @@ async function bootstrap() {
     }),
   );
 
-  // Configure view engine (Handlebars)
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  // Configure view engine (Handlebars) - use source directory path
+  const sourceRoot = __dirname.split(join('dist', 'apps'))[0];
+  const viewsPath = join(sourceRoot, 'apps', 'api', 'views');
+  const partialsPath = join(sourceRoot, 'apps', 'api', 'views', 'partials');
+  const publicPath = join(sourceRoot, 'apps', 'api', 'public');
+    
+  app.setBaseViewsDir(viewsPath);
   app.setViewEngine('hbs');
 
   // Register Handlebars helpers and partials
   const hbs = require('hbs');
-  hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
+  hbs.registerPartials(partialsPath);
   Object.keys(handlebarsHelpers).forEach((helperName) => {
     hbs.registerHelper(helperName, (handlebarsHelpers as any)[helperName]);
   });
 
   // Serve static assets
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(publicPath);
 
   // Enable CORS for API endpoints
   app.enableCors({
@@ -79,6 +84,9 @@ async function bootstrap() {
   console.log(`🔐 Login Page: http://localhost:${port}/login`);
   console.log(`📊 Dashboard: http://localhost:${port}/dashboard`);
   console.log(`🛒 Order Details: http://localhost:${port}/orders/ORD-2024-001\n`);
+  console.log(`📁 Views path: ${viewsPath}`);
+  console.log(`📁 Static assets path: ${publicPath}`);
+  console.log(`📁 Source root: ${sourceRoot}`);
 }
 
 bootstrap();
