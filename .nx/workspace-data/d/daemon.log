@@ -1,0 +1,111 @@
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.686Z - Started listening on: \\.\pipe\nx\C:\Users\brhil\AppData\Local\Temp\4bbc8e1b12c7bf9bc1fa\d.sock
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.688Z - [WATCHER]: Subscribed to changes within: c:\Users\brhil\Documents\GitHub\Ecom-app (native)
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.696Z - Established a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.698Z - Closed a connection. Number of open connections: 0
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.730Z - Established a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.730Z - Closed a connection. Number of open connections: 0
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.731Z - Established a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:22.732Z - [REQUEST]: Client Request for Project Graph Received
+Time for 'plugin worker 8976 code loading' 6.025799999999997
+Time for 'plugin worker 6044 code loading' 6.211500000000001
+Time for 'plugin worker 17744 code loading' 6.1397999999999975
+Time for 'plugin worker 20532 code loading' 6.576600000000003
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:23.031Z - Time taken for 'Load Nx Plugin: C:\Users\brhil\Documents\GitHub\Ecom-app\node_modules\.pnpm\nx@22.0.3_@swc-node+registe_48b358332db38ee739b6ec82ad201e1d\node_modules\nx\src\plugins\project-json\build-nodes\project-json' 294.5354000000001ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:23.068Z - Time taken for 'Load Nx Plugin: C:\Users\brhil\Documents\GitHub\Ecom-app\node_modules\.pnpm\nx@22.0.3_@swc-node+registe_48b358332db38ee739b6ec82ad201e1d\node_modules\nx\src\plugins\package-json' 332.36969999999997ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:23.353Z - Time taken for 'loadDefaultNxPlugins' 617.6178ms
+ WARN  The "workspaces" field in package.json is not supported by pnpm. Create a "pnpm-workspace.yaml" file instead.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.108Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.108Z - [REQUEST]: 
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.108Z - [REQUEST]: 
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.109Z - No files changed, but no in-memory cached project graph found. Recomputing it...
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.114Z - Time taken for 'loadSpecifiedNxPlugins' 1374.7064ms
+Time for 'nx/core/project-json:createNodes' 0.5850000000000364
+Time for 'nx/core/package-json:createNodes' 3.6738000000000284
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 93.45550000000003
+Time for '@nx/js/typescript:createNodes' 187.22040000000015
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.340Z - Time taken for 'build-project-configs' 214.75210000000015ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.343Z - Time taken for '@nx/js/typescript:createDependencies' 5.86200000000008ms
+Time for 'build typescript dependencies' 20.33420000000001
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.385Z - [SYNC]: collect registered sync generators
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.385Z - [SYNC]: scheduling: ["@nx/js:typescript-sync"]
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.392Z - Wrote project graph cache to c:\Users\brhil\Documents\GitHub\Ecom-app\.nx\workspace-data\project-graph.json
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.392Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.394Z - Time taken for 'total for creating and serializing project graph' 1659.8879ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.396Z - Done responding to the client project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.396Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 1660. Response time: 4.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.402Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.402Z - Done responding to the client handleContextFileData
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.402Z - Handled json message GET_CONTEXT_FILE_DATA. Handling time: 0. Response time: 1.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.403Z - Closed a connection. Number of open connections: 0
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.477Z - Established a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.477Z - Closed a connection. Number of open connections: 0
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.478Z - Established a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.478Z - Closed a connection. Number of open connections: 0
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.478Z - Established a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.479Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.479Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.486Z - Wrote project graph cache to c:\Users\brhil\Documents\GitHub\Ecom-app\.nx\workspace-data\project-graph.json
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.486Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.488Z - Time taken for 'total for creating and serializing project graph' 7.443299999999908ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.488Z - [SYNC]: running scheduled generator @nx/js:typescript-sync
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.727Z - Done responding to the client project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.727Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 7. Response time: 241.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.728Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.728Z - Established a connection. Number of open connections: 2
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.728Z - Established a connection. Number of open connections: 3
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.728Z - Closed a connection. Number of open connections: 2
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.729Z - Done responding to the client handleContextFileData
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.729Z - Handled json message GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 1.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.730Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.731Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.742Z - Wrote project graph cache to c:\Users\brhil\Documents\GitHub\Ecom-app\.nx\workspace-data\project-graph.json
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.742Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.743Z - Time taken for 'total for creating and serializing project graph' 11.640499999999975ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.743Z - Closed a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.839Z - Time taken for 'create-project-graph-async' 26.5309000000002ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.840Z - Done responding to the client project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.840Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 12. Response time: 98.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.899Z - [SYNC]: @nx/js:typescript-sync changes: tsconfig.json
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:24.899Z - Time taken for 'run-sync-generator:@nx/js:typescript-sync' 410.6461999999997ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:34.998Z - Established a connection. Number of open connections: 2
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:34.998Z - Closed a connection. Number of open connections: 1
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:34.998Z - Established a connection. Number of open connections: 2
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.000Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.001Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.008Z - Wrote project graph cache to c:\Users\brhil\Documents\GitHub\Ecom-app\.nx\workspace-data\project-graph.json
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.008Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.010Z - Time taken for 'total for creating and serializing project graph' 7.458699999999226ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.011Z - Done responding to the client project-graph
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.011Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 8. Response time: 3.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.017Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.018Z - Time taken for 'preTasksExecution' 0.26959999999962747ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.018Z - Done responding to the client handleRunPreTasksExecution
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.018Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 0. Response time: 1.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.050Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.057Z - Wrote project graph cache to c:\Users\brhil\Documents\GitHub\Ecom-app\.nx\workspace-data\project-graph.json
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 3.455ms - processed 1 tasks (setup: 2.875ms, parallel_planning: 566.7µs)
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Adding "10546620475598882394" (".gitignore") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Adding "16798737734475652640" ("nx.json") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Hash Value: "12469964298305427306"
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 2.4071ms - processed 1 plans (setup: 210µs, hashing: 2.1953ms, assembly: 1.1061ms)
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.074Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.074Z - Time taken for 'write cache' 6.773299999998926ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.075Z - Done responding to the client handleHashTasks
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.075Z - Handled json message HASH_TASKS. Handling time: 24. Response time: 1.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.104Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.104Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:35.104Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 17. Response time: 0.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.027Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.027Z - Done responding to the client recordOutputsHash
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.027Z - Handled json message RECORD_OUTPUTS_HASH. Handling time: 1. Response time: 0.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.033Z - [REQUEST]: Responding to the client. handleRecordTaskRuns
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.034Z - Done responding to the client handleRecordTaskRuns
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.034Z - Handled json message RECORD_TASK_RUNS. Handling time: 1. Response time: 1.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.035Z - [REQUEST]: Responding to the client. handleGetFlakyTasks
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.035Z - Done responding to the client handleGetFlakyTasks
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.035Z - Handled json message GET_FLAKY_TASKS. Handling time: 0. Response time: 0.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.261Z - [REQUEST]: Responding to the client. handleRunPostTasksExecution
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.261Z - Time taken for 'postTasksExecution' 0.3433999999997468ms
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.261Z - Done responding to the client handleRunPostTasksExecution
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.261Z - Handled json message POST_TASKS_EXECUTION. Handling time: 1. Response time: 0.
+[NX v22.0.3 Daemon Server] - 2025-11-17T16:19:36.265Z - Closed a connection. Number of open connections: 1
