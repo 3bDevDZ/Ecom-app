@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html class="light" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} - E-commerce Platform</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{#if pageTitle}}{{pageTitle}} - {{/if}}SourcePlatform</title>
+
+    {{!-- Compiled Tailwind + SCSS styles --}}
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    {{!-- Additional page-specific styles --}}
+    {{#if additionalStyles}}
+        {{{additionalStyles}}}
+    {{/if}}
+
+    {{!-- Custom meta tags --}}
+    {{#if metaDescription}}
+        <meta name="description" content="{{metaDescription}}" />
+    {{/if}}
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark">
-    <div class="relative flex min-h-screen w-full flex-col">
-        {{{body}}}
+    <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            {{!-- Main content area (no header/footer for auth pages) --}}
+            {{{body}}}
+        </div>
     </div>
+
+    {{!-- Additional scripts --}}
+    {{#if additionalScripts}}
+        {{{additionalScripts}}}
+    {{/if}}
 </body>
 </html>

@@ -1,13 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} - E-commerce</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/order-details.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{#if pageTitle}}{{pageTitle}} - {{/if}}SourcePlatform</title>
+
+    {{!-- Compiled Tailwind + SCSS styles --}}
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    {{!-- Additional page-specific styles --}}
+    {{#if additionalStyles}}
+        {{{additionalStyles}}}
+    {{/if}}
+
+    {{!-- Custom meta tags --}}
+    {{#if metaDescription}}
+        <meta name="description" content="{{metaDescription}}" />
+    {{/if}}
 </head>
-<body>
-    {{{body}}}
+<body class="font-display bg-background-light dark:bg-background-dark">
+    <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            {{> header}}
+
+            <main class="flex flex-1 flex-col items-center py-5 sm:py-8 md:py-12">
+                {{{body}}}
+            </main>
+
+            {{> footer}}
+        </div>
+    </div>
+
+    {{!-- Additional scripts --}}
+    {{#if additionalScripts}}
+        {{{additionalScripts}}}
+    {{/if}}
 </body>
 </html>

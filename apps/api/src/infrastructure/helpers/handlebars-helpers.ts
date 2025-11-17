@@ -67,6 +67,13 @@ export const handlebarsHelpers = {
       return options.inverse(this);
     }
   },
+
+  /**
+   * Get current year for copyright
+   */
+  currentYear(): number {
+    return new Date().getFullYear();
+  },
 };
 
 /**
