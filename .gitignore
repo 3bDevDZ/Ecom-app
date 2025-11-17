@@ -38,7 +38,7 @@ lerna-debug.log*
 next-env.d.ts
 
 # nx
-.nx/cache
+.nx/
 tmp
 
 # IDE
@@ -55,20 +55,6 @@ tmp
 # OS
 .DS_Store
 Thumbs.db
-.nx/workspace-data/c911bb45-2b6e-4f36-931b-7536df054a4b.db
-.nx/workspace-data/c911bb45-2b6e-4f36-931b-7536df054a4b.db-shm
-.nx/workspace-data/c911bb45-2b6e-4f36-931b-7536df054a4b.db-wal
-.nx/workspace-data/file-map.json
-.nx/workspace-data/lockfile-dependencies.hash
-.nx/workspace-data/lockfile-nodes.hash
-.nx/workspace-data/nx_files.nxt
-.nx/workspace-data/parsed-lock-file.dependencies.json
-.nx/workspace-data/parsed-lock-file.nodes.json
-.nx/workspace-data/project-graph.json
-.nx/workspace-data/tsc-2568428459166798129.hash
-.nx/workspace-data/tsconfig-files.hash
-.nx/workspace-data/d/daemon.log
-.nx/workspace-data/d/server-process.json
 
 # Temporary build artifacts
 apps/api/public/css/temp.css
