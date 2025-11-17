@@ -5,6 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import * as hbs from 'hbs';
+import * as session from 'express-session';
 import { handlebarsHelpers } from './infrastructure/helpers/handlebars-helpers';
 
 /**
@@ -12,6 +13,20 @@ import { handlebarsHelpers } from './infrastructure/helpers/handlebars-helpers';
  */
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // Configure session
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || 'ecommerce-secret-key-change-in-production',
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24, // 24 hours
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      },
+    }),
+  );
 
   // Configure view engine (Handlebars)
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
@@ -56,9 +71,11 @@ async function bootstrap() {
   const port = process.env.PORT || 3333;
   await app.listen(port);
 
-  console.log(`🚀 Application is running on: http://localhost:${port}`);
+  console.log(`\n🚀 Application is running on: http://localhost:${port}`);
   console.log(`📚 API Documentation: http://localhost:${port}/api/docs`);
-  console.log(`🛒 Order Details Page: http://localhost:${port}/orders/ORD-2024-001`);
+  console.log(`🔐 Login Page: http://localhost:${port}/login`);
+  console.log(`📊 Dashboard: http://localhost:${port}/dashboard`);
+  console.log(`🛒 Order Details: http://localhost:${port}/orders/ORD-2024-001\n`);
 }
 
 bootstrap();
