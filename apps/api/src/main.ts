@@ -5,7 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import * as hbs from 'hbs';
-import * as session from 'express-session';
+import session from 'express-session';
 import { handlebarsHelpers } from './infrastructure/helpers/handlebars-helpers';
 
 /**

@@ -38,8 +38,9 @@ lerna-debug.log*
 next-env.d.ts
 
 # nx
-.nx/cache
+.nx/
 tmp
+graph.json
 
 # IDE
 .idea

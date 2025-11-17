@@ -35,3 +35,8 @@ export interface IOrderRepository {
    */
   findAll(page: number, limit: number): Promise<{ orders: Order[]; total: number }>;
 }
+
+/**
+ * Injection token for Order Repository
+ */
+export const IOrderRepository = Symbol('IOrderRepository');

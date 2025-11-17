@@ -9,3 +9,8 @@ export interface IUserRepository {
   save(user: User): Promise<User>;
   update(user: User): Promise<User>;
 }
+
+/**
+ * Injection token for User Repository
+ */
+export const IUserRepository = Symbol('IUserRepository');
