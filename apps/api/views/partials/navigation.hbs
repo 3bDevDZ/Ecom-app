@@ -1,0 +1,32 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <a href="/dashboard" class="brand-logo">🛒 E-commerce</a>
+        </div>
+
+        <div class="navbar-menu">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/products" class="nav-link">Products</a>
+            <a href="/cart" class="nav-link">
+                Cart
+                <span class="badge">0</span>
+            </a>
+            <a href="/orders" class="nav-link">Orders</a>
+        </div>
+
+        <div class="navbar-user">
+            <div class="user-dropdown">
+                <button class="user-button">
+                    <span class="user-icon">👤</span>
+                    <span class="user-name">{{user.name}}</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="/profile" class="dropdown-item">My Profile</a>
+                    <a href="/orders" class="dropdown-item">My Orders</a>
+                    <hr class="dropdown-divider">
+                    <a href="/auth/logout" class="dropdown-item">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

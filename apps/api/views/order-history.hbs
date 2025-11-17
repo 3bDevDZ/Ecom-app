@@ -1,0 +1,47 @@
+{{> navigation}}
+
+<div class="order-history-page">
+    <div class="page-header">
+        <h1 class="page-title">Order History</h1>
+        <p class="page-subtitle">Track and manage your orders</p>
+    </div>
+
+    {{#if orders}}
+        <div class="orders-table">
+            <div class="table-header">
+                <div class="table-cell">Order ID</div>
+                <div class="table-cell">Date</div>
+                <div class="table-cell">Status</div>
+                <div class="table-cell">Total</div>
+                <div class="table-cell">Actions</div>
+            </div>
+
+            {{#each orders}}
+                <div class="table-row">
+                    <div class="table-cell">
+                        <strong>{{this.id}}</strong>
+                    </div>
+                    <div class="table-cell">
+                        {{formatDate this.createdAt}}
+                    </div>
+                    <div class="table-cell">
+                        <span class="status-badge status-{{this.status}}">{{this.status}}</span>
+                    </div>
+                    <div class="table-cell">
+                        {{formatMoney this.totalAmount.amount this.totalAmount.currency}}
+                    </div>
+                    <div class="table-cell">
+                        <a href="/orders/{{this.id}}" class="btn btn-sm btn-outline">View Details</a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <div class="empty-state">
+            <div class="empty-icon">📦</div>
+            <p class="empty-title">No orders found</p>
+            <p class="empty-text">You haven't placed any orders yet</p>
+            <a href="/products" class="btn btn-primary">Start Shopping</a>
+        </div>
+    {{/if}}
+</div>

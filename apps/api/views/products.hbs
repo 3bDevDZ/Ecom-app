@@ -1,0 +1,56 @@
+{{> navigation}}
+
+<div class="products-page">
+    <div class="page-header">
+        <h1 class="page-title">Products</h1>
+        <p class="page-subtitle">Discover our amazing collection</p>
+    </div>
+
+    <div class="products-filters">
+        <div class="filter-group">
+            <select class="filter-select">
+                <option>All Categories</option>
+                <option>Electronics</option>
+                <option>Accessories</option>
+                <option>Clothing</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <select class="filter-select">
+                <option>Sort by: Featured</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Newest First</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="products-grid">
+        {{#each products}}
+            <div class="product-card">
+                <a href="/products/{{this.id}}" class="product-link">
+                    <div class="product-image-wrapper">
+                        <img src="{{this.image}}" alt="{{this.name}}" class="product-image">
+                        {{#if this.inStock}}
+                            <span class="product-badge badge-success">In Stock</span>
+                        {{else}}
+                            <span class="product-badge badge-danger">Out of Stock</span>
+                        {{/if}}
+                    </div>
+                    <div class="product-details">
+                        <div class="product-category">{{this.category}}</div>
+                        <h3 class="product-name">{{this.name}}</h3>
+                        <div class="product-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-value">{{this.rating}}</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">${{this.price}}</div>
+                            <button class="btn btn-sm btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {{/each}}
+    </div>
+</div>
