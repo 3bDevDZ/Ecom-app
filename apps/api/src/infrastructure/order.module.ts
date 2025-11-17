@@ -3,7 +3,7 @@ import { OrderController } from './http/order.controller';
 import { GetOrderDetailsUseCase } from '../application/order/use-cases/get-order-details.use-case';
 import { GetCustomerOrdersUseCase } from '../application/order/use-cases/get-customer-orders.use-case';
 import { InMemoryOrderRepository } from './persistence/in-memory-order.repository';
-import { IOrderRepository } from '../domain/order/repositories/order.repository.interface';
+import { ORDER_REPOSITORY } from './tokens';
 
 /**
  * Order Module
@@ -15,10 +15,10 @@ import { IOrderRepository } from '../domain/order/repositories/order.repository.
     GetOrderDetailsUseCase,
     GetCustomerOrdersUseCase,
     {
-      provide: IOrderRepository,
+      provide: ORDER_REPOSITORY,
       useClass: InMemoryOrderRepository,
     },
   ],
-  exports: [GetOrderDetailsUseCase, GetCustomerOrdersUseCase],
+  exports: [GetOrderDetailsUseCase, GetCustomerOrdersUseCase, ORDER_REPOSITORY],
 })
 export class OrderModule {}
