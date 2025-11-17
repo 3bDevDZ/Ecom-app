@@ -69,3 +69,7 @@ Thumbs.db
 .nx/workspace-data/tsconfig-files.hash
 .nx/workspace-data/d/daemon.log
 .nx/workspace-data/d/server-process.json
+
+# Temporary build artifacts
+apps/api/public/css/temp.css
+apps/api/public/css/temp.css.map
