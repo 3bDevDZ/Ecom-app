@@ -34,9 +34,9 @@
 - [x] T005 [P] Configure ESLint and Prettier for code quality in apps/api/
 - [x] T006 [P] Setup Tailwind CSS configuration (tailwind.config.js) and PostCSS in apps/api/
 - [x] T007 [P] Create nest-cli.json with Handlebars template compilation settings in apps/api/
-- [ ] T008 Create .env.example with required environment variables (database, Keycloak, RabbitMQ) in apps/api/
+- [x] T008 Create .env.example with required environment variables (database, Keycloak, RabbitMQ) in apps/api/
 - [x] T009 [P] Setup GitHub Actions CI workflow (.github/workflows/ci.yml) for tests and coverage
-- [ ] T010 Create basic README.md with project overview and setup instructions in apps/api/
+- [x] T010 Create basic README.md with project overview and setup instructions in apps/api/
 
 ---
 
@@ -52,18 +52,18 @@
 - [ ] T012 [P] Create base entity class in apps/api/src/shared/domain/base-entity.ts
 - [ ] T013 [P] Create base value object class in apps/api/src/shared/domain/base-value-object.ts
 - [ ] T014 [P] Create base domain event class in apps/api/src/shared/domain/domain-event.ts
-- [ ] T015 [P] Create Result type for error handling in apps/api/src/shared/domain/result.ts
-- [ ] T016 [P] Create base command class in apps/api/src/shared/application/base-command.ts
-- [ ] T017 [P] Create base query class in apps/api/src/shared/application/base-query.ts
-- [ ] T018 [P] Create pagination DTO in apps/api/src/shared/application/pagination.dto.ts
+- [x] T015 [P] Create Result type for error handling in apps/api/src/shared/domain/result.ts
+- [x] T016 [P] Create base command class in apps/api/src/shared/application/base-command.ts
+- [x] T017 [P] Create base query class in apps/api/src/shared/application/base-query.ts
+- [x] T018 [P] Create pagination DTO in apps/api/src/shared/application/pagination.dto.ts
 
 ### Database Infrastructure
 
 - [ ] T019 Create database configuration module in apps/api/src/config/database.config.ts
 - [ ] T020 Setup TypeORM connection configuration with PostgreSQL in apps/api/src/config/database.config.ts
-- [ ] T021 Create base repository interface in apps/api/src/shared/infrastructure/database/base.repository.ts
+- [x] T021 Create base repository interface in apps/api/src/shared/infrastructure/database/base.repository.ts
 - [ ] T022 Create unit of work pattern implementation in apps/api/src/shared/infrastructure/database/unit-of-work.ts
-- [ ] T023 Create database migration setup and initial migration structure in apps/api/src/migrations/
+- [x] T023 Create database migration setup and initial migration structure in apps/api/src/migrations/
 
 ### Outbox Pattern (Event Infrastructure)
 
@@ -111,8 +111,8 @@
 
 ### Testing Infrastructure
 
-- [ ] T050 Create test database setup utilities in apps/api/test/helpers/database.helper.ts
-- [ ] T051 Create test factories for domain entities in apps/api/test/factories/
+- [x] T050 Create test database setup utilities in apps/api/test/helpers/database.helper.ts
+- [x] T051 Create test factories for domain entities in apps/api/test/factories/
 - [ ] T052 Create Keycloak mock for integration tests in apps/api/test/helpers/keycloak.helper.ts
 - [ ] T053 Create RabbitMQ test utilities in apps/api/test/helpers/messaging.helper.ts
 
@@ -130,58 +130,58 @@
 
 **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T054 [P] [US1] Create unit test for Product aggregate in apps/api/test/unit/product-catalog/product.aggregate.spec.ts
-- [ ] T055 [P] [US1] Create unit test for ProductVariant entity in apps/api/test/unit/product-catalog/product-variant.entity.spec.ts
-- [ ] T056 [P] [US1] Create unit test for Category aggregate in apps/api/test/unit/product-catalog/category.aggregate.spec.ts
-- [ ] T057 [P] [US1] Create unit test for SKU value object in apps/api/test/unit/product-catalog/sku.value-object.spec.ts
-- [ ] T058 [P] [US1] Create unit test for Price value object in apps/api/test/unit/product-catalog/price.value-object.spec.ts
-- [ ] T059 [P] [US1] Create unit test for Inventory value object in apps/api/test/unit/product-catalog/inventory.value-object.spec.ts
-- [ ] T060 [P] [US1] Create integration test for ProductRepository in apps/api/test/integration/product-catalog/product.repository.spec.ts
-- [ ] T061 [P] [US1] Create integration test for CategoryRepository in apps/api/test/integration/product-catalog/category.repository.spec.ts
-- [ ] T062 [P] [US1] Create integration test for SearchProductsQuery handler in apps/api/test/integration/product-catalog/search-products.handler.spec.ts
-- [ ] T063 [P] [US1] Create E2E test for product browsing flow in apps/api/test/e2e/product-browsing.e2e-spec.ts
+- [x] T054 [P] [US1] Create unit test for Product aggregate in apps/api/test/unit/product-catalog/product.aggregate.spec.ts
+- [x] T055 [P] [US1] Create unit test for ProductVariant entity in apps/api/test/unit/product-catalog/product-variant.entity.spec.ts
+- [x] T056 [P] [US1] Create unit test for Category aggregate in apps/api/test/unit/product-catalog/category.aggregate.spec.ts
+- [x] T057 [P] [US1] Create unit test for SKU value object in apps/api/test/unit/product-catalog/sku.value-object.spec.ts
+- [x] T058 [P] [US1] Create unit test for Price value object in apps/api/test/unit/product-catalog/price.value-object.spec.ts
+- [x] T059 [P] [US1] Create unit test for Inventory value object in apps/api/test/unit/product-catalog/inventory.value-object.spec.ts
+- [x] T060 [P] [US1] Create integration test for ProductRepository in apps/api/test/integration/product-catalog/product.repository.spec.ts
+- [x] T061 [P] [US1] Create integration test for CategoryRepository in apps/api/test/integration/product-catalog/category.repository.spec.ts
+- [x] T062 [P] [US1] Create integration test for SearchProductsQuery handler in apps/api/test/integration/product-catalog/search-products.handler.spec.ts
+- [x] T063 [P] [US1] Create E2E test for product browsing flow in apps/api/test/e2e/product-browsing.e2e-spec.ts
 
 ### Implementation for User Story 1
 
 #### Domain Layer
 
-- [ ] T064 [P] [US1] Create SKU value object in apps/api/src/modules/product-catalog/domain/value-objects/sku.ts
-- [ ] T065 [P] [US1] Create Price value object in apps/api/src/modules/product-catalog/domain/value-objects/price.ts
-- [ ] T066 [P] [US1] Create Inventory value object in apps/api/src/modules/product-catalog/domain/value-objects/inventory.ts
-- [ ] T067 [P] [US1] Create Category value object in apps/api/src/modules/product-catalog/domain/value-objects/category.ts
-- [ ] T068 [P] [US1] Create ProductVariant entity in apps/api/src/modules/product-catalog/domain/entities/product-variant.ts
-- [ ] T069 [US1] Create Product aggregate root in apps/api/src/modules/product-catalog/domain/aggregates/product.ts
-- [ ] T070 [US1] Create Category aggregate root in apps/api/src/modules/product-catalog/domain/aggregates/category.ts
-- [ ] T071 [US1] Create ProductCreated domain event in apps/api/src/modules/product-catalog/domain/events/product-created.ts
-- [ ] T072 [US1] Create ProductUpdated domain event in apps/api/src/modules/product-catalog/domain/events/product-updated.ts
-- [ ] T073 [US1] Create InventoryReserved domain event in apps/api/src/modules/product-catalog/domain/events/inventory-reserved.ts
-- [ ] T074 [US1] Create InventoryReleased domain event in apps/api/src/modules/product-catalog/domain/events/inventory-released.ts
-- [ ] T075 [US1] Create IProductRepository interface in apps/api/src/modules/product-catalog/domain/repositories/iproduct-repository.ts
-- [ ] T076 [US1] Create ICategoryRepository interface in apps/api/src/modules/product-catalog/domain/repositories/icategory-repository.ts
+- [x] T064 [P] [US1] Create SKU value object in apps/api/src/modules/product-catalog/domain/value-objects/sku.ts
+- [x] T065 [P] [US1] Create Price value object in apps/api/src/modules/product-catalog/domain/value-objects/price.ts
+- [x] T066 [P] [US1] Create Inventory value object in apps/api/src/modules/product-catalog/domain/value-objects/inventory.ts
+- [x] T067 [P] [US1] Create ProductImage value object in apps/api/src/modules/product-catalog/domain/value-objects/product-image.ts
+- [x] T068 [P] [US1] Create ProductVariant entity in apps/api/src/modules/product-catalog/domain/entities/product-variant.ts
+- [x] T069 [US1] Create Product aggregate root in apps/api/src/modules/product-catalog/domain/aggregates/product.ts
+- [x] T070 [US1] Create Category aggregate root in apps/api/src/modules/product-catalog/domain/aggregates/category.ts
+- [x] T071 [US1] Create ProductCreated domain event in apps/api/src/modules/product-catalog/domain/events/product-created.ts
+- [x] T072 [US1] Create ProductUpdated domain event in apps/api/src/modules/product-catalog/domain/events/product-updated.ts
+- [x] T073 [US1] Create InventoryReserved domain event in apps/api/src/modules/product-catalog/domain/events/inventory-reserved.ts
+- [x] T074 [US1] Create InventoryReleased domain event in apps/api/src/modules/product-catalog/domain/events/inventory-released.ts
+- [x] T075 [US1] Create IProductRepository interface in apps/api/src/modules/product-catalog/domain/repositories/iproduct-repository.ts
+- [x] T076 [US1] Create ICategoryRepository interface in apps/api/src/modules/product-catalog/domain/repositories/icategory-repository.ts
 
 #### Application Layer (CQRS)
 
-- [ ] T077 [US1] Create SearchProductsQuery in apps/api/src/modules/product-catalog/application/queries/search-products.query.ts
-- [ ] T078 [US1] Create GetProductByIdQuery in apps/api/src/modules/product-catalog/application/queries/get-product-by-id.query.ts
-- [ ] T079 [US1] Create GetCategoriesQuery in apps/api/src/modules/product-catalog/application/queries/get-categories.query.ts
-- [ ] T080 [US1] Create SearchProductsQueryHandler in apps/api/src/modules/product-catalog/application/handlers/search-products.handler.ts
-- [ ] T081 [US1] Create GetProductByIdQueryHandler in apps/api/src/modules/product-catalog/application/handlers/get-product-by-id.handler.ts
-- [ ] T082 [US1] Create GetCategoriesQueryHandler in apps/api/src/modules/product-catalog/application/handlers/get-categories.handler.ts
-- [ ] T083 [US1] Create ProductDto for query responses in apps/api/src/modules/product-catalog/application/dtos/product.dto.ts
-- [ ] T084 [US1] Create ProductVariantDto in apps/api/src/modules/product-catalog/application/dtos/product-variant.dto.ts
-- [ ] T085 [US1] Create CategoryDto in apps/api/src/modules/product-catalog/application/dtos/category.dto.ts
+- [x] T077 [US1] Create SearchProductsQuery in apps/api/src/modules/product-catalog/application/queries/search-products.query.ts
+- [x] T078 [US1] Create GetProductByIdQuery in apps/api/src/modules/product-catalog/application/queries/get-product-by-id.query.ts
+- [x] T079 [US1] Create GetCategoriesQuery in apps/api/src/modules/product-catalog/application/queries/get-categories.query.ts
+- [x] T080 [US1] Create SearchProductsQueryHandler in apps/api/src/modules/product-catalog/application/handlers/search-products.handler.ts
+- [x] T081 [US1] Create GetProductByIdQueryHandler in apps/api/src/modules/product-catalog/application/handlers/get-product-by-id.handler.ts
+- [x] T082 [US1] Create GetCategoriesQueryHandler in apps/api/src/modules/product-catalog/application/handlers/get-categories.handler.ts
+- [x] T083 [US1] Create ProductDto for query responses in apps/api/src/modules/product-catalog/application/dtos/product.dto.ts
+- [x] T084 [US1] Create ProductVariantDto in apps/api/src/modules/product-catalog/application/dtos/product-variant.dto.ts
+- [x] T085 [US1] Create CategoryDto in apps/api/src/modules/product-catalog/application/dtos/category.dto.ts
 
 #### Infrastructure Layer
 
-- [ ] T086 [US1] Create Product entity (TypeORM) in apps/api/src/modules/product-catalog/infrastructure/persistence/entities/product.entity.ts
-- [ ] T087 [US1] Create ProductVariant entity (TypeORM) in apps/api/src/modules/product-catalog/infrastructure/persistence/entities/product-variant.entity.ts
-- [ ] T088 [US1] Create Category entity (TypeORM) in apps/api/src/modules/product-catalog/infrastructure/persistence/entities/category.entity.ts
-- [ ] T089 [US1] Create ProductRepository implementation in apps/api/src/modules/product-catalog/infrastructure/persistence/repositories/product.repository.ts
-- [ ] T090 [US1] Create CategoryRepository implementation in apps/api/src/modules/product-catalog/infrastructure/persistence/repositories/category.repository.ts
-- [ ] T091 [US1] Create domain-to-persistence mapper in apps/api/src/modules/product-catalog/infrastructure/persistence/mappers/product.mapper.ts
-- [ ] T092 [US1] Create database migration for products, variants, and categories tables in apps/api/src/migrations/
-- [ ] T093 [US1] Create ProductReadModel entity for CQRS queries in apps/api/src/modules/product-catalog/infrastructure/persistence/read-models/product-read-model.entity.ts
-- [ ] T094 [US1] Create event handlers for synchronizing read models in apps/api/src/modules/product-catalog/infrastructure/events/product-event.handlers.ts
+- [x] T086 [US1] Create Product entity (TypeORM) in apps/api/src/modules/product-catalog/infrastructure/persistence/entities/product.entity.ts
+- [x] T087 [US1] Create ProductVariant entity (TypeORM) in apps/api/src/modules/product-catalog/infrastructure/persistence/entities/product-variant.entity.ts
+- [x] T088 [US1] Create Category entity (TypeORM) in apps/api/src/modules/product-catalog/infrastructure/persistence/entities/category.entity.ts
+- [x] T089 [US1] Create ProductRepository implementation in apps/api/src/modules/product-catalog/infrastructure/persistence/repositories/product.repository.ts
+- [x] T090 [US1] Create CategoryRepository implementation in apps/api/src/modules/product-catalog/infrastructure/persistence/repositories/category.repository.ts
+- [x] T091 [US1] Create domain-to-persistence mapper in apps/api/src/modules/product-catalog/infrastructure/persistence/mappers/product.mapper.ts
+- [x] T092 [US1] Create database migration for products, variants, and categories tables in apps/api/src/migrations/
+- [x] T093 [US1] Create ProductReadModel entity for CQRS queries in apps/api/src/modules/product-catalog/infrastructure/persistence/read-models/product-read-model.entity.ts
+- [x] T094 [US1] Create event handlers for synchronizing read models in apps/api/src/modules/product-catalog/infrastructure/events/product-event.handlers.ts
 
 #### Presentation Layer
 

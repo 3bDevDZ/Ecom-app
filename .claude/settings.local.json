@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(git fetch:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm test:*)",
+      "Bash(where:*)",
+      "Bash(docker --version:*)",
+      "Bash(winget:*)"
     ],
     "deny": [],
     "ask": []
