@@ -15,6 +15,13 @@
 - Q: What pricing model should products have in the MVP? → A: Simple single price per product (no tiered pricing or contract pricing)
 - Q: Should the MVP support product variants (size, color, etc.)? → A: Basic variants (size, color) with separate SKUs and inventory tracking per variant
 
+### Session 2025-11-18
+
+- Q: What is the expected product catalog size for the MVP? → A: Medium catalog (10,000-50,000 products) - Requires indexed search, moderate caching
+- Q: What is the inventory reservation timeout when items sit in a cart without checkout completion? → A: 30 minutes - Standard e-commerce timeout, balances UX and inventory availability
+- Q: How should the system handle email delivery failures for order notifications? → A: Retry 3 times, log failures, continue order processing - Email is best-effort notification
+- Q: What are the event retention policy and dead-letter queue handling for RabbitMQ events that fail processing? → A: 7 days retention, 5 retry attempts, then dead-letter queue - Balanced approach
+
 ### MVP Scope Clarification
 
 **In Scope for MVP:**
@@ -377,72 +384,76 @@ As a system administrator, I need Change Data Capture (CDC) functionality so I c
 #### Inventory Management
 
 - **FR-049**: System MUST track available and reserved inventory quantities for each product and variant
-- **FR-050**: System MUST reserve inventory when orders are placed
-- **FR-051**: System MUST release reserved inventory when orders are cancelled
+- **FR-050**: System MUST reserve inventory when items are added to cart with a 30-minute reservation timeout
+- **FR-051**: System MUST release reserved inventory when orders are cancelled or reservation timeout expires
 - **FR-052**: System MUST prevent overselling by validating inventory before order confirmation
 - **FR-053**: System MUST display "Out of Stock" status when inventory reaches zero
 - **FR-054**: System MUST track inventory at a single warehouse location
+- **FR-055**: System MUST automatically release inventory reservations after 30 minutes of inactivity in cart
 
 #### Notifications
 
-- **FR-055**: System MUST send order confirmation email when order is placed
-- **FR-056**: System MUST send order cancellation email when order is cancelled by user
-- **FR-057**: System MUST include order number, items, quantities, and shipping address in confirmation emails
+- **FR-056**: System MUST send order confirmation email when order is placed
+- **FR-057**: System MUST send order cancellation email when order is cancelled by user
+- **FR-058**: System MUST include order number, items, quantities, and shipping address in confirmation emails
+- **FR-059**: System MUST retry email delivery up to 3 times with exponential backoff for transient failures
+- **FR-060**: System MUST log all email delivery failures with order ID and error details for manual follow-up
+- **FR-061**: System MUST NOT block order placement if email delivery fails after all retry attempts
 
 #### Phase 2: Backoffice & Admin Management
 
 ##### Product & Category Management
 
-- **FR-058**: System MUST provide admin interface for creating, updating, and deleting products
-- **FR-059**: System MUST support bulk product operations (create, update, delete multiple products)
-- **FR-060**: System MUST validate product data (SKU uniqueness, required fields) before saving
-- **FR-061**: System MUST support product import from CSV and Excel files
-- **FR-062**: System MUST provide product import validation with error reporting
-- **FR-063**: System MUST allow admin to manage product variants (add, edit, delete variants)
-- **FR-064**: System MUST provide admin interface for creating, updating, and deleting categories
-- **FR-065**: System MUST support category hierarchy (parent-child categories)
-- **FR-066**: System MUST validate category assignments before allowing product-category associations
+- **FR-062**: System MUST provide admin interface for creating, updating, and deleting products
+- **FR-063**: System MUST support bulk product operations (create, update, delete multiple products)
+- **FR-064**: System MUST validate product data (SKU uniqueness, required fields) before saving
+- **FR-065**: System MUST support product import from CSV and Excel files
+- **FR-066**: System MUST provide product import validation with error reporting
+- **FR-067**: System MUST allow admin to manage product variants (add, edit, delete variants)
+- **FR-068**: System MUST provide admin interface for creating, updating, and deleting categories
+- **FR-069**: System MUST support category hierarchy (parent-child categories)
+- **FR-070**: System MUST validate category assignments before allowing product-category associations
 
 ##### Store Management
 
-- **FR-067**: System MUST provide admin interface for creating, updating, and deleting stores
-- **FR-068**: System MUST track inventory per store location
-- **FR-069**: System MUST allow assigning products and inventory to specific stores
-- **FR-070**: System MUST support filtering orders by store location
-- **FR-071**: System MUST validate store information (name, address, contact) before saving
+- **FR-071**: System MUST provide admin interface for creating, updating, and deleting stores
+- **FR-072**: System MUST track inventory per store location
+- **FR-073**: System MUST allow assigning products and inventory to specific stores
+- **FR-074**: System MUST support filtering orders by store location
+- **FR-075**: System MUST validate store information (name, address, contact) before saving
 
 ##### Order Import
 
-- **FR-072**: System MUST support importing orders from CSV files
-- **FR-073**: System MUST support importing orders from Excel files (.xlsx, .xls)
-- **FR-074**: System MUST validate imported order data (required fields, data types, references)
-- **FR-075**: System MUST provide import preview before final import execution
-- **FR-076**: System MUST generate import error reports with row numbers and specific errors
-- **FR-077**: System MUST support automatic creation of missing products/customers during import
-- **FR-078**: System MUST support scheduled/recurring order imports
-- **FR-079**: System MUST track import history and status
+- **FR-076**: System MUST support importing orders from CSV files
+- **FR-077**: System MUST support importing orders from Excel files (.xlsx, .xls)
+- **FR-078**: System MUST validate imported order data (required fields, data types, references)
+- **FR-079**: System MUST provide import preview before final import execution
+- **FR-080**: System MUST generate import error reports with row numbers and specific errors
+- **FR-081**: System MUST support automatic creation of missing products/customers during import
+- **FR-082**: System MUST support scheduled/recurring order imports
+- **FR-083**: System MUST track import history and status
 
 ##### Customer Management
 
-- **FR-080**: System MUST provide admin interface for creating, updating, and deleting customers
-- **FR-081**: System MUST support customer import from CSV and Excel files
-- **FR-082**: System MUST validate customer data (email uniqueness, required fields) before saving
-- **FR-083**: System MUST allow activating and deactivating customer accounts
-- **FR-084**: System MUST display customer order history in customer profile
-- **FR-085**: System MUST support filtering and searching customers by various criteria
-- **FR-086**: System MUST link customer accounts to Keycloak user accounts
+- **FR-084**: System MUST provide admin interface for creating, updating, and deleting customers
+- **FR-085**: System MUST support customer import from CSV and Excel files
+- **FR-086**: System MUST validate customer data (email uniqueness, required fields) before saving
+- **FR-087**: System MUST allow activating and deactivating customer accounts
+- **FR-088**: System MUST display customer order history in customer profile
+- **FR-089**: System MUST support filtering and searching customers by various criteria
+- **FR-090**: System MUST link customer accounts to Keycloak user accounts
 
 ##### Change Data Capture (CDC)
 
-- **FR-087**: System MUST capture data changes (create, update, delete) for configured entities
-- **FR-088**: System MUST publish CDC events to message broker (RabbitMQ)
-- **FR-089**: System MUST support enabling/disabling CDC per entity type
-- **FR-090**: System MUST include entity state (before/after) in CDC events
-- **FR-091**: System MUST provide CDC event filtering and routing configuration
-- **FR-092**: System MUST implement retry mechanism for failed CDC event publishing
-- **FR-093**: System MUST provide CDC monitoring dashboard with event counts and status
-- **FR-094**: System MUST log CDC processing errors for troubleshooting
-- **FR-095**: System MUST support CDC event versioning for schema evolution
+- **FR-091**: System MUST capture data changes (create, update, delete) for configured entities
+- **FR-092**: System MUST publish CDC events to message broker (RabbitMQ)
+- **FR-093**: System MUST support enabling/disabling CDC per entity type
+- **FR-094**: System MUST include entity state (before/after) in CDC events
+- **FR-095**: System MUST provide CDC event filtering and routing configuration
+- **FR-096**: System MUST implement retry mechanism for failed CDC event publishing
+- **FR-097**: System MUST provide CDC monitoring dashboard with event counts and status
+- **FR-098**: System MUST log CDC processing errors for troubleshooting
+- **FR-099**: System MUST support CDC event versioning for schema evolution
 
 ### Key Entities
 
@@ -485,18 +496,20 @@ As a system administrator, I need Change Data Capture (CDC) functionality so I c
 - **SC-012**: Landing page loads in under 3 seconds for 95% of visitors
 - **SC-013**: Keycloak authentication flow completes in under 5 seconds
 - **SC-014**: System supports order volumes of at least 5,000 orders per month
+- **SC-015**: System supports product catalog of 10,000-50,000 products with search response time under 2 seconds
 
 #### Phase 2 Success Criteria
 
-- **SC-015**: Admin users can create or update a product in under 30 seconds
-- **SC-016**: Product import from CSV/Excel completes 1,000 products in under 5 minutes
-- **SC-017**: Order import from CSV/Excel completes 500 orders in under 3 minutes
-- **SC-018**: Customer import from CSV/Excel completes 1,000 customers in under 2 minutes
-- **SC-019**: CDC events are published within 1 second of data change
-- **SC-020**: CDC event processing maintains 99.9% success rate
-- **SC-021**: Import error reports identify 100% of validation errors with specific row numbers
-- **SC-022**: Store management operations complete in under 10 seconds
-- **SC-023**: Admin interface supports concurrent operations by multiple admin users
+- **SC-016**: Admin users can create or update a product in under 30 seconds
+- **SC-017**: Product import from CSV/Excel completes 1,000 products in under 5 minutes
+- **SC-018**: Order import from CSV/Excel completes 500 orders in under 3 minutes
+- **SC-019**: Customer import from CSV/Excel completes 1,000 customers in under 2 minutes
+- **SC-020**: CDC events are published within 1 second of data change
+- **SC-021**: CDC event processing maintains 99.9% success rate
+- **SC-022**: RabbitMQ events retained for 7 days with automatic cleanup of processed events
+- **SC-023**: Import error reports identify 100% of validation errors with specific row numbers
+- **SC-024**: Store management operations complete in under 10 seconds
+- **SC-025**: Admin interface supports concurrent operations by multiple admin users
 
 ## Assumptions
 
@@ -513,6 +526,9 @@ As a system administrator, I need Change Data Capture (CDC) functionality so I c
 - Simple product pricing (no tiered or contract pricing for MVP)
 - Landing page content updates are infrequent enough that manual CMS editing is sufficient
 - Contact form submissions from landing page are sent via email (no CRM integration for MVP)
+- RabbitMQ message broker is available and configured with appropriate exchanges and queues
+- Failed events after 5 retry attempts are moved to dead-letter queue for manual investigation
+- Event retention of 7 days provides sufficient time for debugging and issue resolution
 
 ## Out of Scope
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-gray-50">
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="max-w-2xl mx-auto text-center">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        {{title}}
+      </h1>
+      <p class="text-xl text-gray-600 mb-8">
+        {{message}}
+      </p>
+      <div class="space-x-4">
+        <a href="/api/docs" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          API Documentation
+        </a>
+        <a href="/api/health" class="inline-block px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+          Health Check
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,1244 @@
+openapi: 3.0.3
+info:
+  title: B2B E-Commerce Platform API
+  description: |
+    RESTful API for B2B E-Commerce Platform MVP with Clean Architecture, CQRS, and DDD principles.
+    
+    **Features:**
+    - Landing Page CMS Management
+    - Product Catalog with Search & Filtering
+    - Shopping Cart Management
+    - Order Placement & Tracking
+    - Keycloak Authentication Integration
+    
+    **Architecture:**
+    - Clean Architecture with DDD
+    - CQRS (Command Query Responsibility Segregation)
+    - Event-driven with RabbitMQ
+    - Outbox pattern for reliable event delivery
+  version: 1.0.0
+  contact:
+    name: Development Team
+    email: dev@ecommerce.local
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:3333
+    description: Local development
+  - url: https://staging-api.ecommerce.com
+    description: Staging environment
+  - url: https://api.ecommerce.com
+    description: Production environment
+
+tags:
+  - name: Authentication
+    description: Keycloak authentication endpoints
+  - name: Products
+    description: Product catalog operations
+  - name: Categories
+    description: Product category management
+  - name: Cart
+    description: Shopping cart operations
+  - name: Orders
+    description: Order placement and management
+  - name: Landing CMS
+    description: Landing page content management (Admin only)
+  - name: Health
+    description: Application health checks
+
+security:
+  - BearerAuth: []
+
+paths:
+  # Authentication Endpoints
+  /api/auth/login:
+    get:
+      tags: [Authentication]
+      summary: Initiate Keycloak login
+      description: Redirects to Keycloak login page
+      security: []
+      responses:
+        '302':
+          description: Redirect to Keycloak
+          headers:
+            Location:
+              schema:
+                type: string
+              description: Keycloak login URL
+
+  /api/auth/callback:
+    get:
+      tags: [Authentication]
+      summary: Keycloak OAuth callback
+      description: Handles OAuth callback from Keycloak and sets session
+      security: []
+      parameters:
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirect to application
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /api/auth/logout:
+    post:
+      tags: [Authentication]
+      summary: Logout user
+      description: Clears session and redirects to Keycloak logout
+      responses:
+        '302':
+          description: Redirect to Keycloak logout
+
+  /api/auth/profile:
+    get:
+      tags: [Authentication]
+      summary: Get current user profile
+      description: Returns authenticated user profile from Keycloak token
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  # Product Endpoints
+  /api/products:
+    get:
+      tags: [Products]
+      summary: List products
+      description: Get paginated list of products with optional filters
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: category
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: Filter by category ID
+        - name: brand
+          in: query
+          schema:
+            type: string
+          description: Filter by brand name
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+            format: decimal
+          description: Minimum price filter
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+            format: decimal
+          description: Maximum price filter
+        - name: availability
+          in: query
+          schema:
+            type: string
+            enum: [in_stock, out_of_stock, all]
+          description: Filter by availability status
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [name, price_asc, price_desc, newest]
+            default: name
+      responses:
+        '200':
+          description: Paginated product list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
+
+  /api/products/search:
+    get:
+      tags: [Products]
+      summary: Search products
+      description: Full-text search across product names, descriptions, and SKUs
+      security: []
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 2
+          description: Search query (min 2 characters)
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+
+  /api/products/{id}:
+    get:
+      tags: [Products]
+      summary: Get product details
+      description: Get detailed product information including variants and inventory
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/ProductIdParam'
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /api/products/{id}/availability:
+    get:
+      tags: [Products]
+      summary: Check product availability
+      description: Check real-time stock availability for product and variants
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/ProductIdParam'
+        - name: variantId
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: Optional variant ID to check specific variant
+        - name: quantity
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          description: Quantity to check availability for
+      responses:
+        '200':
+          description: Availability status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailabilityResponse'
+
+  # Category Endpoints
+  /api/categories:
+    get:
+      tags: [Categories]
+      summary: List categories
+      description: Get hierarchical list of product categories
+      security: []
+      responses:
+        '200':
+          description: Category list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+  /api/categories/{id}:
+    get:
+      tags: [Categories]
+      summary: Get category details
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/CategoryIdParam'
+      responses:
+        '200':
+          description: Category details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  # Cart Endpoints
+  /api/cart:
+    get:
+      tags: [Cart]
+      summary: Get current cart
+      description: Get authenticated user's active cart
+      responses:
+        '200':
+          description: User cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /api/cart/items:
+    post:
+      tags: [Cart]
+      summary: Add item to cart
+      description: Add product or variant to cart with specified quantity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddToCartRequest'
+      responses:
+        '200':
+          description: Updated cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Product not found
+        '409':
+          description: Insufficient inventory or MOQ not met
+
+  /api/cart/items/{itemId}:
+    put:
+      tags: [Cart]
+      summary: Update cart item quantity
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [quantity]
+              properties:
+                quantity:
+                  type: integer
+                  minimum: 1
+      responses:
+        '200':
+          description: Updated cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '404':
+          description: Cart item not found
+        '409':
+          description: Insufficient inventory or MOQ not met
+
+    delete:
+      tags: [Cart]
+      summary: Remove item from cart
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Updated cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          description: Cart item not found
+
+  /api/cart/clear:
+    post:
+      tags: [Cart]
+      summary: Clear entire cart
+      responses:
+        '204':
+          description: Cart cleared successfully
+
+  /api/cart/validate:
+    post:
+      tags: [Cart]
+      summary: Validate cart items
+      description: Check inventory availability and pricing for all cart items
+      responses:
+        '200':
+          description: Validation results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartValidationResponse'
+
+  # Order Endpoints
+  /api/orders:
+    get:
+      tags: [Orders]
+      summary: Get order history
+      description: List authenticated user's orders with filtering
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, processing, shipped, delivered, cancelled]
+          description: Filter by order status
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter orders from date
+        - name: toDate
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter orders to date
+      responses:
+        '200':
+          description: Order history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderListResponse'
+
+    post:
+      tags: [Orders]
+      summary: Place order
+      description: Create order from cart with checkout information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaceOrderRequest'
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '409':
+          description: Cart empty or inventory unavailable
+
+  /api/orders/{id}:
+    get:
+      tags: [Orders]
+      summary: Get order details
+      parameters:
+        - $ref: '#/components/parameters/OrderIdParam'
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /api/orders/{id}/cancel:
+    post:
+      tags: [Orders]
+      summary: Cancel order
+      description: Cancel order if status is pending
+      parameters:
+        - $ref: '#/components/parameters/OrderIdParam'
+      responses:
+        '200':
+          description: Order cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '400':
+          description: Order cannot be cancelled (wrong status)
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /api/orders/{id}/reorder:
+    post:
+      tags: [Orders]
+      summary: Reorder from history
+      description: Add all items from previous order to cart
+      parameters:
+        - $ref: '#/components/parameters/OrderIdParam'
+      responses:
+        '200':
+          description: Items added to cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '409':
+          description: Some items no longer available
+
+  # Landing CMS Endpoints (Admin Only)
+  /api/cms/landing:
+    get:
+      tags: [Landing CMS]
+      summary: Get landing page content
+      description: Get published landing page content (public) or draft (admin)
+      security: []
+      parameters:
+        - name: draft
+          in: query
+          schema:
+            type: boolean
+          description: Get draft content (requires admin auth)
+      responses:
+        '200':
+          description: Landing page content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingPageContent'
+
+  /api/cms/landing/hero:
+    put:
+      tags: [Landing CMS]
+      summary: Update hero section
+      description: Admin only - Update landing page hero section
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HeroSection'
+      responses:
+        '200':
+          description: Hero section updated
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+
+  /api/cms/landing/publish:
+    post:
+      tags: [Landing CMS]
+      summary: Publish landing page changes
+      description: Admin only - Publish draft changes to live site
+      responses:
+        '200':
+          description: Content published
+        '400':
+          description: Validation failed (e.g., required fields missing)
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+
+  # Health Check
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Application health status
+      security: []
+      responses:
+        '200':
+          description: Application healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  timestamp:
+                    type: string
+                    format: date-time
+                  services:
+                    type: object
+                    properties:
+                      database:
+                        type: string
+                        enum: [up, down]
+                      rabbitmq:
+                        type: string
+                        enum: [up, down]
+                      keycloak:
+                        type: string
+                        enum: [up, down]
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token from Keycloak
+
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Page number
+
+    LimitParam:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: Items per page
+
+    ProductIdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Product ID
+
+    CategoryIdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Category ID
+
+    OrderIdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Order ID
+
+  schemas:
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+
+    ProductListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSummary'
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    ProductSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        sku:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        basePrice:
+          $ref: '#/components/schemas/Money'
+        primaryImage:
+          type: string
+          format: uri
+        isActive:
+          type: boolean
+        hasVariants:
+          type: boolean
+        availability:
+          type: string
+          enum: [in_stock, out_of_stock, low_stock]
+
+    ProductDetail:
+      allOf:
+        - $ref: '#/components/schemas/ProductSummary'
+        - type: object
+          properties:
+            category:
+              $ref: '#/components/schemas/Category'
+            brand:
+              type: string
+            images:
+              type: array
+              items:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                  altText:
+                    type: string
+                  isPrimary:
+                    type: boolean
+            variants:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductVariant'
+            minOrderQuantity:
+              type: integer
+            maxOrderQuantity:
+              type: integer
+              nullable: true
+            tags:
+              type: array
+              items:
+                type: string
+
+    ProductVariant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        sku:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            size: "L"
+            color: "Blue"
+        priceDelta:
+          $ref: '#/components/schemas/Money'
+        inventory:
+          type: object
+          properties:
+            available:
+              type: integer
+            reserved:
+              type: integer
+        isActive:
+          type: boolean
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        slug:
+          type: string
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+        displayOrder:
+          type: integer
+
+    CategoryDetail:
+      allOf:
+        - $ref: '#/components/schemas/Category'
+        - type: object
+          properties:
+            description:
+              type: string
+            children:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+            productCount:
+              type: integer
+
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItem'
+        subtotal:
+          $ref: '#/components/schemas/Money'
+        itemCount:
+          type: integer
+        expiresAt:
+          type: string
+          format: date-time
+
+    CartItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        product:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            sku:
+              type: string
+            name:
+              type: string
+            imageUrl:
+              type: string
+              format: uri
+        variant:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+              format: uuid
+            sku:
+              type: string
+            attributes:
+              type: object
+              additionalProperties:
+                type: string
+        quantity:
+          type: integer
+        unitPrice:
+          $ref: '#/components/schemas/Money'
+        subtotal:
+          $ref: '#/components/schemas/Money'
+        addedAt:
+          type: string
+          format: date-time
+
+    AddToCartRequest:
+      type: object
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: string
+          format: uuid
+        variantId:
+          type: string
+          format: uuid
+          nullable: true
+        quantity:
+          type: integer
+          minimum: 1
+
+    CartValidationResponse:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              itemId:
+                type: string
+                format: uuid
+              code:
+                type: string
+                enum: [insufficient_inventory, moq_not_met, product_inactive, price_changed]
+              message:
+                type: string
+
+    AvailabilityResponse:
+      type: object
+      properties:
+        productId:
+          type: string
+          format: uuid
+        variantId:
+          type: string
+          format: uuid
+          nullable: true
+        available:
+          type: integer
+        isAvailable:
+          type: boolean
+        requestedQuantity:
+          type: integer
+
+    OrderListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSummary'
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    OrderSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        orderNumber:
+          type: string
+        status:
+          type: string
+          enum: [pending, processing, shipped, delivered, cancelled]
+        total:
+          $ref: '#/components/schemas/Money'
+        itemCount:
+          type: integer
+        placedAt:
+          type: string
+          format: date-time
+
+    OrderDetail:
+      allOf:
+        - $ref: '#/components/schemas/OrderSummary'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrderItem'
+            shippingAddress:
+              $ref: '#/components/schemas/Address'
+            poNumber:
+              type: string
+              nullable: true
+            notes:
+              type: string
+              nullable: true
+            subtotal:
+              $ref: '#/components/schemas/Money'
+            tax:
+              $ref: '#/components/schemas/Money'
+            shipping:
+              $ref: '#/components/schemas/Money'
+            discount:
+              $ref: '#/components/schemas/Money'
+              nullable: true
+            trackingNumber:
+              type: string
+              nullable: true
+            trackingCarrier:
+              type: string
+              nullable: true
+            expectedDeliveryDate:
+              type: string
+              format: date
+              nullable: true
+
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        sku:
+          type: string
+        productName:
+          type: string
+        variantAttributes:
+          type: object
+          nullable: true
+          additionalProperties:
+            type: string
+        quantity:
+          type: integer
+        unitPrice:
+          $ref: '#/components/schemas/Money'
+        subtotal:
+          $ref: '#/components/schemas/Money'
+        imageUrl:
+          type: string
+          format: uri
+
+    PlaceOrderRequest:
+      type: object
+      required:
+        - shippingAddress
+      properties:
+        shippingAddress:
+          $ref: '#/components/schemas/Address'
+        poNumber:
+          type: string
+          maxLength: 50
+        notes:
+          type: string
+          maxLength: 500
+
+    Address:
+      type: object
+      required:
+        - street
+        - city
+        - state
+        - postalCode
+        - country
+        - contactName
+        - contactPhone
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          minLength: 2
+          maxLength: 2
+        postalCode:
+          type: string
+        country:
+          type: string
+          minLength: 2
+          maxLength: 2
+        contactName:
+          type: string
+        contactPhone:
+          type: string
+
+    LandingPageContent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        version:
+          type: integer
+        isDraft:
+          type: boolean
+        hero:
+          $ref: '#/components/schemas/HeroSection'
+        trustLogos:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              imageUrl:
+                type: string
+                format: uri
+              displayOrder:
+                type: integer
+        productShowcase:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              imageUrl:
+                type: string
+                format: uri
+              displayOrder:
+                type: integer
+        showroomInfo:
+          type: object
+          properties:
+            address:
+              type: string
+            businessHours:
+              type: string
+            mapImageUrl:
+              type: string
+              format: uri
+        contactSection:
+          type: object
+          properties:
+            heading:
+              type: string
+            description:
+              type: string
+        footer:
+          type: object
+          properties:
+            companyDescription:
+              type: string
+            navigationLinks:
+              type: array
+              items:
+                type: object
+                properties:
+                  label:
+                    type: string
+                  url:
+                    type: string
+                    format: uri
+            copyrightText:
+              type: string
+        publishedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    HeroSection:
+      type: object
+      required:
+        - heading
+        - subheading
+        - backgroundImageUrl
+        - primaryCta
+      properties:
+        heading:
+          type: string
+          maxLength: 100
+        subheading:
+          type: string
+          maxLength: 200
+        backgroundImageUrl:
+          type: string
+          format: uri
+        primaryCta:
+          type: object
+          required:
+            - text
+            - url
+          properties:
+            text:
+              type: string
+            url:
+              type: string
+              format: uri
+        secondaryCta:
+          type: object
+          nullable: true
+          properties:
+            text:
+              type: string
+            url:
+              type: string
+              format: uri
+
+    Money:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: decimal
+          minimum: 0
+        currency:
+          type: string
+          default: USD
+          example: USD
+
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        path:
+          type: string
+
+  responses:
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 400
+            message: Validation failed
+            error: Bad Request
+
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 401
+            message: Unauthorized
+            error: Unauthorized
+
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 403
+            message: Forbidden resource
+            error: Forbidden
+
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 404
+            message: Resource not found
+            error: Not Found
+
