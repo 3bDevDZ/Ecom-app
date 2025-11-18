@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "builder": "webpack",
+    "webpack": true,
+    "webpackConfigPath": "webpack.config.js",
+    "assets": [
+      {
+        "include": "views/**/*",
+        "watchAssets": true
+      },
+      {
+        "include": "public/**/*",
+        "watchAssets": true
+      },
+      {
+        "include": "../node_modules/handlebars/dist/handlebars.runtime.js",
+        "outDir": "dist"
+      }
+    ],
+    "watchAssets": true
+  }
+}
+

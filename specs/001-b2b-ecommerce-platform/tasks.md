@@ -8,11 +8,13 @@
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
 ## Format: `[ID] [P?] [Story] Description`
+
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3, US4)
 - Include exact file paths in descriptions
 
 ## Path Conventions
+
 - **Project Structure**: NestJS monolith with modular bounded contexts
 - **Base Path**: `apps/api/src/`
 - **Modules**: `modules/{bounded-context}/`
@@ -25,15 +27,15 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create NestJS project structure in apps/api/ with TypeScript configuration
-- [ ] T002 [P] Initialize package.json with dependencies: @nestjs/core, @nestjs/common, @nestjs/cqrs, @nestjs/typeorm, typeorm, @nestjs/microservices, handlebars, hbs, class-validator, class-transformer, @keycloak/keycloak-admin-client
-- [ ] T003 [P] Configure TypeScript (tsconfig.json) with strict mode and path aliases in apps/api/
-- [ ] T004 [P] Setup Jest configuration (jest.config.js) with 90% coverage threshold in apps/api/
-- [ ] T005 [P] Configure ESLint and Prettier for code quality in apps/api/
-- [ ] T006 [P] Setup Tailwind CSS configuration (tailwind.config.js) and PostCSS in apps/api/
-- [ ] T007 [P] Create nest-cli.json with Handlebars template compilation settings in apps/api/
+- [x] T001 Create NestJS project structure in apps/api/ with TypeScript configuration
+- [x] T002 [P] Initialize package.json with dependencies: @nestjs/core, @nestjs/common, @nestjs/cqrs, @nestjs/typeorm, typeorm, @nestjs/microservices, handlebars, hbs, class-validator, class-transformer, @keycloak/keycloak-admin-client
+- [x] T003 [P] Configure TypeScript (tsconfig.json) with strict mode and path aliases in apps/api/
+- [x] T004 [P] Setup Jest configuration (jest.config.js) with 90% coverage threshold in apps/api/
+- [x] T005 [P] Configure ESLint and Prettier for code quality in apps/api/
+- [x] T006 [P] Setup Tailwind CSS configuration (tailwind.config.js) and PostCSS in apps/api/
+- [x] T007 [P] Create nest-cli.json with Handlebars template compilation settings in apps/api/
 - [ ] T008 Create .env.example with required environment variables (database, Keycloak, RabbitMQ) in apps/api/
-- [ ] T009 [P] Setup GitHub Actions CI workflow (.github/workflows/ci.yml) for tests and coverage
+- [x] T009 [P] Setup GitHub Actions CI workflow (.github/workflows/ci.yml) for tests and coverage
 - [ ] T010 Create basic README.md with project overview and setup instructions in apps/api/
 
 ---
@@ -964,12 +966,14 @@ With multiple developers:
 ### Task Count per User Story
 
 **Phase 1 (MVP):**
+
 - **User Story 1**: 52 tasks (browse and search products)
 - **User Story 2**: 69 tasks (cart and checkout)
 - **User Story 3**: 20 tasks (order history)
 - **User Story 4**: 63 tasks (landing page CMS)
 
 **Phase 2 (Backoffice):**
+
 - **User Story 9**: 56 tasks (product and category management)
 - **User Story 10**: 34 tasks (store management)
 - **User Story 11**: 27 tasks (order import from files)
@@ -994,12 +998,14 @@ With multiple developers:
 ### Independent Test Criteria
 
 **Phase 1 (MVP):**
+
 - **User Story 1**: Load product catalog, perform searches, apply filters, verify results
 - **User Story 2**: Add products to cart, modify quantities, complete checkout, place order
 - **User Story 3**: Place order, view in order history, track status, reorder
 - **User Story 4**: Edit landing page sections via CMS, preview, publish, verify on public page
 
 **Phase 2 (Backoffice):**
+
 - **User Story 9**: Create, update, delete products and categories through admin interface, import from CSV/Excel
 - **User Story 10**: Create stores, assign inventory to stores, view store-specific data
 - **User Story 11**: Upload CSV/Excel files with order data, validate imports, verify orders created correctly
@@ -1016,6 +1022,7 @@ With multiple developers:
 ### Format Validation
 
 ✅ All tasks follow the checklist format:
+
 - Checkbox: `- [ ]`
 - Task ID: `T001`, `T002`, etc.
 - Parallel marker: `[P]` where applicable
@@ -1037,4 +1044,3 @@ With multiple developers:
 - Clean Architecture must be maintained - domain layer has no infrastructure dependencies
 - CQRS pattern must be followed - separate commands and queries
 - Event-driven architecture - all domain events must be published via outbox pattern
-
