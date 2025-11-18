@@ -191,6 +191,106 @@ As a B2B buyer with established credit terms, I need to purchase on account (NET
 
 ---
 
+## Phase 2: Backoffice & Admin Management
+
+### User Story 9 - Manage Products and Categories (Priority: P1 - Phase 2)
+
+As an administrator, I need to manage products and categories in the catalog so I can keep product information up-to-date and organized.
+
+**Why this priority**: Core admin functionality required for maintaining the product catalog. Essential for business operations.
+
+**Independent Test**: Can be tested by creating, updating, and deleting products and categories through the admin interface. Delivers value by enabling catalog management.
+
+**Acceptance Scenarios**:
+
+1. **Given** I am an admin user, **When** I access the product management page, **Then** I see a list of all products with search and filter capabilities
+2. **Given** I am creating a new product, **When** I enter product details (name, SKU, description, price, category), **Then** the product is created and appears in the catalog
+3. **Given** I am editing a product, **When** I update product information, **Then** changes are saved and reflected in the customer-facing catalog
+4. **Given** I am managing product variants, **When** I add or edit variants (size, color), **Then** each variant has its own SKU and inventory tracking
+5. **Given** I am managing categories, **When** I create, edit, or delete categories, **Then** category changes are reflected in product organization
+6. **Given** I am bulk updating products, **When** I select multiple products and apply changes, **Then** all selected products are updated simultaneously
+7. **Given** I am importing products, **When** I upload a CSV or Excel file, **Then** products are imported and validated with error reporting
+
+---
+
+### User Story 10 - Manage Stores (Priority: P1 - Phase 2)
+
+As an administrator, I need to manage store locations so I can organize inventory and orders by physical locations.
+
+**Why this priority**: Multi-store support enables better inventory management and order fulfillment tracking. Essential for businesses with multiple locations.
+
+**Independent Test**: Can be tested by creating stores, assigning inventory to stores, and viewing store-specific data. Delivers value through location-based management.
+
+**Acceptance Scenarios**:
+
+1. **Given** I am an admin user, **When** I access the store management page, **Then** I see a list of all stores with their details
+2. **Given** I am creating a new store, **When** I enter store information (name, address, contact details), **Then** the store is created and available for assignment
+3. **Given** I am managing store inventory, **When** I assign products to a store, **Then** inventory is tracked per store location
+4. **Given** I am viewing store orders, **When** I filter orders by store, **Then** I see only orders associated with that store
+5. **Given** I am updating store information, **When** I modify store details, **Then** changes are saved and reflected across the system
+
+---
+
+### User Story 11 - Import Orders from Files (Priority: P1 - Phase 2)
+
+As an administrator, I need to import orders from CSV or Excel files so I can bulk process orders from external systems or legacy data.
+
+**Why this priority**: Enables migration from existing systems and bulk order processing. Critical for business continuity and data migration.
+
+**Independent Test**: Can be tested by uploading CSV/Excel files with order data, validating imports, and verifying orders are created correctly. Delivers value through efficient bulk processing.
+
+**Acceptance Scenarios**:
+
+1. **Given** I am an admin user, **When** I access the order import page, **Then** I see an upload interface for CSV and Excel files
+2. **Given** I am uploading an order file, **When** I select a CSV or Excel file, **Then** the system validates the file format and structure
+3. **Given** I am importing orders, **When** the file contains valid order data, **Then** orders are created with proper customer and product associations
+4. **Given** I am importing orders with errors, **When** some rows have invalid data, **Then** I see an error report with specific row numbers and issues
+5. **Given** I am previewing import results, **When** I review the import summary, **Then** I can see how many orders will be created before confirming
+6. **Given** I am importing orders, **When** products or customers don't exist, **Then** the system creates them automatically or reports missing references
+7. **Given** I am scheduling imports, **When** I configure recurring imports, **Then** orders are automatically imported on schedule
+
+---
+
+### User Story 12 - Manage Customers (Priority: P1 - Phase 2)
+
+As an administrator, I need to manage customer accounts so I can maintain customer information and track customer relationships.
+
+**Why this priority**: Customer management is essential for B2B operations, enabling account management and customer service. Required for order processing and customer support.
+
+**Independent Test**: Can be tested by creating, updating, and managing customer accounts through the admin interface. Delivers value through centralized customer management.
+
+**Acceptance Scenarios**:
+
+1. **Given** I am an admin user, **When** I access the customer management page, **Then** I see a list of all customers with search and filter capabilities
+2. **Given** I am creating a new customer, **When** I enter customer information (company name, contact details, address), **Then** the customer account is created
+3. **Given** I am editing a customer, **When** I update customer information, **Then** changes are saved and reflected in customer records
+4. **Given** I am viewing customer details, **When** I access a customer profile, **Then** I see order history, contact information, and account status
+5. **Given** I am managing customer accounts, **When** I activate or deactivate an account, **Then** the customer's access to the platform is controlled
+6. **Given** I am importing customers, **When** I upload a CSV or Excel file, **Then** customers are imported and validated with error reporting
+7. **Given** I am viewing customer orders, **When** I filter by customer, **Then** I see all orders associated with that customer
+
+---
+
+### User Story 13 - Change Data Capture (CDC) Integration (Priority: P1 - Phase 2)
+
+As a system administrator, I need Change Data Capture (CDC) functionality so I can synchronize data changes with external systems in real-time.
+
+**Why this priority**: CDC enables real-time data synchronization with external systems (ERP, accounting, analytics). Critical for system integration and data consistency.
+
+**Independent Test**: Can be tested by making data changes and verifying CDC events are captured and published. Delivers value through real-time data synchronization.
+
+**Acceptance Scenarios**:
+
+1. **Given** CDC is enabled, **When** a product is created or updated, **Then** a CDC event is captured and published to the message broker
+2. **Given** CDC is enabled, **When** an order is placed or updated, **Then** a CDC event is captured with order details
+3. **Given** CDC is enabled, **When** a customer is created or updated, **Then** a CDC event is captured with customer information
+4. **Given** I am configuring CDC, **When** I enable CDC for specific entities, **Then** only changes to those entities trigger CDC events
+5. **Given** I am monitoring CDC, **When** I view the CDC dashboard, **Then** I see event counts, processing status, and error logs
+6. **Given** CDC events fail to publish, **When** a retry mechanism is triggered, **Then** failed events are retried with exponential backoff
+7. **Given** I am filtering CDC events, **When** I configure event filters, **Then** only matching events are published to external systems
+
+---
+
 ### Edge Cases
 
 - What happens when a product goes out of stock while in a user's cart?
@@ -289,6 +389,61 @@ As a B2B buyer with established credit terms, I need to purchase on account (NET
 - **FR-056**: System MUST send order cancellation email when order is cancelled by user
 - **FR-057**: System MUST include order number, items, quantities, and shipping address in confirmation emails
 
+#### Phase 2: Backoffice & Admin Management
+
+##### Product & Category Management
+
+- **FR-058**: System MUST provide admin interface for creating, updating, and deleting products
+- **FR-059**: System MUST support bulk product operations (create, update, delete multiple products)
+- **FR-060**: System MUST validate product data (SKU uniqueness, required fields) before saving
+- **FR-061**: System MUST support product import from CSV and Excel files
+- **FR-062**: System MUST provide product import validation with error reporting
+- **FR-063**: System MUST allow admin to manage product variants (add, edit, delete variants)
+- **FR-064**: System MUST provide admin interface for creating, updating, and deleting categories
+- **FR-065**: System MUST support category hierarchy (parent-child categories)
+- **FR-066**: System MUST validate category assignments before allowing product-category associations
+
+##### Store Management
+
+- **FR-067**: System MUST provide admin interface for creating, updating, and deleting stores
+- **FR-068**: System MUST track inventory per store location
+- **FR-069**: System MUST allow assigning products and inventory to specific stores
+- **FR-070**: System MUST support filtering orders by store location
+- **FR-071**: System MUST validate store information (name, address, contact) before saving
+
+##### Order Import
+
+- **FR-072**: System MUST support importing orders from CSV files
+- **FR-073**: System MUST support importing orders from Excel files (.xlsx, .xls)
+- **FR-074**: System MUST validate imported order data (required fields, data types, references)
+- **FR-075**: System MUST provide import preview before final import execution
+- **FR-076**: System MUST generate import error reports with row numbers and specific errors
+- **FR-077**: System MUST support automatic creation of missing products/customers during import
+- **FR-078**: System MUST support scheduled/recurring order imports
+- **FR-079**: System MUST track import history and status
+
+##### Customer Management
+
+- **FR-080**: System MUST provide admin interface for creating, updating, and deleting customers
+- **FR-081**: System MUST support customer import from CSV and Excel files
+- **FR-082**: System MUST validate customer data (email uniqueness, required fields) before saving
+- **FR-083**: System MUST allow activating and deactivating customer accounts
+- **FR-084**: System MUST display customer order history in customer profile
+- **FR-085**: System MUST support filtering and searching customers by various criteria
+- **FR-086**: System MUST link customer accounts to Keycloak user accounts
+
+##### Change Data Capture (CDC)
+
+- **FR-087**: System MUST capture data changes (create, update, delete) for configured entities
+- **FR-088**: System MUST publish CDC events to message broker (RabbitMQ)
+- **FR-089**: System MUST support enabling/disabling CDC per entity type
+- **FR-090**: System MUST include entity state (before/after) in CDC events
+- **FR-091**: System MUST provide CDC event filtering and routing configuration
+- **FR-092**: System MUST implement retry mechanism for failed CDC event publishing
+- **FR-093**: System MUST provide CDC monitoring dashboard with event counts and status
+- **FR-094**: System MUST log CDC processing errors for troubleshooting
+- **FR-095**: System MUST support CDC event versioning for schema evolution
+
 ### Key Entities
 
 - **Landing Page Content**: Represents editable content sections including hero (heading, subheading, background image, CTA buttons), trust logos, product showcase categories, showroom info, contact section, and footer
@@ -302,6 +457,15 @@ As a B2B buyer with established credit terms, I need to purchase on account (NET
 - **Order Item**: Represents a product/variant within an order with quantity, unit price, and variant details
 - **Address**: Represents a shipping address with street, city, state, postal code, country, and contact information
 - **Inventory**: Represents stock for a product or variant with available quantity and reserved quantity
+
+#### Phase 2 Entities
+
+- **Store**: Represents a physical store location with name, address, contact information, and operational status
+- **Store Inventory**: Represents inventory allocation to a specific store with product, variant, and quantity
+- **Customer**: Represents a B2B customer account with company information, contact details, account status, and Keycloak user association
+- **Import Job**: Represents a file import operation with file details, status, error reports, and processing metadata
+- **CDC Event**: Represents a change data capture event with entity type, operation (create/update/delete), entity ID, state data, and timestamp
+- **CDC Configuration**: Represents CDC settings for entity types with enable/disable flags, filters, and routing rules
 
 ## Success Criteria *(mandatory)*
 
@@ -321,6 +485,18 @@ As a B2B buyer with established credit terms, I need to purchase on account (NET
 - **SC-012**: Landing page loads in under 3 seconds for 95% of visitors
 - **SC-013**: Keycloak authentication flow completes in under 5 seconds
 - **SC-014**: System supports order volumes of at least 5,000 orders per month
+
+#### Phase 2 Success Criteria
+
+- **SC-015**: Admin users can create or update a product in under 30 seconds
+- **SC-016**: Product import from CSV/Excel completes 1,000 products in under 5 minutes
+- **SC-017**: Order import from CSV/Excel completes 500 orders in under 3 minutes
+- **SC-018**: Customer import from CSV/Excel completes 1,000 customers in under 2 minutes
+- **SC-019**: CDC events are published within 1 second of data change
+- **SC-020**: CDC event processing maintains 99.9% success rate
+- **SC-021**: Import error reports identify 100% of validation errors with specific row numbers
+- **SC-022**: Store management operations complete in under 10 seconds
+- **SC-023**: Admin interface supports concurrent operations by multiple admin users
 
 ## Assumptions
 
