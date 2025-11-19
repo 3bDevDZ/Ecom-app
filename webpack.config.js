@@ -15,9 +15,13 @@ module.exports = composePlugins(withNx(), (config) => {
       'amqp-connection-manager': 'commonjs amqp-connection-manager',
       'cache-manager': 'commonjs cache-manager',
       'class-transformer': 'commonjs class-transformer',
+      'class-validator': 'commonjs class-transformer',
       'class-validator': 'commonjs class-validator',
     });
   }
+
+  // Enable source maps for better debugging
+  config.devtool = 'source-map';
 
   // Handle .hbs files
   config.module = config.module || {};
@@ -29,4 +33,3 @@ module.exports = composePlugins(withNx(), (config) => {
 
   return config;
 });
-

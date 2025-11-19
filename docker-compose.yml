@@ -31,7 +31,6 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-ecommerce}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-ecommerce_password}
       RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_VHOST:-/}
-      RABBITMQ_VM_MEMORY_HIGH_WATERMARK: 512MB
     ports:
       - "${RABBITMQ_PORT:-5672}:5672"      # AMQP protocol
       - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"  # Management UI
@@ -143,4 +142,3 @@ networks:
   ecommerce-network:
     driver: bridge
     name: b2b-ecommerce-network
-
