@@ -22,7 +22,16 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- migration:generate -d src/config/typeorm.config.ts",
     "migration:run": "npm run typeorm -- migration:run -d src/config/typeorm.config.ts",
-    "migration:revert": "npm run typeorm -- migration:revert -d src/config/typeorm.config.ts"
+    "migration:revert": "npm run typeorm -- migration:revert -d src/config/typeorm.config.ts",
+    "db:setup": "node scripts/run-setup.js",
+    "db:check": "node scripts/run-check.js",
+    "db:test": "node scripts/test-connection.js",
+    "db:connect": "docker exec -it b2b-ecommerce-postgres psql -U ecommerce -d b2b_ecommerce",
+    "db:reset": "node scripts/run-reset.js",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f postgres",
+    "docker:restart": "docker-compose restart postgres"
   },
   "dependencies": {
     "@keycloak/keycloak-admin-client": "^23.0.0",
@@ -35,6 +44,7 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.3.0",
     "@nestjs/schedule": "^4.0.0",
+    "@nestjs/swagger": "7.4.2",
     "@nestjs/typeorm": "^10.0.1",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.3",
@@ -54,6 +64,7 @@
     "reflect-metadata": "^0.1.14",
     "rimraf": "^5.0.5",
     "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.19",
     "uuid": "^9.0.1"
   },
