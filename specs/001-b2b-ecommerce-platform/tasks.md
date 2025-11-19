@@ -48,10 +48,10 @@
 
 ### Shared Kernel (Domain Foundation)
 
-- [ ] T011 Create base aggregate root class in apps/api/src/shared/domain/base-aggregate.ts
-- [ ] T012 [P] Create base entity class in apps/api/src/shared/domain/base-entity.ts
-- [ ] T013 [P] Create base value object class in apps/api/src/shared/domain/base-value-object.ts
-- [ ] T014 [P] Create base domain event class in apps/api/src/shared/domain/domain-event.ts
+- [x] T011 Create base aggregate root class in apps/api/src/shared/domain/aggregate-root.base.ts
+- [x] T012 [P] Create base entity class in apps/api/src/shared/domain/entity.base.ts
+- [x] T013 [P] Create base value object class in apps/api/src/shared/domain/value-object.base.ts
+- [x] T014 [P] Create base domain event class in apps/api/src/shared/domain/domain-event.base.ts
 - [x] T015 [P] Create Result type for error handling in apps/api/src/shared/domain/result.ts
 - [x] T016 [P] Create base command class in apps/api/src/shared/application/base-command.ts
 - [x] T017 [P] Create base query class in apps/api/src/shared/application/base-query.ts
@@ -59,55 +59,55 @@
 
 ### Database Infrastructure
 
-- [ ] T019 Create database configuration module in apps/api/src/config/database.config.ts
-- [ ] T020 Setup TypeORM connection configuration with PostgreSQL in apps/api/src/config/database.config.ts
+- [x] T019 Create database configuration module in apps/api/src/config/database.config.ts
+- [x] T020 Setup TypeORM connection configuration with PostgreSQL in apps/api/src/config/database.config.ts
 - [x] T021 Create base repository interface in apps/api/src/shared/infrastructure/database/base.repository.ts
-- [ ] T022 Create unit of work pattern implementation in apps/api/src/shared/infrastructure/database/unit-of-work.ts
+- [x] T022 Create unit of work pattern implementation in apps/api/src/shared/infrastructure/database/unit-of-work.ts
 - [x] T023 Create database migration setup and initial migration structure in apps/api/src/migrations/
 
 ### Outbox Pattern (Event Infrastructure)
 
-- [ ] T024 Create Outbox entity (TypeORM) in apps/api/src/shared/infrastructure/outbox/outbox.entity.ts
-- [ ] T025 Create Outbox service for inserting events in apps/api/src/shared/infrastructure/outbox/outbox.service.ts
-- [ ] T026 Create Outbox processor for polling and publishing to RabbitMQ in apps/api/src/shared/infrastructure/outbox/outbox.processor.ts
-- [ ] T027 Create database migration for outbox table in apps/api/src/migrations/
+- [x] T024 Create Outbox entity (TypeORM) in apps/api/src/shared/infrastructure/outbox/outbox.entity.ts
+- [x] T025 Create Outbox service for inserting events in apps/api/src/shared/infrastructure/outbox/outbox.service.ts
+- [x] T026 Create Outbox processor for polling and publishing to RabbitMQ in apps/api/src/shared/infrastructure/outbox/outbox.processor.ts
+- [x] T027 Create database migration for outbox table in apps/api/src/migrations/
 
 ### RabbitMQ Messaging
 
-- [ ] T028 Create RabbitMQ configuration module in apps/api/src/config/rabbitmq.config.ts
-- [ ] T029 Create message broker service in apps/api/src/shared/infrastructure/messaging/message-broker.ts
-- [ ] T030 Create event publisher service in apps/api/src/shared/infrastructure/messaging/event-publisher.ts
-- [ ] T031 Setup RabbitMQ connection and exchange/queue topology in apps/api/src/shared/infrastructure/messaging/
+- [x] T028 Create RabbitMQ configuration module in apps/api/src/config/rabbitmq.config.ts
+- [x] T029 Create message broker service in apps/api/src/shared/infrastructure/messaging/message-broker.service.ts
+- [x] T030 Create event publisher service in apps/api/src/shared/infrastructure/messaging/event-publisher.service.ts
+- [x] T031 Setup RabbitMQ connection and exchange/queue topology in apps/api/src/shared/infrastructure/messaging/
 
 ### Keycloak Authentication
 
-- [ ] T032 Create Keycloak configuration module in apps/api/src/config/keycloak.config.ts
-- [ ] T033 Create Keycloak auth service in apps/api/src/modules/identity/application/services/keycloak-auth.service.ts
-- [ ] T034 Create Keycloak JWT strategy in apps/api/src/modules/identity/application/strategies/keycloak.strategy.ts
-- [ ] T035 Create Keycloak auth guard in apps/api/src/modules/identity/application/guards/keycloak-auth.guard.ts
-- [ ] T036 Create JWT auth guard in apps/api/src/modules/identity/application/guards/jwt-auth.guard.ts
-- [ ] T037 Create auth controller with callback and logout endpoints in apps/api/src/modules/identity/presentation/controllers/auth.controller.ts
-- [ ] T038 Create Identity module with all providers in apps/api/src/modules/identity/identity.module.ts
+- [x] T032 Create Keycloak configuration module in apps/api/src/config/keycloak.config.ts
+- [x] T033 Create Keycloak auth service in apps/api/src/modules/identity/application/services/keycloak-auth.service.ts
+- [x] T034 Create Keycloak JWT strategy in apps/api/src/modules/identity/application/strategies/jwt.strategy.ts
+- [x] T035 Create Keycloak auth guard in apps/api/src/modules/identity/application/guards/keycloak-auth.guard.ts
+- [x] T036 Create JWT auth guard in apps/api/src/modules/identity/application/guards/jwt-auth.guard.ts
+- [x] T037 Create auth controller with callback and logout endpoints in apps/api/src/modules/identity/presentation/controllers/auth.controller.ts
+- [x] T038 Create Identity module with all providers in apps/api/src/modules/identity/identity.module.ts
 
 ### Application Configuration
 
-- [ ] T039 Create app configuration module in apps/api/src/config/app.config.ts
-- [ ] T040 Setup ConfigModule with all feature configs in apps/api/src/config/
-- [ ] T041 Create main application bootstrap in apps/api/src/main.ts
-- [ ] T042 Create root AppModule in apps/api/src/app.module.ts
+- [x] T039 Create app configuration module in apps/api/src/config/app.config.ts
+- [x] T040 Setup ConfigModule with all feature configs in apps/api/src/config/
+- [x] T041 Create main application bootstrap in apps/api/src/main.ts
+- [x] T042 Create root AppModule in apps/api/src/app.module.ts
 
 ### Common Infrastructure
 
-- [ ] T043 Create exception filter for error handling in apps/api/src/common/filters/http-exception.filter.ts
-- [ ] T044 [P] Create validation pipe in apps/api/src/common/pipes/validation.pipe.ts
-- [ ] T045 [P] Create logging interceptor in apps/api/src/common/interceptors/logging.interceptor.ts
-- [ ] T046 [P] Create request logging middleware in apps/api/src/common/middleware/request-logger.middleware.ts
+- [x] T043 Create exception filter for error handling in apps/api/src/common/filters/http-exception.filter.ts
+- [x] T044 [P] Create validation pipe in apps/api/src/common/pipes/validation.pipe.ts
+- [x] T045 [P] Create logging interceptor in apps/api/src/common/interceptors/logging.interceptor.ts
+- [x] T046 [P] Create request logging middleware in apps/api/src/common/middleware/request-logger.middleware.ts
 
 ### Handlebars Templating Setup
 
-- [ ] T047 Configure Handlebars engine in main.ts for server-side rendering
-- [ ] T048 Create base template structure (public.hbs, authenticated.hbs, admin.hbs) in apps/api/src/views/templates/
-- [ ] T049 Create view helpers registration for Handlebars in apps/api/src/views/helpers/
+- [x] T047 Configure Handlebars engine in main.ts for server-side rendering
+- [x] T048 Create base template structure (public.hbs, authenticated.hbs, admin.hbs) in apps/api/src/views/templates/
+- [x] T049 Create view helpers registration for Handlebars in apps/api/src/views/helpers/
 
 ### Testing Infrastructure
 

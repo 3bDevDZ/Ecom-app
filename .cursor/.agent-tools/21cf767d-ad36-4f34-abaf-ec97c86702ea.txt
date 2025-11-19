@@ -1,0 +1,518 @@
+[Terminal output truncated: ~162KB dropped from beginning]
+ifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.74]         ----- Inner Stack Trace #5 (System.InvalidOperationException) -----
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+[xUnit.net 00:00:00.74]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.74]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.73]     HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests.CreateRoute_WithValidCommand_ShouldReturnCreated [FAIL]
+[xUnit.net 00:00:00.78]       System.AggregateException : Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.)
+[xUnit.net 00:00:00.78]       ---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+[xUnit.net 00:00:00.78]       -------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+[xUnit.net 00:00:00.78]       ---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+[xUnit.net 00:00:00.78]       -------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+[xUnit.net 00:00:00.78]       ---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+[xUnit.net 00:00:00.78]       -------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+[xUnit.net 00:00:00.78]       ---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+[xUnit.net 00:00:00.78]       -------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+[xUnit.net 00:00:00.78]       ---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+[xUnit.net 00:00:00.78]       -------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+[xUnit.net 00:00:00.78]       Stack Trace:
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+[xUnit.net 00:00:00.78]         E:\TMS\backend\HydraPharm.TMS.Api\Program.cs(102,0): at Program.<Main>$(String[] args)
+[xUnit.net 00:00:00.78]            at InvokeStub_Program.<Main>$(Object, Span`1)
+[xUnit.net 00:00:00.78]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.CreateHost()
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.Hosting.HostFactoryResolver.<>c__DisplayClass10_0.<ResolveHostFactory>b__0(String[] args)
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.DeferredHostBuilder.Build()
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateHost(IHostBuilder builder)
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.DelegatedWebApplicationFactory.CreateHost(IHostBuilder builder)
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.ConfigureHostBuilder(IHostBuilder hostBuilder)
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.EnsureServer()
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(DelegatingHandler[] handlers)
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(Uri baseAddress, DelegatingHandler[] handlers)
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient(WebApplicationFactoryClientOptions options)
+[xUnit.net 00:00:00.78]            at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient()
+[xUnit.net 00:00:00.78]         E:\TMS\backend\HydraPharm.TMS.Tests\Integration\Controllers\RoutesControllerTests.cs(26,0): at HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests..ctor(WebApplicationFactory`1 factory)
+[xUnit.net 00:00:00.78]            at InvokeStub_RoutesControllerTests..ctor(Object, Span`1)
+[xUnit.net 00:00:00.78]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace #1 (System.InvalidOperationException) -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace #2 (System.InvalidOperationException) -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace #3 (System.InvalidOperationException) -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace #4 (System.InvalidOperationException) -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace #5 (System.InvalidOperationException) -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+[xUnit.net 00:00:00.78]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+[xUnit.net 00:00:00.78]            at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+[xUnit.net 00:00:00.79]   Finished:    HydraPharm.TMS.Tests
+[xUnit.net 00:00:00.77]     HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests.CreateRoute_WithInvalidCommand_ShouldReturnBadRequest [FAIL]
+  Failed HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests.GetRoutesByStatus_WithValidStatus_ShouldReturnRoutes [1 ms]
+  Error Message:
+   System.AggregateException : Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.)
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+  Stack Trace:
+     at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in E:\TMS\backend\HydraPharm.TMS.Api\Program.cs:line 102
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.CreateHost()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.<>c__DisplayClass10_0.<ResolveHostFactory>b__0(String[] args)
+   at Microsoft.AspNetCore.Mvc.Testing.DeferredHostBuilder.Build()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.DelegatedWebApplicationFactory.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.ConfigureHostBuilder(IHostBuilder hostBuilder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.EnsureServer()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(Uri baseAddress, DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient(WebApplicationFactoryClientOptions options)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient()
+   at HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests..ctor(WebApplicationFactory`1 factory) in E:\TMS\backend\HydraPharm.TMS.Tests\Integration\Controllers\RoutesControllerTests.cs:line 26
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+----- Inner Stack Trace #1 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #2 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #3 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #4 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #5 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+  Failed HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests.OptimizeRoute_WithValidCommand_ShouldReturnOptimizedRoute [1 ms]
+  Error Message:
+   System.AggregateException : Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.)
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+  Stack Trace:
+     at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in E:\TMS\backend\HydraPharm.TMS.Api\Program.cs:line 102
+   at InvokeStub_Program.<Main>$(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.CreateHost()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.<>c__DisplayClass10_0.<ResolveHostFactory>b__0(String[] args)
+   at Microsoft.AspNetCore.Mvc.Testing.DeferredHostBuilder.Build()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.DelegatedWebApplicationFactory.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.ConfigureHostBuilder(IHostBuilder hostBuilder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.EnsureServer()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(Uri baseAddress, DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient(WebApplicationFactoryClientOptions options)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient()
+   at HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests..ctor(WebApplicationFactory`1 factory) in E:\TMS\backend\HydraPharm.TMS.Tests\Integration\Controllers\RoutesControllerTests.cs:line 26
+   at InvokeStub_RoutesControllerTests..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace #1 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #2 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #3 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #4 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #5 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+  Failed HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests.GetRoute_WithValidId_ShouldReturnRoute [1 ms]
+  Error Message:
+   System.AggregateException : Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.)
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+  Stack Trace:
+     at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in E:\TMS\backend\HydraPharm.TMS.Api\Program.cs:line 102
+   at InvokeStub_Program.<Main>$(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.CreateHost()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.<>c__DisplayClass10_0.<ResolveHostFactory>b__0(String[] args)
+   at Microsoft.AspNetCore.Mvc.Testing.DeferredHostBuilder.Build()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.DelegatedWebApplicationFactory.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.ConfigureHostBuilder(IHostBuilder hostBuilder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.EnsureServer()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(Uri baseAddress, DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient(WebApplicationFactoryClientOptions options)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient()
+   at HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests..ctor(WebApplicationFactory`1 factory) in E:\TMS\backend\HydraPharm.TMS.Tests\Integration\Controllers\RoutesControllerTests.cs:line 26
+   at InvokeStub_RoutesControllerTests..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace #1 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #2 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #3 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #4 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #5 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+  Failed HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests.CreateRoute_WithValidCommand_ShouldReturnCreated [1 ms]
+  Error Message:
+   System.AggregateException : Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.)
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+  Stack Trace:
+     at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in E:\TMS\backend\HydraPharm.TMS.Api\Program.cs:line 102
+   at InvokeStub_Program.<Main>$(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.CreateHost()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.<>c__DisplayClass10_0.<ResolveHostFactory>b__0(String[] args)
+   at Microsoft.AspNetCore.Mvc.Testing.DeferredHostBuilder.Build()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.DelegatedWebApplicationFactory.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.ConfigureHostBuilder(IHostBuilder hostBuilder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.EnsureServer()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(Uri baseAddress, DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient(WebApplicationFactoryClientOptions options)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient()
+   at HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests..ctor(WebApplicationFactory`1 factory) in E:\TMS\backend\HydraPharm.TMS.Tests\Integration\Controllers\RoutesControllerTests.cs:line 26
+   at InvokeStub_RoutesControllerTests..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace #1 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #2 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #3 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #4 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #5 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+  Failed HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests.CreateRoute_WithInvalidCommand_ShouldReturnBadRequest [1 ms]
+  Error Message:
+   System.AggregateException : Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.) (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.)
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQuery,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRouteByIdQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQuery,System.Collections.Generic.List`1[HydraPharm.TMS.Domain.Logistics.Route]] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Queries.GetRoutesByStatusQueryHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommand,HydraPharm.TMS.Application.Routes.Commands.CreateRouteResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.CreateRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommand,HydraPharm.TMS.Domain.Logistics.Route] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Routes.Repositories.IRouteRepository' while attempting to activate 'HydraPharm.TMS.Application.Routes.Commands.OptimizeRouteCommandHandler'.
+---- System.InvalidOperationException : Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommand,HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusResult] Lifetime: Transient ImplementationType: HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler': Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+-------- System.InvalidOperationException : Unable to resolve service for type 'HydraPharm.TMS.Application.Common.IDeliveryRepository' while attempting to activate 'HydraPharm.TMS.Application.Deliveries.Commands.UpdateDeliveryStatusCommandHandler'.
+  Stack Trace:
+     at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in E:\TMS\backend\HydraPharm.TMS.Api\Program.cs:line 102
+   at InvokeStub_Program.<Main>$(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.CreateHost()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.<>c__DisplayClass10_0.<ResolveHostFactory>b__0(String[] args)
+   at Microsoft.AspNetCore.Mvc.Testing.DeferredHostBuilder.Build()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.DelegatedWebApplicationFactory.CreateHost(IHostBuilder builder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.ConfigureHostBuilder(IHostBuilder hostBuilder)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.EnsureServer()
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateDefaultClient(Uri baseAddress, DelegatingHandler[] handlers)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient(WebApplicationFactoryClientOptions options)
+   at Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateClient()
+   at HydraPharm.TMS.Tests.Integration.Controllers.RoutesControllerTests..ctor(WebApplicationFactory`1 factory) in E:\TMS\backend\HydraPharm.TMS.Tests\Integration\Controllers\RoutesControllerTests.cs:line 26
+   at InvokeStub_RoutesControllerTests..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace #1 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #2 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #3 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #4 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+----- Inner Stack Trace #5 (System.InvalidOperationException) -----
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+----- Inner Stack Trace -----
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateArgumentCallSites(ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain, ParameterInfo[] parameters, Boolean throwIfCallSiteNotFound)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.CreateConstructorCallSite(ResultCache lifetime, ServiceIdentifier serviceIdentifier, Type implementationType, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.TryCreateExact(ServiceDescriptor descriptor, ServiceIdentifier serviceIdentifier, CallSiteChain callSiteChain, Int32 slot)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+
+Total tests: 5
+     Failed: 5
+ Total time: 1,6636 Seconds
+       _VSTestConsole:
+         MSB4181: The "VSTestTask" task returned false but did not log an error.
+     3>Done Building Project "E:\TMS\backend\HydraPharm.TMS.Tests\HydraPharm.TMS.Tests.csproj" (VSTest target(s)) -- FAILED.
+     1>Done Building Project "E:\TMS\backend\HydraPharm.TMS.sln" (VSTest target(s)) -- FAILED.
+
+Build FAILED.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:06.94
+
+Workload updates are available. Run `dotnet workload list` for more information.
+Test Run Failed.

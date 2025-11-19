@@ -1,0 +1,50 @@
+{
+  "name": "ecom-app",
+  "version": "1.0.0",
+  "description": "B2B E-Commerce Platform - Nx Monorepo",
+  "private": true,
+  "scripts": {
+    "start": "cd apps/api && npm run start",
+    "start:dev": "cd apps/api && npm run start:dev",
+    "build": "cd apps/api && npm run build",
+    "build:nx": "nx build api",
+    "test": "cd apps/api && npm test",
+    "test:cov": "cd apps/api && npm run test:cov",
+    "test:e2e": "cd apps/api && npm run test:e2e",
+    "lint": "cd apps/api && npm run lint",
+    "format": "cd apps/api && npm run format",
+    "migration:run": "cd apps/api && npm run migration:run",
+    "migration:generate": "cd apps/api && npm run migration:generate",
+    "migration:revert": "cd apps/api && npm run migration:revert",
+    "nx:serve": "nx serve api",
+    "nx:build": "nx build api",
+    "nx:test": "nx test api",
+    "nx:lint": "nx lint api",
+    "nx:affected:build": "nx affected --target=build",
+    "nx:affected:test": "nx affected --target=test",
+    "nx:affected:lint": "nx affected --target=lint",
+    "nx:dep-graph": "nx dep-graph"
+  },
+  "devDependencies": {
+    "@nx/eslint-plugin": "^18.0.0",
+    "@nx/jest": "^18.0.0",
+    "@nx/js": "^18.0.0",
+    "@nx/nest": "^18.0.0",
+    "@nx/node": "^18.0.0",
+    "@nx/webpack": "^18.0.0",
+    "@nx/workspace": "^18.0.0",
+    "@types/express-session": "^1.18.2",
+    "nx": "^18.0.0",
+    "prettier": "^3.2.0",
+    "typescript": "^5.3.3"
+  },
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "dependencies": {
+    "express-session": "^1.18.2",
+    "passport-custom": "^1.1.1",
+    "tslib": "^2.8.1"
+  }
+}

@@ -9,8 +9,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
     "incremental": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -25,7 +24,9 @@
       "@common/*": ["src/common/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test"]
+    "include": [
+    "src/**/*.ts","src/views/helpers/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "test", "src/public","src/views"]
 }
 

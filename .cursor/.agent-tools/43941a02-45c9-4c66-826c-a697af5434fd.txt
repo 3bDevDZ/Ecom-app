@@ -1,0 +1,912 @@
+questHandler.ts:143:12)                                                               
+          at a (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\getPrismaClient.ts:833:24)                                                                       
+          at Object.<anonymous> (E:\TMS\tms-backend\src\__tests__\database.test.ts:20:7) {                                                                                  
+        code: 'P2003',
+        meta: {
+          modelName: 'ApiKey',
+          constraint: 'api_key_usage_logs_apiKeyId_fkey'
+        },
+        clientVersion: '6.18.0'
+      }
+
+      at Object.log (src/__tests__/database.test.ts:33:15)
+
+  ● Database Integration Tests › Utilisateur (User) Management › should create a new user                                                                                   
+
+    PrismaClientKnownRequestError:
+    Invalid `prisma.utilisateur.create()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:39:45
+
+      36
+      37 describe('Utilisateur (User) Management', () => {
+      38   it('should create a new user', async () => {
+    → 39     const user = await prisma.utilisateur.create(
+    Unique constraint failed on the fields: (`email`)
+
+      37 |   describe('Utilisateur (User) Management', () => {
+      38 |     it('should create a new user', async () => {
+    > 39 |       const user = await prisma.utilisateur.create({
+         |                    ^
+      40 |         data: {
+      41 |           email: 'test@example.com',
+      42 |           motDePasse: 'hashedpassword',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)                                                                           
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:39:20)
+
+  ● Database Integration Tests › Mission Management › should create a mission in DRAFT status                                                                               
+
+    PrismaClientValidationError:
+    Invalid `prisma.mission.create()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:139:44
+
+      136 })
+      137
+      138 it('should create a mission in DRAFT status', async () => {
+    → 139   const mission = await prisma.mission.create({
+              data: {
+                adressePickup: {
+                  street: "123 Pickup Street",
+                  city: "Paris",
+                  postalCode: "75001"
+                },
+                contactPickup: {
+                  name: "John Pickup",
+                  phone: "+33123456789",
+                  email: "pickup@example.com",
+                  code: "EXT001"
+                },
+                fenetrePickup: new Date("2024-01-01T09:00:00.000Z"),
+                adresseLivraison: {
+                  street: "456 Delivery Street",
+                  city: "Lyon",
+                  postalCode: "69001"
+                },
+                contactLivraison: {
+                  name: "Jane Delivery",
+                  phone: "+33987654321",
+                  email: "delivery@example.com",
+                  code: "EXT002"
+                },
+                fenetreLivraison: new Date("2024-01-01T17:00:00.000Z"),
+                createdById: "cmh5gmqgc0004qtz0eo7ixo3r",
+                statut: "DRAFT",
+            +   colis: JsonNullValueInput | Json
+              }
+            })
+
+    Argument `colis` is missing.
+
+      137 |
+      138 |     it('should create a mission in DRAFT status', async () => {
+    > 139 |       const mission = await prisma.mission.create({
+          |                       ^
+      140 |         data: {
+      141 |           adressePickup: {
+      142 |             street: '123 Pickup Street',
+
+      at Nn (node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:45:9)                                                                  
+      at ei.throwValidationException [as handleRequestError] (node_modules/@prisma/client/src/runtime/RequestHandler.ts:202:7)                                              
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:139:23)
+
+  ● Database Integration Tests › Mission Management › should update mission from DRAFT to EN_COURS                                                                          
+
+    PrismaClientValidationError:
+    Invalid `prisma.mission.create()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:176:44
+
+      173 })
+      174
+      175 it('should update mission from DRAFT to EN_COURS', async () => {
+    → 176   const mission = await prisma.mission.create({
+              data: {
+                adressePickup: {
+                  street: "123 Test St",
+                  city: "Paris"
+                },
+                contactPickup: {
+                  name: "Test",
+                  phone: "+33123456789"
+                },
+                fenetrePickup: new Date("2024-01-01T09:00:00.000Z"),
+                adresseLivraison: {
+                  street: "456 Test Ave",
+                  city: "Lyon"
+                },
+                contactLivraison: {
+                  name: "Test",
+                  phone: "+33987654321"
+                },
+                fenetreLivraison: new Date("2024-01-01T17:00:00.000Z"),
+                createdById: "cmh5gmqji0008qtz0t1zfx0jb",
+                chauffeurId: "cmh5gmqju0009qtz03w9iruhd",
+                statut: "DRAFT",
+            +   colis: JsonNullValueInput | Json
+              }
+            })
+
+    Argument `colis` is missing.
+
+      174 |
+      175 |     it('should update mission from DRAFT to EN_COURS', async () => {      
+    > 176 |       const mission = await prisma.mission.create({
+          |                       ^
+      177 |         data: {
+      178 |           adressePickup: { street: '123 Test St', city: 'Paris' },        
+      179 |           contactPickup: { name: 'Test', phone: '+33123456789' },
+
+      at Nn (node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:45:9)                                                                  
+      at ei.throwValidationException [as handleRequestError] (node_modules/@prisma/client/src/runtime/RequestHandler.ts:202:7)                                              
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:176:23)
+
+  ● Database Integration Tests › Mission Management › should delete mission in DRAFT status                                                                                 
+
+    PrismaClientValidationError: 
+    Invalid `prisma.mission.create()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:199:44
+
+      196 })
+      197
+      198 it('should delete mission in DRAFT status', async () => {
+    → 199   const mission = await prisma.mission.create({
+              data: {
+                adressePickup: {
+                  street: "123 Test St",
+                  city: "Paris"
+                },
+                contactPickup: {
+                  name: "Test",
+                  phone: "+33123456789"
+                },
+                fenetrePickup: new Date("2024-01-01T09:00:00.000Z"),
+                adresseLivraison: {
+                  street: "456 Test Ave",
+                  city: "Lyon"
+                },
+                contactLivraison: {
+                  name: "Test",
+                  phone: "+33987654321"
+                },
+                fenetreLivraison: new Date("2024-01-01T17:00:00.000Z"),
+                createdById: "cmh5gmqmc000cqtz0fv9rfxcp",
+                statut: "DRAFT",
+            +   colis: JsonNullValueInput | Json
+              }
+            })
+
+    Argument `colis` is missing.
+
+      197 |
+      198 |     it('should delete mission in DRAFT status', async () => {
+    > 199 |       const mission = await prisma.mission.create({
+          |                       ^
+      200 |         data: {
+      201 |           adressePickup: { street: '123 Test St', city: 'Paris' },        
+      202 |           contactPickup: { name: 'Test', phone: '+33123456789' },
+
+      at Nn (node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:45:9)                                                                  
+      at ei.throwValidationException [as handleRequestError] (node_modules/@prisma/client/src/runtime/RequestHandler.ts:202:7)                                              
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:199:23)
+
+  ● Database Integration Tests › File Upload System › should create file metadata     
+
+    PrismaClientKnownRequestError:
+    Invalid `prisma.fileMetadata.create()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:303:54
+
+      300 })
+      301
+      302 it('should create file metadata', async () => {
+    → 303   const fileMetadata = await prisma.fileMetadata.create(
+    Foreign key constraint violated on the constraint: `file_metadata_uploadedById_fkey`                                                                                    
+
+      301 |
+      302 |     it('should create file metadata', async () => {
+    > 303 |       const fileMetadata = await prisma.fileMetadata.create({
+          |                            ^
+      304 |         data: {
+      305 |           fileName: 'test-document.pdf',
+      306 |           filePath: '/uploads/test-document.pdf',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)                                                                           
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:303:28)
+
+  ● Database Integration Tests › File Upload System › should list files by chauffeur  
+
+    PrismaClientKnownRequestError:
+    Invalid `prisma.fileMetadata.createMany()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:325:33
+
+      322
+      323 it('should list files by chauffeur', async () => {
+      324   // Create multiple files
+    → 325   await prisma.fileMetadata.createMany(
+    Foreign key constraint violated on the constraint: `file_metadata_uploadedById_fkey`                                                                                    
+
+      323 |     it('should list files by chauffeur', async () => {
+      324 |       // Create multiple files
+    > 325 |       await prisma.fileMetadata.createMany({
+          |       ^
+      326 |         data: [
+      327 |           {
+      328 |             fileName: 'doc1.pdf',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)                                                                           
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:325:7)
+
+  ● Database Integration Tests › API Key Management › should create an API key        
+
+    PrismaClientValidationError:
+    Invalid `prisma.apiKey.create()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:382:42
+
+      379 })
+      380
+      381 it('should create an API key', async () => {
+    → 382   const apiKey = await prisma.apiKey.create({
+              data: {
+                name: "Test API Key",
+                description: "API key for testing",
+                systemType: "ERP",
+                permissions: "[\"read:missions\",\"write:missions\"]",
+                isActive: true,
+                createdById: "cmh5gmr95000uqtz0sokg7g4v",
+            +   keyHash: String
+              }
+            })
+
+    Argument `keyHash` is missing.
+
+      380 |
+      381 |     it('should create an API key', async () => {
+    > 382 |       const apiKey = await prisma.apiKey.create({
+          |                      ^
+      383 |         data: {
+      384 |           name: 'Test API Key',
+      385 |           description: 'API key for testing',
+
+      at Nn (node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:45:9)                                                                  
+      at ei.throwValidationException [as handleRequestError] (node_modules/@prisma/client/src/runtime/RequestHandler.ts:202:7)                                              
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:382:22)
+
+  ● Database Integration Tests › API Key Management › should log API key usage        
+
+    PrismaClientValidationError:
+    Invalid `prisma.apiKey.create()` invocation in
+    E:\TMS\tms-backend\src\__tests__\database.test.ts:401:42
+
+      398 })
+      399
+      400 it('should log API key usage', async () => {
+    → 401   const apiKey = await prisma.apiKey.create({
+              data: {
+                name: "Usage Test API Key",
+                description: "API key for usage testing",
+                systemType: "External",
+                permissions: "[\"read:chauffeurs\"]",
+                isActive: true,
+                createdById: "cmh5gmrbv000xqtz03pr2f5is",
+            +   keyHash: String
+              }
+            })
+
+    Argument `keyHash` is missing.
+
+      399 |
+      400 |     it('should log API key usage', async () => {
+    > 401 |       const apiKey = await prisma.apiKey.create({
+          |                      ^
+      402 |         data: {
+      403 |           name: 'Usage Test API Key',
+      404 |           description: 'API key for usage testing',
+
+      at Nn (node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:45:9)                                                                  
+      at ei.throwValidationException [as handleRequestError] (node_modules/@prisma/client/src/runtime/RequestHandler.ts:202:7)                                              
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/database.test.ts:401:22)
+
+ FAIL  src/__tests__/api.test.ts
+  ● Console
+
+    console.log
+      Jest setup - DATABASE_URL: postgresql://tms_user:tms_password_2024@localhost:5432/carpooling_db                                                                       
+
+      at Object.log (jest.setup.js:54:9)
+
+    console.log
+      Cleanup skipped: PrismaClientKnownRequestError:
+      Invalid `prisma.utilisateur.deleteMany()` invocation in
+      E:\TMS\tms-backend\src\__tests__\api.test.ts:45:32
+
+        42 await prisma.document.deleteMany()
+        43 await prisma.vehicule.deleteMany()
+        44 await prisma.chauffeur.deleteMany()
+      → 45 await prisma.utilisateur.deleteMany(
+      Foreign key constraint violated on the constraint: `missions_createdById_fkey`  
+          at ei.handleRequestError (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\RequestHandler.ts:228:13)                                                    
+          at ei.handleAndLogRequestError (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\RequestHandler.ts:174:12)                                              
+          at ei.request (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\RequestHandler.ts:143:12)                                                               
+          at a (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\getPrismaClient.ts:833:24)                                                                       
+          at Object.<anonymous> (E:\TMS\tms-backend\src\__tests__\api.test.ts:45:7) { 
+        code: 'P2003',
+        meta: { modelName: 'Utilisateur', constraint: 'missions_createdById_fkey' },  
+        clientVersion: '6.18.0'
+      }
+
+      at Object.log (src/__tests__/api.test.ts:48:15)
+
+    console.log
+      prisma:query BEGIN
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query INSERT INTO "public"."chauffeurs" ("id","statut","email","telephone","nom","prenom","dateNaissance","noteMoyenne","pointsPenalite","soldeDisponible","disponibilite","createdAt","updatedAt") VALUES ($1,CAST($2::text AS "public"."StatutChauffeur"),$3,$4,$5,$6,$7,$8,$9,$10,CAST($11::text AS "public"."Disponibilite"),$12,$13) RETURNING "public"."chauffeurs"."id"                                                   
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."chauffeurs"."id", "public"."chauffeurs"."statut"::text, "public"."chauffeurs"."email", "public"."chauffeurs"."telephone", "public"."chauffeurs"."nom", "public"."chauffeurs"."prenom", "public"."chauffeurs"."dateNaissance", 
+"public"."chauffeurs"."siret", "public"."chauffeurs"."iban", "public"."chauffeurs"."noteMoyenne", "public"."chauffeurs"."pointsPenalite", "public"."chauffeurs"."soldeDisponible", "public"."chauffeurs"."disponibilite"::text, "public"."chauffeurs"."createdAt", "public"."chauffeurs"."updatedAt" FROM "public"."chauffeurs" WHERE "public"."chauffeurs"."id" = $1 LIMIT $2 OFFSET $3                                                      
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."vehicules"."id", "public"."vehicules"."type", "public"."vehicules"."marque", "public"."vehicules"."modele", "public"."vehicules"."immatriculation", "public"."vehicules"."volumeChargement", "public"."vehicules"."capaciteCharge", "public"."vehicules"."chauffeurId", "public"."vehicules"."createdAt", "public"."vehicules"."updatedAt" FROM "public"."vehicules" WHERE "public"."vehicules"."chauffeurId" IN ($1) OFFSET $2                                                                 
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."documents"."id", "public"."documents"."type"::text, "public"."documents"."urlFichier", "public"."documents"."dateExpiration", "public"."documents"."statut"::text, "public"."documents"."chauffeurId", "public"."documents"."createdAt", "public"."documents"."updatedAt" FROM "public"."documents" WHERE "public"."documents"."chauffeurId" IN ($1) OFFSET $2                                            
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query COMMIT
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."chauffeurs"."id", "public"."chauffeurs"."statut"::text, "public"."chauffeurs"."email", "public"."chauffeurs"."telephone", "public"."chauffeurs"."nom", "public"."chauffeurs"."prenom", "public"."chauffeurs"."dateNaissance", 
+"public"."chauffeurs"."siret", "public"."chauffeurs"."iban", "public"."chauffeurs"."noteMoyenne", "public"."chauffeurs"."pointsPenalite", "public"."chauffeurs"."soldeDisponible", "public"."chauffeurs"."disponibilite"::text, "public"."chauffeurs"."createdAt", "public"."chauffeurs"."updatedAt" FROM "public"."chauffeurs" WHERE "public"."chauffeurs"."statut" = CAST($1::text AS "public"."StatutChauffeur") ORDER BY "public"."chauffeurs"."createdAt" DESC OFFSET $2                                                       
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."vehicules"."id", "public"."vehicules"."type", "public"."vehicules"."marque", "public"."vehicules"."modele", "public"."vehicules"."immatriculation", "public"."vehicules"."volumeChargement", "public"."vehicules"."capaciteCharge", "public"."vehicules"."chauffeurId", "public"."vehicules"."createdAt", "public"."vehicules"."updatedAt" FROM "public"."vehicules" WHERE "public"."vehicules"."chauffeurId" IN ($1) OFFSET $2                                                                 
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."documents"."id", "public"."documents"."type"::text, "public"."documents"."urlFichier", "public"."documents"."dateExpiration", "public"."documents"."statut"::text, "public"."documents"."chauffeurId", "public"."documents"."createdAt", "public"."documents"."updatedAt" FROM "public"."documents" WHERE "public"."documents"."chauffeurId" IN ($1) OFFSET $2                                            
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."penalites"."id", "public"."penalites"."type"::text, "public"."penalites"."montant", "public"."penalites"."points", "public"."penalites"."motif", "public"."penalites"."dateApplication", "public"."penalites"."chauffeurId", "public"."penalites"."createdAt", "public"."penalites"."updatedAt" FROM "public"."penalites" WHERE "public"."penalites"."chauffeurId" IN ($1) OFFSET $2                      
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:query SELECT "public"."missions"."id", "public"."missions"."referenceExterne", "public"."missions"."statut"::text, "public"."missions"."adressePickup", "public"."missions"."contactPickup", "public"."missions"."fenetrePickup", "public"."missions"."adresseLivraison", "public"."missions"."contactLivraison", "public"."missions"."fenetreLivraison", "public"."missions"."colis", "public"."missions"."remunerationCalculee", "public"."missions"."chauffeurId", "public"."missions"."createdById", "public"."missions"."externalServiceCode", "public"."missions"."priority"::text, "public"."missions"."specialInstructions", "public"."missions"."estimatedDuration", "public"."missions"."actualDuration", "public"."missions"."createdAt", "public"."missions"."updatedAt" FROM "public"."missions" WHERE "public"."missions"."chauffeurId" IN ($1) ORDER BY "public"."missions"."createdAt" DESC LIMIT $2 OFFSET $3                                       
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.log
+      prisma:error
+      Invalid `prisma.mission.create()` invocation in
+      E:\TMS\tms-backend\src\app\api\missions\route.ts:111:42
+
+        108   );
+        109 }
+        110
+      → 111 const mission = await prisma.mission.create({
+              data: {
+                referenceExterne: undefined,
+                adressePickup: {
+                  street: "123 Pickup Street",
+                  city: "Paris",
+                  postalCode: "75001"
+                },
+                contactPickup: {
+                  name: "John Pickup",
+                  phone: "+33123456789",
+                  email: "pickup@example.com",
+                  code: "EXT001"
+                },
+                fenetrePickup: new Date("2024-01-01T09:00:00.000Z"),
+                adresseLivraison: {
+                  street: "456 Delivery Street",
+                  city: "Lyon",
+                  postalCode: "69001"
+                },
+                contactLivraison: {
+                  name: "Jane Delivery",
+                  phone: "+33987654321",
+                  email: "delivery@example.com",
+                  code: "EXT002"
+                },
+                fenetreLivraison: new Date("2024-01-01T17:00:00.000Z"),
+                remunerationCalculee: undefined,
+                chauffeurId: undefined,
+                createdById: "test-user-id",
+                externalServiceCode: undefined,
+                priority: "NORMAL",
+                specialInstructions: "Handle with care",
+                estimatedDuration: undefined,
+                statut: "DRAFT",
+            +   colis: JsonNullValueInput | Json
+              },
+              include: {
+                chauffeur: {
+                  select: {
+                    id: true,
+                    nom: true,
+                    prenom: true,
+                    telephone: true,
+                    email: true
+                  }
+                },
+                createdBy: {
+                  select: {
+                    id: true,
+                    email: true,
+                    role: true
+                  }
+                }
+              }
+            })
+
+      Argument `colis` is missing.
+
+      at Object.zc (node_modules/@prisma/internals/src/logger.ts:13:11)
+
+    console.error
+      Error creating mission: PrismaClientValidationError: 
+      Invalid `prisma.mission.create()` invocation in
+      E:\TMS\tms-backend\src\app\api\missions\route.ts:111:42
+      
+        108   );
+        109 }
+        110 
+      → 111 const mission = await prisma.mission.create({
+              data: {
+                referenceExterne: undefined,
+                adressePickup: {
+                  street: "123 Pickup Street",
+                  city: "Paris",
+                  postalCode: "75001"
+                },
+                contactPickup: {
+                  name: "John Pickup",
+                  phone: "+33123456789",
+                  email: "pickup@example.com",
+                  code: "EXT001"
+                },
+                fenetrePickup: new Date("2024-01-01T09:00:00.000Z"),
+                adresseLivraison: {
+                  street: "456 Delivery Street",
+                  city: "Lyon",
+                  postalCode: "69001"
+                },
+                contactLivraison: {
+                  name: "Jane Delivery",
+                  phone: "+33987654321",
+                  email: "delivery@example.com",
+                  code: "EXT002"
+                },
+                fenetreLivraison: new Date("2024-01-01T17:00:00.000Z"),
+                remunerationCalculee: undefined,
+                chauffeurId: undefined,
+                createdById: "test-user-id",
+                externalServiceCode: undefined,
+                priority: "NORMAL",
+                specialInstructions: "Handle with care",
+                estimatedDuration: undefined,
+                statut: "DRAFT",
+            +   colis: JsonNullValueInput | Json
+              },
+              include: {
+                chauffeur: {
+                  select: {
+                    id: true,
+                    nom: true,
+                    prenom: true,
+                    telephone: true,
+                    email: true
+                  }
+                },
+                createdBy: {
+                  select: {
+                    id: true,
+                    email: true,
+                    role: true
+                  }
+                }
+              }
+            })
+      
+      Argument `colis` is missing.
+          at Nn (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\core\errorRendering\throwValidationException.ts:45:9)                                           
+          at ei.throwValidationException [as handleRequestError] (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\RequestHandler.ts:202:7)                       
+          at ei.handleAndLogRequestError (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\RequestHandler.ts:174:12)                                              
+          at ei.request (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\RequestHandler.ts:143:12)                                                               
+          at a (E:\TMS\tms-backend\node_modules\@prisma\client\src\runtime\getPrismaClient.ts:833:24)                                                                       
+          at POST (E:\TMS\tms-backend\src\app\api\missions\route.ts:111:21)
+          at Object.<anonymous> (E:\TMS\tms-backend\src\__tests__\api.test.ts:197:24) 
+{
+        clientVersion: '6.18.0'
+      }
+
+      150 |     return NextResponse.json(mission, { status: 201 });
+      151 |   } catch (error) {
+    > 152 |     console.error('Error creating mission:', error);
+          |             ^
+      153 |     return NextResponse.json(
+      154 |       { error: 'Internal server error' },
+      155 |       { status: 500 }
+
+      at error (src/app/api/missions/route.ts:152:13)
+      at Object.<anonymous> (src/__tests__/api.test.ts:197:24)
+
+    console.error
+      Mimo upload error: AxiosError {
+        hostname: 'api.mimo.com',
+        syscall: 'getaddrinfo',
+        code: 'EAI_AGAIN',
+        errno: -3001,
+        message: 'getaddrinfo EAI_AGAIN api.mimo.com',
+        name: 'Error',
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: [ 'xhr', 'http', 'fetch' ],
+          transformRequest: [ [Function: transformRequest] ],
+          transformResponse: [ [Function: transformResponse] ],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: { FormData: [Function [FormData]], Blob: [class Blob] },
+          validateStatus: [Function: validateStatus],
+          headers: Object [AxiosHeaders] {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'multipart/form-data; boundary=axios-1.12.2-boundary-bE_tKqtUHHMVOMSfe57Yx5zGz',                                                                
+            Authorization: 'Bearer ',
+            'User-Agent': 'axios/1.12.2',
+            'Content-Length': '769',
+            'Accept-Encoding': 'gzip, compress, deflate, br'
+          },
+          baseURL: 'https://api.mimo.com/v1',
+          method: 'post',
+          url: '/upload',
+          data: FormData {
+            file: File { size: 12, type: '', name: 'test.pdf', lastModified: 1761347176398 },                                                                               
+            bucket: 'tms-delivery-files',
+            category: 'undefined',
+            region: 'us-east-1',
+            metadata: '{"uploadedBy":"test-user-id","chauffeurId":"cmh5gmr9w000bqtkczj15404v","accessLevel":"private"}'                                                     
+          },
+          allowAbsoluteUrls: true
+        },
+        request: <ref *1> Writable {
+          _events: {
+            close: undefined,
+            error: [Function: handleRequestError],
+            prefinish: undefined,
+            finish: undefined,
+            drain: undefined,
+            response: [Function: handleResponse],
+            socket: [Function: handleRequestSocket],
+            unpipe: undefined
+          },
+          _writableState: WritableState {
+            highWaterMark: 16384,
+            length: 0,
+            corked: 0,
+            onwrite: [Function: bound onwrite],
+            writelen: 0,
+            bufferedIndex: 0,
+            pendingcb: 0,
+            [Symbol(kState)]: 17580812,
+            [Symbol(kBufferedValue)]: null
+          },
+          _maxListeners: undefined,
+          _options: {
+            maxRedirects: 21,
+            maxBodyLength: Infinity,
+            protocol: 'https:',
+            path: '/v1/upload',
+            method: 'POST',
+            headers: [Object: null prototype],
+            agents: [Object],
+            auth: undefined,
+            family: undefined,
+            beforeRedirect: [Function: dispatchBeforeRedirect],
+            beforeRedirects: [Object],
+            hostname: 'api.mimo.com',
+            port: '',
+            agent: undefined,
+            nativeProtocols: [Object],
+            pathname: '/v1/upload'
+          },
+          _ended: true,
+          _ending: true,
+          _redirectCount: 0,
+          _redirects: [],
+          _requestBodyLength: 769,
+          _requestBodyBuffers: [
+            [Object], [Object], [Object],
+            [Object], [Object], [Object],
+            [Object], [Object], [Object],
+            [Object], [Object], [Object],
+            [Object], [Object], [Object],
+            [Object], [Object], [Object],
+            [Object], [Object], [Object]
+          ],
+          _eventsCount: 3,
+          _onNativeResponse: [Function (anonymous)],
+          _currentRequest: ClientRequest {
+            _events: [Object: null prototype],
+            _eventsCount: 7,
+            _maxListeners: undefined,
+            outputData: [],
+            outputSize: 0,
+            writable: true,
+            destroyed: false,
+            _last: false,
+            chunkedEncoding: false,
+            shouldKeepAlive: true,
+            maxRequestsOnConnectionReached: false,
+            _defaultKeepAlive: true,
+            useChunkedEncodingByDefault: true,
+            sendDate: false,
+            _removedConnection: false,
+            _removedContLen: false,
+            _removedTE: false,
+            strictContentLength: false,
+            _contentLength: 769,
+            _hasBody: true,
+            _trailer: '',
+            finished: true,
+            _headerSent: true,
+            _closed: false,
+            _header: 'POST /v1/upload HTTP/1.1\r\n' +
+              'Accept: application/json, text/plain, */*\r\n' +
+              'Content-Type: multipart/form-data; boundary=axios-1.12.2-boundary-bE_tKqtUHHMVOMSfe57Yx5zGz\r\n' +                                                           
+              'Authorization: Bearer \r\n' +
+              'User-Agent: axios/1.12.2\r\n' +
+              'Content-Length: 769\r\n' +
+              'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+              'Host: api.mimo.com\r\n' +
+              'Connection: keep-alive\r\n' +
+              '\r\n',
+            _keepAliveTimeout: 0,
+            _onPendingData: [Function: nop],
+            agent: [Agent],
+            socketPath: undefined,
+            method: 'POST',
+            maxHeaderSize: undefined,
+            insecureHTTPParser: undefined,
+            joinDuplicateHeaders: undefined,
+            path: '/v1/upload',
+            _ended: false,
+            res: null,
+            aborted: false,
+            timeoutCb: [Function: emitRequestTimeout],
+            upgradeOrConnect: false,
+            parser: null,
+            maxHeadersCount: null,
+            reusedSocket: false,
+            host: 'api.mimo.com',
+            protocol: 'https:',
+            _redirectable: [Circular *1],
+            [Symbol(shapeMode)]: false,
+            [Symbol(kCapture)]: false,
+            [Symbol(kBytesWritten)]: 0,
+            [Symbol(kNeedDrain)]: false,
+            [Symbol(corked)]: 0,
+            [Symbol(kChunkedBuffer)]: [],
+            [Symbol(kChunkedLength)]: 0,
+            [Symbol(kSocket)]: [TLSSocket],
+            [Symbol(kOutHeaders)]: [Object: null prototype],
+            [Symbol(errored)]: null,
+            [Symbol(kHighWaterMark)]: 16384,
+            [Symbol(kRejectNonStandardBodyWrites)]: false,
+            [Symbol(kUniqueHeaders)]: null
+          },
+          _currentUrl: 'https://api.mimo.com/v1/upload',
+          [Symbol(shapeMode)]: true,
+          [Symbol(kCapture)]: false
+        }
+      }
+
+      90 |       }
+      91 |     } catch (error) {
+    > 92 |       console.error('Mimo upload error:', error)
+         |               ^
+      93 |       throw new Error('Failed to upload file to Mimo')
+      94 |     }
+      95 |   }
+
+      at MimoService.error [as uploadFile] (src/lib/mimo.ts:92:15)
+      at POST (src/app/api/upload/document/route.ts:52:24)
+      at Object.<anonymous> (src/__tests__/api.test.ts:307:24)
+
+    console.error
+      Error uploading document: Error: Failed to upload file to Mimo
+          at MimoService.uploadFile (E:\TMS\tms-backend\src\lib\mimo.ts:93:13)        
+          at processTicksAndRejections (node:internal/process/task_queues:105:5)      
+          at POST (E:\TMS\tms-backend\src\app\api\upload\document\route.ts:52:24)     
+          at Object.<anonymous> (E:\TMS\tms-backend\src\__tests__\api.test.ts:307:24) 
+
+      103 |     });
+      104 |   } catch (error) {
+    > 105 |     console.error('Error uploading document:', error);
+          |             ^
+      106 |     return NextResponse.json(
+      107 |       { error: 'Internal server error' },
+      108 |       { status: 500 }
+
+      at error (src/app/api/upload/document/route.ts:105:13)
+      at Object.<anonymous> (src/__tests__/api.test.ts:307:24)
+
+  ● API Integration Tests › Chauffeurs API › should get all chauffeurs
+
+    PrismaClientKnownRequestError:
+    Invalid `prisma.chauffeur.createMany()` invocation in
+    E:\TMS\tms-backend\src\__tests__\api.test.ts:55:30
+
+      52 describe('Chauffeurs API', () => {
+      53   it('should get all chauffeurs', async () => {
+      54     // Create test data
+    → 55     await prisma.chauffeur.createMany(
+    Unique constraint failed on the fields: (`email`)
+
+      53 |     it('should get all chauffeurs', async () => {
+      54 |       // Create test data
+    > 55 |       await prisma.chauffeur.createMany({
+         |       ^
+      56 |         data: [
+      57 |           {
+      58 |             email: 'driver1@example.com',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)                                                                           
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/api.test.ts:55:7)
+
+  ● API Integration Tests › Missions API › should create a mission in DRAFT status    
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      198 |       const data = await response.json()
+      199 |
+    > 200 |       expect(response.status).toBe(201)
+          |                               ^
+      201 |       expect(data.statut).toBe('DRAFT') // Default status
+      202 |       expect(data.priority).toBe('NORMAL')
+      203 |       expect(data.specialInstructions).toBe('Handle with care')
+
+      at Object.toBe (src/__tests__/api.test.ts:200:31)
+
+  ● API Integration Tests › Missions API › should get missions with filtering
+
+    PrismaClientValidationError:
+    Invalid `prisma.mission.createMany()` invocation in
+    E:\TMS\tms-backend\src\__tests__\api.test.ts:211:28
+
+      208
+      209 it('should get missions with filtering', async () => {
+      210   // Create test missions
+    → 211   await prisma.mission.createMany({
+              data: [
+                {
+                  adressePickup: {
+                    street: "123 Test St",
+                    city: "Paris"
+                  },
+                  contactPickup: {
+                    name: "Test",
+                    phone: "+33123456789"
+                  },
+                  fenetrePickup: new Date("2024-01-01T09:00:00.000Z"),
+                  adresseLivraison: {
+                    street: "456 Test Ave",
+                    city: "Lyon"
+                  },
+                  contactLivraison: {
+                    name: "Test",
+                    phone: "+33987654321"
+                  },
+                  fenetreLivraison: new Date("2024-01-01T17:00:00.000Z"),
+                  createdById: "cmh5gmr5o0008qtkc0b0lbf4h",
+                  statut: "DRAFT",
+                  priority: "NORMAL"
+                },
+                {
+                  adressePickup: {
+                    street: "789 Test Blvd",
+                    city: "Marseille"
+                  },
+                  contactPickup: {
+                    name: "Test2",
+                    phone: "+33555666777"
+                  },
+                  fenetrePickup: new Date("2024-01-02T09:00:00.000Z"),
+                  adresseLivraison: {
+                    street: "321 Test Rd",
+                    city: "Nice"
+                  },
+                  contactLivraison: {
+                    name: "Test2",
+                    phone: "+33888999000"
+                  },
+                  fenetreLivraison: new Date("2024-01-02T17:00:00.000Z"),
+                  createdById: "cmh5gmr5o0008qtkc0b0lbf4h",
+                  statut: "EN_COURS",
+                  priority: "HIGH"
+                }
+              ]
+            })
+
+    Argument `colis` is missing.
+
+      209 |     it('should get missions with filtering', async () => {
+      210 |       // Create test missions
+    > 211 |       await prisma.mission.createMany({
+          |       ^
+      212 |         data: [
+      213 |           {
+      214 |             adressePickup: { street: '123 Test St', city: 'Paris' },      
+
+      at Nn (node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:45:9)                                                                  
+      at ei.throwValidationException [as handleRequestError] (node_modules/@prisma/client/src/runtime/RequestHandler.ts:202:7)                                              
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)                                                                     
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)        
+      at Object.<anonymous> (src/__tests__/api.test.ts:211:7)
+
+  ● API Integration Tests › File Upload API › should handle file upload request       
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 500
+
+      308 |       const data = await response.json()
+      309 |
+    > 310 |       expect(response.status).toBe(200)
+          |                               ^
+      311 |       expect(data.success).toBe(true)
+      312 |       expect(data.fileMetadata).toBeDefined()
+      313 |       expect(data.fileMetadata.fileName).toBe('test.pdf')
+
+      at Object.toBe (src/__tests__/api.test.ts:310:31)
+
+Test Suites: 2 failed, 1 passed, 3 total
+Tests:       12 failed, 17 passed, 29 total
+Snapshots:   0 total
+Time:        6.093 s, estimated 13 s
+Ran all test suites.

@@ -1,0 +1,519 @@
+      at setupTestDatabase (src/lib/test-db.ts:53:11)
+      at Object.<anonymous> (src/__tests__/api.test.ts:23:37)
+
+  ● API Integration Tests › Missions API › should create a mission in DRAFT status    
+
+    Command failed: npx prisma generate --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: 
+    EPERM: operation not permitted, rename 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node.tmp30764' -> 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node'                                              
+
+      17 | beforeAll(async () => {
+      18 |   // Generate the Prisma client for the test schema
+    > 19 |   execSync('npx prisma generate --schema=./prisma/schema.test.prisma', {   
+         |           ^
+      20 |     env: {
+      21 |       ...process.env,
+      22 |       DATABASE_URL: databaseURL,
+
+      at Object.<anonymous> (src/lib/test-db.ts:19:11)
+
+  ● API Integration Tests › Missions API › should create a mission in DRAFT status    
+
+    Command failed: npx prisma db push --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: Error in RPC
+     Request: {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "schemaPush",
+      "params": {
+        "force": false,
+        "schema": {
+          "files": [
+            {
+              "path": "E:\\TMS\\tms-backend\\prisma\\schema.test.prisma",
+              "content": "// This is your Prisma schema file for testing,\r\n// learn 
+more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\ngenerator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"sqlite\"\r\n  url      = \"file:./test.db\"\r\n}\r\n\r\n// Import all models from the main schema\r\n// We'll use the same models but with SQLite for testing\r\n\r\nmodel Utilisateur {\r\n  id            String          @id @default(cuid())\r\n  email         String          @unique\r\n  motDePasse    String\r\n  role          TypeUtilisateur\r\n  createdAt     DateTime        @default(now())\r\n  updatedAt     DateTime        @updatedAt\r\n\r\n  // Relations\r\n  createdApiKeys ApiKey[] @relation(\"CreatedBy\")\r\n  createdMissions Mission[] @relation(\"MissionCreatedBy\")\r\n  uploadedFiles FileMetadata[] @relation(\"FileUploadedBy\")\r\n\r\n  @@map(\"utilisateurs\")\r\n}\r\n\r\nmodel Chauffeur {\r\n  id                String            @id @default(cuid())\r\n  statut           StatutChauffeur   @default(EN_INSCRIPTION)\r\n  email            String 
+           @unique\r\n  telephone        String\r\n  nom              String\r\n  prenom           String\r\n  dateNaissance    DateTime\r\n  siret            String?\r\n  
+iban             String?\r\n  noteMoyenne      Float?            @default(0.0)\r\n  pointsPenalite   Int              @default(0)\r\n  soldeDisponible  Float            @default(0.0)\r\n  disponibilite    Disponibilite    @default(DISPONIBLE)\r\n  createdAt 
+       DateTime         @default(now())\r\n  updatedAt        DateTime         @updatedAt\r\n\r\n  // Relations\r\n  vehicules        Vehicule[]\r\n  missions         Mission[]\r\n  documents        Document[]\r\n  penalites        Penalite[]\r\n  paiements 
+       Paiement[]\r\n  preuvesLivraison PreuveDeLivraison[]\r\n  trackingPoints   TrackingPoint[]\r\n  uploadedFiles    FileMetadata[]\r\n\r\n  @@map(\"chauffeurs\")\r\n}\r\n\r\nmodel Vehicule {\r\n  id                String   @id @default(cuid())\r\n  type 
+             String\r\n  marque            String\r\n  modele            String\r\n  immatriculation   String   @unique\r\n  volumeChargement  Float\r\n  capaciteCharge    
+Float\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"vehicules\")\r\n}\r\n\r\nmodel Document {\r\n  id            String         @id @default(cuid())\r\n  
+type          TypeDocument\r\n  urlFichier    String\r\n  dateExpiration DateTime?\r\n  statut        StatutDocument @default(A_VERIFIER)\r\n  chauffeurId   String\r\n  createdAt     DateTime       @default(now())\r\n  updatedAt     DateTime       @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"documents\")\r\n}\r\n\r\nmodel Penalite {\r\n  id       
+      String        @id @default(cuid())\r\n  type           TypePenalite\r\n  montant        Float\r\n  points         Int\r\n  motif          String\r\n  dateApplication 
+DateTime\r\n  chauffeurId    String\r\n  createdAt      DateTime      @default(now())\r\n  updatedAt      DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"penalites\")\r\n}\r\n\r\nmodel Mission {\r\n  id                    String        @id @default(cuid())\r\n  referenceExterne      String?       @unique\r\n  statut                StatutMission @default(DRAFT)\r\n  adressePickup         Json          // Adresse object\r\n  contactPickup         Json          // ContactPickup object with phone, code, etc.\r\n  fenetrePickup         DateTime\r\n  adresseLivraison      Json          // Adresse object\r\n  contactLivraison      Json          // ContactLivraison object with phone, code, etc.\r\n  fenetreLivraison      DateTime\r\n  colis                 Json?    
+     // Colis object\r\n  remunerationCalculee Float?\r\n  chauffeurId           String?\r\n  createdById           String\r\n  externalServiceCode   String?\r\n  priority 
+             Priority      @default(NORMAL)\r\n  specialInstructions   String?\r\n  estimatedDuration     Int?          // Estimated duration in minutes\r\n  actualDuration        Int?          // Actual duration in minutes\r\n  createdAt             DateTime      @default(now())\r\n  updatedAt             DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur         Chauffeur?         @relation(fields: [chauffeurId], 
+references: [id])\r\n  createdBy         Utilisateur       @relation(\"MissionCreatedBy\", fields: [createdById], references: [id])\r\n  preuvesLivraison  PreuveDeLivraison[]\r\n  trackingPoints    TrackingPoint[]\r\n  paiements         Paiement[]\r\n  uploadedFiles     FileMetadata[]\r\n\r\n  @@map(\"missions\")\r\n}\r\n\r\nmodel PreuveDeLivraison {\r\n  id                String   @id @default(cuid())\r\n  urlPhoto          String?\r\n  urlSignature      String?\r\n  nomDestinataire   String\r\n  commentaire  
+     String?\r\n  dateLivraison     DateTime\r\n  gpsLivraison      String?\r\n  missionId         String\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"preuves_livraison\")\r\n}\r\n\r\nmodel TrackingPoint {\r\n  id          String   @id @default(cuid())\r\n  latitude    Float\r\n  longitude   Float\r\n  horodatage  DateTime\r\n  vitesse     Float?\r\n  precision   Float?\r\n  missionId   String\r\n  chauffeurId String\r\n  createdAt   DateTime @default(now())\r\n\r\n  // Relations\r\n  mission   Mission  
+ @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"tracking_points\")\r\n}\r\n\r\nmodel Paiement {\r\n  id                String        @id @default(cuid())\r\n  datePaiement      DateTime\r\n  montantNet        Float\r\n  montantBrut       Float\r\n  
+statut            StatutPaiement @default(EN_COURS)\r\n  type              TypePaiement\r\n  referenceVirement String?\r\n  missionId         String\r\n  chauffeurId       
+String\r\n  factureId         String?\r\n  createdAt         DateTime      @default(now())\r\n  updatedAt         DateTime      @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n  facture  Facture?  @relation(fields: [factureId], references: [id])\r\n\r\n  @@map(\"paiements\")\r\n}\r\n\r\nmodel Facture {\r\n  id            String        @id @default(cuid())\r\n  numero        String        @unique\r\n  dateEmission  DateTime\r\n  montantTotal  Float\r\n  urlPdf 
+       String?\r\n  statut        StatutFacture @default(EMISE)\r\n  createdAt     DateTime      @default(now())\r\n  updatedAt     DateTime      @updatedAt\r\n\r\n  // Relations\r\n  paiements Paiement[]\r\n\r\n  @@map(\"factures\")\r\n}\r\n\r\nmodel ApiKey {\r\n  id            String   @id @default(cuid())\r\n  name          String\r\n  description   String?\r\n  systemType    SystemType\r\n  permissions   String // JSON string of permissions array\r\n  isActive      Boolean  @default(true)\r\n  expiresAt    
+ DateTime?\r\n  lastUsedAt    DateTime?\r\n  createdById   String\r\n  createdAt     DateTime @default(now())\r\n  updatedAt     DateTime @updatedAt\r\n\r\n  // Relations\r\n  createdBy Utilisateur @relation(\"CreatedBy\", fields: [createdById], references: 
+[id])\r\n  usageLogs ApiKeyUsageLog[]\r\n\r\n  @@map(\"api_keys\")\r\n}\r\n\r\nmodel ApiKeyUsageLog {\r\n  id        String   @id @default(cuid())\r\n  apiKeyId  String\r\n  endpoint  String\r\n  method    String\r\n  ipAddress String?\r\n  userAgent String?\r\n  timestamp DateTime @default(now())\r\n\r\n  // Relations\r\n  apiKey ApiKey @relation(fields: [apiKeyId], references: [id])\r\n\r\n  @@map(\"api_key_usage_logs\")\r\n}\r\n\r\nmodel FileMetadata {\r\n  id                String          @id @default(cuid())\r\n  fileName          String\r\n  filePath          String\r\n  fileSize         
+ BigInt\r\n  fileType          String\r\n  mimeType          String\r\n  storageCategory   StorageCategory\r\n  mimoFileId        String?         @unique\r\n  cdnUrl       
+     String?\r\n  thumbnailUrl      String?\r\n  accessLevel       String          @default(\"private\")\r\n  uploadedById      String\r\n  chauffeurId       String?\r\n  missionId         String?\r\n  createdAt         DateTime        @default(now())\r\n  updatedAt         DateTime        @updatedAt\r\n\r\n  // Relations\r\n  uploadedBy     
+   Utilisateur     @relation(\"FileUploadedBy\", fields: [uploadedById], references: [id])\r\n  chauffeur         Chauffeur?      @relation(fields: [chauffeurId], references: [id])\r\n  mission           Mission?        @relation(fields: [missionId], references: [id])\r\n\r\n  @@map(\"file_metadata\")\r\n}\r\n\r\n// Enums\r\nenum TypeUtilisateur {\r\n  CHAUFFEUR\r\n  DISPATCHER\r\n  VALIDATEUR\r\n  COMPTABLE\r\n  ADMIN\r\n}\r\n\r\nenum StatutChauffeur {\r\n  EN_INSCRIPTION\r\n  EN_ATTENTE_VALIDATION\r\n  CORRECTIONS_DEMANDEES\r\n  APPROUVE\r\n  REJETE\r\n  SUSPENDU\r\n  BLOQUE\r\n  INACTIF\r\n}\r\n\r\nenum Disponibilite {\r\n  DISPONIBLE\r\n  INDISPONIBLE\r\n  EN_MISSION\r\n}\r\n\r\nenum TypeDocument {\r\n  CARTE_IDENTITE\r\n  PERMIS\r\n  ASSURANCE\r\n  CARTE_GRISE\r\n  RIB\r\n  KBIS\r\n}\r\n\r\nenum StatutDocument {\r\n  VALIDE\r\n  EXPIRE\r\n  A_VERIFIER\r\n}\r\n\r\nenum TypePenalite {\r\n  RETARD_LEGER\r\n  RETARD_MOYEN\r\n  RETARD_IMPORTANT\r\n  ANNULATION_TARDIVE\r\n  PREUVE_MANQUANTE\r\n  DOCUMENT_FALSIFIE\r\n}\r\n\r\nenum StatutMission {\r\n  DRAFT\r\n  EN_COURS\r\n  TERMINEE\r\n  ANNULEE\r\n}\r\n\r\nenum StatutPaiement {\r\n  EN_COURS\r\n  COMPLETE\r\n  ECHEC\r\n}\r\n\r\nenum TypePaiement {\r\n  HEBDOMADAIRE\r\n  INSTANTANE\r\n  MENSUEL\r\n}\r\n\r\nenum StatutFacture {\r\n  EMISE\r\n  PAYEE\r\n  ANNULEE\r\n}\r\n\r\nenum SystemType {\r\n  ERP\r\n 
+ CRM\r\n  External\r\n  Mobile\r\n}\r\n\r\nenum Priority {\r\n  LOW\r\n  NORMAL\r\n  HIGH\r\n  URGENT\r\n  CRITICAL\r\n}\r\n\r\nenum StorageCategory {\r\n  DOCUMENTS\r\n  PROOFS\r\n  TRACKING\r\n  GENERAL\r\n}\r\n"                                            
+            }
+          ]
+        },
+        "filters": {
+          "externalTables": [],
+          "externalEnums": []
+        }
+      }
+    }
+    Response: {
+      "jsonrpc": "2.0",
+      "error": {
+        "code": 4466,
+        "message": "An error happened. Check the data field for details.",
+        "data": {
+          "is_panic": false,
+          "message": "",
+          "meta": {
+            "full_error": ""
+          },
+          "error_code": "P1012"
+        }
+      },
+      "id": 1
+    }
+    An error happened. Check the data field for details.
+
+      51 |
+      52 |   // Run migrations
+    > 53 |   execSync('npx prisma db push --schema=./prisma/schema.test.prisma', {    
+         |           ^
+      54 |     env: {
+      55 |       ...process.env,
+      56 |       DATABASE_URL: databaseURL,
+
+      at setupTestDatabase (src/lib/test-db.ts:53:11)
+      at Object.<anonymous> (src/__tests__/api.test.ts:23:37)
+
+  ● API Integration Tests › Missions API › should get missions with filtering
+
+    Command failed: npx prisma generate --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: 
+    EPERM: operation not permitted, rename 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node.tmp30764' -> 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node'                                              
+
+      17 | beforeAll(async () => {
+      18 |   // Generate the Prisma client for the test schema
+    > 19 |   execSync('npx prisma generate --schema=./prisma/schema.test.prisma', {   
+         |           ^
+      20 |     env: {
+      21 |       ...process.env,
+      22 |       DATABASE_URL: databaseURL,
+
+      at Object.<anonymous> (src/lib/test-db.ts:19:11)
+
+  ● API Integration Tests › Missions API › should get missions with filtering
+
+    Command failed: npx prisma db push --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: Error in RPC
+     Request: {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "schemaPush",
+      "params": {
+        "force": false,
+        "schema": {
+          "files": [
+            {
+              "path": "E:\\TMS\\tms-backend\\prisma\\schema.test.prisma",
+              "content": "// This is your Prisma schema file for testing,\r\n// learn 
+more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\ngenerator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"sqlite\"\r\n  url      = \"file:./test.db\"\r\n}\r\n\r\n// Import all models from the main schema\r\n// We'll use the same models but with SQLite for testing\r\n\r\nmodel Utilisateur {\r\n  id            String          @id @default(cuid())\r\n  email         String          @unique\r\n  motDePasse    String\r\n  role          TypeUtilisateur\r\n  createdAt     DateTime        @default(now())\r\n  updatedAt     DateTime        @updatedAt\r\n\r\n  // Relations\r\n  createdApiKeys ApiKey[] @relation(\"CreatedBy\")\r\n  createdMissions Mission[] @relation(\"MissionCreatedBy\")\r\n  uploadedFiles FileMetadata[] @relation(\"FileUploadedBy\")\r\n\r\n  @@map(\"utilisateurs\")\r\n}\r\n\r\nmodel Chauffeur {\r\n  id                String            @id @default(cuid())\r\n  statut           StatutChauffeur   @default(EN_INSCRIPTION)\r\n  email            String 
+           @unique\r\n  telephone        String\r\n  nom              String\r\n  prenom           String\r\n  dateNaissance    DateTime\r\n  siret            String?\r\n  
+iban             String?\r\n  noteMoyenne      Float?            @default(0.0)\r\n  pointsPenalite   Int              @default(0)\r\n  soldeDisponible  Float            @default(0.0)\r\n  disponibilite    Disponibilite    @default(DISPONIBLE)\r\n  createdAt 
+       DateTime         @default(now())\r\n  updatedAt        DateTime         @updatedAt\r\n\r\n  // Relations\r\n  vehicules        Vehicule[]\r\n  missions         Mission[]\r\n  documents        Document[]\r\n  penalites        Penalite[]\r\n  paiements 
+       Paiement[]\r\n  preuvesLivraison PreuveDeLivraison[]\r\n  trackingPoints   TrackingPoint[]\r\n  uploadedFiles    FileMetadata[]\r\n\r\n  @@map(\"chauffeurs\")\r\n}\r\n\r\nmodel Vehicule {\r\n  id                String   @id @default(cuid())\r\n  type 
+             String\r\n  marque            String\r\n  modele            String\r\n  immatriculation   String   @unique\r\n  volumeChargement  Float\r\n  capaciteCharge    
+Float\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"vehicules\")\r\n}\r\n\r\nmodel Document {\r\n  id            String         @id @default(cuid())\r\n  
+type          TypeDocument\r\n  urlFichier    String\r\n  dateExpiration DateTime?\r\n  statut        StatutDocument @default(A_VERIFIER)\r\n  chauffeurId   String\r\n  createdAt     DateTime       @default(now())\r\n  updatedAt     DateTime       @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"documents\")\r\n}\r\n\r\nmodel Penalite {\r\n  id       
+      String        @id @default(cuid())\r\n  type           TypePenalite\r\n  montant        Float\r\n  points         Int\r\n  motif          String\r\n  dateApplication 
+DateTime\r\n  chauffeurId    String\r\n  createdAt      DateTime      @default(now())\r\n  updatedAt      DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"penalites\")\r\n}\r\n\r\nmodel Mission {\r\n  id                    String        @id @default(cuid())\r\n  referenceExterne      String?       @unique\r\n  statut                StatutMission @default(DRAFT)\r\n  adressePickup         Json          // Adresse object\r\n  contactPickup         Json          // ContactPickup object with phone, code, etc.\r\n  fenetrePickup         DateTime\r\n  adresseLivraison      Json          // Adresse object\r\n  contactLivraison      Json          // ContactLivraison object with phone, code, etc.\r\n  fenetreLivraison      DateTime\r\n  colis                 Json?    
+     // Colis object\r\n  remunerationCalculee Float?\r\n  chauffeurId           String?\r\n  createdById           String\r\n  externalServiceCode   String?\r\n  priority 
+             Priority      @default(NORMAL)\r\n  specialInstructions   String?\r\n  estimatedDuration     Int?          // Estimated duration in minutes\r\n  actualDuration        Int?          // Actual duration in minutes\r\n  createdAt             DateTime      @default(now())\r\n  updatedAt             DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur         Chauffeur?         @relation(fields: [chauffeurId], 
+references: [id])\r\n  createdBy         Utilisateur       @relation(\"MissionCreatedBy\", fields: [createdById], references: [id])\r\n  preuvesLivraison  PreuveDeLivraison[]\r\n  trackingPoints    TrackingPoint[]\r\n  paiements         Paiement[]\r\n  uploadedFiles     FileMetadata[]\r\n\r\n  @@map(\"missions\")\r\n}\r\n\r\nmodel PreuveDeLivraison {\r\n  id                String   @id @default(cuid())\r\n  urlPhoto          String?\r\n  urlSignature      String?\r\n  nomDestinataire   String\r\n  commentaire  
+     String?\r\n  dateLivraison     DateTime\r\n  gpsLivraison      String?\r\n  missionId         String\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"preuves_livraison\")\r\n}\r\n\r\nmodel TrackingPoint {\r\n  id          String   @id @default(cuid())\r\n  latitude    Float\r\n  longitude   Float\r\n  horodatage  DateTime\r\n  vitesse     Float?\r\n  precision   Float?\r\n  missionId   String\r\n  chauffeurId String\r\n  createdAt   DateTime @default(now())\r\n\r\n  // Relations\r\n  mission   Mission  
+ @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"tracking_points\")\r\n}\r\n\r\nmodel Paiement {\r\n  id                String        @id @default(cuid())\r\n  datePaiement      DateTime\r\n  montantNet        Float\r\n  montantBrut       Float\r\n  
+statut            StatutPaiement @default(EN_COURS)\r\n  type              TypePaiement\r\n  referenceVirement String?\r\n  missionId         String\r\n  chauffeurId       
+String\r\n  factureId         String?\r\n  createdAt         DateTime      @default(now())\r\n  updatedAt         DateTime      @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n  facture  Facture?  @relation(fields: [factureId], references: [id])\r\n\r\n  @@map(\"paiements\")\r\n}\r\n\r\nmodel Facture {\r\n  id            String        @id @default(cuid())\r\n  numero        String        @unique\r\n  dateEmission  DateTime\r\n  montantTotal  Float\r\n  urlPdf 
+       String?\r\n  statut        StatutFacture @default(EMISE)\r\n  createdAt     DateTime      @default(now())\r\n  updatedAt     DateTime      @updatedAt\r\n\r\n  // Relations\r\n  paiements Paiement[]\r\n\r\n  @@map(\"factures\")\r\n}\r\n\r\nmodel ApiKey {\r\n  id            String   @id @default(cuid())\r\n  name          String\r\n  description   String?\r\n  systemType    SystemType\r\n  permissions   String // JSON string of permissions array\r\n  isActive      Boolean  @default(true)\r\n  expiresAt    
+ DateTime?\r\n  lastUsedAt    DateTime?\r\n  createdById   String\r\n  createdAt     DateTime @default(now())\r\n  updatedAt     DateTime @updatedAt\r\n\r\n  // Relations\r\n  createdBy Utilisateur @relation(\"CreatedBy\", fields: [createdById], references: 
+[id])\r\n  usageLogs ApiKeyUsageLog[]\r\n\r\n  @@map(\"api_keys\")\r\n}\r\n\r\nmodel ApiKeyUsageLog {\r\n  id        String   @id @default(cuid())\r\n  apiKeyId  String\r\n  endpoint  String\r\n  method    String\r\n  ipAddress String?\r\n  userAgent String?\r\n  timestamp DateTime @default(now())\r\n\r\n  // Relations\r\n  apiKey ApiKey @relation(fields: [apiKeyId], references: [id])\r\n\r\n  @@map(\"api_key_usage_logs\")\r\n}\r\n\r\nmodel FileMetadata {\r\n  id                String          @id @default(cuid())\r\n  fileName          String\r\n  filePath          String\r\n  fileSize         
+ BigInt\r\n  fileType          String\r\n  mimeType          String\r\n  storageCategory   StorageCategory\r\n  mimoFileId        String?         @unique\r\n  cdnUrl       
+     String?\r\n  thumbnailUrl      String?\r\n  accessLevel       String          @default(\"private\")\r\n  uploadedById      String\r\n  chauffeurId       String?\r\n  missionId         String?\r\n  createdAt         DateTime        @default(now())\r\n  updatedAt         DateTime        @updatedAt\r\n\r\n  // Relations\r\n  uploadedBy     
+   Utilisateur     @relation(\"FileUploadedBy\", fields: [uploadedById], references: [id])\r\n  chauffeur         Chauffeur?      @relation(fields: [chauffeurId], references: [id])\r\n  mission           Mission?        @relation(fields: [missionId], references: [id])\r\n\r\n  @@map(\"file_metadata\")\r\n}\r\n\r\n// Enums\r\nenum TypeUtilisateur {\r\n  CHAUFFEUR\r\n  DISPATCHER\r\n  VALIDATEUR\r\n  COMPTABLE\r\n  ADMIN\r\n}\r\n\r\nenum StatutChauffeur {\r\n  EN_INSCRIPTION\r\n  EN_ATTENTE_VALIDATION\r\n  CORRECTIONS_DEMANDEES\r\n  APPROUVE\r\n  REJETE\r\n  SUSPENDU\r\n  BLOQUE\r\n  INACTIF\r\n}\r\n\r\nenum Disponibilite {\r\n  DISPONIBLE\r\n  INDISPONIBLE\r\n  EN_MISSION\r\n}\r\n\r\nenum TypeDocument {\r\n  CARTE_IDENTITE\r\n  PERMIS\r\n  ASSURANCE\r\n  CARTE_GRISE\r\n  RIB\r\n  KBIS\r\n}\r\n\r\nenum StatutDocument {\r\n  VALIDE\r\n  EXPIRE\r\n  A_VERIFIER\r\n}\r\n\r\nenum TypePenalite {\r\n  RETARD_LEGER\r\n  RETARD_MOYEN\r\n  RETARD_IMPORTANT\r\n  ANNULATION_TARDIVE\r\n  PREUVE_MANQUANTE\r\n  DOCUMENT_FALSIFIE\r\n}\r\n\r\nenum StatutMission {\r\n  DRAFT\r\n  EN_COURS\r\n  TERMINEE\r\n  ANNULEE\r\n}\r\n\r\nenum StatutPaiement {\r\n  EN_COURS\r\n  COMPLETE\r\n  ECHEC\r\n}\r\n\r\nenum TypePaiement {\r\n  HEBDOMADAIRE\r\n  INSTANTANE\r\n  MENSUEL\r\n}\r\n\r\nenum StatutFacture {\r\n  EMISE\r\n  PAYEE\r\n  ANNULEE\r\n}\r\n\r\nenum SystemType {\r\n  ERP\r\n 
+ CRM\r\n  External\r\n  Mobile\r\n}\r\n\r\nenum Priority {\r\n  LOW\r\n  NORMAL\r\n  HIGH\r\n  URGENT\r\n  CRITICAL\r\n}\r\n\r\nenum StorageCategory {\r\n  DOCUMENTS\r\n  PROOFS\r\n  TRACKING\r\n  GENERAL\r\n}\r\n"                                            
+            }
+          ]
+        },
+        "filters": {
+          "externalTables": [],
+          "externalEnums": []
+        }
+      }
+    }
+    Response: {
+      "jsonrpc": "2.0",
+      "error": {
+        "code": 4466,
+        "message": "An error happened. Check the data field for details.",
+        "data": {
+          "is_panic": false,
+          "message": "",
+          "meta": {
+            "full_error": ""
+          },
+          "error_code": "P1012"
+        }
+      },
+      "id": 1
+    }
+    An error happened. Check the data field for details.
+
+      51 |
+      52 |   // Run migrations
+    > 53 |   execSync('npx prisma db push --schema=./prisma/schema.test.prisma', {    
+         |           ^
+      54 |     env: {
+      55 |       ...process.env,
+      56 |       DATABASE_URL: databaseURL,
+
+      at setupTestDatabase (src/lib/test-db.ts:53:11)
+      at Object.<anonymous> (src/__tests__/api.test.ts:23:37)
+
+  ● API Integration Tests › File Upload API › should handle file upload request       
+
+    Command failed: npx prisma generate --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: 
+    EPERM: operation not permitted, rename 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node.tmp30764' -> 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node'                                              
+
+      17 | beforeAll(async () => {
+      18 |   // Generate the Prisma client for the test schema
+    > 19 |   execSync('npx prisma generate --schema=./prisma/schema.test.prisma', {   
+         |           ^
+      20 |     env: {
+      21 |       ...process.env,
+      22 |       DATABASE_URL: databaseURL,
+
+      at Object.<anonymous> (src/lib/test-db.ts:19:11)
+
+  ● API Integration Tests › File Upload API › should handle file upload request       
+
+    Command failed: npx prisma db push --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: Error in RPC
+     Request: {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "schemaPush",
+      "params": {
+        "force": false,
+        "schema": {
+          "files": [
+            {
+              "path": "E:\\TMS\\tms-backend\\prisma\\schema.test.prisma",
+              "content": "// This is your Prisma schema file for testing,\r\n// learn 
+more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\ngenerator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"sqlite\"\r\n  url      = \"file:./test.db\"\r\n}\r\n\r\n// Import all models from the main schema\r\n// We'll use the same models but with SQLite for testing\r\n\r\nmodel Utilisateur {\r\n  id            String          @id @default(cuid())\r\n  email         String          @unique\r\n  motDePasse    String\r\n  role          TypeUtilisateur\r\n  createdAt     DateTime        @default(now())\r\n  updatedAt     DateTime        @updatedAt\r\n\r\n  // Relations\r\n  createdApiKeys ApiKey[] @relation(\"CreatedBy\")\r\n  createdMissions Mission[] @relation(\"MissionCreatedBy\")\r\n  uploadedFiles FileMetadata[] @relation(\"FileUploadedBy\")\r\n\r\n  @@map(\"utilisateurs\")\r\n}\r\n\r\nmodel Chauffeur {\r\n  id                String            @id @default(cuid())\r\n  statut           StatutChauffeur   @default(EN_INSCRIPTION)\r\n  email            String 
+           @unique\r\n  telephone        String\r\n  nom              String\r\n  prenom           String\r\n  dateNaissance    DateTime\r\n  siret            String?\r\n  
+iban             String?\r\n  noteMoyenne      Float?            @default(0.0)\r\n  pointsPenalite   Int              @default(0)\r\n  soldeDisponible  Float            @default(0.0)\r\n  disponibilite    Disponibilite    @default(DISPONIBLE)\r\n  createdAt 
+       DateTime         @default(now())\r\n  updatedAt        DateTime         @updatedAt\r\n\r\n  // Relations\r\n  vehicules        Vehicule[]\r\n  missions         Mission[]\r\n  documents        Document[]\r\n  penalites        Penalite[]\r\n  paiements 
+       Paiement[]\r\n  preuvesLivraison PreuveDeLivraison[]\r\n  trackingPoints   TrackingPoint[]\r\n  uploadedFiles    FileMetadata[]\r\n\r\n  @@map(\"chauffeurs\")\r\n}\r\n\r\nmodel Vehicule {\r\n  id                String   @id @default(cuid())\r\n  type 
+             String\r\n  marque            String\r\n  modele            String\r\n  immatriculation   String   @unique\r\n  volumeChargement  Float\r\n  capaciteCharge    
+Float\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"vehicules\")\r\n}\r\n\r\nmodel Document {\r\n  id            String         @id @default(cuid())\r\n  
+type          TypeDocument\r\n  urlFichier    String\r\n  dateExpiration DateTime?\r\n  statut        StatutDocument @default(A_VERIFIER)\r\n  chauffeurId   String\r\n  createdAt     DateTime       @default(now())\r\n  updatedAt     DateTime       @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"documents\")\r\n}\r\n\r\nmodel Penalite {\r\n  id       
+      String        @id @default(cuid())\r\n  type           TypePenalite\r\n  montant        Float\r\n  points         Int\r\n  motif          String\r\n  dateApplication 
+DateTime\r\n  chauffeurId    String\r\n  createdAt      DateTime      @default(now())\r\n  updatedAt      DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"penalites\")\r\n}\r\n\r\nmodel Mission {\r\n  id                    String        @id @default(cuid())\r\n  referenceExterne      String?       @unique\r\n  statut                StatutMission @default(DRAFT)\r\n  adressePickup         Json          // Adresse object\r\n  contactPickup         Json          // ContactPickup object with phone, code, etc.\r\n  fenetrePickup         DateTime\r\n  adresseLivraison      Json          // Adresse object\r\n  contactLivraison      Json          // ContactLivraison object with phone, code, etc.\r\n  fenetreLivraison      DateTime\r\n  colis                 Json?    
+     // Colis object\r\n  remunerationCalculee Float?\r\n  chauffeurId           String?\r\n  createdById           String\r\n  externalServiceCode   String?\r\n  priority 
+             Priority      @default(NORMAL)\r\n  specialInstructions   String?\r\n  estimatedDuration     Int?          // Estimated duration in minutes\r\n  actualDuration        Int?          // Actual duration in minutes\r\n  createdAt             DateTime      @default(now())\r\n  updatedAt             DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur         Chauffeur?         @relation(fields: [chauffeurId], 
+references: [id])\r\n  createdBy         Utilisateur       @relation(\"MissionCreatedBy\", fields: [createdById], references: [id])\r\n  preuvesLivraison  PreuveDeLivraison[]\r\n  trackingPoints    TrackingPoint[]\r\n  paiements         Paiement[]\r\n  uploadedFiles     FileMetadata[]\r\n\r\n  @@map(\"missions\")\r\n}\r\n\r\nmodel PreuveDeLivraison {\r\n  id                String   @id @default(cuid())\r\n  urlPhoto          String?\r\n  urlSignature      String?\r\n  nomDestinataire   String\r\n  commentaire  
+     String?\r\n  dateLivraison     DateTime\r\n  gpsLivraison      String?\r\n  missionId         String\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"preuves_livraison\")\r\n}\r\n\r\nmodel TrackingPoint {\r\n  id          String   @id @default(cuid())\r\n  latitude    Float\r\n  longitude   Float\r\n  horodatage  DateTime\r\n  vitesse     Float?\r\n  precision   Float?\r\n  missionId   String\r\n  chauffeurId String\r\n  createdAt   DateTime @default(now())\r\n\r\n  // Relations\r\n  mission   Mission  
+ @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"tracking_points\")\r\n}\r\n\r\nmodel Paiement {\r\n  id                String        @id @default(cuid())\r\n  datePaiement      DateTime\r\n  montantNet        Float\r\n  montantBrut       Float\r\n  
+statut            StatutPaiement @default(EN_COURS)\r\n  type              TypePaiement\r\n  referenceVirement String?\r\n  missionId         String\r\n  chauffeurId       
+String\r\n  factureId         String?\r\n  createdAt         DateTime      @default(now())\r\n  updatedAt         DateTime      @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n  facture  Facture?  @relation(fields: [factureId], references: [id])\r\n\r\n  @@map(\"paiements\")\r\n}\r\n\r\nmodel Facture {\r\n  id            String        @id @default(cuid())\r\n  numero        String        @unique\r\n  dateEmission  DateTime\r\n  montantTotal  Float\r\n  urlPdf 
+       String?\r\n  statut        StatutFacture @default(EMISE)\r\n  createdAt     DateTime      @default(now())\r\n  updatedAt     DateTime      @updatedAt\r\n\r\n  // Relations\r\n  paiements Paiement[]\r\n\r\n  @@map(\"factures\")\r\n}\r\n\r\nmodel ApiKey {\r\n  id            String   @id @default(cuid())\r\n  name          String\r\n  description   String?\r\n  systemType    SystemType\r\n  permissions   String // JSON string of permissions array\r\n  isActive      Boolean  @default(true)\r\n  expiresAt    
+ DateTime?\r\n  lastUsedAt    DateTime?\r\n  createdById   String\r\n  createdAt     DateTime @default(now())\r\n  updatedAt     DateTime @updatedAt\r\n\r\n  // Relations\r\n  createdBy Utilisateur @relation(\"CreatedBy\", fields: [createdById], references: 
+[id])\r\n  usageLogs ApiKeyUsageLog[]\r\n\r\n  @@map(\"api_keys\")\r\n}\r\n\r\nmodel ApiKeyUsageLog {\r\n  id        String   @id @default(cuid())\r\n  apiKeyId  String\r\n  endpoint  String\r\n  method    String\r\n  ipAddress String?\r\n  userAgent String?\r\n  timestamp DateTime @default(now())\r\n\r\n  // Relations\r\n  apiKey ApiKey @relation(fields: [apiKeyId], references: [id])\r\n\r\n  @@map(\"api_key_usage_logs\")\r\n}\r\n\r\nmodel FileMetadata {\r\n  id                String          @id @default(cuid())\r\n  fileName          String\r\n  filePath          String\r\n  fileSize         
+ BigInt\r\n  fileType          String\r\n  mimeType          String\r\n  storageCategory   StorageCategory\r\n  mimoFileId        String?         @unique\r\n  cdnUrl       
+     String?\r\n  thumbnailUrl      String?\r\n  accessLevel       String          @default(\"private\")\r\n  uploadedById      String\r\n  chauffeurId       String?\r\n  missionId         String?\r\n  createdAt         DateTime        @default(now())\r\n  updatedAt         DateTime        @updatedAt\r\n\r\n  // Relations\r\n  uploadedBy     
+   Utilisateur     @relation(\"FileUploadedBy\", fields: [uploadedById], references: [id])\r\n  chauffeur         Chauffeur?      @relation(fields: [chauffeurId], references: [id])\r\n  mission           Mission?        @relation(fields: [missionId], references: [id])\r\n\r\n  @@map(\"file_metadata\")\r\n}\r\n\r\n// Enums\r\nenum TypeUtilisateur {\r\n  CHAUFFEUR\r\n  DISPATCHER\r\n  VALIDATEUR\r\n  COMPTABLE\r\n  ADMIN\r\n}\r\n\r\nenum StatutChauffeur {\r\n  EN_INSCRIPTION\r\n  EN_ATTENTE_VALIDATION\r\n  CORRECTIONS_DEMANDEES\r\n  APPROUVE\r\n  REJETE\r\n  SUSPENDU\r\n  BLOQUE\r\n  INACTIF\r\n}\r\n\r\nenum Disponibilite {\r\n  DISPONIBLE\r\n  INDISPONIBLE\r\n  EN_MISSION\r\n}\r\n\r\nenum TypeDocument {\r\n  CARTE_IDENTITE\r\n  PERMIS\r\n  ASSURANCE\r\n  CARTE_GRISE\r\n  RIB\r\n  KBIS\r\n}\r\n\r\nenum StatutDocument {\r\n  VALIDE\r\n  EXPIRE\r\n  A_VERIFIER\r\n}\r\n\r\nenum TypePenalite {\r\n  RETARD_LEGER\r\n  RETARD_MOYEN\r\n  RETARD_IMPORTANT\r\n  ANNULATION_TARDIVE\r\n  PREUVE_MANQUANTE\r\n  DOCUMENT_FALSIFIE\r\n}\r\n\r\nenum StatutMission {\r\n  DRAFT\r\n  EN_COURS\r\n  TERMINEE\r\n  ANNULEE\r\n}\r\n\r\nenum StatutPaiement {\r\n  EN_COURS\r\n  COMPLETE\r\n  ECHEC\r\n}\r\n\r\nenum TypePaiement {\r\n  HEBDOMADAIRE\r\n  INSTANTANE\r\n  MENSUEL\r\n}\r\n\r\nenum StatutFacture {\r\n  EMISE\r\n  PAYEE\r\n  ANNULEE\r\n}\r\n\r\nenum SystemType {\r\n  ERP\r\n 
+ CRM\r\n  External\r\n  Mobile\r\n}\r\n\r\nenum Priority {\r\n  LOW\r\n  NORMAL\r\n  HIGH\r\n  URGENT\r\n  CRITICAL\r\n}\r\n\r\nenum StorageCategory {\r\n  DOCUMENTS\r\n  PROOFS\r\n  TRACKING\r\n  GENERAL\r\n}\r\n"                                            
+            }
+          ]
+        },
+        "filters": {
+          "externalTables": [],
+          "externalEnums": []
+        }
+      }
+    }
+    Response: {
+      "jsonrpc": "2.0",
+      "error": {
+        "code": 4466,
+        "message": "An error happened. Check the data field for details.",
+        "data": {
+          "is_panic": false,
+          "message": "",
+          "meta": {
+            "full_error": ""
+          },
+          "error_code": "P1012"
+        }
+      },
+      "id": 1
+    }
+    An error happened. Check the data field for details.
+
+      51 |
+      52 |   // Run migrations
+    > 53 |   execSync('npx prisma db push --schema=./prisma/schema.test.prisma', {    
+         |           ^
+      54 |     env: {
+      55 |       ...process.env,
+      56 |       DATABASE_URL: databaseURL,
+
+      at setupTestDatabase (src/lib/test-db.ts:53:11)
+      at Object.<anonymous> (src/__tests__/api.test.ts:23:37)
+
+  ● API Integration Tests › File Upload API › should validate required fields
+
+    Command failed: npx prisma generate --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: 
+    EPERM: operation not permitted, rename 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node.tmp30764' -> 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node'                                              
+
+      17 | beforeAll(async () => {
+      18 |   // Generate the Prisma client for the test schema
+    > 19 |   execSync('npx prisma generate --schema=./prisma/schema.test.prisma', {   
+         |           ^
+      20 |     env: {
+      21 |       ...process.env,
+      22 |       DATABASE_URL: databaseURL,
+
+      at Object.<anonymous> (src/lib/test-db.ts:19:11)
+
+  ● API Integration Tests › File Upload API › should validate required fields
+
+    Command failed: npx prisma db push --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: Error in RPC
+     Request: {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "schemaPush",
+      "params": {
+        "force": false,
+        "schema": {
+          "files": [
+            {
+              "path": "E:\\TMS\\tms-backend\\prisma\\schema.test.prisma",
+              "content": "// This is your Prisma schema file for testing,\r\n// learn 
+more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\ngenerator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"sqlite\"\r\n  url      = \"file:./test.db\"\r\n}\r\n\r\n// Import all models from the main schema\r\n// We'll use the same models but with SQLite for testing\r\n\r\nmodel Utilisateur {\r\n  id            String          @id @default(cuid())\r\n  email         String          @unique\r\n  motDePasse    String\r\n  role          TypeUtilisateur\r\n  createdAt     DateTime        @default(now())\r\n  updatedAt     DateTime        @updatedAt\r\n\r\n  // Relations\r\n  createdApiKeys ApiKey[] @relation(\"CreatedBy\")\r\n  createdMissions Mission[] @relation(\"MissionCreatedBy\")\r\n  uploadedFiles FileMetadata[] @relation(\"FileUploadedBy\")\r\n\r\n  @@map(\"utilisateurs\")\r\n}\r\n\r\nmodel Chauffeur {\r\n  id                String            @id @default(cuid())\r\n  statut           StatutChauffeur   @default(EN_INSCRIPTION)\r\n  email            String 
+           @unique\r\n  telephone        String\r\n  nom              String\r\n  prenom           String\r\n  dateNaissance    DateTime\r\n  siret            String?\r\n  
+iban             String?\r\n  noteMoyenne      Float?            @default(0.0)\r\n  pointsPenalite   Int              @default(0)\r\n  soldeDisponible  Float            @default(0.0)\r\n  disponibilite    Disponibilite    @default(DISPONIBLE)\r\n  createdAt 
+       DateTime         @default(now())\r\n  updatedAt        DateTime         @updatedAt\r\n\r\n  // Relations\r\n  vehicules        Vehicule[]\r\n  missions         Mission[]\r\n  documents        Document[]\r\n  penalites        Penalite[]\r\n  paiements 
+       Paiement[]\r\n  preuvesLivraison PreuveDeLivraison[]\r\n  trackingPoints   TrackingPoint[]\r\n  uploadedFiles    FileMetadata[]\r\n\r\n  @@map(\"chauffeurs\")\r\n}\r\n\r\nmodel Vehicule {\r\n  id                String   @id @default(cuid())\r\n  type 
+             String\r\n  marque            String\r\n  modele            String\r\n  immatriculation   String   @unique\r\n  volumeChargement  Float\r\n  capaciteCharge    
+Float\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"vehicules\")\r\n}\r\n\r\nmodel Document {\r\n  id            String         @id @default(cuid())\r\n  
+type          TypeDocument\r\n  urlFichier    String\r\n  dateExpiration DateTime?\r\n  statut        StatutDocument @default(A_VERIFIER)\r\n  chauffeurId   String\r\n  createdAt     DateTime       @default(now())\r\n  updatedAt     DateTime       @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"documents\")\r\n}\r\n\r\nmodel Penalite {\r\n  id       
+      String        @id @default(cuid())\r\n  type           TypePenalite\r\n  montant        Float\r\n  points         Int\r\n  motif          String\r\n  dateApplication 
+DateTime\r\n  chauffeurId    String\r\n  createdAt      DateTime      @default(now())\r\n  updatedAt      DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"penalites\")\r\n}\r\n\r\nmodel Mission {\r\n  id                    String        @id @default(cuid())\r\n  referenceExterne      String?       @unique\r\n  statut                StatutMission @default(DRAFT)\r\n  adressePickup         Json          // Adresse object\r\n  contactPickup         Json          // ContactPickup object with phone, code, etc.\r\n  fenetrePickup         DateTime\r\n  adresseLivraison      Json          // Adresse object\r\n  contactLivraison      Json          // ContactLivraison object with phone, code, etc.\r\n  fenetreLivraison      DateTime\r\n  colis                 Json?    
+     // Colis object\r\n  remunerationCalculee Float?\r\n  chauffeurId           String?\r\n  createdById           String\r\n  externalServiceCode   String?\r\n  priority 
+             Priority      @default(NORMAL)\r\n  specialInstructions   String?\r\n  estimatedDuration     Int?          // Estimated duration in minutes\r\n  actualDuration        Int?          // Actual duration in minutes\r\n  createdAt             DateTime      @default(now())\r\n  updatedAt             DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur         Chauffeur?         @relation(fields: [chauffeurId], 
+references: [id])\r\n  createdBy         Utilisateur       @relation(\"MissionCreatedBy\", fields: [createdById], references: [id])\r\n  preuvesLivraison  PreuveDeLivraison[]\r\n  trackingPoints    TrackingPoint[]\r\n  paiements         Paiement[]\r\n  uploadedFiles     FileMetadata[]\r\n\r\n  @@map(\"missions\")\r\n}\r\n\r\nmodel PreuveDeLivraison {\r\n  id                String   @id @default(cuid())\r\n  urlPhoto          String?\r\n  urlSignature      String?\r\n  nomDestinataire   String\r\n  commentaire  
+     String?\r\n  dateLivraison     DateTime\r\n  gpsLivraison      String?\r\n  missionId         String\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"preuves_livraison\")\r\n}\r\n\r\nmodel TrackingPoint {\r\n  id          String   @id @default(cuid())\r\n  latitude    Float\r\n  longitude   Float\r\n  horodatage  DateTime\r\n  vitesse     Float?\r\n  precision   Float?\r\n  missionId   String\r\n  chauffeurId String\r\n  createdAt   DateTime @default(now())\r\n\r\n  // Relations\r\n  mission   Mission  
+ @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"tracking_points\")\r\n}\r\n\r\nmodel Paiement {\r\n  id                String        @id @default(cuid())\r\n  datePaiement      DateTime\r\n  montantNet        Float\r\n  montantBrut       Float\r\n  
+statut            StatutPaiement @default(EN_COURS)\r\n  type              TypePaiement\r\n  referenceVirement String?\r\n  missionId         String\r\n  chauffeurId       
+String\r\n  factureId         String?\r\n  createdAt         DateTime      @default(now())\r\n  updatedAt         DateTime      @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n  facture  Facture?  @relation(fields: [factureId], references: [id])\r\n\r\n  @@map(\"paiements\")\r\n}\r\n\r\nmodel Facture {\r\n  id            String        @id @default(cuid())\r\n  numero        String        @unique\r\n  dateEmission  DateTime\r\n  montantTotal  Float\r\n  urlPdf 
+       String?\r\n  statut        StatutFacture @default(EMISE)\r\n  createdAt     DateTime      @default(now())\r\n  updatedAt     DateTime      @updatedAt\r\n\r\n  // Relations\r\n  paiements Paiement[]\r\n\r\n  @@map(\"factures\")\r\n}\r\n\r\nmodel ApiKey {\r\n  id            String   @id @default(cuid())\r\n  name          String\r\n  description   String?\r\n  systemType    SystemType\r\n  permissions   String // JSON string of permissions array\r\n  isActive      Boolean  @default(true)\r\n  expiresAt    
+ DateTime?\r\n  lastUsedAt    DateTime?\r\n  createdById   String\r\n  createdAt     DateTime @default(now())\r\n  updatedAt     DateTime @updatedAt\r\n\r\n  // Relations\r\n  createdBy Utilisateur @relation(\"CreatedBy\", fields: [createdById], references: 
+[id])\r\n  usageLogs ApiKeyUsageLog[]\r\n\r\n  @@map(\"api_keys\")\r\n}\r\n\r\nmodel ApiKeyUsageLog {\r\n  id        String   @id @default(cuid())\r\n  apiKeyId  String\r\n  endpoint  String\r\n  method    String\r\n  ipAddress String?\r\n  userAgent String?\r\n  timestamp DateTime @default(now())\r\n\r\n  // Relations\r\n  apiKey ApiKey @relation(fields: [apiKeyId], references: [id])\r\n\r\n  @@map(\"api_key_usage_logs\")\r\n}\r\n\r\nmodel FileMetadata {\r\n  id                String          @id @default(cuid())\r\n  fileName          String\r\n  filePath          String\r\n  fileSize         
+ BigInt\r\n  fileType          String\r\n  mimeType          String\r\n  storageCategory   StorageCategory\r\n  mimoFileId        String?         @unique\r\n  cdnUrl       
+     String?\r\n  thumbnailUrl      String?\r\n  accessLevel       String          @default(\"private\")\r\n  uploadedById      String\r\n  chauffeurId       String?\r\n  missionId         String?\r\n  createdAt         DateTime        @default(now())\r\n  updatedAt         DateTime        @updatedAt\r\n\r\n  // Relations\r\n  uploadedBy     
+   Utilisateur     @relation(\"FileUploadedBy\", fields: [uploadedById], references: [id])\r\n  chauffeur         Chauffeur?      @relation(fields: [chauffeurId], references: [id])\r\n  mission           Mission?        @relation(fields: [missionId], references: [id])\r\n\r\n  @@map(\"file_metadata\")\r\n}\r\n\r\n// Enums\r\nenum TypeUtilisateur {\r\n  CHAUFFEUR\r\n  DISPATCHER\r\n  VALIDATEUR\r\n  COMPTABLE\r\n  ADMIN\r\n}\r\n\r\nenum StatutChauffeur {\r\n  EN_INSCRIPTION\r\n  EN_ATTENTE_VALIDATION\r\n  CORRECTIONS_DEMANDEES\r\n  APPROUVE\r\n  REJETE\r\n  SUSPENDU\r\n  BLOQUE\r\n  INACTIF\r\n}\r\n\r\nenum Disponibilite {\r\n  DISPONIBLE\r\n  INDISPONIBLE\r\n  EN_MISSION\r\n}\r\n\r\nenum TypeDocument {\r\n  CARTE_IDENTITE\r\n  PERMIS\r\n  ASSURANCE\r\n  CARTE_GRISE\r\n  RIB\r\n  KBIS\r\n}\r\n\r\nenum StatutDocument {\r\n  VALIDE\r\n  EXPIRE\r\n  A_VERIFIER\r\n}\r\n\r\nenum TypePenalite {\r\n  RETARD_LEGER\r\n  RETARD_MOYEN\r\n  RETARD_IMPORTANT\r\n  ANNULATION_TARDIVE\r\n  PREUVE_MANQUANTE\r\n  DOCUMENT_FALSIFIE\r\n}\r\n\r\nenum StatutMission {\r\n  DRAFT\r\n  EN_COURS\r\n  TERMINEE\r\n  ANNULEE\r\n}\r\n\r\nenum StatutPaiement {\r\n  EN_COURS\r\n  COMPLETE\r\n  ECHEC\r\n}\r\n\r\nenum TypePaiement {\r\n  HEBDOMADAIRE\r\n  INSTANTANE\r\n  MENSUEL\r\n}\r\n\r\nenum StatutFacture {\r\n  EMISE\r\n  PAYEE\r\n  ANNULEE\r\n}\r\n\r\nenum SystemType {\r\n  ERP\r\n 
+ CRM\r\n  External\r\n  Mobile\r\n}\r\n\r\nenum Priority {\r\n  LOW\r\n  NORMAL\r\n  HIGH\r\n  URGENT\r\n  CRITICAL\r\n}\r\n\r\nenum StorageCategory {\r\n  DOCUMENTS\r\n  PROOFS\r\n  TRACKING\r\n  GENERAL\r\n}\r\n"                                            
+            }
+          ]
+        },
+        "filters": {
+          "externalTables": [],
+          "externalEnums": []
+        }
+      }
+    }
+    Response: {
+      "jsonrpc": "2.0",
+      "error": {
+        "code": 4466,
+        "message": "An error happened. Check the data field for details.",
+        "data": {
+          "is_panic": false,
+          "message": "",
+          "meta": {
+            "full_error": ""
+          },
+          "error_code": "P1012"
+        }
+      },
+      "id": 1
+    }
+    An error happened. Check the data field for details.
+
+      51 |
+      52 |   // Run migrations
+    > 53 |   execSync('npx prisma db push --schema=./prisma/schema.test.prisma', {    
+         |           ^
+      54 |     env: {
+      55 |       ...process.env,
+      56 |       DATABASE_URL: databaseURL,
+
+      at setupTestDatabase (src/lib/test-db.ts:53:11)
+      at Object.<anonymous> (src/__tests__/api.test.ts:23:37)
+
+  ● API Integration Tests › File Upload API › should validate file type
+
+    Command failed: npx prisma generate --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: 
+    EPERM: operation not permitted, rename 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node.tmp30764' -> 'E:\TMS\tms-backend\node_modules\.prisma\client\query_engine-windows.dll.node'                                              
+
+      17 | beforeAll(async () => {
+      18 |   // Generate the Prisma client for the test schema
+    > 19 |   execSync('npx prisma generate --schema=./prisma/schema.test.prisma', {   
+         |           ^
+      20 |     env: {
+      21 |       ...process.env,
+      22 |       DATABASE_URL: databaseURL,
+
+      at Object.<anonymous> (src/lib/test-db.ts:19:11)
+
+  ● API Integration Tests › File Upload API › should validate file type
+
+    Command failed: npx prisma db push --schema=./prisma/schema.test.prisma
+    Loaded Prisma config from prisma.config.ts.
+
+    Prisma config detected, skipping environment variable loading.
+    Error: Error in RPC
+     Request: {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "schemaPush",
+      "params": {
+        "force": false,
+        "schema": {
+          "files": [
+            {
+              "path": "E:\\TMS\\tms-backend\\prisma\\schema.test.prisma",
+              "content": "// This is your Prisma schema file for testing,\r\n// learn 
+more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\ngenerator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"sqlite\"\r\n  url      = \"file:./test.db\"\r\n}\r\n\r\n// Import all models from the main schema\r\n// We'll use the same models but with SQLite for testing\r\n\r\nmodel Utilisateur {\r\n  id            String          @id @default(cuid())\r\n  email         String          @unique\r\n  motDePasse    String\r\n  role          TypeUtilisateur\r\n  createdAt     DateTime        @default(now())\r\n  updatedAt     DateTime        @updatedAt\r\n\r\n  // Relations\r\n  createdApiKeys ApiKey[] @relation(\"CreatedBy\")\r\n  createdMissions Mission[] @relation(\"MissionCreatedBy\")\r\n  uploadedFiles FileMetadata[] @relation(\"FileUploadedBy\")\r\n\r\n  @@map(\"utilisateurs\")\r\n}\r\n\r\nmodel Chauffeur {\r\n  id                String            @id @default(cuid())\r\n  statut           StatutChauffeur   @default(EN_INSCRIPTION)\r\n  email            String 
+           @unique\r\n  telephone        String\r\n  nom              String\r\n  prenom           String\r\n  dateNaissance    DateTime\r\n  siret            String?\r\n  
+iban             String?\r\n  noteMoyenne      Float?            @default(0.0)\r\n  pointsPenalite   Int              @default(0)\r\n  soldeDisponible  Float            @default(0.0)\r\n  disponibilite    Disponibilite    @default(DISPONIBLE)\r\n  createdAt 
+       DateTime         @default(now())\r\n  updatedAt        DateTime         @updatedAt\r\n\r\n  // Relations\r\n  vehicules        Vehicule[]\r\n  missions         Mission[]\r\n  documents        Document[]\r\n  penalites        Penalite[]\r\n  paiements 
+       Paiement[]\r\n  preuvesLivraison PreuveDeLivraison[]\r\n  trackingPoints   TrackingPoint[]\r\n  uploadedFiles    FileMetadata[]\r\n\r\n  @@map(\"chauffeurs\")\r\n}\r\n\r\nmodel Vehicule {\r\n  id                String   @id @default(cuid())\r\n  type 
+             String\r\n  marque            String\r\n  modele            String\r\n  immatriculation   String   @unique\r\n  volumeChargement  Float\r\n  capaciteCharge    
+Float\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"vehicules\")\r\n}\r\n\r\nmodel Document {\r\n  id            String         @id @default(cuid())\r\n  
+type          TypeDocument\r\n  urlFichier    String\r\n  dateExpiration DateTime?\r\n  statut        StatutDocument @default(A_VERIFIER)\r\n  chauffeurId   String\r\n  createdAt     DateTime       @default(now())\r\n  updatedAt     DateTime       @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"documents\")\r\n}\r\n\r\nmodel Penalite {\r\n  id       
+      String        @id @default(cuid())\r\n  type           TypePenalite\r\n  montant        Float\r\n  points         Int\r\n  motif          String\r\n  dateApplication 
+DateTime\r\n  chauffeurId    String\r\n  createdAt      DateTime      @default(now())\r\n  updatedAt      DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"penalites\")\r\n}\r\n\r\nmodel Mission {\r\n  id                    String        @id @default(cuid())\r\n  referenceExterne      String?       @unique\r\n  statut                StatutMission @default(DRAFT)\r\n  adressePickup         Json          // Adresse object\r\n  contactPickup         Json          // ContactPickup object with phone, code, etc.\r\n  fenetrePickup         DateTime\r\n  adresseLivraison      Json          // Adresse object\r\n  contactLivraison      Json          // ContactLivraison object with phone, code, etc.\r\n  fenetreLivraison      DateTime\r\n  colis                 Json?    
+     // Colis object\r\n  remunerationCalculee Float?\r\n  chauffeurId           String?\r\n  createdById           String\r\n  externalServiceCode   String?\r\n  priority 
+             Priority      @default(NORMAL)\r\n  specialInstructions   String?\r\n  estimatedDuration     Int?          // Estimated duration in minutes\r\n  actualDuration        Int?          // Actual duration in minutes\r\n  createdAt             DateTime      @default(now())\r\n  updatedAt             DateTime      @updatedAt\r\n\r\n  // Relations\r\n  chauffeur         Chauffeur?         @relation(fields: [chauffeurId], 
+references: [id])\r\n  createdBy         Utilisateur       @relation(\"MissionCreatedBy\", fields: [createdById], references: [id])\r\n  preuvesLivraison  PreuveDeLivraison[]\r\n  trackingPoints    TrackingPoint[]\r\n  paiements         Paiement[]\r\n  uploadedFiles     FileMetadata[]\r\n\r\n  @@map(\"missions\")\r\n}\r\n\r\nmodel PreuveDeLivraison {\r\n  id                String   @id @default(cuid())\r\n  urlPhoto          String?\r\n  urlSignature      String?\r\n  nomDestinataire   String\r\n  commentaire  
+     String?\r\n  dateLivraison     DateTime\r\n  gpsLivraison      String?\r\n  missionId         String\r\n  chauffeurId       String\r\n  createdAt         DateTime @default(now())\r\n  updatedAt         DateTime @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"preuves_livraison\")\r\n}\r\n\r\nmodel TrackingPoint {\r\n  id          String   @id @default(cuid())\r\n  latitude    Float\r\n  longitude   Float\r\n  horodatage  DateTime\r\n  vitesse     Float?\r\n  precision   Float?\r\n  missionId   String\r\n  chauffeurId String\r\n  createdAt   DateTime @default(now())\r\n\r\n  // Relations\r\n  mission   Mission  
+ @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n\r\n  @@map(\"tracking_points\")\r\n}\r\n\r\nmodel Paiement {\r\n  id                String        @id @default(cuid())\r\n  datePaiement      DateTime\r\n  montantNet        Float\r\n  montantBrut       Float\r\n  
+statut            StatutPaiement @default(EN_COURS)\r\n  type              TypePaiement\r\n  referenceVirement String?\r\n  missionId         String\r\n  chauffeurId       
+String\r\n  factureId         String?\r\n  createdAt         DateTime      @default(now())\r\n  updatedAt         DateTime      @updatedAt\r\n\r\n  // Relations\r\n  mission   Mission   @relation(fields: [missionId], references: [id])\r\n  chauffeur Chauffeur @relation(fields: [chauffeurId], references: [id])\r\n  facture  Facture?  @relation(fields: [factureId], references: [id])\r\n\r\n  @@map(\"paiements\")\r\n}\r\n\r\nmodel Facture {\r\n  id            String        @id @default(cuid())\r\n  numero        String        @unique\r\n  dateEmission  DateTime\r\n  montantTotal  Float\r\n  urlPdf 
+       String?\r\n  statut        StatutFacture @default(EMISE)\r\n  createdAt     DateTime      @default(now())\r\n  updatedAt     DateTime      @updatedAt\r\n\r\n  // Relations\r\n  paiements Paiement[]\r\n\r\n  @@map(\"factures\")\r\n}\r\n\r\nmodel ApiKey {\r\n  id            String   @id @default(cuid())\r\n  name          String\r\n  description   String?\r\n  systemType    SystemType\r\n  permissions   String // JSON string of permissions array\r\n  isActive      Boolean  @default(true)\r\n  expiresAt    
+ DateTime?\r\n  lastUsedAt    DateTime?\r\n  createdById   String\r\n  createdAt     DateTime @default(now())\r\n  updatedAt     DateTime @updatedAt\r\n\r\n  // Relations\r\n  createdBy Utilisateur @relation(\"CreatedBy\", fields: [createdById], references: 
+[id])\r\n  usageLogs ApiKeyUsageLog[]\r\n\r\n  @@map(\"api_keys\")\r\n}\r\n\r\nmodel ApiKeyUsageLog {\r\n  id        String   @id @default(cuid())\r\n  apiKeyId  String\r\n  endpoint  String\r\n  method    String\r\n  ipAddress String?\r\n  userAgent String?\r\n  timestamp DateTime @default(now())\r\n\r\n  // Relations\r\n  apiKey ApiKey @relation(fields: [apiKeyId], references: [id])\r\n\r\n  @@map(\"api_key_usage_logs\")\r\n}\r\n\r\nmodel FileMetadata {\r\n  id                String          @id @default(cuid())\r\n  fileName          String\r\n  filePath          String\r\n  fileSize         
+ BigInt\r\n  fileType          String\r\n  mimeType          String\r\n  storageCategory   StorageCategory\r\n  mimoFileId        String?         @unique\r\n  cdnUrl       
+     String?\r\n  thumbnailUrl      String?\r\n  accessLevel       String          @default(\"private\")\r\n  uploadedById      String\r\n  chauffeurId       String?\r\n  missionId         String?\r\n  createdAt         DateTime        @default(now())\r\n  updatedAt         DateTime        @updatedAt\r\n\r\n  // Relations\r\n  uploadedBy     
+   Utilisateur     @relation(\"FileUploadedBy\", fields: [uploadedById], references: [id])\r\n  chauffeur         Chauffeur?      @relation(fields: [chauffeurId], references: [id])\r\n  mission           Mission?        @relation(fields: [missionId], references: [id])\r\n\r\n  @@map(\"file_metadata\")\r\n}\r\n\r\n// Enums\r\nenum TypeUtilisateur {\r\n  CHAUFFEUR\r\n  DISPATCHER\r\n  VALIDATEUR\r\n  COMPTABLE\r\n  ADMIN\r\n}\r\n\r\nenum StatutChauffeur {\r\n  EN_INSCRIPTION\r\n  EN_ATTENTE_VALIDATION\r\n  CORRECTIONS_DEMANDEES\r\n  APPROUVE\r\n  REJETE\r\n  SUSPENDU\r\n  BLOQUE\r\n  INACTIF\r\n}\r\n\r\nenum Disponibilite {\r\n  DISPONIBLE\r\n  INDISPONIBLE\r\n  EN_MISSION\r\n}\r\n\r\nenum TypeDocument {\r\n  CARTE_IDENTITE\r\n  PERMIS\r\n  ASSURANCE\r\n  CARTE_GRISE\r\n  RIB\r\n  KBIS\r\n}\r\n\r\nenum StatutDocument {\r\n  VALIDE\r\n  EXPIRE\r\n  A_VERIFIER\r\n}\r\n\r\nenum TypePenalite {\r\n  RETARD_LEGER\r\n  RETARD_MOYEN\r\n  RETARD_IMPORTANT\r\n  ANNULATION_TARDIVE\r\n  PREUVE_MANQUANTE\r\n  DOCUMENT_FALSIFIE\r\n}\r\n\r\nenum StatutMission {\r\n  DRAFT\r\n  EN_COURS\r\n  TERMINEE\r\n  ANNULEE\r\n}\r\n\r\nenum StatutPaiement {\r\n  EN_COURS\r\n  COMPLETE\r\n  ECHEC\r\n}\r\n\r\nenum TypePaiement {\r\n  HEBDOMADAIRE\r\n  INSTANTANE\r\n  MENSUEL\r\n}\r\n\r\nenum StatutFacture {\r\n  EMISE\r\n  PAYEE\r\n  ANNULEE\r\n}\r\n\r\nenum SystemType {\r\n  ERP\r\n 
+ CRM\r\n  External\r\n  Mobile\r\n}\r\n\r\nenum Priority {\r\n  LOW\r\n  NORMAL\r\n  HIGH\r\n  URGENT\r\n  CRITICAL\r\n}\r\n\r\nenum StorageCategory {\r\n  DOCUMENTS\r\n  PROOFS\r\n  TRACKING\r\n  GENERAL\r\n}\r\n"                                            
+            }
+          ]
+        },
+        "filters": {
+          "externalTables": [],
+          "externalEnums": []
+        }
+      }
+    }
+    Response: {
+      "jsonrpc": "2.0",
+      "error": {
+        "code": 4466,
+        "message": "An error happened. Check the data field for details.",
+        "data": {
+          "is_panic": false,
+          "message": "",
+          "meta": {
+            "full_error": ""
+          },
+          "error_code": "P1012"
+        }
+      },
+      "id": 1
+    }
+    An error happened. Check the data field for details.
+
+      51 |
+      52 |   // Run migrations
+    > 53 |   execSync('npx prisma db push --schema=./prisma/schema.test.prisma', {    
+         |           ^
+      54 |     env: {
+      55 |       ...process.env,
+      56 |       DATABASE_URL: databaseURL,
+
+      at setupTestDatabase (src/lib/test-db.ts:53:11)
+      at Object.<anonymous> (src/__tests__/api.test.ts:23:37)
+
+
+  ● Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'fileMetadata')
+
+      63 | export const cleanupTestDatabase = async (prisma: PrismaClient) => {       
+      64 |   // Clean up all test data
+    > 65 |   await prisma.fileMetadata.deleteMany()
+         |                ^
+      66 |   await prisma.apiKeyUsageLog.deleteMany()
+      67 |   await prisma.apiKey.deleteMany()
+      68 |   await prisma.facture.deleteMany()
+
+      at fileMetadata (src/lib/test-db.ts:65:16)
+      at Object.<anonymous> (src/__tests__/api.test.ts:27:30)
+
+Test Suites: 3 failed, 3 total
+Tests:       28 failed, 1 passed, 29 total
+Snapshots:   0 total
+Time:        14.313 s
+Ran all test suites.

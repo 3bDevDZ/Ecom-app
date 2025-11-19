@@ -3,9 +3,24 @@ import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
+// Services
+import { KeycloakAuthService } from './application/services/keycloak-auth.service';
+
+// Strategies
+import { JwtStrategy } from './application/strategies/jwt.strategy';
+import { KeycloakStrategy } from './application/strategies/keycloak.strategy';
+
+// Guards
+import { JwtAuthGuard } from './application/guards/jwt-auth.guard';
+import { KeycloakAuthGuard } from './application/guards/keycloak-auth.guard';
+import { RolesGuard } from './application/guards/roles.guard';
+
+// Controllers
+import { AuthController } from './presentation/controllers/auth.controller';
+
 /**
  * Identity Module (Bounded Context)
- * 
+ *
  * Responsibilities:
  * - User authentication via Keycloak (OAuth 2.0 + PKCE)
  * - JWT token validation and refresh
@@ -17,22 +32,36 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     ConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET || 'change-me-in-production',
-      signOptions: {
-        expiresIn: '1h',
-      },
+    JwtModule.registerAsync({
+      useFactory: () => ({
+        secret: process.env.JWT_SECRET || 'change-me-in-production',
+        signOptions: {
+          expiresIn: parseInt(process.env.JWT_EXPIRES_IN ?? '3600', 10),
+        },
+      }),
     }),
   ],
-  controllers: [
-    // KeycloakAuthController will be added in T012
-  ],
+  controllers: [AuthController],
   providers: [
-    // KeycloakStrategy, JwtStrategy, SessionService will be added later
+    // Services
+    KeycloakAuthService,
+
+    // Strategies
+    JwtStrategy,
+    KeycloakStrategy,
+
+    // Guards
+    JwtAuthGuard,
+    KeycloakAuthGuard,
+    RolesGuard,
   ],
   exports: [
-    // Guards and decorators will be exported later
+    KeycloakAuthService,
+    JwtAuthGuard,
+    KeycloakAuthGuard,
+    RolesGuard,
+    PassportModule,
+    JwtModule,
   ],
 })
 export class IdentityModule {}
-

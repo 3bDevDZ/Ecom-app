@@ -1,254 +1,289 @@
 # B2B E-Commerce Platform API
 
-A comprehensive B2B e-commerce platform built with Clean Architecture, Domain-Driven Design (DDD), and CQRS patterns using NestJS.
+A modern B2B e-commerce platform built with NestJS, following Clean Architecture, Domain-Driven Design (DDD), and Command Query Responsibility Segregation (CQRS) principles.
 
-## Features
+## 🏗️ Architecture
 
-### MVP (Phase 1)
-- **Product Catalog**: Browse, search, and filter products with variant support
-- **Shopping Cart**: Add products to cart with session persistence
-- **Checkout & Orders**: Complete checkout and place orders (offline payment/fulfillment)
-- **Order Management**: View order history, track orders, and reorder
-- **Landing Page CMS**: Fully editable landing page content for administrators
-- **Authentication**: Keycloak integration for secure user authentication
+This application implements:
 
-### Architecture
+- **Clean Architecture**: Separation of concerns with distinct layers (Domain, Application, Infrastructure, Presentation)
+- **Domain-Driven Design (DDD)**: Bounded contexts, aggregates, entities, value objects, and domain events
+- **CQRS Pattern**: Separate read and write models with command and query handlers
+- **Event-Driven Architecture**: Domain and integration events with RabbitMQ
+- **Outbox Pattern**: Reliable event delivery with transactional consistency
 
-- **Clean Architecture**: Separation of concerns with clear dependency rules
-- **Domain-Driven Design**: Bounded contexts with aggregates, entities, and value objects
-- **CQRS**: Separate read and write models for optimized performance
-- **Event-Driven**: Outbox pattern for reliable event publishing to RabbitMQ
-- **Test-Driven**: 90% code coverage target with unit, integration, and E2E tests
+## 📦 Bounded Contexts
 
-## Prerequisites
+1. **Identity** - User authentication and authorization via Keycloak
+2. **Landing CMS** - Landing page content management
+3. **Product Catalog** - Product management, search, and categories (10K-50K products)
+4. **Order Management** - Shopping cart, order processing, and inventory reservations
 
-- **Node.js**: 18.x or higher
-- **PostgreSQL**: 15.x or higher
-- **RabbitMQ**: 3.12.x or higher
-- **Keycloak**: 22.x or higher
-- **pnpm**: 8.x or higher (recommended) or npm
+## 🚀 Quick Start
 
-## Getting Started
+### Prerequisites
 
-### 1. Install Dependencies
+- Node.js 18.x or 20.x
+- Docker and Docker Compose
+- PostgreSQL 15+
+- RabbitMQ 3.12+
+- Keycloak 23+
+- MinIO (optional, for file storage)
 
+### Installation
+
+1. **Clone the repository**
 ```bash
-pnpm install
+git clone <repository-url>
+cd Ecom-app/apps/api
 ```
 
-### 2. Environment Configuration
+2. **Install dependencies**
+```bash
+npm install
+```
 
-Copy the example environment file and configure your local settings:
-
+3. **Setup environment variables**
 ```bash
 cp .env.example .env
+# Edit .env with your configuration
 ```
 
-Edit `.env` and update the following:
-- Database credentials
-- Keycloak URL and client configuration
-- RabbitMQ connection details
-- SMTP settings for email notifications
+4. **Start infrastructure services**
 
-### 3. Database Setup
+From the project root:
+```bash
+docker-compose up -d
+```
 
-Ensure PostgreSQL is running and create the database:
+This starts:
+- PostgreSQL on port 5432
+- RabbitMQ on ports 5672 (AMQP) and 15672 (Management UI)
+- Keycloak on port 8080
+- MinIO on ports 9000 (API) and 9001 (Console)
+
+5. **Run database migrations**
+```bash
+npm run migration:run
+```
+
+6. **Start the development server**
+```bash
+npm run start:dev
+```
+
+The API will be available at `http://localhost:3333`
+
+## 📚 Available Scripts
+
+### Development
+- `npm run start` - Start the application
+- `npm run start:dev` - Start in watch mode
+- `npm run start:debug` - Start in debug mode
+
+### Building
+- `npm run build` - Build the application
+- `npm run prebuild` - Clean the dist folder
+
+### Testing
+- `npm run test` - Run unit tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:cov` - Run tests with coverage (90% threshold)
+- `npm run test:e2e` - Run end-to-end tests
+
+### Code Quality
+- `npm run lint` - Lint and fix code
+- `npm run format` - Format code with Prettier
+
+### Database
+- `npm run migration:generate` - Generate a new migration
+- `npm run migration:run` - Run pending migrations
+- `npm run migration:revert` - Revert the last migration
+
+## 🔑 Environment Variables
+
+See `.env.example` for all available environment variables. Key variables include:
+
+### Application
+- `NODE_ENV` - Environment (development, production)
+- `PORT` - API port (default: 3333)
+
+### Database
+- `DATABASE_HOST` - PostgreSQL host
+- `DATABASE_PORT` - PostgreSQL port
+- `DATABASE_USER` - Database user
+- `DATABASE_PASSWORD` - Database password
+- `DATABASE_NAME` - Database name
+
+### Keycloak
+- `KEYCLOAK_URL` - Keycloak server URL
+- `KEYCLOAK_REALM` - Keycloak realm name
+- `KEYCLOAK_CLIENT_ID` - Client ID
+- `KEYCLOAK_CLIENT_SECRET` - Client secret
+
+### RabbitMQ
+- `RABBITMQ_URL` - RabbitMQ connection URL
+
+### MinIO
+- `MINIO_ENDPOINT` - MinIO server endpoint
+- `MINIO_ACCESS_KEY` - Access key
+- `MINIO_SECRET_KEY` - Secret key
+
+## 🧪 Testing
+
+The project maintains **90% code coverage** across all metrics:
 
 ```bash
-createdb b2b_ecommerce
+# Run tests with coverage
+npm run test:cov
+
+# Coverage thresholds (enforced):
+# - Branches: 90%
+# - Functions: 90%
+# - Lines: 90%
+# - Statements: 90%
 ```
 
-Run database migrations:
-
-```bash
-pnpm run migration:run
+### Test Structure
+```
+test/
+├── unit/          # Unit tests for domain logic
+├── integration/   # Integration tests for services
+├── e2e/           # End-to-end tests for APIs
+├── factories/     # Test data factories
+└── helpers/       # Test utilities
 ```
 
-### 4. Start External Services
-
-#### Keycloak
-```bash
-docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0 start-dev
-```
-
-#### RabbitMQ
-```bash
-docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3-management
-```
-
-### 5. Run the Application
-
-#### Development Mode
-```bash
-pnpm run start:dev
-```
-
-#### Production Mode
-```bash
-pnpm run build
-pnpm run start:prod
-```
-
-The API will be available at `http://localhost:3000`
-
-## Testing
-
-### Run All Tests
-```bash
-pnpm run test
-```
-
-### Run Tests with Coverage
-```bash
-pnpm run test:cov
-```
-
-### Run E2E Tests
-```bash
-pnpm run test:e2e
-```
-
-### Watch Mode
-```bash
-pnpm run test:watch
-```
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 apps/api/src/
-├── common/              # Cross-cutting concerns
-│   ├── decorators/      # Custom decorators
-│   ├── filters/         # Exception filters
-│   ├── interceptors/    # Logging, transformation
-│   └── pipes/           # Validation pipes
-├── config/              # Configuration modules
-│   ├── app.config.ts
-│   ├── database.config.ts
-│   ├── keycloak.config.ts
-│   └── rabbitmq.config.ts
-├── modules/             # Bounded Contexts
-│   ├── identity/        # Authentication & user management
-│   ├── landing-cms/     # Landing page content management
-│   ├── order-management/# Orders and cart management
-│   └── product-catalog/ # Product browsing and search
-├── shared/              # Shared kernel
-│   ├── domain/          # Base domain classes
-│   ├── application/     # Base CQRS classes
-│   └── infrastructure/  # Outbox, messaging, database
-├── views/               # Handlebars templates (Atomic Design)
-│   ├── components/      # Reusable components
-│   ├── pages/           # Full page templates
-│   └── templates/       # Layout templates
-├── app.module.ts        # Root module
-└── main.ts              # Application bootstrap
+├── common/                 # Shared utilities
+│   ├── decorators/        # Custom decorators
+│   ├── filters/           # Exception filters
+│   ├── interceptors/      # Request/response interceptors
+│   └── pipes/             # Validation pipes
+├── config/                # Configuration modules
+├── modules/               # Bounded contexts
+│   ├── identity/          # Authentication & authorization
+│   ├── landing-cms/       # Content management
+│   ├── product-catalog/   # Product management
+│   └── order-management/  # Cart & orders
+├── shared/                # Shared kernel
+│   ├── domain/           # Base domain classes
+│   ├── application/      # Base application classes
+│   └── infrastructure/   # Shared infrastructure
+├── views/                # Handlebars templates
+├── public/               # Static assets
+├── app.module.ts         # Root module
+└── main.ts              # Bootstrap file
 ```
 
-## Bounded Contexts
+### Module Structure (Clean Architecture)
+```
+modules/{bounded-context}/
+├── domain/               # Business logic layer
+│   ├── aggregates/      # Aggregate roots
+│   ├── entities/        # Domain entities
+│   ├── value-objects/   # Value objects
+│   ├── events/          # Domain events
+│   └── repositories/    # Repository interfaces
+├── application/         # Application logic layer
+│   ├── commands/       # Command DTOs
+│   ├── queries/        # Query DTOs
+│   ├── handlers/       # Command/Query handlers
+│   └── sagas/          # Process managers
+├── infrastructure/     # Infrastructure layer
+│   ├── persistence/   # Database implementation
+│   ├── events/        # Event handlers
+│   └── email/         # External services
+└── presentation/      # Presentation layer
+    ├── controllers/  # REST controllers
+    └── presenters/   # Response transformers
+```
 
-### 1. Product Catalog
-- **Domain**: Products, Categories, Variants, Inventory
-- **Features**: Search, filtering, variant selection
-- **API**: `/api/products`, `/api/categories`
+## 🔐 Authentication
 
-### 2. Order Management
-- **Domain**: Orders, Carts, Order Items
-- **Features**: Cart management, checkout, order history
-- **API**: `/api/cart`, `/api/orders`
+The application uses **Keycloak** for authentication:
 
-### 3. Landing CMS
-- **Domain**: Landing page content sections
-- **Features**: Edit hero, trust logos, product showcase, footer
-- **API**: `/api/cms/landing/*`
+1. **OAuth 2.0 Authorization Code Flow with PKCE**
+2. **JWT token validation**
+3. **Role-based access control** (Buyer, Seller, Admin)
 
-### 4. Identity
-- **Domain**: User profiles (synced from Keycloak)
-- **Features**: Authentication, authorization
-- **API**: `/api/auth/*`
+### Endpoints
+- `GET /api/auth/login` - Initiate login
+- `GET /api/auth/callback` - OAuth callback
+- `GET /api/auth/logout` - Logout
 
-## Scripts
+## 📡 API Documentation
 
-| Command | Description |
-|---------|-------------|
-| `pnpm run build` | Build the application |
-| `pnpm run start` | Start the application |
-| `pnpm run start:dev` | Start in watch mode |
-| `pnpm run start:debug` | Start in debug mode |
-| `pnpm run start:prod` | Start production build |
-| `pnpm run lint` | Lint and fix code |
-| `pnpm run format` | Format code with Prettier |
-| `pnpm run test` | Run unit tests |
-| `pnpm run test:cov` | Run tests with coverage |
-| `pnpm run test:e2e` | Run E2E tests |
-| `pnpm run migration:generate` | Generate new migration |
-| `pnpm run migration:run` | Run pending migrations |
-| `pnpm run migration:revert` | Revert last migration |
+Once the server is running, access the API documentation at:
 
-## API Documentation
+- **Swagger UI**: `http://localhost:3333/api/docs`
+- **Health Check**: `http://localhost:3333/health`
 
-Once the application is running, access the API documentation at:
-- Swagger UI: `http://localhost:3000/api/docs`
+## 🎨 Frontend Templates
 
-## Development Guidelines
+The application uses **Handlebars (HBS)** for server-side rendering with **Tailwind CSS** for styling.
 
-### Testing Strategy
-- **Unit Tests**: Test domain logic (aggregates, value objects, domain services)
-- **Integration Tests**: Test repositories, event handlers, external integrations
-- **E2E Tests**: Test complete user journeys (browse → cart → checkout → orders)
-- **Target Coverage**: 90% minimum
+Templates are located in `src/views/`:
+- `templates/` - Base layouts
+- `pages/` - Full page templates
+- `components/` - Reusable components (atoms, molecules, organisms)
 
-### Commit Conventions
-Follow conventional commits:
-- `feat: add new feature`
-- `fix: bug fix`
-- `docs: documentation changes`
-- `test: add or update tests`
-- `refactor: code refactoring`
+## 📊 Monitoring
 
-### Code Style
-- ESLint and Prettier are configured and enforced
-- Run `pnpm run lint` before committing
-- Run `pnpm run format` to auto-format code
+### Service URLs (Development)
 
-## Troubleshooting
+- **API**: http://localhost:3333
+- **RabbitMQ Management**: http://localhost:15672 (guest/guest)
+- **Keycloak Admin**: http://localhost:8080 (admin/admin)
+- **MinIO Console**: http://localhost:9001 (minioadmin/minioadmin)
+- **PostgreSQL**: localhost:5432
+
+## 🔄 CI/CD
+
+The project uses GitHub Actions for continuous integration:
+
+- Linting and code quality checks
+- Unit tests with coverage validation (90%)
+- E2E tests with PostgreSQL and RabbitMQ
+- Build verification
+- Coverage reporting to Codecov
+
+## 🐛 Troubleshooting
 
 ### Database Connection Issues
-- Ensure PostgreSQL is running: `pg_isready`
-- Check database credentials in `.env`
-- Verify database exists: `psql -l`
+```bash
+# Check if PostgreSQL is running
+docker ps | grep postgres
 
-### Keycloak Authentication Errors
-- Verify Keycloak is running: `curl http://localhost:8080`
-- Check realm and client configuration
-- Ensure client secret matches `.env`
+# Check logs
+docker logs b2b-postgres
+```
 
 ### RabbitMQ Connection Issues
-- Verify RabbitMQ is running: `curl http://localhost:15672`
-- Check RabbitMQ credentials in `.env`
-- Access management UI: `http://localhost:15672` (guest/guest)
+```bash
+# Check if RabbitMQ is running
+docker ps | grep rabbitmq
 
-## Performance Considerations
+# Access management UI
+open http://localhost:15672
+```
 
-- **Search Performance**: Product search uses PostgreSQL full-text search with indexed queries (target: <2s for 95% of searches)
-- **Caching**: Implement Redis caching for frequently accessed product catalog queries
-- **Inventory Reservation**: Uses row-level locking to prevent overselling
-- **Event Processing**: Outbox pattern ensures reliable event delivery without blocking requests
+### Keycloak Configuration
+1. Access Keycloak at http://localhost:8080
+2. Import the realm: `docker/keycloak/realm-export.json`
+3. Configure client secret in `.env`
 
-## Contributing
-
-1. Create a feature branch: `git checkout -b feat/your-feature`
-2. Write tests first (TDD approach)
-3. Implement the feature
-4. Ensure all tests pass: `pnpm run test:cov`
-5. Ensure lint passes: `pnpm run lint`
-6. Commit changes: `git commit -m "feat: your feature description"`
-7. Push to branch: `git push origin feat/your-feature`
-8. Create a Pull Request
-
-## License
+## 📄 License
 
 MIT
 
-## Support
+## 👥 Contributing
 
-For questions or issues, please create an issue in the GitHub repository.
+Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
+
+## 📞 Support
+
+For issues and questions, please open a GitHub issue.

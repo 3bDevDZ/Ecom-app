@@ -1,9 +1,23 @@
 module.exports = {
-  moduleFileExtensions: ['js', 'json', 'ts'],
-  rootDir: '.',
-  testRegex: '.*\\.spec\\.ts$',
+  displayName: 'api',
+  preset: '../../jest.preset.js',
+  testEnvironment: 'node',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
+  },
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageDirectory: '../../coverage/apps/api',
+  testMatch: [
+    '<rootDir>/src/**/__tests__/**/*.[jt]s?(x)',
+    '<rootDir>/src/**/*(*.)@(spec|test).[jt]s?(x)',
+    '<rootDir>/test/unit/**/*.[jt]s?(x)',
+    '<rootDir>/test/integration/**/*.[jt]s?(x)',
+  ],
+  moduleNameMapper: {
+    '^@shared/(.*)$': '<rootDir>/src/shared/$1',
+    '^@modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@config/(.*)$': '<rootDir>/src/config/$1',
+    '^@common/(.*)$': '<rootDir>/src/common/$1',
   },
   collectCoverageFrom: [
     'src/**/*.(t|j)s',
@@ -15,15 +29,6 @@ module.exports = {
     '!src/**/index.ts',
     '!src/migrations/**',
   ],
-  coverageDirectory: './coverage',
-  testEnvironment: 'node',
-  roots: ['<rootDir>/src/', '<rootDir>/test/'],
-  moduleNameMapper: {
-    '^@shared/(.*)$': '<rootDir>/src/shared/$1',
-    '^@modules/(.*)$': '<rootDir>/src/modules/$1',
-    '^@config/(.*)$': '<rootDir>/src/config/$1',
-    '^@common/(.*)$': '<rootDir>/src/common/$1',
-  },
   coverageThreshold: {
     global: {
       branches: 90,

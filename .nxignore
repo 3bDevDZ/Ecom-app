@@ -1,0 +1,13 @@
+# Nx ignore patterns
+node_modules
+dist
+coverage
+.env
+.env.local
+*.log
+.DS_Store
+docker
+specs
+design template
+ecom-specify
+

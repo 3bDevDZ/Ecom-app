@@ -1,16 +1,29 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2019",
-    "lib": ["es2020"],
-    "moduleResolution": "node",
-    "types": ["node"],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "rootDir": "./dist",
     "sourceMap": true,
-    "resolveJsonModule": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2019",
+    "module": "commonjs",
+    "lib": ["es2020"],
     "skipLibCheck": true,
-    "baseUrl": "."
-  }
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["apps/api/src/shared/*"],
+      "@modules/*": ["apps/api/src/modules/*"],
+      "@config/*": ["apps/api/src/config/*"],
+      "@common/*": ["apps/api/src/common/*"]
+    },
+    "types": ["node", "jest"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,412 @@
+Using launch settings from HydraPharm.TMS.Api\Properties\launchSettings.json...
+Building...
+E:\TMS\backend\HydraPharm.TMS.Infrastructure\Repositories\OrderRepository.cs(34,30): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [E:\TMS\backend\HydraPharm.TMS.Infrastructure\HydraPharm.TMS.Infrastructure.csproj]
+E:\TMS\backend\HydraPharm.TMS.Infrastructure\Repositories\OrderRepository.cs(40,30): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [E:\TMS\backend\HydraPharm.TMS.Infrastructure\HydraPharm.TMS.Infrastructure.csproj]
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10620]
+      The property 'ApiKey.AllowedEndpoints' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10620]
+      The property 'ApiKey.AllowedMethods' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10620]
+      The property 'Secteur.JoursDeLivraison' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Exception.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'PaymentInstrument.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Return.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Delivery.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Order.ClientId1' was created in shadow state because a conflicting property with the simple name 'ClientId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'OrderHistory.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Package.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Route.VehicleId1' was created in shadow state because a conflicting property with the simple name 'VehicleId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Shipment.VehicleId1' was created in shadow state because a conflicting property with the simple name 'VehicleId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Box.SiteId1' was created in shadow state because a conflicting property with the simple name 'SiteId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Commune.WilayaId1' was created in shadow state because a conflicting property with the simple name 'WilayaId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Secteur.BoxId1' was created in shadow state because a conflicting property with the simple name 'BoxId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Secteur.FilialeId1' was created in shadow state because a conflicting property with the simple name 'FilialeId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Site.FilialeId1' was created in shadow state because a conflicting property with the simple name 'FilialeId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (27ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "MigrationId", "ProductVersion"
+      FROM "__EFMigrationsHistory"
+      ORDER BY "MigrationId";
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+          "MigrationId" character varying(150) NOT NULL,
+          "ProductVersion" character varying(32) NOT NULL,
+          CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      LOCK TABLE "__EFMigrationsHistory" IN ACCESS EXCLUSIVE MODE
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "MigrationId", "ProductVersion"
+      FROM "__EFMigrationsHistory"
+      ORDER BY "MigrationId";
+info: Microsoft.EntityFrameworkCore.Migrations[20405]
+      No migrations were applied. The database is already up to date.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM "AspNetUsers" AS a)
+warn: Microsoft.EntityFrameworkCore.Query[10103]
+      The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT f."Id", f."Adresse", f."CoutLivraisonParKm", f."CreatedAt", f."Email", f."EstActive", f."Nom", f."Telephone", f."UpdatedAt"
+      FROM "Filiales" AS f
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Guid), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime), @p11='?', @p12='?', @p13='?', @p14='?', @p15='?' (DbType = Boolean), @p16='?', @p17='?' (DbType = Boolean), @p18='?' (DbType = DateTime), @p19='?', @p20='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FilialeId", "IsActive", "LastLoginAt", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "UserRole")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Guid), @__p_1='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT a."UserId", a."RoleId"
+      FROM "AspNetUserRoles" AS a
+      WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p22='?' (DbType = Guid), @p2='?' (DbType = Int32), @p3='?', @p23='?', @p4='?' (DbType = DateTime), @p5='?', @p6='?' (DbType = Boolean), @p7='?' (DbType = Guid), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?' (DbType = Boolean), @p11='?' (DbType = DateTime), @p12='?', @p13='?', @p14='?', @p15='?', @p16='?' (DbType = Boolean), @p17='?', @p18='?' (DbType = Boolean), @p19='?' (DbType = DateTime), @p20='?', @p21='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+      VALUES (@p0, @p1);
+      UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "CreatedAt" = @p4, "Email" = @p5, "EmailConfirmed" = @p6, "FilialeId" = @p7, "IsActive" = @p8, "LastLoginAt" = @p9, "LockoutEnabled" = @p10, "LockoutEnd" = @p11, "NormalizedEmail" = @p12, "NormalizedUserName" = @p13, "PasswordHash" = @p14, "PhoneNumber" = @p15, "PhoneNumberConfirmed" = @p16, "SecurityStamp" = @p17, "TwoFactorEnabled" = @p18, "UpdatedAt" = @p19, "UserName" = @p20, "UserRole" = @p21
+      WHERE "Id" = @p22 AND "ConcurrencyStamp" = @p23;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Guid), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime), @p11='?', @p12='?', @p13='?', @p14='?', @p15='?' (DbType = Boolean), @p16='?', @p17='?' (DbType = Boolean), @p18='?' (DbType = DateTime), @p19='?', @p20='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FilialeId", "IsActive", "LastLoginAt", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "UserRole")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Guid), @__p_1='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT a."UserId", a."RoleId"
+      FROM "AspNetUserRoles" AS a
+      WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p22='?' (DbType = Guid), @p2='?' (DbType = Int32), @p3='?', @p23='?', @p4='?' (DbType = DateTime), @p5='?', @p6='?' (DbType = Boolean), @p7='?' (DbType = Guid), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?' (DbType = Boolean), @p11='?' (DbType = DateTime), @p12='?', @p13='?', @p14='?', @p15='?', @p16='?' (DbType = Boolean), @p17='?', @p18='?' (DbType = Boolean), @p19='?' (DbType = DateTime), @p20='?', @p21='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+      VALUES (@p0, @p1);
+      UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "CreatedAt" = @p4, "Email" = @p5, "EmailConfirmed" = @p6, "FilialeId" = @p7, "IsActive" = @p8, "LastLoginAt" = @p9, "LockoutEnabled" = @p10, "LockoutEnd" = @p11, "NormalizedEmail" = @p12, "NormalizedUserName" = @p13, "PasswordHash" = @p14, "PhoneNumber" = @p15, "PhoneNumberConfirmed" = @p16, "SecurityStamp" = @p17, "TwoFactorEnabled" = @p18, "UpdatedAt" = @p19, "UserName" = @p20, "UserRole" = @p21
+      WHERE "Id" = @p22 AND "ConcurrencyStamp" = @p23;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Guid), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime), @p11='?', @p12='?', @p13='?', @p14='?', @p15='?' (DbType = Boolean), @p16='?', @p17='?' (DbType = Boolean), @p18='?' (DbType = DateTime), @p19='?', @p20='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FilialeId", "IsActive", "LastLoginAt", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "UserRole")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Guid), @__p_1='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT a."UserId", a."RoleId"
+      FROM "AspNetUserRoles" AS a
+      WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p22='?' (DbType = Guid), @p2='?' (DbType = Int32), @p3='?', @p23='?', @p4='?' (DbType = DateTime), @p5='?', @p6='?' (DbType = Boolean), @p7='?' (DbType = Guid), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?' (DbType = Boolean), @p11='?' (DbType = DateTime), @p12='?', @p13='?', @p14='?', @p15='?', @p16='?' (DbType = Boolean), @p17='?', @p18='?' (DbType = Boolean), @p19='?' (DbType = DateTime), @p20='?', @p21='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+      VALUES (@p0, @p1);
+      UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "CreatedAt" = @p4, "Email" = @p5, "EmailConfirmed" = @p6, "FilialeId" = @p7, "IsActive" = @p8, "LastLoginAt" = @p9, "LockoutEnabled" = @p10, "LockoutEnd" = @p11, "NormalizedEmail" = @p12, "NormalizedUserName" = @p13, "PasswordHash" = @p14, "PhoneNumber" = @p15, "PhoneNumberConfirmed" = @p16, "SecurityStamp" = @p17, "TwoFactorEnabled" = @p18, "UpdatedAt" = @p19, "UserName" = @p20, "UserRole" = @p21
+      WHERE "Id" = @p22 AND "ConcurrencyStamp" = @p23;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Guid), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime), @p11='?', @p12='?', @p13='?', @p14='?', @p15='?' (DbType = Boolean), @p16='?', @p17='?' (DbType = Boolean), @p18='?' (DbType = DateTime), @p19='?', @p20='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FilialeId", "IsActive", "LastLoginAt", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "UserRole")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Guid), @__p_1='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT a."UserId", a."RoleId"
+      FROM "AspNetUserRoles" AS a
+      WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p22='?' (DbType = Guid), @p2='?' (DbType = Int32), @p3='?', @p23='?', @p4='?' (DbType = DateTime), @p5='?', @p6='?' (DbType = Boolean), @p7='?' (DbType = Guid), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?' (DbType = Boolean), @p11='?' (DbType = DateTime), @p12='?', @p13='?', @p14='?', @p15='?', @p16='?' (DbType = Boolean), @p17='?', @p18='?' (DbType = Boolean), @p19='?' (DbType = DateTime), @p20='?', @p21='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+      VALUES (@p0, @p1);
+      UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "CreatedAt" = @p4, "Email" = @p5, "EmailConfirmed" = @p6, "FilialeId" = @p7, "IsActive" = @p8, "LastLoginAt" = @p9, "LockoutEnabled" = @p10, "LockoutEnd" = @p11, "NormalizedEmail" = @p12, "NormalizedUserName" = @p13, "PasswordHash" = @p14, "PhoneNumber" = @p15, "PhoneNumberConfirmed" = @p16, "SecurityStamp" = @p17, "TwoFactorEnabled" = @p18, "UpdatedAt" = @p19, "UserName" = @p20, "UserRole" = @p21
+      WHERE "Id" = @p22 AND "ConcurrencyStamp" = @p23;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Guid), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime), @p11='?', @p12='?', @p13='?', @p14='?', @p15='?' (DbType = Boolean), @p16='?', @p17='?' (DbType = Boolean), @p18='?' (DbType = DateTime), @p19='?', @p20='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FilialeId", "IsActive", "LastLoginAt", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "UserRole")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Guid), @__p_1='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT a."UserId", a."RoleId"
+      FROM "AspNetUserRoles" AS a
+      WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+      FROM "AspNetRoles" AS a
+      WHERE a."NormalizedName" = @__normalizedRoleName_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."CreatedAt", a."Email", a."EmailConfirmed", a."FilialeId", a."IsActive", a."LastLoginAt", a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UpdatedAt", a."UserName", a."UserRole"
+      FROM "AspNetUsers" AS a
+      WHERE a."NormalizedEmail" = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p22='?' (DbType = Guid), @p2='?' (DbType = Int32), @p3='?', @p23='?', @p4='?' (DbType = DateTime), @p5='?', @p6='?' (DbType = Boolean), @p7='?' (DbType = Guid), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?' (DbType = Boolean), @p11='?' (DbType = DateTime), @p12='?', @p13='?', @p14='?', @p15='?', @p16='?' (DbType = Boolean), @p17='?', @p18='?' (DbType = Boolean), @p19='?' (DbType = DateTime), @p20='?', @p21='?'], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+      VALUES (@p0, @p1);
+      UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "CreatedAt" = @p4, "Email" = @p5, "EmailConfirmed" = @p6, "FilialeId" = @p7, "IsActive" = @p8, "LastLoginAt" = @p9, "LockoutEnabled" = @p10, "LockoutEnd" = @p11, "NormalizedEmail" = @p12, "NormalizedUserName" = @p13, "PasswordHash" = @p14, "PhoneNumber" = @p15, "PhoneNumberConfirmed" = @p16, "SecurityStamp" = @p17, "TwoFactorEnabled" = @p18, "UpdatedAt" = @p19, "UserName" = @p20, "UserRole" = @p21
+      WHERE "Id" = @p22 AND "ConcurrencyStamp" = @p23;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM "Clients" AS c)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT f."Id", f."Adresse", f."CoutLivraisonParKm", f."CreatedAt", f."Email", f."EstActive", f."Nom", f."Telephone", f."UpdatedAt"
+      FROM "Filiales" AS f
+      LIMIT 1
+warn: Microsoft.EntityFrameworkCore.Query[10103]
+      The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT s."Id", s."BoxId", s."BoxId1", s."Code", s."CommuneId", s."CreatedAt", s."EstActive", s."FilialeId", s."FilialeId1", s."JoursDeLivraison", s."Nom", s."UpdatedAt"
+      FROM "Secteurs" AS s
+      LIMIT 1
+Unhandled exception. System.InvalidOperationException: Sequence contains no elements.
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at HydraPharm.TMS.Infrastructure.Data.DatabaseSeeder.SeedLogisticsDataAsync() in E:\TMS\backend\HydraPharm.TMS.Infrastructure\Data\DatabaseSeeder.cs:line 242
+   at HydraPharm.TMS.Infrastructure.Data.DatabaseSeeder.SeedAsync() in E:\TMS\backend\HydraPharm.TMS.Infrastructure\Data\DatabaseSeeder.cs:line 37
+   at Program.<Main>$(String[] args) in E:\TMS\backend\HydraPharm.TMS.Api\Program.cs:line 143
+   at Program.<Main>(String[] args)

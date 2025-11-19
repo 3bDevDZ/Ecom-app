@@ -1,0 +1,966 @@
+Build started...
+Build succeeded.
+The Entity Framework tools version '9.0.9' is older than that of the runtime '9.0.10'. Update the tools for the latest features and bug fixes. See https://aka.ms/AAc1fbw for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10620]
+      The property 'ApiKey.AllowedEndpoints' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10620]
+      The property 'ApiKey.AllowedMethods' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Exception.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'PaymentInstrument.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Return.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Delivery.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Order.ClientId1' was created in shadow state because a conflicting property with the simple name 'ClientId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'OrderHistory.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Package.OrderId1' was created in shadow state because a conflicting property with the simple name 'OrderId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Route.VehicleId1' was created in shadow state because a conflicting property with the simple name 'VehicleId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Shipment.VehicleId1' was created in shadow state because a conflicting property with the simple name 'VehicleId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Box.SiteId1' was created in shadow state because a conflicting property with the simple name 'SiteId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Commune.WilayaId1' was created in shadow state because a conflicting property with the simple name 'WilayaId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Secteur.BoxId1' was created in shadow state because a conflicting property with the simple name 'BoxId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Secteur.FilialeId1' was created in shadow state because a conflicting property with the simple name 'FilialeId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'SecteurDeliveryDay.SecteurId1' was created in shadow state because a conflicting property with the simple name 'SecteurId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10625]
+      The foreign key property 'Site.FilialeId1' was created in shadow state because a conflicting property with the simple name 'FilialeId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+fail: Microsoft.EntityFrameworkCore.Database.Connection[20004]
+      An error occurred using the connection to database 'HydraPharmTMS' on server 'tcp://localhost:5432'.
+An error occurred using the connection to database 'HydraPharmTMS' on server 'tcp://localhost:5432'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (167ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE DATABASE "HydraPharmTMS";
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (35ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+          "MigrationId" character varying(150) NOT NULL,
+          "ProductVersion" character varying(32) NOT NULL,
+          CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+      );
+info: Microsoft.EntityFrameworkCore.Migrations[20411]
+      Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      LOCK TABLE "__EFMigrationsHistory" IN ACCESS EXCLUSIVE MODE
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "MigrationId", "ProductVersion"
+      FROM "__EFMigrationsHistory"
+      ORDER BY "MigrationId";
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20251022155600_InitialCreate'.
+Applying migration '20251022155600_InitialCreate'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "AspNetRoles" (
+          "Id" uuid NOT NULL,
+          "Name" character varying(256),
+          "NormalizedName" character varying(256),
+          "ConcurrencyStamp" text,
+          CONSTRAINT "PK_AspNetRoles" PRIMARY KEY ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "AspNetUsers" (
+          "Id" uuid NOT NULL,
+          "UserRole" text NOT NULL,
+          "FilialeId" uuid,
+          "IsActive" boolean NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "LastLoginAt" timestamp with time zone,
+          "UserName" character varying(256),
+          "NormalizedUserName" character varying(256),
+          "Email" character varying(256),
+          "NormalizedEmail" character varying(256),
+          "EmailConfirmed" boolean NOT NULL,
+          "PasswordHash" text,
+          "SecurityStamp" text,
+          "ConcurrencyStamp" text,
+          "PhoneNumber" text,
+          "PhoneNumberConfirmed" boolean NOT NULL,
+          "TwoFactorEnabled" boolean NOT NULL,
+          "LockoutEnd" timestamp with time zone,
+          "LockoutEnabled" boolean NOT NULL,
+          "AccessFailedCount" integer NOT NULL,
+          CONSTRAINT "PK_AspNetUsers" PRIMARY KEY ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Driver" (
+          "Id" uuid NOT NULL,
+          "Name" text NOT NULL,
+          "License" text NOT NULL,
+          "Experience" integer NOT NULL,
+          "Phone" text,
+          "Email" text,
+          "IsActive" boolean NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_Driver" PRIMARY KEY ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Filiales" (
+          "Id" uuid NOT NULL,
+          "Nom" character varying(100) NOT NULL,
+          "Adresse" character varying(200) NOT NULL,
+          "Telephone" text,
+          "Email" text,
+          "CoutLivraisonParKm" numeric(18,2) NOT NULL,
+          "EstActive" boolean NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_Filiales" PRIMARY KEY ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "MotifEchecs" (
+          "Id" uuid NOT NULL,
+          "Libelle" character varying(200) NOT NULL,
+          "Description" text NOT NULL,
+          "EstActive" boolean NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_MotifEchecs" PRIMARY KEY ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "OpenIddictApplications" (
+          "Id" uuid NOT NULL,
+          "ApplicationType" text,
+          "ClientId" text,
+          "ClientSecret" text,
+          "ClientType" text,
+          "ConcurrencyToken" text,
+          "ConsentType" text,
+          "DisplayName" text,
+          "DisplayNames" text,
+          "JsonWebKeySet" text,
+          "Permissions" text,
+          "PostLogoutRedirectUris" text,
+          "Properties" text,
+          "RedirectUris" text,
+          "Requirements" text,
+          "Settings" text,
+          CONSTRAINT "PK_OpenIddictApplications" PRIMARY KEY ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Wilayas" (
+          "Id" uuid NOT NULL,
+          "Nom" character varying(100) NOT NULL,
+          "Code" character varying(10) NOT NULL,
+          "EstActive" boolean NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_Wilayas" PRIMARY KEY ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "AspNetRoleClaims" (
+          "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+          "RoleId" uuid NOT NULL,
+          "ClaimType" text,
+          "ClaimValue" text,
+          CONSTRAINT "PK_AspNetRoleClaims" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_AspNetRoleClaims_AspNetRoles_RoleId" FOREIGN KEY ("RoleId") REFERENCES "AspNetRoles" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "ApiKeys" (
+          "Id" uuid NOT NULL,
+          "Key" character varying(100) NOT NULL,
+          "Name" character varying(100) NOT NULL,
+          "Description" character varying(500) NOT NULL,
+          "IsActive" boolean NOT NULL,
+          "ExpiresAt" timestamp with time zone NOT NULL,
+          "LastUsedAt" timestamp with time zone NOT NULL,
+          "CreatedBy" character varying(100) NOT NULL,
+          "RevokedBy" character varying(100),
+          "RevokedAt" timestamp with time zone,
+          "RevokeReason" character varying(500),
+          "AllowedEndpoints" text NOT NULL,
+          "AllowedMethods" text NOT NULL,
+          "RateLimitPerHour" integer NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "CreatedByUserId" uuid,
+          "RevokedByUserId" uuid,
+          CONSTRAINT "PK_ApiKeys" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_ApiKeys_AspNetUsers_CreatedByUserId" FOREIGN KEY ("CreatedByUserId") REFERENCES "AspNetUsers" ("Id"),
+          CONSTRAINT "FK_ApiKeys_AspNetUsers_RevokedByUserId" FOREIGN KEY ("RevokedByUserId") REFERENCES "AspNetUsers" ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "AspNetUserClaims" (
+          "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+          "UserId" uuid NOT NULL,
+          "ClaimType" text,
+          "ClaimValue" text,
+          CONSTRAINT "PK_AspNetUserClaims" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_AspNetUserClaims_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (30ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "AspNetUserLogins" (
+          "LoginProvider" text NOT NULL,
+          "ProviderKey" text NOT NULL,
+          "ProviderDisplayName" text,
+          "UserId" uuid NOT NULL,
+          CONSTRAINT "PK_AspNetUserLogins" PRIMARY KEY ("LoginProvider", "ProviderKey"),
+          CONSTRAINT "FK_AspNetUserLogins_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "AspNetUserRoles" (
+          "UserId" uuid NOT NULL,
+          "RoleId" uuid NOT NULL,
+          CONSTRAINT "PK_AspNetUserRoles" PRIMARY KEY ("UserId", "RoleId"),
+          CONSTRAINT "FK_AspNetUserRoles_AspNetRoles_RoleId" FOREIGN KEY ("RoleId") REFERENCES "AspNetRoles" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_AspNetUserRoles_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "AspNetUserTokens" (
+          "UserId" uuid NOT NULL,
+          "LoginProvider" text NOT NULL,
+          "Name" text NOT NULL,
+          "Value" text,
+          CONSTRAINT "PK_AspNetUserTokens" PRIMARY KEY ("UserId", "LoginProvider", "Name"),
+          CONSTRAINT "FK_AspNetUserTokens_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Vehicles" (
+          "Id" uuid NOT NULL,
+          "Matricule" character varying(20) NOT NULL,
+          "Marque" character varying(50) NOT NULL,
+          "Modele" text NOT NULL,
+          "MaxWeight" double precision NOT NULL,
+          "MaxVolume" double precision NOT NULL,
+          "CapaciteMax" double precision NOT NULL,
+          "CapaciteVolume" double precision NOT NULL,
+          "ConsommationCarburant" double precision NOT NULL,
+          "EstDisponible" boolean NOT NULL,
+          "EstActive" boolean NOT NULL,
+          "DriverId" uuid,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_Vehicles" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Vehicles_AspNetUsers_DriverId" FOREIGN KEY ("DriverId") REFERENCES "AspNetUsers" ("Id") ON DELETE SET NULL
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Sites" (
+          "Id" uuid NOT NULL,
+          "Nom" character varying(100) NOT NULL,
+          "Adresse" text NOT NULL,
+          "Telephone" text,
+          "Email" text,
+          "Latitude" numeric,
+          "Longitude" numeric,
+          "EstActive" boolean NOT NULL,
+          "Capacite" integer NOT NULL,
+          "FilialeId" uuid NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "FilialeId1" uuid NOT NULL,
+          CONSTRAINT "PK_Sites" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Sites_Filiales_FilialeId" FOREIGN KEY ("FilialeId") REFERENCES "Filiales" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Sites_Filiales_FilialeId1" FOREIGN KEY ("FilialeId1") REFERENCES "Filiales" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "OpenIddictAuthorizations" (
+          "Id" uuid NOT NULL,
+          "ApplicationId" uuid,
+          "ConcurrencyToken" text,
+          "CreationDate" timestamp with time zone,
+          "Properties" text,
+          "Scopes" text,
+          "Status" text,
+          "Subject" text,
+          "Type" text,
+          CONSTRAINT "PK_OpenIddictAuthorizations" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_OpenIddictAuthorizations_OpenIddictApplications_Application~" FOREIGN KEY ("ApplicationId") REFERENCES "OpenIddictApplications" ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Communes" (
+          "Id" uuid NOT NULL,
+          "Nom" character varying(100) NOT NULL,
+          "Code" text NOT NULL,
+          "EstActive" boolean NOT NULL,
+          "WilayaId" uuid NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "WilayaId1" uuid NOT NULL,
+          CONSTRAINT "PK_Communes" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Communes_Wilayas_WilayaId" FOREIGN KEY ("WilayaId") REFERENCES "Wilayas" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Communes_Wilayas_WilayaId1" FOREIGN KEY ("WilayaId1") REFERENCES "Wilayas" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Routes" (
+          "Id" uuid NOT NULL,
+          "Name" character varying(100) NOT NULL,
+          "Description" character varying(500) NOT NULL,
+          "VehicleId" uuid NOT NULL,
+          "DriverId" uuid NOT NULL,
+          "OrderIds" uuid[] NOT NULL,
+          "StartLocation_Latitude" numeric(10,8) NOT NULL,
+          "StartLocation_Longitude" numeric(11,8) NOT NULL,
+          "StartLocation_Address" character varying(200) NOT NULL,
+          "StartLocation_City" character varying(50),
+          "StartLocation_PostalCode" character varying(10),
+          "StartLocation_Country" character varying(50),
+          "EndLocation_Latitude" numeric(10,8) NOT NULL,
+          "EndLocation_Longitude" numeric(11,8) NOT NULL,
+          "EndLocation_Address" character varying(200) NOT NULL,
+          "EndLocation_City" character varying(50),
+          "EndLocation_PostalCode" character varying(10),
+          "EndLocation_Country" character varying(50),
+          "PlannedStartTime" timestamp with time zone NOT NULL,
+          "ActualStartTime" timestamp with time zone,
+          "ActualEndTime" timestamp with time zone,
+          "EstimatedDuration" interval NOT NULL,
+          "Status" character varying(20) NOT NULL,
+          "TotalDistance" numeric(10,2) NOT NULL,
+          "EstimatedCost" numeric(10,2) NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+          "UpdatedAt" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+          "VehicleId1" uuid NOT NULL,
+          CONSTRAINT "PK_Routes" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Routes_Driver_DriverId" FOREIGN KEY ("DriverId") REFERENCES "Driver" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Routes_Vehicles_VehicleId" FOREIGN KEY ("VehicleId") REFERENCES "Vehicles" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Routes_Vehicles_VehicleId1" FOREIGN KEY ("VehicleId1") REFERENCES "Vehicles" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Boxes" (
+          "Id" uuid NOT NULL,
+          "Nom" character varying(100) NOT NULL,
+          "Adresse" text,
+          "Telephone" text,
+          "Email" text,
+          "Latitude" numeric,
+          "Longitude" numeric,
+          "EstActive" boolean NOT NULL,
+          "SiteId" uuid NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "SiteId1" uuid NOT NULL,
+          CONSTRAINT "PK_Boxes" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Boxes_Sites_SiteId" FOREIGN KEY ("SiteId") REFERENCES "Sites" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Boxes_Sites_SiteId1" FOREIGN KEY ("SiteId1") REFERENCES "Sites" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "OpenIddictTokens" (
+          "Id" uuid NOT NULL,
+          "ApplicationId" uuid,
+          "AuthorizationId" uuid,
+          "ConcurrencyToken" text,
+          "CreationDate" timestamp with time zone,
+          "ExpirationDate" timestamp with time zone,
+          "Payload" text,
+          "Properties" text,
+          "RedemptionDate" timestamp with time zone,
+          "ReferenceId" text,
+          "Status" text,
+          "Subject" text,
+          "Type" text,
+          CONSTRAINT "PK_OpenIddictTokens" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId" FOREIGN KEY ("ApplicationId") REFERENCES "OpenIddictApplications" ("Id"),
+          CONSTRAINT "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId" FOREIGN KEY ("AuthorizationId") REFERENCES "OpenIddictAuthorizations" ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Secteurs" (
+          "Id" uuid NOT NULL,
+          "Nom" character varying(100) NOT NULL,
+          "Code" character varying(20) NOT NULL,
+          "EstActive" boolean NOT NULL,
+          "FilialeId" uuid NOT NULL,
+          "BoxId" uuid,
+          "CommuneId" uuid,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "FilialeId1" uuid NOT NULL,
+          "BoxId1" uuid,
+          CONSTRAINT "PK_Secteurs" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Secteurs_Boxes_BoxId" FOREIGN KEY ("BoxId") REFERENCES "Boxes" ("Id") ON DELETE SET NULL,
+          CONSTRAINT "FK_Secteurs_Boxes_BoxId1" FOREIGN KEY ("BoxId1") REFERENCES "Boxes" ("Id"),
+          CONSTRAINT "FK_Secteurs_Communes_CommuneId" FOREIGN KEY ("CommuneId") REFERENCES "Communes" ("Id"),
+          CONSTRAINT "FK_Secteurs_Filiales_FilialeId" FOREIGN KEY ("FilialeId") REFERENCES "Filiales" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Secteurs_Filiales_FilialeId1" FOREIGN KEY ("FilialeId1") REFERENCES "Filiales" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Clients" (
+          "Id" uuid NOT NULL,
+          "ExternalId" text,
+          "NomPharmacie" character varying(200) NOT NULL,
+          "Nom" text NOT NULL,
+          "Prenom" text NOT NULL,
+          "Email" text NOT NULL,
+          "Adresse" character varying(200) NOT NULL,
+          "Telephone" character varying(20),
+          "Ville" text NOT NULL,
+          "CodePostal" text NOT NULL,
+          "Latitude" numeric,
+          "Longitude" numeric,
+          "EstActive" boolean NOT NULL,
+          "CommuneId" uuid NOT NULL,
+          "SecteurId" uuid NOT NULL,
+          "FilialeId" uuid NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_Clients" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Clients_Communes_CommuneId" FOREIGN KEY ("CommuneId") REFERENCES "Communes" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Clients_Filiales_FilialeId" FOREIGN KEY ("FilialeId") REFERENCES "Filiales" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Clients_Secteurs_SecteurId" FOREIGN KEY ("SecteurId") REFERENCES "Secteurs" ("Id") ON DELETE RESTRICT
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "SecteurDeliveryDays" (
+          "Id" uuid NOT NULL,
+          "SecteurId" uuid NOT NULL,
+          "Day" character varying(20) NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "SecteurId1" uuid,
+          CONSTRAINT "PK_SecteurDeliveryDays" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_SecteurDeliveryDays_Secteurs_SecteurId" FOREIGN KEY ("SecteurId") REFERENCES "Secteurs" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_SecteurDeliveryDays_Secteurs_SecteurId1" FOREIGN KEY ("SecteurId1") REFERENCES "Secteurs" ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Shipments" (
+          "Id" uuid NOT NULL,
+          "NumeroLivraison" text NOT NULL,
+          "Statut" integer NOT NULL,
+          "Notes" text,
+          "DriverId" uuid NOT NULL,
+          "VehicleId" uuid NOT NULL,
+          "PrincipalSectorId" uuid,
+          "StartTime" timestamp with time zone NOT NULL,
+          "EndTime" timestamp with time zone,
+          "Status" text NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "VehicleId1" uuid NOT NULL,
+          CONSTRAINT "PK_Shipments" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Shipments_AspNetUsers_DriverId" FOREIGN KEY ("DriverId") REFERENCES "AspNetUsers" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Shipments_Secteurs_PrincipalSectorId" FOREIGN KEY ("PrincipalSectorId") REFERENCES "Secteurs" ("Id") ON DELETE SET NULL,
+          CONSTRAINT "FK_Shipments_Vehicles_VehicleId" FOREIGN KEY ("VehicleId") REFERENCES "Vehicles" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Shipments_Vehicles_VehicleId1" FOREIGN KEY ("VehicleId1") REFERENCES "Vehicles" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Orders" (
+          "Id" uuid NOT NULL,
+          "OrderNumber" character varying(50) NOT NULL,
+          "NumeroCommande" text NOT NULL,
+          "ExternalId" text,
+          "AdresseLivraison" text NOT NULL,
+          "VilleLivraison" text NOT NULL,
+          "CodePostalLivraison" text NOT NULL,
+          "LatitudeLivraison" numeric,
+          "LongitudeLivraison" numeric,
+          "InstructionsLivraison" text,
+          "Statut" integer NOT NULL,
+          "Priorite" text NOT NULL,
+          "DateLivraisonPrevue" timestamp with time zone,
+          "ClientId" uuid NOT NULL,
+          "FilialeSourceId" uuid NOT NULL,
+          "FilialeDestinationId" uuid NOT NULL,
+          "FilialeId" uuid NOT NULL,
+          "SecteurId" uuid NOT NULL,
+          "BoxId" uuid,
+          "VehicleId" uuid,
+          "CurrentStatus" text NOT NULL,
+          "IsArchived" boolean NOT NULL,
+          "AmbientPackageCount" integer NOT NULL,
+          "RefrigeratedPackageCount" integer NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "ClientId1" uuid NOT NULL,
+          "RouteId" uuid,
+          "ShipmentId" uuid,
+          CONSTRAINT "PK_Orders" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Orders_Boxes_BoxId" FOREIGN KEY ("BoxId") REFERENCES "Boxes" ("Id") ON DELETE SET NULL,
+          CONSTRAINT "FK_Orders_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Orders_Clients_ClientId1" FOREIGN KEY ("ClientId1") REFERENCES "Clients" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Orders_Filiales_FilialeDestinationId" FOREIGN KEY ("FilialeDestinationId") REFERENCES "Filiales" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Orders_Filiales_FilialeId" FOREIGN KEY ("FilialeId") REFERENCES "Filiales" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Orders_Filiales_FilialeSourceId" FOREIGN KEY ("FilialeSourceId") REFERENCES "Filiales" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Orders_Routes_RouteId" FOREIGN KEY ("RouteId") REFERENCES "Routes" ("Id"),
+          CONSTRAINT "FK_Orders_Secteurs_SecteurId" FOREIGN KEY ("SecteurId") REFERENCES "Secteurs" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Orders_Shipments_ShipmentId" FOREIGN KEY ("ShipmentId") REFERENCES "Shipments" ("Id"),
+          CONSTRAINT "FK_Orders_Vehicles_VehicleId" FOREIGN KEY ("VehicleId") REFERENCES "Vehicles" ("Id")
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Claims" (
+          "Id" uuid NOT NULL,
+          "NumeroReclamation" text NOT NULL,
+          "Type" text NOT NULL,
+          "Description" text NOT NULL,
+          "Statut" integer NOT NULL,
+          "Priorite" text NOT NULL,
+          "MontantReclamation" numeric NOT NULL,
+          "Resolution" text,
+          "ClientId" uuid NOT NULL,
+          "OrderId" uuid NOT NULL,
+          "Reason" character varying(500) NOT NULL,
+          "Status" text NOT NULL,
+          "MotifEchecId" uuid NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_Claims" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Claims_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Claims_MotifEchecs_MotifEchecId" FOREIGN KEY ("MotifEchecId") REFERENCES "MotifEchecs" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_Claims_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE RESTRICT
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Deliveries" (
+          "Id" uuid NOT NULL,
+          "DeliveryNumber" character varying(50) NOT NULL,
+          "OrderId" uuid NOT NULL,
+          "DriverId" uuid NOT NULL,
+          "VehicleId" uuid NOT NULL,
+          "Status" text NOT NULL,
+          "Notes" character varying(500),
+          "Latitude" numeric(10,8),
+          "Longitude" numeric(11,8),
+          "DeliveredAt" timestamp with time zone,
+          "ProofOfDelivery" character varying(500),
+          "UpdatedBy" character varying(100),
+          "CreatedAt" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+          "UpdatedAt" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+          "OrderId1" uuid NOT NULL,
+          CONSTRAINT "PK_Deliveries" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Deliveries_Driver_DriverId" FOREIGN KEY ("DriverId") REFERENCES "Driver" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Deliveries_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Deliveries_Orders_OrderId1" FOREIGN KEY ("OrderId1") REFERENCES "Orders" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Deliveries_Vehicles_VehicleId" FOREIGN KEY ("VehicleId") REFERENCES "Vehicles" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "OrderHistories" (
+          "Id" uuid NOT NULL,
+          "OrderId" uuid NOT NULL,
+          "NewStatus" text NOT NULL,
+          "AncienStatut" integer NOT NULL,
+          "NouveauStatut" integer NOT NULL,
+          "StatusDateTime" timestamp with time zone NOT NULL,
+          "UserId" uuid,
+          "Reason" text,
+          "Raison" text NOT NULL,
+          "Notes" text,
+          "FilialeEvenementId" uuid NOT NULL,
+          "FilialeSourceId" uuid NOT NULL,
+          "FilialeDestinationId" uuid NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "OrderId1" uuid NOT NULL,
+          CONSTRAINT "PK_OrderHistories" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_OrderHistories_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE SET NULL,
+          CONSTRAINT "FK_OrderHistories_Filiales_FilialeDestinationId" FOREIGN KEY ("FilialeDestinationId") REFERENCES "Filiales" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_OrderHistories_Filiales_FilialeEvenementId" FOREIGN KEY ("FilialeEvenementId") REFERENCES "Filiales" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_OrderHistories_Filiales_FilialeSourceId" FOREIGN KEY ("FilialeSourceId") REFERENCES "Filiales" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_OrderHistories_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_OrderHistories_Orders_OrderId1" FOREIGN KEY ("OrderId1") REFERENCES "Orders" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Packages" (
+          "Id" uuid NOT NULL,
+          "ExternalId" text,
+          "TrackingNumber" character varying(50) NOT NULL,
+          "NumeroColis" text NOT NULL,
+          "Description" text NOT NULL,
+          "OrderId" uuid NOT NULL,
+          "Type" text NOT NULL,
+          "Weight" numeric(18,2) NOT NULL,
+          "Poids" numeric NOT NULL,
+          "Longueur" numeric NOT NULL,
+          "Largeur" numeric NOT NULL,
+          "Hauteur" numeric NOT NULL,
+          "Valeur" numeric NOT NULL,
+          "EstFragile" boolean NOT NULL,
+          "EstDangereux" boolean NOT NULL,
+          "ScanState" text NOT NULL,
+          "StatutScan" integer NOT NULL,
+          "IntegrityState" text NOT NULL,
+          "StatutIntegrite" integer NOT NULL,
+          "Volume" numeric(18,2) NOT NULL,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "OrderId1" uuid NOT NULL,
+          CONSTRAINT "PK_Packages" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Packages_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Packages_Orders_OrderId1" FOREIGN KEY ("OrderId1") REFERENCES "Orders" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "StatusChangeRequests" (
+          "Id" uuid NOT NULL,
+          "OrderId" uuid NOT NULL,
+          "RequesterId" uuid NOT NULL,
+          "AncienStatut" integer NOT NULL,
+          "NouveauStatut" integer NOT NULL,
+          "CurrentStatus" text NOT NULL,
+          "RequestedStatus" text NOT NULL,
+          "Raison" text NOT NULL,
+          "Reason" character varying(500) NOT NULL,
+          "Statut" integer NOT NULL,
+          "TreatmentStatus" text NOT NULL,
+          "Notes" text,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          CONSTRAINT "PK_StatusChangeRequests" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_StatusChangeRequests_AspNetUsers_RequesterId" FOREIGN KEY ("RequesterId") REFERENCES "AspNetUsers" ("Id") ON DELETE RESTRICT,
+          CONSTRAINT "FK_StatusChangeRequests_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Exceptions" (
+          "Id" uuid NOT NULL,
+          "OrderId" uuid NOT NULL,
+          "Type" text NOT NULL,
+          "Description" character varying(1000) NOT NULL,
+          "Priority" character varying(50) NOT NULL,
+          "Status" text NOT NULL,
+          "DeliveryId" uuid,
+          "Notes" text,
+          "ClaimAmount" numeric(18,2),
+          "Resolution" text,
+          "ResolutionAmount" numeric,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "OrderId1" uuid NOT NULL,
+          CONSTRAINT "PK_Exceptions" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Exceptions_Deliveries_DeliveryId" FOREIGN KEY ("DeliveryId") REFERENCES "Deliveries" ("Id"),
+          CONSTRAINT "FK_Exceptions_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Exceptions_Orders_OrderId1" FOREIGN KEY ("OrderId1") REFERENCES "Orders" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "PaymentInstruments" (
+          "Id" uuid NOT NULL,
+          "Type" character varying(50) NOT NULL,
+          "CardNumber" text,
+          "CardHolderName" text,
+          "ExpiryDate" timestamp with time zone,
+          "BankName" text,
+          "AccountNumber" text,
+          "Amount" numeric(18,2) NOT NULL,
+          "Currency" character varying(3) NOT NULL,
+          "IsValid" boolean NOT NULL,
+          "Notes" character varying(500),
+          "OrderId" uuid NOT NULL,
+          "DeliveryId" uuid,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "OrderId1" uuid NOT NULL,
+          CONSTRAINT "PK_PaymentInstruments" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_PaymentInstruments_Deliveries_DeliveryId" FOREIGN KEY ("DeliveryId") REFERENCES "Deliveries" ("Id"),
+          CONSTRAINT "FK_PaymentInstruments_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_PaymentInstruments_Orders_OrderId1" FOREIGN KEY ("OrderId1") REFERENCES "Orders" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Returns" (
+          "Id" uuid NOT NULL,
+          "OrderId" uuid NOT NULL,
+          "DeliveryId" uuid NOT NULL,
+          "Reason" text NOT NULL,
+          "Description" character varying(1000) NOT NULL,
+          "Notes" character varying(500),
+          "Status" text NOT NULL,
+          "RefundAmount" numeric(18,2),
+          "ProcessedAmount" numeric(18,2),
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "OrderId1" uuid NOT NULL,
+          CONSTRAINT "PK_Returns" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Returns_Deliveries_DeliveryId" FOREIGN KEY ("DeliveryId") REFERENCES "Deliveries" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Returns_Orders_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Orders" ("Id") ON DELETE CASCADE,
+          CONSTRAINT "FK_Returns_Orders_OrderId1" FOREIGN KEY ("OrderId1") REFERENCES "Orders" ("Id") ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_ApiKeys_CreatedByUserId" ON "ApiKeys" ("CreatedByUserId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_ApiKeys_Key" ON "ApiKeys" ("Key");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_ApiKeys_Name" ON "ApiKeys" ("Name");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_ApiKeys_RevokedByUserId" ON "ApiKeys" ("RevokedByUserId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_AspNetRoleClaims_RoleId" ON "AspNetRoleClaims" ("RoleId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "RoleNameIndex" ON "AspNetRoles" ("NormalizedName");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_AspNetUserClaims_UserId" ON "AspNetUserClaims" ("UserId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_AspNetUserLogins_UserId" ON "AspNetUserLogins" ("UserId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_AspNetUserRoles_RoleId" ON "AspNetUserRoles" ("RoleId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "EmailIndex" ON "AspNetUsers" ("NormalizedEmail");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_AspNetUsers_FilialeId" ON "AspNetUsers" ("FilialeId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "UserNameIndex" ON "AspNetUsers" ("NormalizedUserName");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Boxes_SiteId" ON "Boxes" ("SiteId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Boxes_SiteId1" ON "Boxes" ("SiteId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Claims_ClientId" ON "Claims" ("ClientId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Claims_MotifEchecId" ON "Claims" ("MotifEchecId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Claims_OrderId" ON "Claims" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Clients_CommuneId" ON "Clients" ("CommuneId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Clients_FilialeId" ON "Clients" ("FilialeId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Clients_SecteurId" ON "Clients" ("SecteurId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Communes_WilayaId" ON "Communes" ("WilayaId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Communes_WilayaId1" ON "Communes" ("WilayaId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_Deliveries_DeliveryNumber" ON "Deliveries" ("DeliveryNumber");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Deliveries_DriverId" ON "Deliveries" ("DriverId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Deliveries_OrderId" ON "Deliveries" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Deliveries_OrderId1" ON "Deliveries" ("OrderId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Deliveries_Status" ON "Deliveries" ("Status");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Deliveries_VehicleId" ON "Deliveries" ("VehicleId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Exceptions_DeliveryId" ON "Exceptions" ("DeliveryId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Exceptions_OrderId" ON "Exceptions" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Exceptions_OrderId1" ON "Exceptions" ("OrderId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_Filiales_Nom" ON "Filiales" ("Nom");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_MotifEchecs_Libelle" ON "MotifEchecs" ("Libelle");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OpenIddictAuthorizations_ApplicationId" ON "OpenIddictAuthorizations" ("ApplicationId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OpenIddictTokens_ApplicationId" ON "OpenIddictTokens" ("ApplicationId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OpenIddictTokens_AuthorizationId" ON "OpenIddictTokens" ("AuthorizationId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OrderHistories_FilialeDestinationId" ON "OrderHistories" ("FilialeDestinationId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OrderHistories_FilialeEvenementId" ON "OrderHistories" ("FilialeEvenementId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OrderHistories_FilialeSourceId" ON "OrderHistories" ("FilialeSourceId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OrderHistories_OrderId" ON "OrderHistories" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OrderHistories_OrderId1" ON "OrderHistories" ("OrderId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_OrderHistories_UserId" ON "OrderHistories" ("UserId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_BoxId" ON "Orders" ("BoxId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_ClientId" ON "Orders" ("ClientId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_ClientId1" ON "Orders" ("ClientId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_FilialeDestinationId" ON "Orders" ("FilialeDestinationId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_FilialeId" ON "Orders" ("FilialeId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_FilialeSourceId" ON "Orders" ("FilialeSourceId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_Orders_OrderNumber" ON "Orders" ("OrderNumber");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_RouteId" ON "Orders" ("RouteId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_SecteurId" ON "Orders" ("SecteurId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_ShipmentId" ON "Orders" ("ShipmentId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Orders_VehicleId" ON "Orders" ("VehicleId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Packages_OrderId" ON "Packages" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Packages_OrderId1" ON "Packages" ("OrderId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_Packages_TrackingNumber" ON "Packages" ("TrackingNumber");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_PaymentInstruments_DeliveryId" ON "PaymentInstruments" ("DeliveryId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_PaymentInstruments_OrderId" ON "PaymentInstruments" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_PaymentInstruments_OrderId1" ON "PaymentInstruments" ("OrderId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Returns_DeliveryId" ON "Returns" ("DeliveryId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Returns_OrderId" ON "Returns" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Returns_OrderId1" ON "Returns" ("OrderId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Routes_DriverId" ON "Routes" ("DriverId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Routes_Name" ON "Routes" ("Name");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Routes_Status" ON "Routes" ("Status");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Routes_VehicleId" ON "Routes" ("VehicleId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Routes_VehicleId1" ON "Routes" ("VehicleId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_SecteurDeliveryDays_SecteurId" ON "SecteurDeliveryDays" ("SecteurId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_SecteurDeliveryDays_SecteurId1" ON "SecteurDeliveryDays" ("SecteurId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Secteurs_BoxId" ON "Secteurs" ("BoxId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Secteurs_BoxId1" ON "Secteurs" ("BoxId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Secteurs_CommuneId" ON "Secteurs" ("CommuneId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Secteurs_FilialeId" ON "Secteurs" ("FilialeId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Secteurs_FilialeId1" ON "Secteurs" ("FilialeId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Shipments_DriverId" ON "Shipments" ("DriverId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Shipments_PrincipalSectorId" ON "Shipments" ("PrincipalSectorId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Shipments_VehicleId" ON "Shipments" ("VehicleId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Shipments_VehicleId1" ON "Shipments" ("VehicleId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Sites_FilialeId" ON "Sites" ("FilialeId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Sites_FilialeId1" ON "Sites" ("FilialeId1");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_StatusChangeRequests_OrderId" ON "StatusChangeRequests" ("OrderId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_StatusChangeRequests_RequesterId" ON "StatusChangeRequests" ("RequesterId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Vehicles_DriverId" ON "Vehicles" ("DriverId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_Vehicles_Matricule" ON "Vehicles" ("Matricule");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_Wilayas_Code" ON "Wilayas" ("Code");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+      VALUES ('20251022155600_InitialCreate', '9.0.10');
+Done.
