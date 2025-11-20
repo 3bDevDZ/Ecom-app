@@ -32,6 +32,26 @@ export class GetProductByIdQueryHandler implements IQueryHandler<GetProductByIdQ
    * Transform Product domain entity to ProductDto
    */
   private toDto(product: Product): ProductDto {
+    const variants = product.variants.map(
+      v =>
+        new ProductVariantDto(
+          v.id,
+          v.sku.value,
+          Object.fromEntries(v.attributes),
+          v.priceDelta?.amount ?? null,
+          v.priceDelta?.currency ?? product.basePrice.currency,
+          v.inventory.availableQuantity,
+          v.inventory.reservedQuantity,
+          v.isActive,
+        ),
+    );
+
+    // Calculate total available quantity from variants
+    const totalAvailableQuantity = variants.reduce(
+      (sum, v) => sum + v.availableQuantity,
+      0,
+    );
+
     return new ProductDto(
       product.id,
       product.sku.value,
@@ -42,19 +62,7 @@ export class GetProductByIdQueryHandler implements IQueryHandler<GetProductByIdQ
       product.images.map(
         img => new ProductImageDto(img.url, img.altText, img.displayOrder, img.isPrimary),
       ),
-      product.variants.map(
-        v =>
-          new ProductVariantDto(
-            v.id,
-            v.sku.value,
-            Object.fromEntries(v.attributes),
-            v.priceDelta?.amount ?? null,
-            v.priceDelta?.currency ?? product.basePrice.currency,
-            v.inventory.availableQuantity,
-            v.inventory.reservedQuantity,
-            v.isActive,
-          ),
-      ),
+      variants,
       product.basePrice.amount,
       product.basePrice.currency,
       product.minOrderQuantity,
@@ -63,6 +71,7 @@ export class GetProductByIdQueryHandler implements IQueryHandler<GetProductByIdQ
       product.tags,
       product.createdAt,
       product.updatedAt,
+      totalAvailableQuantity,
     );
   }
 }

@@ -38,6 +38,7 @@ export class ProductDto {
     public readonly tags: string[],
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
+    public readonly totalAvailableQuantity?: number, // Optional: calculated from variants
   ) {}
 
   /**
@@ -67,5 +68,18 @@ export class ProductDto {
       min: Math.min(...prices),
       max: Math.max(...prices),
     };
+  }
+
+  /**
+   * Get total available quantity (sum of all variant quantities)
+   * Falls back to calculated value if not provided
+   */
+  public getTotalAvailableQuantity(): number {
+    // Use provided value if available
+    if (this.totalAvailableQuantity !== undefined) {
+      return this.totalAvailableQuantity;
+    }
+    // Calculate from variants if not provided
+    return this.variants.reduce((sum, v) => sum + v.availableQuantity, 0);
   }
 }

@@ -35,11 +35,21 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
       /**
        * Class name builder helper
        * Usage: {{className "text-primary" size weight}}
-       * Filters out undefined/falsy values
+       * Filters out undefined/falsy values and non-strings
        */
       className: (...args: any[]) => {
         args.pop(); // Remove the Handlebars options object
-        const classes = args.filter(arg => arg && arg.trim()).join(' ');
+        const classes = args
+          .map(arg => {
+            // Convert to string if not already
+            if (arg === null || arg === undefined) return '';
+            if (typeof arg === 'string') return arg.trim();
+            if (typeof arg === 'boolean') return ''; // Booleans don't become class names
+            if (typeof arg === 'number') return String(arg);
+            return String(arg).trim();
+          })
+          .filter(cls => cls && cls.length > 0)
+          .join(' ');
         return classes;
       },
 
@@ -63,33 +73,70 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
 
       /**
        * Conditional helper for complex conditions
-       * Usage: {{#ifCond var1 "==" var2}}...{{/ifCond}}
+       * Can be used as block helper: {{#ifCond var1 "==" var2}}...{{else}}...{{/ifCond}}
+       * Or as regular helper: {{ifCond var1 "==" var2}} (returns boolean)
        */
-      ifCond: (v1: any, operator: string, v2: any, options: any) => {
+      ifCond: function (v1: any, operator: string, v2: any, options?: any) {
+        // Check if this is a block helper call (has options with fn/inverse)
+        const isBlockHelper = options && typeof options.fn === 'function' && typeof options.inverse === 'function';
+        
+        // Evaluate the condition
+        let result: boolean;
         switch (operator) {
           case '==':
-            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+            result = v1 == v2;
+            break;
           case '===':
-            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+            result = v1 === v2;
+            break;
           case '!=':
-            return (v1 != v2) ? options.fn(this) : options.inverse(this);
+            result = v1 != v2;
+            break;
           case '!==':
-            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+            result = v1 !== v2;
+            break;
           case '<':
-            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+            result = v1 < v2;
+            break;
           case '<=':
-            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+            result = v1 <= v2;
+            break;
           case '>':
-            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+            result = v1 > v2;
+            break;
           case '>=':
-            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+            result = v1 >= v2;
+            break;
           case '&&':
-            return (v1 && v2) ? options.fn(this) : options.inverse(this);
+            result = v1 && v2;
+            break;
           case '||':
-            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+            result = v1 || v2;
+            break;
           default:
-            return options.inverse(this);
+            result = false;
         }
+        
+        // If block helper, return the appropriate block
+        if (isBlockHelper) {
+          return result ? options.fn(this) : options.inverse(this);
+        }
+        
+        // If regular helper, return boolean
+        return result;
+      },
+
+      /**
+       * Conditional value helper - returns a value if condition is true
+       * Usage: {{condIf condition "value-if-true" "value-if-false"}}
+       * Always returns a string to avoid issues with className helper
+       */
+      condIf: (condition: any, trueValue: any, falseValue: any = '') => {
+        const result = condition ? trueValue : falseValue;
+        // Ensure we always return a string
+        if (result === null || result === undefined) return '';
+        if (typeof result === 'boolean') return '';
+        return String(result);
       },
 
       /**
@@ -223,6 +270,24 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
       hasRole: function (user: any, role: string, options: any) {
         if (!user || !user.roles) return options.inverse(this);
         return user.roles.includes(role) ? options.fn(this) : options.inverse(this);
+      },
+
+      /**
+       * Check if array has a primary image
+       * Usage: {{#hasPrimaryImage images}}...{{/hasPrimaryImage}}
+       */
+      hasPrimaryImage: function (images: any[], options: any) {
+        if (!Array.isArray(images)) return options.inverse(this);
+        return images.some((img: any) => img.isPrimary) ? options.fn(this) : options.inverse(this);
+      },
+
+      /**
+       * Call a method on an object
+       * Usage: {{callMethod product "getTotalAvailableQuantity"}}
+       */
+      callMethod: function (obj: any, methodName: string, ...args: any[]) {
+        if (!obj || typeof obj[methodName] !== 'function') return '';
+        return obj[methodName](...args);
       },
     }
   });

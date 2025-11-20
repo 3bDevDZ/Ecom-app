@@ -1,3 +1,9 @@
 export { SearchProductsQueryHandler } from './search-products.handler';
 export { GetProductByIdQueryHandler } from './get-product-by-id.handler';
 export { GetCategoriesQueryHandler } from './get-categories.handler';
+export { CreateProductCommandHandler } from './create-product.handler';
+export { UpdateProductCommandHandler } from './update-product.handler';
+export { DeleteProductCommandHandler } from './delete-product.handler';
+export { CreateCategoryCommandHandler } from './create-category.handler';
+export { UpdateCategoryCommandHandler } from './update-category.handler';
+export { DeleteCategoryCommandHandler } from './delete-category.handler';

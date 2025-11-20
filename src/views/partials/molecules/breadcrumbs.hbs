@@ -1,0 +1,28 @@
+{{!--
+  Breadcrumbs Molecule Component
+  Usage: {{> breadcrumbs items=breadcrumbItems }}
+  items: [{label: "Home", href: "/"}, {label: "Products", href: "/products"}]
+--}}
+<nav aria-label="Breadcrumb">
+  <ol class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+    {{#each items}}
+      <li>
+        {{#if href}}
+          <a class="hover:underline hover:text-primary dark:hover:text-primary {{#if @last}}font-medium text-gray-800 dark:text-gray-200{{/if}}" href="{{href}}">
+            {{label}}
+          </a>
+        {{else}}
+          <span class="{{#if @last}}font-medium text-gray-800 dark:text-gray-200{{/if}}">
+            {{label}}
+          </span>
+        {{/if}}
+      </li>
+      {{#unless @last}}
+        <li>
+          <span class="material-symbols-outlined !text-base">chevron_right</span>
+        </li>
+      {{/unless}}
+    {{/each}}
+  </ol>
+</nav>
+

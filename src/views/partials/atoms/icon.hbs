@@ -1,0 +1,14 @@
+{{!--
+  Icon Atom Component (Material Symbols)
+  Usage: {{> icon name="shopping_cart" size="xl"}}
+--}}
+<span class="material-symbols-outlined {{className
+  (condIf (ifCond size '==' 'xs') '!text-base')
+  (condIf (ifCond size '==' 'sm') '!text-lg')
+  (condIf (ifCond size '==' 'md') '!text-xl')
+  (condIf (ifCond size '==' 'lg') '!text-2xl')
+  (condIf (ifCond size '==' 'xl') '!text-3xl')
+  (condIf (ifCond size '==' '2xl') '!text-4xl')
+  variant
+}}">{{name}}</span>
+

@@ -4,6 +4,8 @@ import { Money } from '../value-objects/money';
 import { ProductImage } from '../value-objects/product-image';
 import { ProductVariant } from '../entities/product-variant';
 import { Result } from '../../../../shared/domain/result';
+import { ProductCreatedEvent } from '../events/product-created.event';
+import { ProductUpdatedEvent } from '../events/product-updated.event';
 
 /**
  * Product Aggregate Root
@@ -75,7 +77,22 @@ export class Product extends AggregateRoot {
     Product.validateDescription(description);
     Product.validateImages(images);
 
-    return new Product(id, sku, name, description, categoryId, brand, images, basePrice);
+    const product = new Product(id, sku, name, description, categoryId, brand, images, basePrice);
+    
+    // Emit domain event
+    product.apply(
+      new ProductCreatedEvent(
+        product.id,
+        product.sku.value,
+        product.name,
+        product.categoryId,
+        product.brand,
+        product.basePrice.amount,
+        product.basePrice.currency,
+      ),
+    );
+
+    return product;
   }
 
   // Getters
@@ -160,16 +177,38 @@ export class Product extends AggregateRoot {
     Product.validateName(name);
     Product.validateDescription(description);
 
+    const updatedFields: any = {};
+    if (name !== this._name) updatedFields.name = name.trim();
+    if (description !== this._description) updatedFields.description = description;
+    if (categoryId !== this._categoryId) updatedFields.categoryId = categoryId;
+    if (brand !== this._brand) updatedFields.brand = brand;
+
     this._name = name.trim();
     this._description = description;
     this._categoryId = categoryId;
     this._brand = brand;
     this.touch();
+
+    // Emit domain event if any fields changed
+    if (Object.keys(updatedFields).length > 0) {
+      this.apply(new ProductUpdatedEvent(this.id, updatedFields));
+    }
   }
 
   public updatePricing(basePrice: Money): void {
+    const priceChanged = this._basePrice.amount !== basePrice.amount || this._basePrice.currency !== basePrice.currency;
     this._basePrice = basePrice;
     this.touch();
+
+    // Emit domain event if price changed
+    if (priceChanged) {
+      this.apply(
+        new ProductUpdatedEvent(this.id, {
+          basePrice: basePrice.amount,
+          currency: basePrice.currency,
+        }),
+      );
+    }
   }
 
   public setOrderQuantities(min: number, max: number | null): Result<void> {
@@ -245,13 +284,19 @@ export class Product extends AggregateRoot {
 
   // Activation
   public activate(): void {
-    this._isActive = true;
-    this.touch();
+    if (!this._isActive) {
+      this._isActive = true;
+      this.touch();
+      this.apply(new ProductUpdatedEvent(this.id, { isActive: true }));
+    }
   }
 
   public deactivate(): void {
-    this._isActive = false;
-    this.touch();
+    if (this._isActive) {
+      this._isActive = false;
+      this.touch();
+      this.apply(new ProductUpdatedEvent(this.id, { isActive: false }));
+    }
   }
 
   // Tags

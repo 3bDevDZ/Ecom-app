@@ -30,7 +30,15 @@ async function bootstrap() {
 
   // API prefix
   app.setGlobalPrefix('api', {
-    exclude: ['/', '/health', '/login', '/logout', '/callback'],
+    exclude: [
+      '/',
+      '/health',
+      '/login',
+      '/logout',
+      '/callback',
+      '/products',
+      '/products/:id',
+    ],
   });
 
   // Swagger/OpenAPI configuration

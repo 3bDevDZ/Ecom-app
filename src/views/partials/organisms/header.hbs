@@ -1,67 +1,38 @@
 {{!--
-  Organisms: Complex components composed of molecules and atoms
-  These represent distinct sections of the interface
+  Header Organism
+  Top navigation bar with logo, search, and user menu
+  Based on design template styling
 --}}
-
-{{!-- Header Organism --}}
-<header class="bg-white shadow-sm border-b">
-  <div class="container-custom py-4">
-    <div class="flex items-center justify-between">
-      <!-- Logo/Brand -->
-      <div class="flex items-center gap-4">
-        {{#if logo}}
-          <img src="{{logo}}" alt="{{siteName}}" class="h-8">
-        {{else}}
-          <h1 class="text-xl font-bold text-primary-600">{{siteName}}</h1>
-        {{/if}}
-      </div>
-
-      <!-- Navigation -->
-      <nav class="hidden md:flex items-center gap-6">
-        {{#each navigation}}
-          {{> link
-            href=this.href
-            text=this.text
-            variant="link-secondary"
-          }}
-        {{/each}}
-      </nav>
-
-      <!-- Actions -->
-      <div class="flex items-center gap-4">
-        {{#if searchForm}}
-          {{> search-form
-            searchName="global_search"
-            searchPlaceholder="Search..."
-            searchButtonText="Search"
-          }}
-        {{/if}}
-
-        {{#if userMenu}}
-          <div class="flex items-center gap-2">
-            {{> text
-              content=userMenu.name
-              variant="text-secondary"
-              size="text-sm"
-            }}
-            {{> button
-              text="Profile"
-              variant="btn-ghost"
-              size="text-sm"
-            }}
-          </div>
-        {{/if}}
-      </div>
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-700 px-4 sm:px-6 lg:px-10 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
+    <div class="flex items-center gap-8">
+        <div class="flex items-center gap-4 text-gray-900 dark:text-white">
+            <div class="size-6 text-primary">
+                <span class="material-symbols-outlined !text-3xl">all_inbox</span>
+            </div>
+            <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">B2B Solutions</h2>
+        </div>
+        <label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+            {{> search-bar placeholder="Search" value="" }}
+        </label>
     </div>
-  </div>
+    <div class="flex flex-1 justify-end gap-2 md:gap-8">
+        <div class="hidden lg:flex items-center gap-9">
+            <a class="text-gray-800 dark:text-white text-sm font-medium leading-normal hover:text-primary" href="/products">Products</a>
+            <a class="text-gray-800 dark:text-white text-sm font-medium leading-normal hover:text-primary" href="#">Solutions</a>
+            <a class="text-gray-800 dark:text-white text-sm font-medium leading-normal hover:text-primary" href="#">Resources</a>
+            <a class="text-gray-800 dark:text-white text-sm font-medium leading-normal hover:text-primary" href="#">Support</a>
+        </div>
+        <div class="flex gap-2">
+            <button class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+                <span class="truncate">Sign In</span>
+            </button>
+            <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-background-light dark:bg-gray-800 text-gray-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+                <span class="material-symbols-outlined text-xl">favorite</span>
+            </button>
+            <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-background-light dark:bg-gray-800 text-gray-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+                <span class="material-symbols-outlined text-xl">shopping_cart</span>
+            </button>
+        </div>
+        <div class="hidden sm:block bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://via.placeholder.com/40");'></div>
+    </div>
 </header>
-
-{{!
-Parameters:
-- siteName: Site/brand name
-- logo: Logo image URL
-- navigation: Array of navigation items {href, text}
-- searchForm: boolean to show search
-- userMenu: {name, profileUrl} object
-- className: additional classes
-}}

@@ -1,110 +1,50 @@
-{{!--
-  Templates: Page-level layouts that contain organisms and provide structure
-  These define the overall layout and structure of pages
---}}
-
-{{! Main Application Layout Template }}
-<div class="min-h-screen bg-gray-50">
-  {{! Header Organism }}
-  {{> header
-    siteName="B2B E-Commerce Platform"
-    navigation=navigation
-    searchForm=true
-    userMenu=userMenu
-  }}
-
-  {{! Main Content Area }}
-  <main class="flex-1">
-    {{{body}}}
-  </main>
-
-  {{! Footer Organism }}
-  <footer class="bg-gray-800 text-white py-8 mt-16">
-    <div class="container-custom">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        {{! Company Info }}
-        <div>
-          {{> text
-            content="B2B E-Commerce"
-            variant="text-white"
-            weight="font-semibold"
-          }}
-          {{> text
-            content="Leading B2B commerce platform for modern businesses."
-            variant="text-gray-300"
-            size="text-sm"
-          }}
-        </div>
-
-        {{! Quick Links }}
-        <div>
-          {{> text
-            content="Quick Links"
-            variant="text-white"
-            weight="font-semibold"
-          }}
-          {{#each footer.quickLinks}}
-            <div class="mt-2">
-              {{> atoms/link
-                href=this.href
-                text=this.text
-                variant="link-ghost"
-                size="text-sm"
-              }}
-            </div>
-          {{/each}}
-        </div>
-
-        {{! Support }}
-        <div>
-          {{> text
-            content="Support"
-            variant="text-white"
-            weight="font-semibold"
-          }}
-          {{#each footer.support}}
-            <div class="mt-2">
-              {{> atoms/link
-                href=this.href
-                text=this.text
-                variant="link-ghost"
-                size="text-sm"
-              }}
-            </div>
-          {{/each}}
-        </div>
-
-        {{! Contact }}
-        <div>
-          {{> text
-            content="Contact"
-            variant="text-white"
-            weight="font-semibold"
-          }}
-          {{> text
-            content="support@ecommerce.com"
-            variant="text-gray-300"
-            size="text-sm"
-          }}
-        </div>
-      </div>
-
-      {{! Copyright }}
-      <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-        {{> text
-          content="© 2025 B2B E-Commerce Platform. All rights reserved."
-          variant="text-gray-400"
-          size="text-sm"
-        }}
-      </div>
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{{#if title}}{{title}} - {{/if}}B2B E-Commerce Platform</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "success": "#10B981",
+                        "warning": "#F97316",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col">
+        {{> header}}
+        <main class="flex-1">
+            {{{body}}}
+        </main>
+        {{> footer}}
     </div>
-  </footer>
-</div>
-
-{{!
-Parameters:
-- navigation: Array of navigation items
-- userMenu: User menu data
-- footer: Footer data {quickLinks, support}
-- body: Page content (from child templates)
-}}
+</body>
+</html>
