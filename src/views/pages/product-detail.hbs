@@ -1,0 +1,195 @@
+{{!--
+  Product Detail Page (PDP)
+  Based on design template: pdp.html
+--}}
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<main class="layout-container flex h-full grow flex-col">
+  <div class="flex flex-1 justify-center py-5">
+    <div class="flex flex-col w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      {{> breadcrumbs items=breadcrumbs}}
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-4">
+      <!-- Left Column: Image Gallery -->
+      {{> image-gallery images=product.images productName=product.name}}
+      
+      <!-- Right Column: Product Info & Actions -->
+      <div class="flex flex-col gap-6">
+        <!-- Page Heading -->
+        <div class="flex flex-wrap justify-between gap-3">
+          <div class="flex min-w-72 flex-col gap-2">
+            <h1 class="text-slate-800 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+              {{product.name}}
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">
+              SKU: {{product.sku}}
+            </p>
+          </div>
+        </div>
+        
+        <p class="text-slate-600 dark:text-slate-300 text-base">
+          {{product.description}}
+        </p>
+        
+        <div class="flex items-center gap-3">
+          {{#if product.isActive}}
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/20 text-success">
+              <span class="material-symbols-outlined text-lg">check_circle</span>
+              <span class="text-sm font-semibold">In Stock</span>
+            </div>
+            <span class="text-slate-500 dark:text-slate-400 text-sm">Ships in 1-2 business days</span>
+          {{else}}
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300">
+              <span class="material-symbols-outlined text-lg">cancel</span>
+              <span class="text-sm font-semibold">Out of Stock</span>
+            </div>
+            <span class="text-slate-500 dark:text-slate-400 text-sm">Currently unavailable</span>
+          {{/if}}
+        </div>
+        
+        <!-- Action Panel -->
+        <div class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Price per unit</span>
+            <p class="text-slate-800 dark:text-white text-3xl font-bold">
+              {{formatCurrency product.basePrice product.currency}}
+            </p>
+            {{#if product.hasVariants}}
+              <a class="text-primary text-sm font-semibold hover:underline" href="#variants">
+                View variant pricing
+              </a>
+            {{/if}}
+          </div>
+          
+          {{#if product.variants}}
+            <!-- Variant Selection -->
+            <div class="flex flex-col gap-4">
+              {{#each product.variants}}
+                <div class="flex flex-col gap-2">
+                  <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                    {{@key}}
+                  </label>
+                  <select class="form-select rounded-lg border border-slate-300 dark:border-slate-600">
+                    {{#each this}}
+                      <option value="{{id}}">{{attributes}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+          
+          <div class="flex flex-col sm:flex-row gap-4 items-end">
+            <div class="w-full sm:w-auto">
+              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="quantity">
+                Quantity
+              </label>
+              {{> quantity-selector 
+                id="quantity"
+                label="Quantity"
+                value="1"
+                min=product.minOrderQuantity 
+                max=product.maxOrderQuantity
+              }}
+            </div>
+            <button
+              class="flex w-full sm:flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90"
+              onclick="addToCart('{{product.id}}', document.querySelector('#quantity').value)"
+              {{#unless product.isActive}}disabled{{/unless}}>
+              <span class="truncate">Add to Cart</span>
+            </button>
+          </div>
+          
+          <button
+            class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-slate-200 dark:hover:bg-slate-600">
+            <span class="truncate">Request a Quote</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tabbed Information Section -->
+    <div class="mt-12">
+      <div class="border-b border-slate-200 dark:border-slate-700">
+        <nav aria-label="Tabs" class="-mb-px flex space-x-8">
+          <a aria-current="page"
+            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-primary border-primary"
+            href="#description">Description</a>
+          <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+            href="#specifications">Specifications</a>
+          <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+            href="#documents">Documents</a>
+          <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+            href="#reviews">Reviews</a>
+        </nav>
+      </div>
+      <div class="py-8">
+        <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
+          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Product Overview</h3>
+          <p>{{product.description}}</p>
+          {{#if product.tags}}
+            <h4 class="text-lg font-bold text-slate-800 dark:text-white mt-6 mb-2">Tags</h4>
+            <div class="flex flex-wrap gap-2">
+              {{#each product.tags}}
+                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm">
+                  {{this}}
+                </span>
+              {{/each}}
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Related Products Carousel -->
+      {{#if relatedProducts}}
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Related Products</h2>
+          {{> product-grid products=relatedProducts}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</main>
+</div>
+
+<script>
+function changeMainImage(url, altText, element) {
+  const mainImage = document.getElementById('main-product-image');
+  mainImage.style.backgroundImage = `url('${url}')`;
+  mainImage.setAttribute('data-alt', altText);
+  
+  // Update active thumbnail
+  document.querySelectorAll('.image-gallery .cursor-pointer').forEach(thumb => {
+    thumb.classList.remove('border-2', 'border-primary');
+    thumb.classList.add('opacity-60');
+  });
+  element.classList.add('border-2', 'border-primary');
+  element.classList.remove('opacity-60');
+}
+
+function increaseQuantity(button) {
+  const input = button.previousElementSibling;
+  const max = button.getAttribute('data-max');
+  let value = parseInt(input.value);
+  if (!max || value < parseInt(max)) {
+    input.value = value + 1;
+  }
+}
+
+function decreaseQuantity(button) {
+  const input = button.nextElementSibling;
+  const min = parseInt(input.getAttribute('min'));
+  let value = parseInt(input.value);
+  if (value > min) {
+    input.value = value - 1;
+  }
+}
+
+function addToCart(productId, quantity) {
+  // TODO: Implement add to cart functionality
+  console.log('Add to cart:', productId, quantity);
+  // This will be implemented when Order Management module is ready
+}
+</script>
+

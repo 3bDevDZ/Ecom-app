@@ -1,0 +1,14 @@
+{{!--
+  Product Grid Organism Component
+  Usage: {{> organisms/product-grid products=products }}
+--}}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+  {{#each products}}
+    {{> product-card product=this showCheckbox=true}}
+  {{else}}
+    <div class="col-span-full text-center py-12">
+      <p class="text-gray-500 dark:text-gray-400">No products found.</p>
+    </div>
+  {{/each}}
+</div>
+

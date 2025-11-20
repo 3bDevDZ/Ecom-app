@@ -53,6 +53,10 @@ export class AppController {
           description: 'Bank-grade security with role-based access controls',
         },
       ],
+      navigation: [
+        { label: 'Products', href: '/products' },
+        { label: 'API Documentation', href: '/api/docs' },
+      ],
     };
 
     res.render('homepage.hbs', { config });

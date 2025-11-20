@@ -1,0 +1,22 @@
+{{!--
+  Search Bar Molecule Component
+  Usage: {{> search-bar placeholder="Search by keyword, SKU..." value=searchTerm }}
+--}}
+<label class="flex flex-col min-w-40 {{className height 'h-10' 'h-11'}} w-full">
+  <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+    <div class="text-gray-500 dark:text-gray-400 flex border-none bg-background-light dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+      <span class="material-symbols-outlined text-xl">search</span>
+    </div>
+    <input
+      class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-background-light dark:bg-gray-800 h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 pl-2 {{className
+        (condIf (ifCond size '==' 'sm') 'text-sm')
+        (condIf (ifCond size '==' 'md') 'text-base')
+      }} font-normal leading-normal"
+      placeholder="{{placeholder}}"
+      value="{{value}}"
+      name="search"
+      type="search"
+    />
+  </div>
+</label>
+

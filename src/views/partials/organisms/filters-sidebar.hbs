@@ -1,0 +1,52 @@
+{{!--
+  Filters Sidebar Organism Component
+  Usage: {{> filters-sidebar filters=filters activeFilters=activeFilters }}
+--}}
+<aside class="w-80 flex-shrink-0 bg-white dark:bg-background-dark border-r border-gray-200 dark:border-gray-700 p-6 flex flex-col gap-6">
+  <div class="flex flex-col gap-6 sticky top-24">
+    {{> search-bar placeholder="Search by keyword, SKU..." value=searchTerm size="sm" height="h-11"}}
+    
+    <div class="flex flex-col">
+      {{#each filters}}
+        <details class="flex flex-col border-t border-gray-200 dark:border-gray-700 py-2 group {{#if @first}}open{{/if}}">
+          <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+            <p class="text-sm font-medium leading-normal text-gray-900 dark:text-gray-100">{{label}}</p>
+            <div class="text-gray-700 dark:text-gray-300 group-open:rotate-180 transition-transform">
+              <span class="material-symbols-outlined text-xl">expand_more</span>
+            </div>
+          </summary>
+          <div class="pl-2 pt-2 flex flex-col">
+            {{#each options}}
+              <label class="flex items-center gap-x-3 py-2 flex-row">
+                <input
+                  class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-2 focus:ring-offset-0 focus:ring-primary/50 dark:focus:ring-offset-background-dark"
+                  type="checkbox"
+                  name="{{../name}}"
+                  value="{{value}}"
+                  {{#ifInArray value ../activeFilters}}checked{{/ifInArray}}
+                />
+                <p class="text-sm font-normal leading-normal text-gray-700 dark:text-gray-300">
+                  {{label}}
+                </p>
+              </label>
+            {{/each}}
+          </div>
+        </details>
+      {{/each}}
+    </div>
+    
+    <div class="flex flex-col gap-2 mt-4">
+      <button
+        class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em]"
+        onclick="applyFilters()">
+        Apply Filters
+      </button>
+      <button
+        class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-transparent text-gray-700 dark:text-gray-300 gap-2 text-sm font-medium leading-normal hover:bg-gray-100 dark:hover:bg-gray-800"
+        onclick="clearFilters()">
+        Clear All
+      </button>
+    </div>
+  </div>
+</aside>
+

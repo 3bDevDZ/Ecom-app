@@ -16,7 +16,7 @@ import { AppController } from './app.controller';
 // Modules (to be imported as implemented)
 // import { IdentityModule } from './modules/identity/identity.module';
 // import { LandingCmsModule } from './modules/landing-cms/landing-cms.module';
-// import { ProductCatalogModule } from './modules/product-catalog/product-catalog.module';
+import { ProductCatalogModule } from './modules/product-catalog/product-catalog.module';
 // import { OrderManagementModule } from './modules/order-management/order-management.module';
 
 @Module({
@@ -53,7 +53,7 @@ import { AppController } from './app.controller';
     // Bounded Context Modules (uncomment as implemented)
     // IdentityModule,
     // LandingCmsModule,
-    // ProductCatalogModule,
+    ProductCatalogModule,
     // OrderManagementModule,
   ],
   controllers: [AppController],

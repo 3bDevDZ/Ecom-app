@@ -1,0 +1,123 @@
+{{!--
+  Product Listing Page (PLP)
+  Based on design template: plp.html
+--}}
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+  <div class="flex flex-1">
+  {{> filters-sidebar filters=filters activeFilters=activeFilters searchTerm=searchTerm category=category}}
+  
+  <!-- Products Grid -->
+  <main class="flex-1 p-8">
+    <div class="flex flex-col gap-6">
+      <!-- Header Bar -->
+      <div class="flex items-center justify-between">
+        {{> breadcrumbs items=breadcrumbs}}
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600 dark:text-gray-400" for="sort-by">Sort by:</label>
+            <select
+              class="form-select text-sm font-medium bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary focus:border-primary p-2"
+              id="sort-by"
+              onchange="handleSortChange(this.value)">
+              <option value="best-match" {{#ifEquals sortBy "best-match"}}selected{{/ifEquals}}>Best Match</option>
+              <option value="price-low" {{#ifEquals sortBy "price-low"}}selected{{/ifEquals}}>Price: Low to High</option>
+              <option value="price-high" {{#ifEquals sortBy "price-high"}}selected{{/ifEquals}}>Price: High to Low</option>
+              <option value="name" {{#ifEquals sortBy "name"}}selected{{/ifEquals}}>Product Name</option>
+            </select>
+          </div>
+          <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg p-1">
+            <button
+              class="p-1.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+              onclick="setViewMode('grid')">
+              <span class="material-symbols-outlined !text-xl">grid_view</span>
+            </button>
+            <button
+              class="p-1.5 rounded-md text-gray-500 dark:text-gray-400"
+              onclick="setViewMode('list')">
+              <span class="material-symbols-outlined !text-xl">view_list</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product Cards -->
+      {{> product-grid products=products}}
+      
+      <!-- Pagination -->
+      {{#if pagination}}
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Showing <span class="font-medium">{{pagination.start}}</span>
+            to <span class="font-medium">{{pagination.end}}</span>
+            of <span class="font-medium">{{pagination.total}}</span> results
+          </p>
+          <nav class="flex items-center gap-2">
+            <button
+              class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+              {{#unless pagination.hasPrevious}}disabled{{/unless}}
+              onclick="goToPage({{math pagination.page '-' 1}})">
+              <span class="material-symbols-outlined !text-xl">chevron_left</span>
+            </button>
+            {{#each pagination.pages}}
+              <button
+                class="flex items-center justify-center h-9 w-9 rounded-lg border {{#ifEquals this ../pagination.page}}border-primary bg-primary/20 text-primary{{else}}border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700{{/ifEquals}}"
+                onclick="goToPage({{this}})">
+                {{this}}
+              </button>
+            {{/each}}
+            <button
+              class="flex items-center justify-center h-9 w-9 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+              {{#unless pagination.hasNext}}disabled{{/unless}}
+              onclick="goToPage({{math pagination.page '+' 1}})">
+              <span class="material-symbols-outlined !text-xl">chevron_right</span>
+            </button>
+          </nav>
+        </div>
+      {{/if}}
+    </div>
+  </main>
+  </div>
+</div>
+
+<script>
+function handleSortChange(value) {
+  const url = new URL(window.location);
+  url.searchParams.set('sortBy', value);
+  window.location.href = url.toString();
+}
+
+function setViewMode(mode) {
+  localStorage.setItem('productViewMode', mode);
+  // Reload or update view
+  window.location.reload();
+}
+
+function goToPage(page) {
+  const url = new URL(window.location);
+  url.searchParams.set('page', page);
+  window.location.href = url.toString();
+}
+
+function applyFilters() {
+  const form = document.querySelector('aside');
+  const formData = new FormData(form);
+  const params = new URLSearchParams();
+  
+  for (const [key, value] of formData.entries()) {
+    params.append(key, value);
+  }
+  
+  window.location.href = '/products?' + params.toString();
+}
+
+function clearFilters() {
+  window.location.href = '/products';
+}
+
+function addToCart(productId, quantity) {
+  // TODO: Implement add to cart functionality
+  console.log('Add to cart:', productId, quantity);
+  // This will be implemented when Order Management module is ready
+}
+</script>
+
