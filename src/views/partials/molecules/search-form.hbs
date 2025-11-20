@@ -1,4 +1,4 @@
-{{!-- 
+{{!--
   Molecules: Combinations of atoms working together
   These components perform a single, specific task
 --}}
@@ -6,14 +6,14 @@
 {{!-- Search Form Molecule --}}
 <form class="flex gap-2" {{#if onSubmit}}onsubmit="{{onSubmit}}"{{/if}}>
   <div class="flex-1">
-    {{> atoms/input 
+    {{> input
       name=searchName
       placeholder=searchPlaceholder
       value=searchValue
       onInput=searchOnInput
     }}
   </div>
-  {{> atoms/button 
+  {{> button
     type="submit"
     text=searchButtonText
     variant="primary"
@@ -21,7 +21,7 @@
   }}
 </form>
 
-{{! 
+{{!
 Parameters:
 - searchName: name for search input
 - searchPlaceholder: placeholder text for search

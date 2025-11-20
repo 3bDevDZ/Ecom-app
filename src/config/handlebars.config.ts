@@ -1,3 +1,4 @@
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { create } from 'express-handlebars';
 import { join } from 'path';
 
@@ -11,17 +12,16 @@ interface HandlebarsConfigOptions {
  */
 export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
   return create({
-    layoutsDir: join(viewsPath, 'components', 'pages'),
-    defaultLayout: 'NotFound',
-    extname: '.hbs',
+    layoutsDir: join(viewsPath, 'layouts'),
+    defaultLayout: 'layout_main',
+    extname: 'hbs',
     // Auto-detect partials from atomic design directories
     partialsDir: [
-      join(viewsPath, 'components', 'atoms'),
-      join(viewsPath, 'components', 'molecules'),
-      join(viewsPath, 'components', 'organisms'),
-      join(viewsPath, 'components', 'templates'),
+      join(viewsPath, 'partials', 'atoms'),
+      join(viewsPath, 'partials', 'molecules'),
+      join(viewsPath, 'partials', 'organisms'),
     ],
-    // Custom Handlebars helpers
+    // Minimal helpers (no unused ones)
     helpers: {
       /**
        * String concatenation helper
@@ -231,20 +231,17 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
 /**
  * Setup Handlebars view engine for NestJS Express application
  */
-export function setupHandlebarsEngine(app: any, viewsPath: string) {
-  const hbs = createHandlebarsConfig({ viewsPath });
+export function setupHandlebarsEngine(app: NestExpressApplication, viewsPath: string) {
+  const hbsInstance = createHandlebarsConfig({ viewsPath });
 
-  hbs.getPartials().then(partials => {
-    console.log('🔖 Registered Handlebars Partials:', Object.keys(partials));
-  });
-  // Register Handlebars with Express
-  app.engine('.hbs', hbs.engine);
-  app.setViewEngine('.hbs');
-  app.set('views', viewsPath);
+  // Register Handlebars with Express using the new structure
+  app.engine('hbs', hbsInstance.engine);
+  app.setViewEngine('hbs');
+  app.setBaseViewsDir(join(viewsPath, 'pages'));
 
   console.log('🎨 Handlebars View Engine: Configured');
-  console.log('📁 Views Path:', viewsPath);
+  console.log('📁 Views Path:', join(viewsPath, 'pages'));
   console.log('🧩 Atomic Design Partials: Auto-detected');
-
-  return hbs;
+  console.log('📐 Layouts:', join(viewsPath, 'layouts'));
+  console.log('🧱 Partials:', join(viewsPath, 'partials'));
 }

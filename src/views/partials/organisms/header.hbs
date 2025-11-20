@@ -1,4 +1,4 @@
-{{!-- 
+{{!--
   Organisms: Complex components composed of molecules and atoms
   These represent distinct sections of the interface
 --}}
@@ -15,36 +15,36 @@
           <h1 class="text-xl font-bold text-primary-600">{{siteName}}</h1>
         {{/if}}
       </div>
-      
+
       <!-- Navigation -->
       <nav class="hidden md:flex items-center gap-6">
         {{#each navigation}}
-          {{> atoms/link 
+          {{> link
             href=this.href
             text=this.text
             variant="link-secondary"
           }}
         {{/each}}
       </nav>
-      
+
       <!-- Actions -->
       <div class="flex items-center gap-4">
         {{#if searchForm}}
-          {{> molecules/search-form 
+          {{> search-form
             searchName="global_search"
             searchPlaceholder="Search..."
             searchButtonText="Search"
           }}
         {{/if}}
-        
+
         {{#if userMenu}}
           <div class="flex items-center gap-2">
-            {{> atoms/text 
+            {{> text
               content=userMenu.name
               variant="text-secondary"
               size="text-sm"
             }}
-            {{> atoms/button 
+            {{> button
               text="Profile"
               variant="btn-ghost"
               size="text-sm"
@@ -56,7 +56,7 @@
   </div>
 </header>
 
-{{! 
+{{!
 Parameters:
 - siteName: Site/brand name
 - logo: Logo image URL

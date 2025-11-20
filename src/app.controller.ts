@@ -1,5 +1,5 @@
-import { Controller, Get, Render } from '@nestjs/common';
-
+import { Controller, Get, Res } from '@nestjs/common';
+import { Response } from 'express';
 /**
  * Application Root Controller
  *
@@ -18,9 +18,8 @@ export class AppController {
   }
 
   @Get()
-  @Render('components/pages/homepage')
-  root() {
-    return {
+  root(@Res() res: Response) {
+    const config = {
       title: 'B2B E-Commerce Platform',
       features: [
         {
@@ -55,5 +54,7 @@ export class AppController {
         },
       ],
     };
+
+    res.render('homepage.hbs', { config });
   }
 }

@@ -1,4 +1,4 @@
-{{!-- 
+{{!--
   Templates: Page-level layouts that contain organisms and provide structure
   These define the overall layout and structure of pages
 --}}
@@ -6,46 +6,46 @@
 {{! Main Application Layout Template }}
 <div class="min-h-screen bg-gray-50">
   {{! Header Organism }}
-  {{> organisms/header 
+  {{> header
     siteName="B2B E-Commerce Platform"
     navigation=navigation
     searchForm=true
     userMenu=userMenu
   }}
-  
+
   {{! Main Content Area }}
   <main class="flex-1">
     {{{body}}}
   </main>
-  
+
   {{! Footer Organism }}
   <footer class="bg-gray-800 text-white py-8 mt-16">
     <div class="container-custom">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         {{! Company Info }}
         <div>
-          {{> atoms/text 
+          {{> text
             content="B2B E-Commerce"
             variant="text-white"
             weight="font-semibold"
           }}
-          {{> atoms/text 
+          {{> text
             content="Leading B2B commerce platform for modern businesses."
             variant="text-gray-300"
             size="text-sm"
           }}
         </div>
-        
+
         {{! Quick Links }}
         <div>
-          {{> atoms/text 
+          {{> text
             content="Quick Links"
             variant="text-white"
             weight="font-semibold"
           }}
           {{#each footer.quickLinks}}
             <div class="mt-2">
-              {{> atoms/link 
+              {{> atoms/link
                 href=this.href
                 text=this.text
                 variant="link-ghost"
@@ -54,17 +54,17 @@
             </div>
           {{/each}}
         </div>
-        
+
         {{! Support }}
         <div>
-          {{> atoms/text 
+          {{> text
             content="Support"
             variant="text-white"
             weight="font-semibold"
           }}
           {{#each footer.support}}
             <div class="mt-2">
-              {{> atoms/link 
+              {{> atoms/link
                 href=this.href
                 text=this.text
                 variant="link-ghost"
@@ -73,25 +73,25 @@
             </div>
           {{/each}}
         </div>
-        
+
         {{! Contact }}
         <div>
-          {{> atoms/text 
+          {{> text
             content="Contact"
             variant="text-white"
             weight="font-semibold"
           }}
-          {{> atoms/text 
+          {{> text
             content="support@ecommerce.com"
             variant="text-gray-300"
             size="text-sm"
           }}
         </div>
       </div>
-      
+
       {{! Copyright }}
       <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-        {{> atoms/text 
+        {{> text
           content="© 2025 B2B E-Commerce Platform. All rights reserved."
           variant="text-gray-400"
           size="text-sm"
@@ -101,7 +101,7 @@
   </footer>
 </div>
 
-{{! 
+{{!
 Parameters:
 - navigation: Array of navigation items
 - userMenu: User menu data
