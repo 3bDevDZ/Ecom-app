@@ -1,0 +1,1889 @@
+[Terminal output truncated: ~497KB dropped from beginning]
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Login"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      86 |     await page.goto('/dashboard');
+      87 |     await page.waitForURL('**/login');
+    > 88 |     await expect(page.locator('h4')).toContainText('Login');
+         |                                      ^
+      89 |   });
+      90 | });
+      91 |
+        at E:\TMS\frontend\tests\navigation.spec.ts:88:38
+
+    Error Context: test-results\navigation-TMS-Admin-Navig-76b6a-ogin-when-not-authenticated-Mobile-Chrome\error-context.md
+
+
+[1A[2K[173/230] [Mobile Chrome] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs
+
+
+[1A[2K(node:23820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:23820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[174/230] [Mobile Chrome] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes
+[1A[2K  132) [Mobile Chrome] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('[role="tabpanel"]')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[role="tabpanel"]')[22m
+
+
+      30 |   test('should navigate between tabs', async ({ page }) => {
+      31 |     // Test Filiales tab (default)
+    > 32 |     await expect(page.locator('[role="tabpanel"]')).toBeVisible();
+         |                                                     ^
+      33 |     
+      34 |     // Click on Sites tab
+      35 |     await page.click('text=Sites');
+        at E:\TMS\frontend\tests\organization.spec.ts:32:53
+
+    Error Context: test-results\organization-Organization--91134-hould-navigate-between-tabs-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:24748) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  133) [Mobile Chrome] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Total Orders')[22m
+
+
+      51 |   test('should have clickable KPI cards', async ({ page }) => {
+      52 |     // Test clicking on Total Orders card
+    > 53 |     await page.click('text=Total Orders');
+         |                ^
+      54 |     // Should navigate to orders page
+      55 |     await page.waitForURL('**/orders');
+      56 |     await expect(page.locator('h4')).toContainText('Order Management');
+        at E:\TMS\frontend\tests\dashboard.spec.ts:53:16
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashbo-dbff8-ld-have-clickable-KPI-cards-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:16820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:24748) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[175/230] [Mobile Chrome] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas
+
+
+[1A[2K(node:16820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[176/230] [Mobile Chrome] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes
+[1A[2K  134) [Mobile Chrome] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:has-text("Add Filiale")')[22m
+
+
+      55 |   test('should open create dialog for Filiales', async ({ page }) => {
+      56 |     // Click Add Filiale button
+    > 57 |     await page.click('button:has-text("Add Filiale")');
+         |                ^
+      58 |     
+      59 |     // Check dialog is open
+      60 |     await expect(page.locator('[role="dialog"]')).toBeVisible();
+        at E:\TMS\frontend\tests\organization.spec.ts:57:16
+
+    Error Context: test-results\organization-Organization--b236e--create-dialog-for-Filiales-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:21648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:21648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[177/230] [Mobile Chrome] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked
+[1A[2K  135) [Mobile Chrome] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Sites')[22m
+
+
+      74 |   test('should open create dialog for Sites', async ({ page }) => {
+      75 |     // Switch to Sites tab
+    > 76 |     await page.click('text=Sites');
+         |                ^
+      77 |     await page.waitForTimeout(500);
+      78 |     
+      79 |     // Click Add Site button
+        at E:\TMS\frontend\tests\organization.spec.ts:76:16
+
+    Error Context: test-results\organization-Organization--abf52-pen-create-dialog-for-Sites-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:18536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:18536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[178/230] [Mobile Chrome] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly
+[1A[2K  136) [Mobile Chrome] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Secteurs')[22m
+
+
+      93 |   test('should open create dialog for Secteurs', async ({ page }) => {
+      94 |     // Switch to Secteurs tab
+    > 95 |     await page.click('text=Secteurs');
+         |                ^
+      96 |     await page.waitForTimeout(500);
+      97 |     
+      98 |     // Click Add Secteur button
+        at E:\TMS\frontend\tests\organization.spec.ts:95:16
+
+    Error Context: test-results\organization-Organization--e3cbc--create-dialog-for-Secteurs-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:21244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:21244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[179/230] [Mobile Chrome] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button
+[1A[2K  137) [Mobile Chrome] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Boxes')[22m
+
+
+      111 |   test('should open create dialog for Boxes', async ({ page }) => {
+      112 |     // Switch to Boxes tab
+    > 113 |     await page.click('text=Boxes');
+          |                ^
+      114 |     await page.waitForTimeout(500);
+      115 |     
+      116 |     // Click Add Box button
+        at E:\TMS\frontend\tests\organization.spec.ts:113:16
+
+    Error Context: test-results\organization-Organization--a3ec4-pen-create-dialog-for-Boxes-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:23376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:23376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[180/230] [Mobile Chrome] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully
+[1A[2K  138) [Mobile Chrome] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Wilayas')[22m
+
+
+      129 |   test('should open create dialog for Wilayas', async ({ page }) => {
+      130 |     // Switch to Wilayas tab
+    > 131 |     await page.click('text=Wilayas');
+          |                ^
+      132 |     await page.waitForTimeout(500);
+      133 |     
+      134 |     // Click Add Wilaya button
+        at E:\TMS\frontend\tests\organization.spec.ts:131:16
+
+    Error Context: test-results\organization-Organization--6ce50-n-create-dialog-for-Wilayas-Mobile-Chrome\error-context.md
+
+
+[1A[2K  139) [Mobile Chrome] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Communes')[22m
+
+
+      146 |   test('should open create dialog for Communes', async ({ page }) => {
+      147 |     // Switch to Communes tab
+    > 148 |     await page.click('text=Communes');
+          |                ^
+      149 |     await page.waitForTimeout(500);
+      150 |     
+      151 |     // Click Add Commune button
+        at E:\TMS\frontend\tests\organization.spec.ts:148:16
+
+    Error Context: test-results\organization-Organization--36df6--create-dialog-for-Communes-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:24432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:24484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:24432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[181/230] [Mobile Chrome] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration
+
+
+[1A[2K(node:24484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[182/230] [Mobile Chrome] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state
+[1A[2K  140) [Mobile Chrome] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('th:has-text("Name")')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('th:has-text("Name")')[22m
+
+
+      176 |   test('should display table headers correctly', async ({ page }) => {
+      177 |     // Check Filiales table headers
+    > 178 |     await expect(page.locator('th:has-text("Name")')).toBeVisible();
+          |                                                       ^
+      179 |     await expect(page.locator('th:has-text("Status")')).toBeVisible();
+      180 |     await expect(page.locator('th:has-text("Actions")')).toBeVisible();
+      181 |     
+        at E:\TMS\frontend\tests\organization.spec.ts:178:55
+
+    Error Context: test-results\organization-Organization--b68bc-lay-table-headers-correctly-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:25152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:25152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  141) [Mobile Chrome] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('button:has-text("Refresh")')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('button:has-text("Refresh")')[22m
+
+
+      189 |
+      190 |   test('should show refresh button', async ({ page }) => {
+    > 191 |     await expect(page.locator('button:has-text("Refresh")')).toBeVisible();
+          |                                                              ^
+      192 |   });
+      193 |
+      194 |   test('should handle empty state gracefully', async ({ page }) => {
+        at E:\TMS\frontend\tests\organization.spec.ts:191:62
+
+    Error Context: test-results\organization-Organization--b272b--should-show-refresh-button-Mobile-Chrome\error-context.md
+
+
+[1A[2K[183/230] [Mobile Chrome] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation
+
+
+[1A[2K(node:1352) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:1352) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[184/230] [Mobile Chrome] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design
+[1A[2K  142) [Mobile Chrome] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('table')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('table')[22m
+
+
+      194 |   test('should handle empty state gracefully', async ({ page }) => {
+      195 |     // The table should be present even if empty
+    > 196 |     await expect(page.locator('table')).toBeVisible();
+          |                                         ^
+      197 |     
+      198 |     // Check that no error messages are shown
+      199 |     await expect(page.locator('[role="alert"]')).not.toBeVisible();
+        at E:\TMS\frontend\tests\organization.spec.ts:196:41
+
+    Error Context: test-results\organization-Organization--b5c0a-ndle-empty-state-gracefully-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:25084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:25084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[185/230] [Mobile Safari] › tests\api-mock.spec.ts:196:7 › Organization API Integration › should load and display Filiales data
+[1A[2K  143) [Mobile Chrome] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Organization')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Organization')[22m
+
+
+      203 |     // Check that sidebar navigation includes Organization
+      204 |     await page.goto('/dashboard');
+    > 205 |     await expect(page.locator('text=Organization')).toBeVisible();
+          |                                                     ^
+      206 |     
+      207 |     // Click on Organization menu item
+      208 |     await page.click('text=Organization');
+        at E:\TMS\frontend\tests\organization.spec.ts:205:53
+
+    Error Context: test-results\organization-Organization--0e60b-oper-navigation-integration-Mobile-Chrome\error-context.md
+
+
+[1A[2K  144) [Mobile Chrome] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Organization Management"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      216 |     // This test would need to mock slow API responses
+      217 |     // For now, we'll just verify the page loads without errors
+    > 218 |     await expect(page.locator('h4')).toContainText('Organization Management');
+          |                                      ^
+      219 |   });
+      220 |
+      221 |   test('should handle form validation', async ({ page }) => {
+        at E:\TMS\frontend\tests\organization.spec.ts:218:38
+
+    Error Context: test-results\organization-Organization--a5ef0-hould-display-loading-state-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:23704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[186/230] [Mobile Safari] › tests\api-mock.spec.ts:226:7 › Organization API Integration › should load and display Boxes data
+
+
+[1A[2K(node:23704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[187/230] [Mobile Safari] › tests\api-mock.spec.ts:206:7 › Organization API Integration › should load and display Sites data
+[1A[2K[188/230] [Mobile Safari] › tests\api-mock.spec.ts:216:7 › Organization API Integration › should load and display Secteurs data
+[1A[2K  145) [Mobile Chrome] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Organization Management"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      235 |     
+      236 |     // Check that the page is still functional on mobile
+    > 237 |     await expect(page.locator('h4')).toContainText('Organization Management');
+          |                                      ^
+      238 |     await expect(page.locator('[role="tab"]')).toBeVisible();
+      239 |     
+      240 |     // Test tablet viewport
+        at E:\TMS\frontend\tests\organization.spec.ts:237:38
+
+    Error Context: test-results\organization-Organization--1cd14-ould-have-responsive-design-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:25032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[189/230] [Mobile Safari] › tests\api-mock.spec.ts:248:7 › Organization API Integration › should load and display Communes data
+
+
+[1A[2K(node:25032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[190/230] [Mobile Safari] › tests\api-mock.spec.ts:236:7 › Organization API Integration › should load and display Wilayas data
+[1A[2K[191/230] [Mobile Safari] › tests\api-mock.spec.ts:259:7 › Organization API Integration › should handle create operations
+[1A[2K[192/230] [Mobile Safari] › tests\api-mock.spec.ts:298:7 › Organization API Integration › should handle delete operations
+[1A[2K  146) [Mobile Safari] › tests\api-mock.spec.ts:248:7 › Organization API Integration › should load and display Communes data 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Alger')
+    Expected: visible
+    Error: strict mode violation: locator('text=Alger') resolved to 2 elements:
+        1) <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-11iyqc0-MuiTableCell-root">Alger Centre</td> aka getByRole('cell', { name: 'Alger Centre' })
+        2) <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-11iyqc0-MuiTableCell-root">Alger</td> aka getByRole('cell', { name: 'Alger', exact: true })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Alger')[22m
+
+
+      253 |     // Check that data is loaded
+      254 |     await expect(page.locator('text=Alger Centre')).toBeVisible();
+    > 255 |     await expect(page.locator('text=Alger')).toBeVisible();
+          |                                              ^
+      256 |     await expect(page.locator('text=16001')).toBeVisible();
+      257 |   });
+      258 |
+        at E:\TMS\frontend\tests\api-mock.spec.ts:255:46
+
+    Error Context: test-results\api-mock-Organization-API--8e735-d-and-display-Communes-data-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:10784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  147) [Mobile Chrome] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:has-text("Add Filiale")')[22m
+
+
+      164 |   test('should close dialog when cancel is clicked', async ({ page }) => {
+      165 |     // Open create dialog
+    > 166 |     await page.click('button:has-text("Add Filiale")');
+          |                ^
+      167 |     await expect(page.locator('[role="dialog"]')).toBeVisible();
+      168 |     
+      169 |     // Click cancel
+        at E:\TMS\frontend\tests\organization.spec.ts:166:16
+
+    Error Context: test-results\organization-Organization--f9fe2-alog-when-cancel-is-clicked-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:11160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[193/230] [Mobile Safari] › tests\dashboard.spec.ts:19:7 › TMS Admin Dashboard › should display KPI cards
+
+
+[1A[2K(node:10784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[194/230] [Mobile Safari] › tests\api-mock.spec.ts:322:7 › Organization API Integration › should handle API errors gracefully
+
+
+[1A[2K(node:11160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[195/230] [Mobile Safari] › tests\dashboard.spec.ts:15:7 › TMS Admin Dashboard › should display dashboard overview
+[1A[2K  148) [Mobile Safari] › tests\dashboard.spec.ts:19:7 › TMS Admin Dashboard › should display KPI cards 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Total Orders')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Total Orders')[22m
+
+
+      19 |   test('should display KPI cards', async ({ page }) => {
+      20 |     // Check for KPI cards
+    > 21 |     await expect(page.locator('text=Total Orders')).toBeVisible();
+         |                                                     ^
+      22 |     await expect(page.locator('text=Active Deliveries')).toBeVisible();
+      23 |     await expect(page.locator('text=Completed Today')).toBeVisible();
+      24 |     await expect(page.locator('text=Pending Approvals')).toBeVisible();
+        at E:\TMS\frontend\tests\dashboard.spec.ts:21:53
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashboard-should-display-KPI-cards-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:18020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:18020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[196/230] [Mobile Safari] › tests\dashboard.spec.ts:33:7 › TMS Admin Dashboard › should display recent shipments table
+[1A[2K  149) [Mobile Safari] › tests\dashboard.spec.ts:15:7 › TMS Admin Dashboard › should display dashboard overview 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Dashboard[7m Overview[27m"[39m
+    Received string:    [31m"Dashboard"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+    [2m    8 × locator resolved to <h4 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-3spww9-MuiTypography-root">Dashboard</h4>[22m
+    [2m      - unexpected value "Dashboard"[22m
+
+
+      14 |
+      15 |   test('should display dashboard overview', async ({ page }) => {
+    > 16 |     await expect(page.locator('h4')).toContainText('Dashboard Overview');
+         |                                      ^
+      17 |   });
+      18 |
+      19 |   test('should display KPI cards', async ({ page }) => {
+        at E:\TMS\frontend\tests\dashboard.spec.ts:16:38
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashbo-32b6f--display-dashboard-overview-Mobile-Safari\error-context.md
+
+
+[1A[2K  150) [Mobile Safari] › tests\api-mock.spec.ts:322:7 › Organization API Integration › should handle API errors gracefully 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Internal Server Error')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Internal Server Error')[22m
+
+
+      337 |     // Check that error is displayed
+      338 |     await expect(page.locator('[role="alert"]')).toBeVisible();
+    > 339 |     await expect(page.locator('text=Internal Server Error')).toBeVisible();
+          |                                                              ^
+      340 |   });
+      341 | });
+      342 |
+        at E:\TMS\frontend\tests\api-mock.spec.ts:339:62
+
+    Error Context: test-results\api-mock-Organization-API--1eb7d-andle-API-errors-gracefully-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:22952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[197/230] [Mobile Safari] › tests\dashboard.spec.ts:77:7 › TMS Admin Dashboard › should display proper icons
+
+
+[1A[2K(node:22952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[198/230] [Mobile Safari] › tests\dashboard.spec.ts:44:7 › TMS Admin Dashboard › should display status chips correctly
+[1A[2K[199/230] [Mobile Safari] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards
+[1A[2K  151) [Mobile Chrome] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:has-text("Add Filiale")')[22m
+
+
+      221 |   test('should handle form validation', async ({ page }) => {
+      222 |     // Open create dialog
+    > 223 |     await page.click('button:has-text("Add Filiale")');
+          |                ^
+      224 |     
+      225 |     // Try to save without filling required fields
+      226 |     await page.click('button:has-text("Save")');
+        at E:\TMS\frontend\tests\organization.spec.ts:223:16
+
+    Error Context: test-results\organization-Organization--009ba-ould-handle-form-validation-Mobile-Chrome\error-context.md
+
+
+
+
+[1A[2K(node:16784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  152) [Mobile Safari] › tests\dashboard.spec.ts:77:7 › TMS Admin Dashboard › should display proper icons 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('[data-testid="LocalShippingIcon"]')
+    Expected: visible
+    Error: strict mode violation: locator('[data-testid="LocalShippingIcon"]') resolved to 2 elements:
+        1) <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="LocalShippingIcon" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root">…</svg> aka getByRole('button', { name: 'Shipments' })
+        2) <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="LocalShippingIcon" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-15jrzk3-MuiSvgIcon-root">…</svg> aka getByRole('main').getByTestId('LocalShippingIcon')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-testid="LocalShippingIcon"]')[22m
+
+
+      77 |   test('should display proper icons', async ({ page }) => {
+      78 |     // Check for Material-UI icons
+    > 79 |     await expect(page.locator('[data-testid="LocalShippingIcon"]')).toBeVisible();
+         |                                                                     ^
+      80 |     await expect(page.locator('[data-testid="ScheduleIcon"]')).toBeVisible();
+      81 |     await expect(page.locator('[data-testid="CheckCircleIcon"]')).toBeVisible();
+      82 |     await expect(page.locator('[data-testid="WarningIcon"]')).toBeVisible();
+        at E:\TMS\frontend\tests\dashboard.spec.ts:79:69
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashboard-should-display-proper-icons-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:4380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  153) [Mobile Safari] › tests\dashboard.spec.ts:44:7 › TMS Admin Dashboard › should display status chips correctly 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=In Transit')
+    Expected: visible
+    Error: strict mode violation: locator('text=In Transit') resolved to 3 elements:
+        1) <p class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom css-1xjd2l7-MuiTypography-root">In Transit</p> aka getByRole('paragraph').filter({ hasText: 'In Transit' })
+        2) <span class="MuiChip-label MuiChip-labelSmall css-t3ycia-MuiChip-label">In Transit</span> aka getByText('In Transit').nth(1)
+        3) <span class="MuiChip-label MuiChip-labelSmall css-t3ycia-MuiChip-label">In Transit</span> aka getByText('In Transit').nth(2)
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=In Transit')[22m
+
+
+      44 |   test('should display status chips correctly', async ({ page }) => {
+      45 |     // Check for status chips
+    > 46 |     await expect(page.locator('text=In Transit')).toBeVisible();
+         |                                                   ^
+      47 |     await expect(page.locator('text=Delivered')).toBeVisible();
+      48 |     await expect(page.locator('text=Delayed')).toBeVisible();
+      49 |   });
+        at E:\TMS\frontend\tests\dashboard.spec.ts:46:51
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashbo-33bc2-play-status-chips-correctly-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:24004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:16784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[200/230] [Mobile Safari] › tests\dashboard.spec.ts:85:7 › TMS Admin Dashboard › should have responsive layout
+
+
+[1A[2K(node:4380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[201/230] [Mobile Safari] › tests\dashboard.spec.ts:99:7 › TMS Admin Dashboard › should display sample shipment data
+
+
+[1A[2K(node:24004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[202/230] [Mobile Safari] › tests\dashboard.spec.ts:113:7 › TMS Admin Dashboard › should have proper card styling
+[1A[2K[203/230] [Mobile Safari] › tests\dashboard.spec.ts:122:7 › TMS Admin Dashboard › should display percentage changes
+[1A[2K  154) [Mobile Safari] › tests\dashboard.spec.ts:113:7 › TMS Admin Dashboard › should have proper card styling 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('.MuiCardContent-root')
+    Expected: visible
+    Error: strict mode violation: locator('.MuiCardContent-root') resolved to 5 elements:
+        1) <div class="MuiCardContent-root css-46bh2p-MuiCardContent-root">…</div> aka locator('div').filter({ hasText: /^Active Shipments156\+12\.5% from last month$/ }).nth(2)
+        2) <div class="MuiCardContent-root css-46bh2p-MuiCardContent-root">…</div> aka locator('div').filter({ hasText: /^Delivered Today48\+8\.2% from last month$/ }).nth(2)
+        3) <div class="MuiCardContent-root css-46bh2p-MuiCardContent-root">…</div> aka locator('div').filter({ hasText: /^In Transit92Average: 3\.2 days$/ }).nth(2)
+        4) <div class="MuiCardContent-root css-46bh2p-MuiCardContent-root">…</div> aka locator('div').filter({ hasText: /^Delayed16\+-5\.3% from last month$/ }).nth(2)
+        5) <div class="MuiCardContent-root css-46bh2p-MuiCardContent-root">…</div> aka getByText('Recent ShipmentsLatest shipment updates and tracking informationShipment')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('.MuiCardContent-root')[22m
+
+
+      117 |     
+      118 |     // Check for card content
+    > 119 |     await expect(page.locator('.MuiCardContent-root')).toBeVisible();
+          |                                                        ^
+      120 |   });
+      121 |
+      122 |   test('should display percentage changes', async ({ page }) => {
+        at E:\TMS\frontend\tests\dashboard.spec.ts:119:56
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashbo-25bb4-ld-have-proper-card-styling-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:15312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:15312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[204/230] [Mobile Safari] › tests\navigation.spec.ts:12:7 › TMS Admin Navigation › should display all navigation menu items
+[1A[2K[205/230] [Mobile Safari] › tests\navigation.spec.ts:25:7 › TMS Admin Navigation › should navigate to Dashboard
+[1A[2K  155) [Mobile Safari] › tests\navigation.spec.ts:12:7 › TMS Admin Navigation › should display all navigation menu items 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Dashboard')
+    Expected: visible
+    Error: strict mode violation: locator('text=Dashboard') resolved to 2 elements:
+        1) <span class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-1aacl23-MuiTypography-root">Dashboard</span> aka getByRole('button', { name: 'Dashboard' })
+        2) <h4 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-3spww9-MuiTypography-root">Dashboard</h4> aka getByRole('heading', { name: 'Dashboard' })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Dashboard')[22m
+
+
+      14 |     
+      15 |     // Check sidebar navigation items
+    > 16 |     await expect(page.locator('text=Dashboard')).toBeVisible();
+         |                                                  ^
+      17 |     await expect(page.locator('text=Shipments')).toBeVisible();
+      18 |     await expect(page.locator('text=Vehicles')).toBeVisible();
+      19 |     await expect(page.locator('text=Drivers')).toBeVisible();
+        at E:\TMS\frontend\tests\navigation.spec.ts:16:50
+
+    Error Context: test-results\navigation-TMS-Admin-Navig-51a08-y-all-navigation-menu-items-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:24832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  156) [Mobile Safari] › tests\dashboard.spec.ts:85:7 › TMS Admin Dashboard › should have responsive layout 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Total Orders')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Total Orders')[22m
+
+
+      88 |     
+      89 |     // Check that cards are still visible
+    > 90 |     await expect(page.locator('text=Total Orders')).toBeVisible();
+         |                                                     ^
+      91 |     await expect(page.locator('text=Active Deliveries')).toBeVisible();
+      92 |     
+      93 |     // Test tablet viewport
+        at E:\TMS\frontend\tests\dashboard.spec.ts:90:53
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashboard-should-have-responsive-layout-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:23288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:24832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[206/230] [Mobile Safari] › tests\navigation.spec.ts:30:7 › TMS Admin Navigation › should navigate to Shipments
+
+
+[1A[2K(node:23288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[207/230] [Mobile Safari] › tests\navigation.spec.ts:35:7 › TMS Admin Navigation › should navigate to Vehicles
+[1A[2K  157) [Mobile Safari] › tests\api-mock.spec.ts:259:7 › Organization API Integration › should handle create operations 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.fill: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('input[placeholder*="Name"]')[22m
+
+
+      284 |     
+      285 |     // Fill form
+    > 286 |     await page.fill('input[placeholder*="Name"]', 'New Filiale');
+          |                ^
+      287 |     await page.fill('input[placeholder*="Address"]', 'New Address');
+      288 |     await page.fill('input[placeholder*="Phone"]', '+213 21 999 999');
+      289 |     await page.fill('input[placeholder*="Email"]', 'new@hydrapharm.com');
+        at E:\TMS\frontend\tests\api-mock.spec.ts:286:16
+
+    Error Context: test-results\api-mock-Organization-API--ebda4-ld-handle-create-operations-Mobile-Safari\error-context.md
+
+
+[1A[2K  158) [Mobile Safari] › tests\api-mock.spec.ts:298:7 › Organization API Integration › should handle delete operations 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:has-text("OK")')[22m
+
+
+      313 |     
+      314 |     // Confirm deletion
+    > 315 |     await page.click('button:has-text("OK")');
+          |                ^
+      316 |     
+      317 |     // Check that the item is removed (this would need proper API mocking)
+      318 |     // For now, just verify the delete button was clicked
+        at E:\TMS\frontend\tests\api-mock.spec.ts:315:16
+
+    Error Context: test-results\api-mock-Organization-API--41ea2-ld-handle-delete-operations-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:24420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:25236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[208/230] [Mobile Safari] › tests\navigation.spec.ts:50:7 › TMS Admin Navigation › should navigate to Settings
+[1A[2K  159) [Mobile Safari] › tests\navigation.spec.ts:25:7 › TMS Admin Navigation › should navigate to Dashboard 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Dashboard[7m Overview[27m"[39m
+    Received string:    [31m"Dashboard"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+    [2m    8 × locator resolved to <h4 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-3spww9-MuiTypography-root">Dashboard</h4>[22m
+    [2m      - unexpected value "Dashboard"[22m
+
+
+      25 |   test('should navigate to Dashboard', async ({ page }) => {
+      26 |     await page.goto('/dashboard');
+    > 27 |     await expect(page.locator('h4')).toContainText('Dashboard Overview');
+         |                                      ^
+      28 |   });
+      29 |
+      30 |   test('should navigate to Shipments', async ({ page }) => {
+        at E:\TMS\frontend\tests\navigation.spec.ts:27:38
+
+    Error Context: test-results\navigation-TMS-Admin-Navigation-should-navigate-to-Dashboard-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:24420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:1928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[209/230] [Mobile Safari] › tests\navigation.spec.ts:40:7 › TMS Admin Navigation › should navigate to Drivers
+
+
+[1A[2K(node:25236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[210/230] [Mobile Safari] › tests\navigation.spec.ts:45:7 › TMS Admin Navigation › should navigate to Organization
+
+
+[1A[2K(node:1928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[211/230] [Mobile Safari] › tests\navigation.spec.ts:55:7 › TMS Admin Navigation › should have proper sidebar styling
+[1A[2K  160) [Mobile Safari] › tests\navigation.spec.ts:40:7 › TMS Admin Navigation › should navigate to Drivers 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Operations Dashboard"[39m
+    Error: strict mode violation: locator('h4') resolved to 4 elements:
+        1) <h4 class="MuiTypography-root MuiTypography-h4 css-1wfjisy-MuiTypography-root">12</h4> aka getByRole('heading', { name: '12' })
+        2) <h4 class="MuiTypography-root MuiTypography-h4 css-1wfjisy-MuiTypography-root">8</h4> aka getByRole('heading', { name: '8' })
+        3) <h4 class="MuiTypography-root MuiTypography-h4 css-1wfjisy-MuiTypography-root">3</h4> aka getByRole('heading', { name: '3' })
+        4) <h4 class="MuiTypography-root MuiTypography-h4 css-1wfjisy-MuiTypography-root">95.2%</h4> aka getByRole('heading', { name: '%' })
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      40 |   test('should navigate to Drivers', async ({ page }) => {
+      41 |     await page.goto('/operations');
+    > 42 |     await expect(page.locator('h4')).toContainText('Operations Dashboard');
+         |                                      ^
+      43 |   });
+      44 |
+      45 |   test('should navigate to Organization', async ({ page }) => {
+        at E:\TMS\frontend\tests\navigation.spec.ts:42:38
+
+    Error Context: test-results\navigation-TMS-Admin-Navigation-should-navigate-to-Drivers-Mobile-Safari\error-context.md
+
+
+[1A[2K[212/230] [Mobile Safari] › tests\navigation.spec.ts:74:7 › TMS Admin Navigation › should redirect to dashboard from root
+
+
+[1A[2K(node:15696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  161) [Mobile Safari] › tests\navigation.spec.ts:35:7 › TMS Admin Navigation › should navigate to Vehicles 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Route Planning"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      35 |   test('should navigate to Vehicles', async ({ page }) => {
+      36 |     await page.goto('/routes');
+    > 37 |     await expect(page.locator('h4')).toContainText('Route Planning');
+         |                                      ^
+      38 |   });
+      39 |
+      40 |   test('should navigate to Drivers', async ({ page }) => {
+        at E:\TMS\frontend\tests\navigation.spec.ts:37:38
+
+    Error Context: test-results\navigation-TMS-Admin-Navigation-should-navigate-to-Vehicles-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:1276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[213/230] [Mobile Safari] › tests\organization.spec.ts:16:7 › Organization Management Module › should display organization management page
+
+
+[1A[2K(node:15696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[214/230] [Mobile Safari] › tests\navigation.spec.ts:66:7 › TMS Admin Navigation › should have active menu item highlighting
+[1A[2K  162) [Mobile Safari] › tests\navigation.spec.ts:50:7 › TMS Admin Navigation › should navigate to Settings 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"ERP Management"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      50 |   test('should navigate to Settings', async ({ page }) => {
+      51 |     await page.goto('/erp');
+    > 52 |     await expect(page.locator('h4')).toContainText('ERP Management');
+         |                                      ^
+      53 |   });
+      54 |
+      55 |   test('should have proper sidebar styling', async ({ page }) => {
+        at E:\TMS\frontend\tests\navigation.spec.ts:52:38
+
+    Error Context: test-results\navigation-TMS-Admin-Navigation-should-navigate-to-Settings-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:1276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:23564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[215/230] [Mobile Safari] › tests\navigation.spec.ts:80:7 › TMS Admin Navigation › should redirect to login when not authenticated
+[1A[2K  163) [Mobile Safari] › tests\navigation.spec.ts:66:7 › TMS Admin Navigation › should have active menu item highlighting 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCSS[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('text=Dashboard').locator('..')
+    Expected: [32m"rgb(0, 123, 255)"[39m
+    Error: strict mode violation: locator('text=Dashboard').locator('..') resolved to 2 elements:
+        1) <div class="MuiListItemText-root css-sr59be-MuiListItemText-root">…</div> aka getByRole('button', { name: 'Dashboard' })
+        2) <div class="MuiBox-root css-1yjvs5a">…</div> aka getByText('DashboardOverview of your')
+
+    Call log:
+    [2m  - Expect "toHaveCSS" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Dashboard').locator('..')[22m
+
+
+      69 |     // Check that Dashboard menu item is highlighted
+      70 |     const dashboardItem = page.locator('text=Dashboard').locator('..');
+    > 71 |     await expect(dashboardItem).toHaveCSS('background-color', 'rgb(0, 123, 255)');
+         |                                 ^
+      72 |   });
+      73 |
+      74 |   test('should redirect to dashboard from root', async ({ page }) => {
+        at E:\TMS\frontend\tests\navigation.spec.ts:71:33
+
+    Error Context: test-results\navigation-TMS-Admin-Navig-f5575-tive-menu-item-highlighting-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:23564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[216/230] [Mobile Safari] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs
+
+
+[1A[2K(node:23664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:23664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[217/230] [Mobile Safari] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales
+[1A[2K  164) [Mobile Safari] › tests\navigation.spec.ts:74:7 › TMS Admin Navigation › should redirect to dashboard from root 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Dashboard Overview"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+    [2m    4 × locator resolved to <h4 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-3spww9-MuiTypography-root">Dashboard</h4>[22m
+    [2m      - unexpected value "Dashboard"[22m
+
+
+      75 |     await page.goto('/');
+      76 |     await page.waitForURL('**/dashboard');
+    > 77 |     await expect(page.locator('h4')).toContainText('Dashboard Overview');
+         |                                      ^
+      78 |   });
+      79 |
+      80 |   test('should redirect to login when not authenticated', async ({ page }) => {
+        at E:\TMS\frontend\tests\navigation.spec.ts:77:38
+
+    Error Context: test-results\navigation-TMS-Admin-Navig-d8470-rect-to-dashboard-from-root-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:10612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[218/230] [Mobile Safari] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites
+[1A[2K  165) [Mobile Safari] › tests\organization.spec.ts:16:7 › Organization Management Module › should display organization management page 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Organization Management"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      16 |   test('should display organization management page', async ({ page }) => {
+      17 |     // Check page title
+    > 18 |     await expect(page.locator('h4')).toContainText('Organization Management');
+         |                                      ^
+      19 |     
+      20 |     // Check that all tabs are present
+      21 |     await expect(page.locator('[role="tab"]')).toHaveCount(6);
+        at E:\TMS\frontend\tests\organization.spec.ts:18:38
+
+    Error Context: test-results\organization-Organization--73cff-rganization-management-page-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:23968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  166) [Mobile Safari] › tests\navigation.spec.ts:80:7 › TMS Admin Navigation › should redirect to login when not authenticated 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Login"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      86 |     await page.goto('/dashboard');
+      87 |     await page.waitForURL('**/login');
+    > 88 |     await expect(page.locator('h4')).toContainText('Login');
+         |                                      ^
+      89 |   });
+      90 | });
+      91 |
+        at E:\TMS\frontend\tests\navigation.spec.ts:88:38
+
+    Error Context: test-results\navigation-TMS-Admin-Navig-76b6a-ogin-when-not-authenticated-Mobile-Safari\error-context.md
+
+
+[1A[2K  167) [Mobile Safari] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Total Orders')[22m
+
+
+      51 |   test('should have clickable KPI cards', async ({ page }) => {
+      52 |     // Test clicking on Total Orders card
+    > 53 |     await page.click('text=Total Orders');
+         |                ^
+      54 |     // Should navigate to orders page
+      55 |     await page.waitForURL('**/orders');
+      56 |     await expect(page.locator('h4')).toContainText('Order Management');
+        at E:\TMS\frontend\tests\dashboard.spec.ts:53:16
+
+    Error Context: test-results\dashboard-TMS-Admin-Dashbo-dbff8-ld-have-clickable-KPI-cards-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:17012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:23968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[219/230] [Mobile Safari] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs
+
+
+[1A[2K(node:17012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[220/230] [Mobile Safari] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes
+[1A[2K  168) [Mobile Safari] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('[role="tabpanel"]')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[role="tabpanel"]')[22m
+
+
+      30 |   test('should navigate between tabs', async ({ page }) => {
+      31 |     // Test Filiales tab (default)
+    > 32 |     await expect(page.locator('[role="tabpanel"]')).toBeVisible();
+         |                                                     ^
+      33 |     
+      34 |     // Click on Sites tab
+      35 |     await page.click('text=Sites');
+        at E:\TMS\frontend\tests\organization.spec.ts:32:53
+
+    Error Context: test-results\organization-Organization--91134-hould-navigate-between-tabs-Mobile-Safari\error-context.md
+
+
+[1A[2K[221/230] [Mobile Safari] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas
+
+
+[1A[2K(node:23636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:23636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[222/230] [Mobile Safari] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes
+[1A[2K  169) [Mobile Safari] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:has-text("Add Filiale")')[22m
+
+
+      55 |   test('should open create dialog for Filiales', async ({ page }) => {
+      56 |     // Click Add Filiale button
+    > 57 |     await page.click('button:has-text("Add Filiale")');
+         |                ^
+      58 |     
+      59 |     // Check dialog is open
+      60 |     await expect(page.locator('[role="dialog"]')).toBeVisible();
+        at E:\TMS\frontend\tests\organization.spec.ts:57:16
+
+    Error Context: test-results\organization-Organization--b236e--create-dialog-for-Filiales-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:5244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:5244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[223/230] [Mobile Safari] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked
+[1A[2K  170) [Mobile Safari] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Sites')[22m
+
+
+      74 |   test('should open create dialog for Sites', async ({ page }) => {
+      75 |     // Switch to Sites tab
+    > 76 |     await page.click('text=Sites');
+         |                ^
+      77 |     await page.waitForTimeout(500);
+      78 |     
+      79 |     // Click Add Site button
+        at E:\TMS\frontend\tests\organization.spec.ts:76:16
+
+    Error Context: test-results\organization-Organization--abf52-pen-create-dialog-for-Sites-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:1660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:1660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[224/230] [Mobile Safari] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly
+[1A[2K  171) [Mobile Safari] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Secteurs')[22m
+
+
+      93 |   test('should open create dialog for Secteurs', async ({ page }) => {
+      94 |     // Switch to Secteurs tab
+    > 95 |     await page.click('text=Secteurs');
+         |                ^
+      96 |     await page.waitForTimeout(500);
+      97 |     
+      98 |     // Click Add Secteur button
+        at E:\TMS\frontend\tests\organization.spec.ts:95:16
+
+    Error Context: test-results\organization-Organization--e3cbc--create-dialog-for-Secteurs-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:24532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  172) [Mobile Safari] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Boxes')[22m
+
+
+      111 |   test('should open create dialog for Boxes', async ({ page }) => {
+      112 |     // Switch to Boxes tab
+    > 113 |     await page.click('text=Boxes');
+          |                ^
+      114 |     await page.waitForTimeout(500);
+      115 |     
+      116 |     // Click Add Box button
+        at E:\TMS\frontend\tests\organization.spec.ts:113:16
+
+    Error Context: test-results\organization-Organization--a3ec4-pen-create-dialog-for-Boxes-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:24532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[225/230] [Mobile Safari] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button
+[1A[2K  173) [Mobile Safari] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Wilayas')[22m
+    [2m    - locator resolved to <button role="tab" tabindex="-1" type="button" aria-selected="false" id="organization-tab-4" aria-controls="organization-tabpanel-4" class="MuiButtonBase-root MuiTab-root MuiTab-labelIcon MuiTab-textColorPrimary css-1ukcou5-MuiButtonBase-root-MuiTab-root">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    - waiting for" http://localhost:3000/login" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:3000/login"[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+    [2m  - element was detached from the DOM, retrying[22m
+
+
+      129 |   test('should open create dialog for Wilayas', async ({ page }) => {
+      130 |     // Switch to Wilayas tab
+    > 131 |     await page.click('text=Wilayas');
+          |                ^
+      132 |     await page.waitForTimeout(500);
+      133 |     
+      134 |     // Click Add Wilaya button
+        at E:\TMS\frontend\tests\organization.spec.ts:131:16
+
+    Error Context: test-results\organization-Organization--6ce50-n-create-dialog-for-Wilayas-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:1960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[226/230] [Mobile Safari] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully
+
+
+[1A[2K(node:1960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[227/230] [Mobile Safari] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration
+[1A[2K  174) [Mobile Safari] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('text=Communes')[22m
+
+
+      146 |   test('should open create dialog for Communes', async ({ page }) => {
+      147 |     // Switch to Communes tab
+    > 148 |     await page.click('text=Communes');
+          |                ^
+      149 |     await page.waitForTimeout(500);
+      150 |     
+      151 |     // Click Add Commune button
+        at E:\TMS\frontend\tests\organization.spec.ts:148:16
+
+    Error Context: test-results\organization-Organization--36df6--create-dialog-for-Communes-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:14644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  175) [Mobile Safari] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('th:has-text("Name")')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('th:has-text("Name")')[22m
+
+
+      176 |   test('should display table headers correctly', async ({ page }) => {
+      177 |     // Check Filiales table headers
+    > 178 |     await expect(page.locator('th:has-text("Name")')).toBeVisible();
+          |                                                       ^
+      179 |     await expect(page.locator('th:has-text("Status")')).toBeVisible();
+      180 |     await expect(page.locator('th:has-text("Actions")')).toBeVisible();
+      181 |     
+        at E:\TMS\frontend\tests\organization.spec.ts:178:55
+
+    Error Context: test-results\organization-Organization--b68bc-lay-table-headers-correctly-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:25304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:14644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[228/230] [Mobile Safari] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state
+
+
+[1A[2K(node:25304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[229/230] [Mobile Safari] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation
+[1A[2K  176) [Mobile Safari] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('button:has-text("Refresh")')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('button:has-text("Refresh")')[22m
+
+
+      189 |
+      190 |   test('should show refresh button', async ({ page }) => {
+    > 191 |     await expect(page.locator('button:has-text("Refresh")')).toBeVisible();
+          |                                                              ^
+      192 |   });
+      193 |
+      194 |   test('should handle empty state gracefully', async ({ page }) => {
+        at E:\TMS\frontend\tests\organization.spec.ts:191:62
+
+    Error Context: test-results\organization-Organization--b272b--should-show-refresh-button-Mobile-Safari\error-context.md
+
+
+
+
+[1A[2K(node:23012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:23012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[230/230] [Mobile Safari] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design
+[1A[2K  177) [Mobile Safari] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('table')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('table')[22m
+
+
+      194 |   test('should handle empty state gracefully', async ({ page }) => {
+      195 |     // The table should be present even if empty
+    > 196 |     await expect(page.locator('table')).toBeVisible();
+          |                                         ^
+      197 |     
+      198 |     // Check that no error messages are shown
+      199 |     await expect(page.locator('[role="alert"]')).not.toBeVisible();
+        at E:\TMS\frontend\tests\organization.spec.ts:196:41
+
+    Error Context: test-results\organization-Organization--b5c0a-ndle-empty-state-gracefully-Mobile-Safari\error-context.md
+
+
+[1A[2K  178) [Mobile Safari] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Organization')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Organization')[22m
+
+
+      203 |     // Check that sidebar navigation includes Organization
+      204 |     await page.goto('/dashboard');
+    > 205 |     await expect(page.locator('text=Organization')).toBeVisible();
+          |                                                     ^
+      206 |     
+      207 |     // Click on Organization menu item
+      208 |     await page.click('text=Organization');
+        at E:\TMS\frontend\tests\organization.spec.ts:205:53
+
+    Error Context: test-results\organization-Organization--0e60b-oper-navigation-integration-Mobile-Safari\error-context.md
+
+
+[1A[2K  179) [Mobile Safari] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Organization Management"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      216 |     // This test would need to mock slow API responses
+      217 |     // For now, we'll just verify the page loads without errors
+    > 218 |     await expect(page.locator('h4')).toContainText('Organization Management');
+          |                                      ^
+      219 |   });
+      220 |
+      221 |   test('should handle form validation', async ({ page }) => {
+        at E:\TMS\frontend\tests\organization.spec.ts:218:38
+
+    Error Context: test-results\organization-Organization--a5ef0-hould-display-loading-state-Mobile-Safari\error-context.md
+
+
+[1A[2K  180) [Mobile Safari] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h4')
+    Expected substring: [32m"Organization Management"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h4')[22m
+
+
+      235 |     
+      236 |     // Check that the page is still functional on mobile
+    > 237 |     await expect(page.locator('h4')).toContainText('Organization Management');
+          |                                      ^
+      238 |     await expect(page.locator('[role="tab"]')).toBeVisible();
+      239 |     
+      240 |     // Test tablet viewport
+        at E:\TMS\frontend\tests\organization.spec.ts:237:38
+
+    Error Context: test-results\organization-Organization--1cd14-ould-have-responsive-design-Mobile-Safari\error-context.md
+
+
+[1A[2K  181) [Mobile Safari] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:has-text("Add Filiale")')[22m
+
+
+      164 |   test('should close dialog when cancel is clicked', async ({ page }) => {
+      165 |     // Open create dialog
+    > 166 |     await page.click('button:has-text("Add Filiale")');
+          |                ^
+      167 |     await expect(page.locator('[role="dialog"]')).toBeVisible();
+      168 |     
+      169 |     // Click cancel
+        at E:\TMS\frontend\tests\organization.spec.ts:166:16
+
+    Error Context: test-results\organization-Organization--f9fe2-alog-when-cancel-is-clicked-Mobile-Safari\error-context.md
+
+
+[1A[2K  182) [Mobile Safari] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('button:has-text("Add Filiale")')[22m
+
+
+      221 |   test('should handle form validation', async ({ page }) => {
+      222 |     // Open create dialog
+    > 223 |     await page.click('button:has-text("Add Filiale")');
+          |                ^
+      224 |     
+      225 |     // Try to save without filling required fields
+      226 |     await page.click('button:has-text("Save")');
+        at E:\TMS\frontend\tests\organization.spec.ts:223:16
+
+    Error Context: test-results\organization-Organization--009ba-ould-handle-form-validation-Mobile-Safari\error-context.md
+
+
+[1A[2K  182 failed
+    [chromium] › tests\api-mock.spec.ts:248:7 › Organization API Integration › should load and display Communes data 
+    [chromium] › tests\api-mock.spec.ts:259:7 › Organization API Integration › should handle create operations 
+    [chromium] › tests\api-mock.spec.ts:298:7 › Organization API Integration › should handle delete operations 
+    [chromium] › tests\api-mock.spec.ts:322:7 › Organization API Integration › should handle API errors gracefully 
+    [chromium] › tests\dashboard.spec.ts:15:7 › TMS Admin Dashboard › should display dashboard overview 
+    [chromium] › tests\dashboard.spec.ts:19:7 › TMS Admin Dashboard › should display KPI cards ─────
+    [chromium] › tests\dashboard.spec.ts:44:7 › TMS Admin Dashboard › should display status chips correctly 
+    [chromium] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards 
+    [chromium] › tests\dashboard.spec.ts:77:7 › TMS Admin Dashboard › should display proper icons ──
+    [chromium] › tests\dashboard.spec.ts:85:7 › TMS Admin Dashboard › should have responsive layout 
+    [chromium] › tests\dashboard.spec.ts:113:7 › TMS Admin Dashboard › should have proper card styling 
+    [chromium] › tests\navigation.spec.ts:12:7 › TMS Admin Navigation › should display all navigation menu items 
+    [chromium] › tests\navigation.spec.ts:25:7 › TMS Admin Navigation › should navigate to Dashboard 
+    [chromium] › tests\navigation.spec.ts:35:7 › TMS Admin Navigation › should navigate to Vehicles 
+    [chromium] › tests\navigation.spec.ts:40:7 › TMS Admin Navigation › should navigate to Drivers ─
+    [chromium] › tests\navigation.spec.ts:50:7 › TMS Admin Navigation › should navigate to Settings 
+    [chromium] › tests\navigation.spec.ts:66:7 › TMS Admin Navigation › should have active menu item highlighting 
+    [chromium] › tests\navigation.spec.ts:74:7 › TMS Admin Navigation › should redirect to dashboard from root 
+    [chromium] › tests\navigation.spec.ts:80:7 › TMS Admin Navigation › should redirect to login when not authenticated 
+    [chromium] › tests\organization.spec.ts:16:7 › Organization Management Module › should display organization management page 
+    [chromium] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs 
+    [chromium] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales 
+    [chromium] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites 
+    [chromium] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs 
+    [chromium] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes 
+    [chromium] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas 
+    [chromium] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes 
+    [chromium] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked 
+    [chromium] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly 
+    [chromium] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button 
+    [chromium] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully 
+    [chromium] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration 
+    [chromium] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state 
+    [chromium] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation 
+    [chromium] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design 
+    [firefox] › tests\api-mock.spec.ts:248:7 › Organization API Integration › should load and display Communes data 
+    [firefox] › tests\api-mock.spec.ts:259:7 › Organization API Integration › should handle create operations 
+    [firefox] › tests\api-mock.spec.ts:298:7 › Organization API Integration › should handle delete operations 
+    [firefox] › tests\api-mock.spec.ts:322:7 › Organization API Integration › should handle API errors gracefully 
+    [firefox] › tests\dashboard.spec.ts:15:7 › TMS Admin Dashboard › should display dashboard overview 
+    [firefox] › tests\dashboard.spec.ts:19:7 › TMS Admin Dashboard › should display KPI cards ──────
+    [firefox] › tests\dashboard.spec.ts:33:7 › TMS Admin Dashboard › should display recent shipments table 
+    [firefox] › tests\dashboard.spec.ts:44:7 › TMS Admin Dashboard › should display status chips correctly 
+    [firefox] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards 
+    [firefox] › tests\dashboard.spec.ts:77:7 › TMS Admin Dashboard › should display proper icons ───
+    [firefox] › tests\dashboard.spec.ts:85:7 › TMS Admin Dashboard › should have responsive layout ─
+    [firefox] › tests\dashboard.spec.ts:99:7 › TMS Admin Dashboard › should display sample shipment data 
+    [firefox] › tests\dashboard.spec.ts:113:7 › TMS Admin Dashboard › should have proper card styling 
+    [firefox] › tests\dashboard.spec.ts:122:7 › TMS Admin Dashboard › should display percentage changes 
+    [firefox] › tests\navigation.spec.ts:12:7 › TMS Admin Navigation › should display all navigation menu items 
+    [firefox] › tests\navigation.spec.ts:25:7 › TMS Admin Navigation › should navigate to Dashboard 
+    [firefox] › tests\navigation.spec.ts:35:7 › TMS Admin Navigation › should navigate to Vehicles ─
+    [firefox] › tests\navigation.spec.ts:40:7 › TMS Admin Navigation › should navigate to Drivers ──
+    [firefox] › tests\navigation.spec.ts:50:7 › TMS Admin Navigation › should navigate to Settings ─
+    [firefox] › tests\navigation.spec.ts:66:7 › TMS Admin Navigation › should have active menu item highlighting 
+    [firefox] › tests\navigation.spec.ts:74:7 › TMS Admin Navigation › should redirect to dashboard from root 
+    [firefox] › tests\navigation.spec.ts:80:7 › TMS Admin Navigation › should redirect to login when not authenticated 
+    [firefox] › tests\organization.spec.ts:16:7 › Organization Management Module › should display organization management page 
+    [firefox] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs 
+    [firefox] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales 
+    [firefox] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites 
+    [firefox] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs 
+    [firefox] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes 
+    [firefox] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas 
+    [firefox] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes 
+    [firefox] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked 
+    [firefox] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly 
+    [firefox] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button 
+    [firefox] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully 
+    [firefox] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration 
+    [firefox] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state 
+    [firefox] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation 
+    [firefox] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design 
+    [webkit] › tests\api-mock.spec.ts:248:7 › Organization API Integration › should load and display Communes data 
+    [webkit] › tests\api-mock.spec.ts:259:7 › Organization API Integration › should handle create operations 
+    [webkit] › tests\api-mock.spec.ts:298:7 › Organization API Integration › should handle delete operations 
+    [webkit] › tests\api-mock.spec.ts:322:7 › Organization API Integration › should handle API errors gracefully 
+    [webkit] › tests\dashboard.spec.ts:15:7 › TMS Admin Dashboard › should display dashboard overview 
+    [webkit] › tests\dashboard.spec.ts:19:7 › TMS Admin Dashboard › should display KPI cards ───────
+    [webkit] › tests\dashboard.spec.ts:44:7 › TMS Admin Dashboard › should display status chips correctly 
+    [webkit] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards 
+    [webkit] › tests\dashboard.spec.ts:77:7 › TMS Admin Dashboard › should display proper icons ────
+    [webkit] › tests\dashboard.spec.ts:85:7 › TMS Admin Dashboard › should have responsive layout ──
+    [webkit] › tests\dashboard.spec.ts:113:7 › TMS Admin Dashboard › should have proper card styling 
+    [webkit] › tests\navigation.spec.ts:12:7 › TMS Admin Navigation › should display all navigation menu items 
+    [webkit] › tests\navigation.spec.ts:25:7 › TMS Admin Navigation › should navigate to Dashboard ─
+    [webkit] › tests\navigation.spec.ts:35:7 › TMS Admin Navigation › should navigate to Vehicles ──
+    [webkit] › tests\navigation.spec.ts:40:7 › TMS Admin Navigation › should navigate to Drivers ───
+    [webkit] › tests\navigation.spec.ts:50:7 › TMS Admin Navigation › should navigate to Settings ──
+    [webkit] › tests\navigation.spec.ts:66:7 › TMS Admin Navigation › should have active menu item highlighting 
+    [webkit] › tests\navigation.spec.ts:74:7 › TMS Admin Navigation › should redirect to dashboard from root 
+    [webkit] › tests\navigation.spec.ts:80:7 › TMS Admin Navigation › should redirect to login when not authenticated 
+    [webkit] › tests\organization.spec.ts:16:7 › Organization Management Module › should display organization management page 
+    [webkit] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs 
+    [webkit] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales 
+    [webkit] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites 
+    [webkit] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs 
+    [webkit] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes 
+    [webkit] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas 
+    [webkit] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes 
+    [webkit] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked 
+    [webkit] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly 
+    [webkit] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button 
+    [webkit] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully 
+    [webkit] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration 
+    [webkit] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state 
+    [webkit] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation 
+    [webkit] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design 
+    [Mobile Chrome] › tests\api-mock.spec.ts:206:7 › Organization API Integration › should load and display Sites data 
+    [Mobile Chrome] › tests\api-mock.spec.ts:216:7 › Organization API Integration › should load and display Secteurs data 
+    [Mobile Chrome] › tests\api-mock.spec.ts:226:7 › Organization API Integration › should load and display Boxes data 
+    [Mobile Chrome] › tests\api-mock.spec.ts:236:7 › Organization API Integration › should load and display Wilayas data 
+    [Mobile Chrome] › tests\api-mock.spec.ts:248:7 › Organization API Integration › should load and display Communes data 
+    [Mobile Chrome] › tests\api-mock.spec.ts:259:7 › Organization API Integration › should handle create operations 
+    [Mobile Chrome] › tests\api-mock.spec.ts:298:7 › Organization API Integration › should handle delete operations 
+    [Mobile Chrome] › tests\api-mock.spec.ts:322:7 › Organization API Integration › should handle API errors gracefully 
+    [Mobile Chrome] › tests\dashboard.spec.ts:15:7 › TMS Admin Dashboard › should display dashboard overview 
+    [Mobile Chrome] › tests\dashboard.spec.ts:19:7 › TMS Admin Dashboard › should display KPI cards 
+    [Mobile Chrome] › tests\dashboard.spec.ts:44:7 › TMS Admin Dashboard › should display status chips correctly 
+    [Mobile Chrome] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards 
+    [Mobile Chrome] › tests\dashboard.spec.ts:77:7 › TMS Admin Dashboard › should display proper icons 
+    [Mobile Chrome] › tests\dashboard.spec.ts:85:7 › TMS Admin Dashboard › should have responsive layout 
+    [Mobile Chrome] › tests\dashboard.spec.ts:113:7 › TMS Admin Dashboard › should have proper card styling 
+    [Mobile Chrome] › tests\navigation.spec.ts:12:7 › TMS Admin Navigation › should display all navigation menu items 
+    [Mobile Chrome] › tests\navigation.spec.ts:25:7 › TMS Admin Navigation › should navigate to Dashboard 
+    [Mobile Chrome] › tests\navigation.spec.ts:35:7 › TMS Admin Navigation › should navigate to Vehicles 
+    [Mobile Chrome] › tests\navigation.spec.ts:40:7 › TMS Admin Navigation › should navigate to Drivers 
+    [Mobile Chrome] › tests\navigation.spec.ts:50:7 › TMS Admin Navigation › should navigate to Settings 
+    [Mobile Chrome] › tests\navigation.spec.ts:66:7 › TMS Admin Navigation › should have active menu item highlighting 
+    [Mobile Chrome] › tests\navigation.spec.ts:74:7 › TMS Admin Navigation › should redirect to dashboard from root 
+    [Mobile Chrome] › tests\navigation.spec.ts:80:7 › TMS Admin Navigation › should redirect to login when not authenticated 
+    [Mobile Chrome] › tests\organization.spec.ts:16:7 › Organization Management Module › should display organization management page 
+    [Mobile Chrome] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs 
+    [Mobile Chrome] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales 
+    [Mobile Chrome] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites 
+    [Mobile Chrome] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs 
+    [Mobile Chrome] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes 
+    [Mobile Chrome] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas 
+    [Mobile Chrome] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes 
+    [Mobile Chrome] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked 
+    [Mobile Chrome] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly 
+    [Mobile Chrome] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button 
+    [Mobile Chrome] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully 
+    [Mobile Chrome] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration 
+    [Mobile Chrome] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state 
+    [Mobile Chrome] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation 
+    [Mobile Chrome] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design 
+    [Mobile Safari] › tests\api-mock.spec.ts:248:7 › Organization API Integration › should load and display Communes data 
+    [Mobile Safari] › tests\api-mock.spec.ts:259:7 › Organization API Integration › should handle create operations 
+    [Mobile Safari] › tests\api-mock.spec.ts:298:7 › Organization API Integration › should handle delete operations 
+    [Mobile Safari] › tests\api-mock.spec.ts:322:7 › Organization API Integration › should handle API errors gracefully 
+    [Mobile Safari] › tests\dashboard.spec.ts:15:7 › TMS Admin Dashboard › should display dashboard overview 
+    [Mobile Safari] › tests\dashboard.spec.ts:19:7 › TMS Admin Dashboard › should display KPI cards 
+    [Mobile Safari] › tests\dashboard.spec.ts:44:7 › TMS Admin Dashboard › should display status chips correctly 
+    [Mobile Safari] › tests\dashboard.spec.ts:51:7 › TMS Admin Dashboard › should have clickable KPI cards 
+    [Mobile Safari] › tests\dashboard.spec.ts:77:7 › TMS Admin Dashboard › should display proper icons 
+    [Mobile Safari] › tests\dashboard.spec.ts:85:7 › TMS Admin Dashboard › should have responsive layout 
+    [Mobile Safari] › tests\dashboard.spec.ts:113:7 › TMS Admin Dashboard › should have proper card styling 
+    [Mobile Safari] › tests\navigation.spec.ts:12:7 › TMS Admin Navigation › should display all navigation menu items 
+    [Mobile Safari] › tests\navigation.spec.ts:25:7 › TMS Admin Navigation › should navigate to Dashboard 
+    [Mobile Safari] › tests\navigation.spec.ts:35:7 › TMS Admin Navigation › should navigate to Vehicles 
+    [Mobile Safari] › tests\navigation.spec.ts:40:7 › TMS Admin Navigation › should navigate to Drivers 
+    [Mobile Safari] › tests\navigation.spec.ts:50:7 › TMS Admin Navigation › should navigate to Settings 
+    [Mobile Safari] › tests\navigation.spec.ts:66:7 › TMS Admin Navigation › should have active menu item highlighting 
+    [Mobile Safari] › tests\navigation.spec.ts:74:7 › TMS Admin Navigation › should redirect to dashboard from root 
+    [Mobile Safari] › tests\navigation.spec.ts:80:7 › TMS Admin Navigation › should redirect to login when not authenticated 
+    [Mobile Safari] › tests\organization.spec.ts:16:7 › Organization Management Module › should display organization management page 
+    [Mobile Safari] › tests\organization.spec.ts:30:7 › Organization Management Module › should navigate between tabs 
+    [Mobile Safari] › tests\organization.spec.ts:55:7 › Organization Management Module › should open create dialog for Filiales 
+    [Mobile Safari] › tests\organization.spec.ts:74:7 › Organization Management Module › should open create dialog for Sites 
+    [Mobile Safari] › tests\organization.spec.ts:93:7 › Organization Management Module › should open create dialog for Secteurs 
+    [Mobile Safari] › tests\organization.spec.ts:111:7 › Organization Management Module › should open create dialog for Boxes 
+    [Mobile Safari] › tests\organization.spec.ts:129:7 › Organization Management Module › should open create dialog for Wilayas 
+    [Mobile Safari] › tests\organization.spec.ts:146:7 › Organization Management Module › should open create dialog for Communes 
+    [Mobile Safari] › tests\organization.spec.ts:164:7 › Organization Management Module › should close dialog when cancel is clicked 
+    [Mobile Safari] › tests\organization.spec.ts:176:7 › Organization Management Module › should display table headers correctly 
+    [Mobile Safari] › tests\organization.spec.ts:190:7 › Organization Management Module › should show refresh button 
+    [Mobile Safari] › tests\organization.spec.ts:194:7 › Organization Management Module › should handle empty state gracefully 
+    [Mobile Safari] › tests\organization.spec.ts:202:7 › Organization Management Module › should have proper navigation integration 
+    [Mobile Safari] › tests\organization.spec.ts:215:7 › Organization Management Module › should display loading state 
+    [Mobile Safari] › tests\organization.spec.ts:221:7 › Organization Management Module › should handle form validation 
+    [Mobile Safari] › tests\organization.spec.ts:232:7 › Organization Management Module › should have responsive design 
+  48 passed (10.6m)
+
+  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.

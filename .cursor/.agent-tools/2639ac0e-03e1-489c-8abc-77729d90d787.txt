@@ -1,0 +1,565 @@
+
+Running 16 tests using 6 workers
+
+
+
+[1A[2K(node:14592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+
+
+
+
+[1A[2K(node:21476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K(node:29940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K(node:6756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:1688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:20896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:29940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+
+
+[1A[2K(node:14592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K(node:21476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+
+
+[1A[2K(node:1688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K(node:6756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:20896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[1/16] [chromium] › tests\organization.spec.ts:122:7 › Organization Management Module › should open create dialog for Sites
+[1A[2K[2/16] [chromium] › tests\organization.spec.ts:47:7 › Organization Management Module › should display organization management page
+[1A[2K[3/16] [chromium] › tests\organization.spec.ts:72:7 › Organization Management Module › should navigate between tabs
+[1A[2K[4/16] [chromium] › tests\organization.spec.ts:141:7 › Organization Management Module › should open create dialog for Secteurs
+[1A[2K[5/16] [chromium] › tests\organization.spec.ts:103:7 › Organization Management Module › should open create dialog for Filiales
+[1A[2K[6/16] [chromium] › tests\organization.spec.ts:159:7 › Organization Management Module › should open create dialog for Boxes
+[1A[2K[chromium] › tests\organization.spec.ts:47:7 › Organization Management Module › should display organization management page
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiIyZjBiYjM5OC01YzM4LTQ3MGMtODE0MS1iNDI4NjNkNmMzOTQiLCJpYXQiOjE3NjEwODAyNjYsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NjYsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.4DOnT9utoRtaKIyEAetFPmA3m5qWSkKnNIusY4OW-oA'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:72:7 › Organization Management Module › should navigate between tabs
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiI0NTlkZWI0OS0zOTdmLTQxZWYtYTgwZS0wOTMwNWEyZWZkZGMiLCJpYXQiOjE3NjEwODAyNjYsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NjYsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.xqc1zEX_qsF8Qy8rY97SPMVt9mlTzaZzOm1lIuOTSz8'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:141:7 › Organization Management Module › should open create dialog for Secteurs
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiI4MjcyYjcxMy00MDFhLTQ4MzItYjU0Yi1kYzY4NWEyNzliOWMiLCJpYXQiOjE3NjEwODAyNjcsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NjcsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.DttdwTRx44nYbssGi4afHaqhKY_Zand71TaiRTPrF3Q'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:103:7 › Organization Management Module › should open create dialog for Filiales
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiJiZmZjOTY4Yi0wMzg5LTQwYTUtOWIyZC1hYjVjYmI2ZTA0ZTkiLCJpYXQiOjE3NjEwODAyNjcsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NjcsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.Mfv5cRS8X15rrTX1Rhn6Ixix6MltfId3tJab2tspBDM'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:159:7 › Organization Management Module › should open create dialog for Boxes
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiJmODRkYThjYS0zMmE0LTRlMGMtOGU1Yi1jNDUwMzkyZDMwMDIiLCJpYXQiOjE3NjEwODAyNjcsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NjcsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.LdLXB7DNpZPnQ1-Qsx0MXuj2yKARfphHeOEDYo3IFTc'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:122:7 › Organization Management Module › should open create dialog for Sites
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiI5Yjk1ZDMzOC05OTdkLTQ5ZTktODNjNi0wNTUzNDVmNzhkNDgiLCJpYXQiOjE3NjEwODAyNjcsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NjcsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9._djxac8jnK2TAYwFcuy0TFkpbfjPOOR4vNRLIXAniIY'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:47:7 › Organization Management Module › should display organization management page
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:72:7 › Organization Management Module › should navigate between tabs
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:103:7 › Organization Management Module › should open create dialog for Filiales
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:141:7 › Organization Management Module › should open create dialog for Secteurs
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:159:7 › Organization Management Module › should open create dialog for Boxes
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:122:7 › Organization Management Module › should open create dialog for Sites
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:47:7 › Organization Management Module › should display organization management page
+Page URL: http://localhost:3000/organization
+
+[1A[2KPage title: React App
+
+[1A[2K[7/16] [chromium] › tests\organization.spec.ts:177:7 › Organization Management Module › should open create dialog for Wilayas
+[1A[2K[chromium] › tests\organization.spec.ts:177:7 › Organization Management Module › should open create dialog for Wilayas
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiIxMWI0YWMwMS1lYWUyLTQ0MTktOTQ0YS01MGEwZjk0YjA4ODgiLCJpYXQiOjE3NjEwODAyNzEsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NzEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.Gd-R4PBySJJZQ7bAO8IQVV5-CZNiMGQv55gugrq2His'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K  1) [chromium] › tests\organization.spec.ts:103:7 › Organization Management Module › should open create dialog for Filiales 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Name *')
+    Expected: visible
+    Error: strict mode violation: locator('text=Name *') resolved to 2 elements:
+        1) <label for="_r_2_" id="_r_2_-label" data-shrink="false" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1c0ko41-MuiFormLabel-root-MuiInputLabel-root">Name *</label> aka locator('[id="_r_2_-label"]')
+        2) <span>Name *</span> aka locator('span').filter({ hasText: 'Name *' })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Name *')[22m
+
+
+      110 |     
+      111 |     // Check form fields using Material-UI TextField labels
+    > 112 |     await expect(page.locator('text=Name *')).toBeVisible();
+          |                                               ^
+      113 |     await expect(page.locator('text=Address *')).toBeVisible();
+      114 |     await expect(page.locator('text=Phone *')).toBeVisible();
+      115 |     await expect(page.locator('text=Email *')).toBeVisible();
+        at E:\TMS\frontend\tests\organization.spec.ts:112:47
+
+    Error Context: test-results\organization-Organization--b236e--create-dialog-for-Filiales-chromium\error-context.md
+
+
+
+
+[1A[2K(node:22904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K  2) [chromium] › tests\organization.spec.ts:141:7 › Organization Management Module › should open create dialog for Secteurs 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Name *')
+    Expected: visible
+    Error: strict mode violation: locator('text=Name *') resolved to 2 elements:
+        1) <label for="_r_2_" id="_r_2_-label" data-shrink="false" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1c0ko41-MuiFormLabel-root-MuiInputLabel-root">Name *</label> aka locator('[id="_r_2_-label"]')
+        2) <span>Name *</span> aka locator('span').filter({ hasText: 'Name *' })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Name *')[22m
+
+
+      152 |     
+      153 |     // Check form fields using Material-UI TextField labels
+    > 154 |     await expect(page.locator('text=Name *')).toBeVisible();
+          |                                               ^
+      155 |     await expect(page.locator('text=Filiale *')).toBeVisible();
+      156 |     await expect(page.locator('text=Description')).toBeVisible();
+      157 |   });
+        at E:\TMS\frontend\tests\organization.spec.ts:154:47
+
+    Error Context: test-results\organization-Organization--e3cbc--create-dialog-for-Secteurs-chromium\error-context.md
+
+
+[1A[2K  3) [chromium] › tests\organization.spec.ts:122:7 › Organization Management Module › should open create dialog for Sites 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Name *')
+    Expected: visible
+    Error: strict mode violation: locator('text=Name *') resolved to 2 elements:
+        1) <label for="_r_2_" id="_r_2_-label" data-shrink="false" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1c0ko41-MuiFormLabel-root-MuiInputLabel-root">Name *</label> aka locator('[id="_r_2_-label"]')
+        2) <span>Name *</span> aka locator('span').filter({ hasText: 'Name *' })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Name *')[22m
+
+
+      133 |     
+      134 |     // Check form fields using Material-UI TextField labels
+    > 135 |     await expect(page.locator('text=Name *')).toBeVisible();
+          |                                               ^
+      136 |     await expect(page.locator('text=Filiale *')).toBeVisible();
+      137 |     await expect(page.locator('text=Address *')).toBeVisible();
+      138 |     await expect(page.locator('text=Phone *')).toBeVisible();
+        at E:\TMS\frontend\tests\organization.spec.ts:135:47
+
+    Error Context: test-results\organization-Organization--abf52-pen-create-dialog-for-Sites-chromium\error-context.md
+
+
+[1A[2K  4) [chromium] › tests\organization.spec.ts:159:7 › Organization Management Module › should open create dialog for Boxes 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Name *')
+    Expected: visible
+    Error: strict mode violation: locator('text=Name *') resolved to 2 elements:
+        1) <label for="_r_2_" id="_r_2_-label" data-shrink="false" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1c0ko41-MuiFormLabel-root-MuiInputLabel-root">Name *</label> aka locator('[id="_r_2_-label"]')
+        2) <span>Name *</span> aka locator('span').filter({ hasText: 'Name *' })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Name *')[22m
+
+
+      170 |     
+      171 |     // Check form fields using Material-UI TextField labels
+    > 172 |     await expect(page.locator('text=Name *')).toBeVisible();
+          |                                               ^
+      173 |     await expect(page.locator('text=Secteur *')).toBeVisible();
+      174 |     await expect(page.locator('text=Description')).toBeVisible();
+      175 |   });
+        at E:\TMS\frontend\tests\organization.spec.ts:172:47
+
+    Error Context: test-results\organization-Organization--a3ec4-pen-create-dialog-for-Boxes-chromium\error-context.md
+
+
+[1A[2KToken stored successfully
+
+
+
+[1A[2K(node:20688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:22904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[8/16] [chromium] › tests\organization.spec.ts:194:7 › Organization Management Module › should open create dialog for Communes
+
+
+[1A[2K(node:20688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[9/16] [chromium] › tests\organization.spec.ts:212:7 › Organization Management Module › should close dialog when cancel is clicked
+[1A[2K[chromium] › tests\organization.spec.ts:194:7 › Organization Management Module › should open create dialog for Communes
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiIwYjE2Yjk2ZS1jM2ZhLTQ0NzUtOWJjOC05NWJlOTdlMjlhYTUiLCJpYXQiOjE3NjEwODAyNzUsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NzUsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.QTXu4rwCJ1Qt0vA72gMP1TlDzyJfm1hHaMTfas9kGF4'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[10/16] [chromium] › tests\organization.spec.ts:224:7 › Organization Management Module › should display table headers correctly
+[1A[2K  5) [chromium] › tests\organization.spec.ts:177:7 › Organization Management Module › should open create dialog for Wilayas 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Name *')
+    Expected: visible
+    Error: strict mode violation: locator('text=Name *') resolved to 2 elements:
+        1) <label for="_r_2_" id="_r_2_-label" data-shrink="false" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1c0ko41-MuiFormLabel-root-MuiInputLabel-root">Name *</label> aka locator('[id="_r_2_-label"]')
+        2) <span>Name *</span> aka locator('span').filter({ hasText: 'Name *' })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Name *')[22m
+
+
+      188 |     
+      189 |     // Check form fields using Material-UI TextField labels
+    > 190 |     await expect(page.locator('text=Name *')).toBeVisible();
+          |                                               ^
+      191 |     await expect(page.locator('text=Code *')).toBeVisible();
+      192 |   });
+      193 |
+        at E:\TMS\frontend\tests\organization.spec.ts:190:47
+
+    Error Context: test-results\organization-Organization--6ce50-n-create-dialog-for-Wilayas-chromium\error-context.md
+
+
+[1A[2K[11/16] [chromium] › tests\organization.spec.ts:238:7 › Organization Management Module › should show refresh button
+[1A[2K[chromium] › tests\organization.spec.ts:212:7 › Organization Management Module › should close dialog when cancel is clicked
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiJhYmI0MmVkNi04ZDUzLTRlMDQtYWZmYS01YzQxYzYyYmEwMzIiLCJpYXQiOjE3NjEwODAyNzYsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NzYsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.2cxmG1N0iloJYMTpblOmmnJ3owzlMB560rYIIz0gH6A'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K  6) [chromium] › tests\organization.spec.ts:72:7 › Organization Management Module › should navigate between tabs 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  locator('[role="tabpanel"]').first()
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[role="tabpanel"]').first()[22m
+    [2m    8 × locator resolved to <div hidden="" role="tabpanel" id="organization-tabpanel-0" aria-labelledby="organization-tab-0"></div>[22m
+    [2m      - unexpected value "hidden"[22m
+
+
+      78 |     await page.click('text=Sites');
+      79 |     await page.waitForTimeout(500);
+    > 80 |     await expect(page.locator('[role="tabpanel"]').first()).toBeVisible();
+         |                                                             ^
+      81 |     
+      82 |     // Click on Secteurs tab
+      83 |     await page.click('text=Secteurs');
+        at E:\TMS\frontend\tests\organization.spec.ts:80:61
+
+    Error Context: test-results\organization-Organization--91134-hould-navigate-between-tabs-chromium\error-context.md
+
+
+
+
+[1A[2K(node:10584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[chromium] › tests\organization.spec.ts:224:7 › Organization Management Module › should display table headers correctly
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiJiZjUzM2I5Yi00ZDhlLTQ3OTUtYWE2ZS00YjdmY2NmZGMwMDMiLCJpYXQiOjE3NjEwODAyNzYsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NzYsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.BY-IhCQzkWDnATRej806-BMeXd1xx257kSrbSyws1bk'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:238:7 › Organization Management Module › should show refresh button
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiJmNDBlMDUwYy0zMGRkLTQ5NTUtYTdiNS1kYTEyNDZiZDgyNDgiLCJpYXQiOjE3NjEwODAyNzcsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4NzcsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.fI-nE012YyA2b80i-xUVFpf-A6HcZbk58gMHhQ2-6GY'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:194:7 › Organization Management Module › should open create dialog for Communes
+Token stored successfully
+
+
+
+[1A[2K(node:17912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[chromium] › tests\organization.spec.ts:224:7 › Organization Management Module › should display table headers correctly
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:212:7 › Organization Management Module › should close dialog when cancel is clicked
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:238:7 › Organization Management Module › should show refresh button
+Token stored successfully
+
+
+
+[1A[2K(node:10584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[12/16] [chromium] › tests\organization.spec.ts:273:7 › Organization Management Module › should display loading state
+[1A[2K  7) [chromium] › tests\organization.spec.ts:194:7 › Organization Management Module › should open create dialog for Communes 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Name *')
+    Expected: visible
+    Error: strict mode violation: locator('text=Name *') resolved to 2 elements:
+        1) <label for="_r_2_" id="_r_2_-label" data-shrink="false" class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1c0ko41-MuiFormLabel-root-MuiInputLabel-root">Name *</label> aka locator('[id="_r_2_-label"]')
+        2) <span>Name *</span> aka locator('span').filter({ hasText: 'Name *' })
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Name *')[22m
+
+
+      205 |     
+      206 |     // Check form fields using Material-UI TextField labels
+    > 207 |     await expect(page.locator('text=Name *')).toBeVisible();
+          |                                               ^
+      208 |     await expect(page.locator('text=Wilaya *')).toBeVisible();
+      209 |     await expect(page.locator('text=Code *')).toBeVisible();
+      210 |   });
+        at E:\TMS\frontend\tests\organization.spec.ts:207:47
+
+    Error Context: test-results\organization-Organization--36df6--create-dialog-for-Communes-chromium\error-context.md
+
+
+[1A[2K[13/16] [chromium] › tests\organization.spec.ts:242:7 › Organization Management Module › should handle empty state gracefully
+
+
+[1A[2K(node:17912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[chromium] › tests\organization.spec.ts:273:7 › Organization Management Module › should display loading state
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiI0ZjI5ZWIxMS1jZjQyLTQzN2EtOGVhNC03NTlhM2M3M2M0M2EiLCJpYXQiOjE3NjEwODAyODAsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4ODAsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.nGcJiK9v8RRS5_06TNgmSwKLPVkpIHqjb6P-WAk2GK0'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[14/16] [chromium] › tests\organization.spec.ts:290:7 › Organization Management Module › should have responsive design
+
+
+[1A[2K(node:24460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[15/16] [chromium] › tests\organization.spec.ts:260:7 › Organization Management Module › should have proper navigation integration
+[1A[2K[chromium] › tests\organization.spec.ts:290:7 › Organization Management Module › should have responsive design
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiJmMmVmZTUxYS04MGVmLTQ0ZmItYTc2My1kNzYxNGQxMjNhZDgiLCJpYXQiOjE3NjEwODAyODEsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4ODEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.pNZbV1RaSFBlPfAt-a5rpfVWuN8A5_C53-vfAgzyB_E'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:242:7 › Organization Management Module › should handle empty state gracefully
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiI1MTdmNTVmMS1hNjdiLTQzNjMtOTEyNS0xYjVhNmJiZTlhNTkiLCJpYXQiOjE3NjEwODAyODEsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4ODEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.g4nwvXsTexgGB6NQGBtqIs0r_yOlBUoxrLpulYjPjR0'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:260:7 › Organization Management Module › should have proper navigation integration
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiIyYzc3ZGFiMS02MTgzLTQ0ODUtYjM1MC02ZGNlYmIwOWQxZTIiLCJpYXQiOjE3NjEwODAyODIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4ODIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.QY7GiNsQBLTUcedVmnh51-zr9iKPlLe483m7W2r_Grs'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2K[chromium] › tests\organization.spec.ts:273:7 › Organization Management Module › should display loading state
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:290:7 › Organization Management Module › should have responsive design
+Token stored successfully
+
+[1A[2K[chromium] › tests\organization.spec.ts:242:7 › Organization Management Module › should handle empty state gracefully
+Token stored successfully
+
+
+
+[1A[2K(node:24460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1A[2K[chromium] › tests\organization.spec.ts:260:7 › Organization Management Module › should have proper navigation integration
+Token stored successfully
+
+[1A[2K[16/16] [chromium] › tests\organization.spec.ts:279:7 › Organization Management Module › should handle form validation
+[1A[2K[chromium] › tests\organization.spec.ts:279:7 › Organization Management Module › should handle form validation
+Login response: {
+  message: [32m'Login successful'[39m,
+  access_token: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5YjYzMTdkLWMxMmYtNGUzZi05MjZmLTBhMzc5ZTE5NjJhMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzdXBlcmFkbWluQGh5ZHJhcGhhcm0uZHoiLCJzdWIiOiJmOWI2MzE3ZC1jMTJmLTRlM2YtOTI2Zi0wYTM3OWUxOTYyYTEiLCJqdGkiOiJkZjkwZjdlMS04YjgyLTQ3ODUtODZmMS03MDFmZmJhMWY0ZDIiLCJpYXQiOjE3NjEwODAyODUsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJleHAiOjE3NjEwODM4ODUsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJIeWRyYVBoYXJtLlRNUy5Vc2VycyJ9.l-EClUfxVxKMY0yIbPL9adQrOcah2esF8h9E8zY3N_w'[39m,
+  token_type: [32m'Bearer'[39m,
+  expires_in: [33m3600[39m,
+  userId: [32m'f9b6317d-c12f-4e3f-926f-0a379e1962a1'[39m,
+  username: [32m'superadmin@hydrapharm.dz'[39m,
+  email: [32m'superadmin@hydrapharm.dz'[39m,
+  roles: [ [32m'SuperAdmin'[39m ]
+}
+
+[1A[2KToken stored successfully
+
+[1A[2K  7 failed
+    [chromium] › tests\organization.spec.ts:72:7 › Organization Management Module › should navigate between tabs 
+    [chromium] › tests\organization.spec.ts:103:7 › Organization Management Module › should open create dialog for Filiales 
+    [chromium] › tests\organization.spec.ts:122:7 › Organization Management Module › should open create dialog for Sites 
+    [chromium] › tests\organization.spec.ts:141:7 › Organization Management Module › should open create dialog for Secteurs 
+    [chromium] › tests\organization.spec.ts:159:7 › Organization Management Module › should open create dialog for Boxes 
+    [chromium] › tests\organization.spec.ts:177:7 › Organization Management Module › should open create dialog for Wilayas 
+    [chromium] › tests\organization.spec.ts:194:7 › Organization Management Module › should open create dialog for Communes 
+  9 passed (25.6s)

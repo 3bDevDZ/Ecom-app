@@ -1,0 +1,28 @@
+{{!-- Link Atom --}}
+<a 
+  href="{{href}}"
+  target="{{#if target}}{{target}}{{else}}_self{{/if}}"
+  class="{{className 'link' variant size}}"
+  {{#if onClick}}onclick="{{onClick}}"{{/if}}
+>
+  {{#if icon}}
+    <span class="inline-flex items-center gap-2">
+      {{{icon}}}
+      {{text}}
+    </span>
+  {{else}}
+    {{text}}
+  {{/if}}
+</a>
+
+{{! 
+Parameters:
+- href: Link URL (required)
+- text: Link text (required)
+- target: _self, _blank, _parent, _top (default: _self)
+- variant: link-primary, link-secondary, link-ghost (default: link-primary)
+- size: text-sm, text-base, text-lg (default: text-base)
+- icon: HTML string for icon
+- onClick: onclick handler
+- className: additional classes
+}}

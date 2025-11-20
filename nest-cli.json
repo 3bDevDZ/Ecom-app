@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "tsConfigPath": "tsconfig.app.json",
+    "assets": [
+      {
+        "include": "views/**/*",
+        "watchAssets": true
+      },
+      {
+        "include": "public/**/*",
+        "watchAssets": true
+      },
+      {
+        "include": "assets/styles/**/*",
+        "watchAssets": true
+      }
+    ],
+    "watchAssets": true
+  }
+}

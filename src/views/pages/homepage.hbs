@@ -1,0 +1,63 @@
+{{!
+  Pages: Complete, unique layouts that use templates
+  These are the final deliverables - individual page layouts
+--}}
+
+{{! Homepage Template using our atomic design system }}
+{{! < templates/main-layout}}
+
+<section class="container-custom py-16">
+  {{! Hero Section Organism }}
+  <div class="text-center mb-16">
+    {{> text
+      content="Welcome to B2B E-Commerce Platform"
+      variant="text-primary"
+      size="text-4xl"
+      weight="font-bold"
+    }}
+    {{> text
+      content="Streamline your business operations with our comprehensive B2B commerce solutions."
+      variant="text-secondary"
+      size="text-xl"
+      class="mt-4 max-w-3xl mx-auto"
+    }}
+
+    {{! Call to Action Button }}
+    <div class="mt-8">
+      {{> button
+        text="Get Started"
+        variant="btn-primary"
+        size="text-lg"
+        onClick="window.location.href='/signup'"
+      }}
+    </div>
+  </div>
+
+  {{! Features Grid Organism }}
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+    {{#each features}}
+      <div class="card text-center">
+        {{! Feature Icon (Atom) }}
+        <div class="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-4">
+          {{{this.icon}}}
+        </div>
+
+        {{! Feature Title (Atom) }}
+        {{> text
+          content=this.title
+          variant="text-primary"
+          size="text-xl"
+          weight="font-semibold"
+        }}
+
+        {{! Feature Description (Atom) }}
+        {{> text
+          content=this.description
+          variant="text-secondary"
+          size="text-base"
+          class="mt-2"
+        }}
+      </div>
+    {{/each}}
+  </div>
+</section>

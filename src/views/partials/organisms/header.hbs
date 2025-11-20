@@ -1,0 +1,67 @@
+{{!--
+  Organisms: Complex components composed of molecules and atoms
+  These represent distinct sections of the interface
+--}}
+
+{{!-- Header Organism --}}
+<header class="bg-white shadow-sm border-b">
+  <div class="container-custom py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo/Brand -->
+      <div class="flex items-center gap-4">
+        {{#if logo}}
+          <img src="{{logo}}" alt="{{siteName}}" class="h-8">
+        {{else}}
+          <h1 class="text-xl font-bold text-primary-600">{{siteName}}</h1>
+        {{/if}}
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex items-center gap-6">
+        {{#each navigation}}
+          {{> link
+            href=this.href
+            text=this.text
+            variant="link-secondary"
+          }}
+        {{/each}}
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-4">
+        {{#if searchForm}}
+          {{> search-form
+            searchName="global_search"
+            searchPlaceholder="Search..."
+            searchButtonText="Search"
+          }}
+        {{/if}}
+
+        {{#if userMenu}}
+          <div class="flex items-center gap-2">
+            {{> text
+              content=userMenu.name
+              variant="text-secondary"
+              size="text-sm"
+            }}
+            {{> button
+              text="Profile"
+              variant="btn-ghost"
+              size="text-sm"
+            }}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</header>
+
+{{!
+Parameters:
+- siteName: Site/brand name
+- logo: Logo image URL
+- navigation: Array of navigation items {href, text}
+- searchForm: boolean to show search
+- userMenu: {name, profileUrl} object
+- className: additional classes
+}}
