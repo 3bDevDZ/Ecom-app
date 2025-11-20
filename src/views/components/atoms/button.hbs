@@ -1,0 +1,33 @@
+{{!-- 
+  Atoms: Basic building blocks of the interface
+  These are the smallest components that cannot be broken down further
+--}}
+
+{{!-- Button Atom --}}
+<button 
+  class="{{className 'btn' variant size disabled}}" 
+  {{#if disabled}}disabled{{/if}}
+  {{#if type}}type="{{type}}"{{else}}type="button"{{/if}}
+  {{#if onClick}}onclick="{{onClick}}"{{/if}}
+>
+  {{#if icon}}
+    <span class="inline-flex items-center gap-2">
+      {{{icon}}}
+      {{text}}
+    </span>
+  {{else}}
+    {{text}}
+  {{/if}}
+</button>
+
+{{! 
+Parameters:
+- text: Button text (required)
+- variant: btn-primary, btn-secondary, btn-outline, btn-ghost (default: btn-primary)
+- size: text-sm, text-base, text-lg (default: text-base)
+- disabled: boolean
+- type: button, submit, reset (default: button)
+- icon: HTML string for icon
+- onClick: onclick handler
+- className: additional classes
+}}

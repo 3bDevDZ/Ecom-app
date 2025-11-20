@@ -13,6 +13,10 @@
       {
         "include": "public/**/*",
         "watchAssets": true
+      },
+      {
+        "include": "assets/styles/**/*",
+        "watchAssets": true
       }
     ],
     "watchAssets": true

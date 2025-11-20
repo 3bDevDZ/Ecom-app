@@ -1,0 +1,31 @@
+{{!-- Input Atom --}}
+<input 
+  type="{{#if type}}{{type}}{{else}}text{{/if}}"
+  name="{{name}}"
+  id="{{id}}"
+  value="{{value}}"
+  placeholder="{{placeholder}}"
+  class="{{className 'input' variant size disabled}}"
+  {{#if disabled}}disabled{{/if}}
+  {{#if required}}required{{/if}}
+  {{#if readonly}}readonly{{/if}}
+  {{#if onChange}}onchange="{{onChange}}"{{/if}}
+  {{#if onInput}}oninput="{{onInput}}"{{/if}}
+>
+
+{{! 
+Parameters:
+- type: text, email, password, number, etc. (default: text)
+- name: input name attribute (required)
+- id: input id attribute
+- value: input value
+- placeholder: placeholder text
+- variant: default, outlined, filled (default: default)
+- size: sm, base, lg (default: base)
+- disabled: boolean
+- required: boolean
+- readonly: boolean
+- onChange: onchange handler
+- onInput: oninput handler
+- className: additional classes
+}}

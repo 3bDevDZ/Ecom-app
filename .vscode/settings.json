@@ -1,3 +1,49 @@
 {
-    "nxConsole.nxWorkspacePath": ""
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "files.associations": {
+    "*.hbs": "handlebars",
+    "*.scss": "scss"
+  },
+  "emmet.includeLanguages": {
+    "handlebars": "html"
+  },
+  "debug.internalConsoleOptions": "neverOpen",
+  "debug.showBreakpointsInOverviewRuler": true,
+  "debug.allowBreakpointsEverywhere": true,
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.vscode": false
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.git/objects/**": true
+  },
+  "nestjs.languageService.preferences.includePackageJsonAutoImports": true,
+  "nestjs.languageService.preferences.importModuleSpecifier": "relative",
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

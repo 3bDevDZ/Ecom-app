@@ -1,9 +1,10 @@
-import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { setupHandlebarsEngine } from './config/handlebars.config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -21,11 +22,11 @@ async function bootstrap() {
   );
 
   // Static assets
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(join(__dirname, 'public'));
 
-  // Handlebars view engine
-  app.setBaseViewsDir(join(__dirname, '..', 'src', 'views'));
-  app.setViewEngine('hbs');
+  // Setup Handlebars view engine with atomic design partials
+  const viewsPath = join(__dirname, 'views');
+  setupHandlebarsEngine(app, viewsPath);
 
   // API prefix
   app.setGlobalPrefix('api', {

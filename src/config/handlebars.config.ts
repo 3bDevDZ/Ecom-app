@@ -1,0 +1,250 @@
+import { create } from 'express-handlebars';
+import { join } from 'path';
+
+interface HandlebarsConfigOptions {
+  viewsPath: string;
+}
+
+/**
+ * Handlebars Configuration for NestJS Application
+ * Handles automatic partial registration for atomic design system
+ */
+export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
+  return create({
+    layoutsDir: join(viewsPath, 'components', 'pages'),
+    defaultLayout: 'NotFound',
+    extname: '.hbs',
+    // Auto-detect partials from atomic design directories
+    partialsDir: [
+      join(viewsPath, 'components', 'atoms'),
+      join(viewsPath, 'components', 'molecules'),
+      join(viewsPath, 'components', 'organisms'),
+      join(viewsPath, 'components', 'templates'),
+    ],
+    // Custom Handlebars helpers
+    helpers: {
+      /**
+       * String concatenation helper
+       * Usage: {{concat "hello" " " "world"}}
+       */
+      concat: (...args: any[]) => {
+        args.pop(); // Remove the Handlebars options object
+        return args.join('');
+      },
+
+      /**
+       * Class name builder helper
+       * Usage: {{className "text-primary" size weight}}
+       * Filters out undefined/falsy values
+       */
+      className: (...args: any[]) => {
+        args.pop(); // Remove the Handlebars options object
+        const classes = args.filter(arg => arg && arg.trim()).join(' ');
+        return classes;
+      },
+
+      /**
+       * JSON stringify helper for debugging
+       * Usage: {{json context}}
+       */
+      json: (context: any) => {
+        return JSON.stringify(context, null, 2);
+      },
+
+      /**
+       * Format date helper
+       * Usage: {{formatDate date}}
+       */
+      formatDate: (date: Date | string) => {
+        if (!date) return '';
+        const dateObj = typeof date === 'string' ? new Date(date) : date;
+        return dateObj.toLocaleDateString();
+      },
+
+      /**
+       * Conditional helper for complex conditions
+       * Usage: {{#ifCond var1 "==" var2}}...{{/ifCond}}
+       */
+      ifCond: (v1: any, operator: string, v2: any, options: any) => {
+        switch (operator) {
+          case '==':
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+          case '===':
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+          case '!=':
+            return (v1 != v2) ? options.fn(this) : options.inverse(this);
+          case '!==':
+            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+          case '<':
+            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+          case '<=':
+            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+          case '>':
+            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+          case '>=':
+            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+          case '&&':
+            return (v1 && v2) ? options.fn(this) : options.inverse(this);
+          case '||':
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+          default:
+            return options.inverse(this);
+        }
+      },
+
+      /**
+       * Format currency
+       * Usage: {{formatCurrency amount}}
+       */
+      formatCurrency: (amount: number, currency: string = 'USD'): string => {
+        if (typeof amount !== 'number') return '';
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency,
+        }).format(amount);
+      },
+
+      /**
+       * Conditional equality check
+       * Usage: {{#ifEquals value1 value2}}...{{/ifEquals}}
+       */
+      ifEquals: function (arg1: any, arg2: any, options: any) {
+        return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+      },
+
+      /**
+       * Conditional check for value in array
+       * Usage: {{#ifInArray value array}}...{{/ifInArray}}
+       */
+      ifInArray: function (value: any, array: any[], options: any) {
+        if (!Array.isArray(array)) return options.inverse(this);
+        return array.includes(value) ? options.fn(this) : options.inverse(this);
+      },
+
+      /**
+       * Truncate string
+       * Usage: {{truncate text 100}}
+       */
+      truncate: (text: string, length: number): string => {
+        if (!text) return '';
+        if (text.length <= length) return text;
+        return text.substring(0, length) + '...';
+      },
+
+      /**
+       * Calculate percentage
+       * Usage: {{percentage value total}}
+       */
+      percentage: (value: number, total: number): string => {
+        if (!total || total === 0) return '0%';
+        return ((value / total) * 100).toFixed(1) + '%';
+      },
+
+      /**
+       * Format number with commas
+       * Usage: {{formatNumber 1000000}}
+       */
+      formatNumber: (num: number): string => {
+        if (typeof num !== 'number') return '';
+        return num.toLocaleString('en-US');
+      },
+
+      /**
+       * Join array with separator
+       * Usage: {{join array ", "}}
+       */
+      join: (array: any[], separator: string = ', '): string => {
+        if (!Array.isArray(array)) return '';
+        return array.join(separator);
+      },
+
+      /**
+       * Get first N items from array
+       * Usage: {{#each (limit items 5)}}...{{/each}}
+       */
+      limit: (array: any[], limit: number): any[] => {
+        if (!Array.isArray(array)) return [];
+        return array.slice(0, limit);
+      },
+
+      /**
+       * Capitalize first letter
+       * Usage: {{capitalize text}}
+       */
+      capitalize: (text: string): string => {
+        if (!text) return '';
+        return text.charAt(0).toUpperCase() + text.slice(1);
+      },
+
+      /**
+       * Convert to uppercase
+       * Usage: {{uppercase text}}
+       */
+      uppercase: (text: string): string => {
+        return text ? text.toUpperCase() : '';
+      },
+
+      /**
+       * Convert to lowercase
+       * Usage: {{lowercase text}}
+       */
+      lowercase: (text: string): string => {
+        return text ? text.toLowerCase() : '';
+      },
+
+      /**
+       * Math operations
+       * Usage: {{math value "+" 1}}
+       */
+      math: (lvalue: number, operator: string, rvalue: number): number => {
+        lvalue = parseFloat(String(lvalue));
+        rvalue = parseFloat(String(rvalue));
+
+        switch (operator) {
+          case '+':
+            return lvalue + rvalue;
+          case '-':
+            return lvalue - rvalue;
+          case '*':
+            return lvalue * rvalue;
+          case '/':
+            return lvalue / rvalue;
+          case '%':
+            return lvalue % rvalue;
+          default:
+            return lvalue;
+        }
+      },
+
+      /**
+       * Check if user has role
+       * Usage: {{#hasRole user "admin"}}...{{/hasRole}}
+       */
+      hasRole: function (user: any, role: string, options: any) {
+        if (!user || !user.roles) return options.inverse(this);
+        return user.roles.includes(role) ? options.fn(this) : options.inverse(this);
+      },
+    }
+  });
+}
+
+/**
+ * Setup Handlebars view engine for NestJS Express application
+ */
+export function setupHandlebarsEngine(app: any, viewsPath: string) {
+  const hbs = createHandlebarsConfig({ viewsPath });
+
+  hbs.getPartials().then(partials => {
+    console.log('🔖 Registered Handlebars Partials:', Object.keys(partials));
+  });
+  // Register Handlebars with Express
+  app.engine('.hbs', hbs.engine);
+  app.setViewEngine('.hbs');
+  app.set('views', viewsPath);
+
+  console.log('🎨 Handlebars View Engine: Configured');
+  console.log('📁 Views Path:', viewsPath);
+  console.log('🧩 Atomic Design Partials: Auto-detected');
+
+  return hbs;
+}
