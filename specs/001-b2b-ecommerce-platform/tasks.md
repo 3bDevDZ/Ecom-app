@@ -185,17 +185,17 @@
 
 #### Presentation Layer
 
-- [ ] T095 [US1] Create ProductController with GET /api/products endpoint in apps/api/src/modules/product-catalog/presentation/controllers/product.controller.ts
-- [ ] T096 [US1] Create ProductController with GET /api/products/search endpoint in apps/api/src/modules/product-catalog/presentation/controllers/product.controller.ts
-- [ ] T097 [US1] Create ProductController with GET /api/products/:id endpoint in apps/api/src/modules/product-catalog/presentation/controllers/product.controller.ts
-- [ ] T098 [US1] Create CategoryController with GET /api/categories endpoint in apps/api/src/modules/product-catalog/presentation/controllers/category.controller.ts
-- [ ] T099 [US1] Create products.hbs page template in apps/api/src/views/pages/products.hbs
-- [ ] T100 [US1] Create product-detail.hbs page template in apps/api/src/views/pages/product-detail.hbs
-- [ ] T101 [US1] Create product-card.hbs molecule component in apps/api/src/views/components/molecules/product-card.hbs
-- [ ] T102 [US1] Create product-grid.hbs organism component in apps/api/src/views/components/organisms/product-grid.hbs
-- [ ] T103 [US1] Create search-bar.hbs molecule component in apps/api/src/views/components/molecules/search-bar.hbs
-- [ ] T104 [US1] Create view model builders (presenters) for product pages in apps/api/src/modules/product-catalog/presentation/presenters/product.presenter.ts
-- [ ] T105 [US1] Create ProductCatalogModule with all providers in apps/api/src/modules/product-catalog/product-catalog.module.ts
+- [x] T095 [US1] Create ProductController with GET /api/products endpoint in apps/api/src/modules/product-catalog/presentation/controllers/product.controller.ts
+- [x] T096 [US1] Create ProductController with GET /api/products/search endpoint in apps/api/src/modules/product-catalog/presentation/controllers/product.controller.ts
+- [x] T097 [US1] Create ProductController with GET /api/products/:id endpoint in apps/api/src/modules/product-catalog/presentation/controllers/product.controller.ts
+- [x] T098 [US1] Create CategoryController with GET /api/categories endpoint in apps/api/src/modules/product-catalog/presentation/controllers/category.controller.ts
+- [x] T099 [US1] Create products.hbs page template in apps/api/src/views/pages/products.hbs
+- [x] T100 [US1] Create product-detail.hbs page template in apps/api/src/views/pages/product-detail.hbs
+- [x] T101 [US1] Create product-card.hbs molecule component in apps/api/src/views/components/molecules/product-card.hbs
+- [x] T102 [US1] Create product-grid.hbs organism component in apps/api/src/views/components/organisms/product-grid.hbs
+- [x] T103 [US1] Create search-bar.hbs molecule component in apps/api/src/views/components/molecules/search-bar.hbs
+- [x] T104 [US1] Create view model builders (presenters) for product pages in apps/api/src/modules/product-catalog/presentation/presenters/product.presenter.ts
+- [x] T105 [US1] Create ProductCatalogModule with all providers in apps/api/src/modules/product-catalog/product-catalog.module.ts
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently. Users can browse, search, filter, and view product details with variants.
 
@@ -211,89 +211,89 @@
 
 **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T106 [P] [US2] Create unit test for Cart aggregate in apps/api/test/unit/order-management/cart.aggregate.spec.ts
-- [ ] T107 [P] [US2] Create unit test for CartItem entity in apps/api/test/unit/order-management/cart-item.entity.spec.ts
-- [ ] T108 [P] [US2] Create unit test for Order aggregate in apps/api/test/unit/order-management/order.aggregate.spec.ts
-- [ ] T109 [P] [US2] Create unit test for OrderItem entity in apps/api/test/unit/order-management/order-item.entity.spec.ts
-- [ ] T110 [P] [US2] Create unit test for OrderNumber value object in apps/api/test/unit/order-management/order-number.value-object.spec.ts
-- [ ] T111 [P] [US2] Create unit test for Address value object in apps/api/test/unit/order-management/address.value-object.spec.ts
-- [ ] T112 [P] [US2] Create unit test for OrderStatus value object in apps/api/test/unit/order-management/order-status.value-object.spec.ts
+- [x] T106 [P] [US2] Create unit test for Cart aggregate in apps/api/test/unit/order-management/cart.aggregate.spec.ts
+- [x] T107 [P] [US2] Create unit test for CartItem entity in apps/api/test/unit/order-management/cart-item.entity.spec.ts
+- [x] T108 [P] [US2] Create unit test for Order aggregate in apps/api/test/unit/order-management/order.aggregate.spec.ts
+- [x] T109 [P] [US2] Create unit test for OrderItem entity in apps/api/test/unit/order-management/order-item.entity.spec.ts
+- [x] T110 [P] [US2] Create unit test for OrderNumber value object in apps/api/test/unit/order-management/order-number.value-object.spec.ts
+- [x] T111 [P] [US2] Create unit test for Address value object in apps/api/test/unit/order-management/address.value-object.spec.ts
+- [x] T112 [P] [US2] Create unit test for OrderStatus value object in apps/api/test/unit/order-management/order-status.value-object.spec.ts
 - [ ] T113 [P] [US2] Create integration test for CartRepository in apps/api/test/integration/order-management/cart.repository.spec.ts
 - [ ] T114 [P] [US2] Create integration test for OrderRepository in apps/api/test/integration/order-management/order.repository.spec.ts
 - [ ] T115 [P] [US2] Create integration test for AddToCartCommand handler in apps/api/test/integration/order-management/add-to-cart.handler.spec.ts
 - [ ] T116 [P] [US2] Create integration test for PlaceOrderCommand handler in apps/api/test/integration/order-management/place-order.handler.spec.ts
-- [ ] T117 [P] [US2] Create E2E test for checkout flow in apps/api/test/e2e/checkout.e2e-spec.ts
+- [x] T117 [P] [US2] Create E2E test for checkout flow in apps/api/test/e2e/checkout.e2e-spec.ts
 
 ### Implementation for User Story 2
 
 #### Domain Layer
 
-- [ ] T118 [P] [US2] Create OrderNumber value object in apps/api/src/modules/order-management/domain/value-objects/order-number.ts
-- [ ] T119 [P] [US2] Create Address value object in apps/api/src/modules/order-management/domain/value-objects/address.ts
-- [ ] T120 [P] [US2] Create OrderStatus value object in apps/api/src/modules/order-management/domain/value-objects/order-status.ts
-- [ ] T121 [P] [US2] Create CartStatus value object in apps/api/src/modules/order-management/domain/value-objects/cart-status.ts
-- [ ] T122 [US2] Create CartItem entity in apps/api/src/modules/order-management/domain/entities/cart-item.ts
-- [ ] T123 [US2] Create Cart aggregate root in apps/api/src/modules/order-management/domain/aggregates/cart.ts
-- [ ] T124 [US2] Create OrderItem entity in apps/api/src/modules/order-management/domain/entities/order-item.ts
-- [ ] T125 [US2] Create Order aggregate root in apps/api/src/modules/order-management/domain/aggregates/order.ts
-- [ ] T126 [US2] Create ItemAddedToCart domain event in apps/api/src/modules/order-management/domain/events/item-added-to-cart.ts
-- [ ] T127 [US2] Create ItemRemovedFromCart domain event in apps/api/src/modules/order-management/domain/events/item-removed-from-cart.ts
-- [ ] T128 [US2] Create CartCleared domain event in apps/api/src/modules/order-management/domain/events/cart-cleared.ts
-- [ ] T129 [US2] Create OrderPlaced domain event in apps/api/src/modules/order-management/domain/events/order-placed.ts
-- [ ] T130 [US2] Create OrderCancelled domain event in apps/api/src/modules/order-management/domain/events/order-cancelled.ts
-- [ ] T131 [US2] Create InventoryReservationRequested domain event in apps/api/src/modules/order-management/domain/events/inventory-reservation-requested.ts
-- [ ] T132 [US2] Create ICartRepository interface in apps/api/src/modules/order-management/domain/repositories/icart-repository.ts
-- [ ] T133 [US2] Create IOrderRepository interface in apps/api/src/modules/order-management/domain/repositories/iorder-repository.ts
+- [x] T118 [P] [US2] Create OrderNumber value object in apps/api/src/modules/order-management/domain/value-objects/order-number.ts
+- [x] T119 [P] [US2] Create Address value object in apps/api/src/modules/order-management/domain/value-objects/address.ts
+- [x] T120 [P] [US2] Create OrderStatus value object in apps/api/src/modules/order-management/domain/value-objects/order-status.ts
+- [x] T121 [P] [US2] Create CartStatus value object in apps/api/src/modules/order-management/domain/value-objects/cart-status.ts
+- [x] T122 [US2] Create CartItem entity in apps/api/src/modules/order-management/domain/entities/cart-item.ts
+- [x] T123 [US2] Create Cart aggregate root in apps/api/src/modules/order-management/domain/aggregates/cart.ts
+- [x] T124 [US2] Create OrderItem entity in apps/api/src/modules/order-management/domain/entities/order-item.ts
+- [x] T125 [US2] Create Order aggregate root in apps/api/src/modules/order-management/domain/aggregates/order.ts
+- [x] T126 [US2] Create ItemAddedToCart domain event in apps/api/src/modules/order-management/domain/events/item-added-to-cart.ts
+- [x] T127 [US2] Create ItemRemovedFromCart domain event in apps/api/src/modules/order-management/domain/events/item-removed-from-cart.ts
+- [x] T128 [US2] Create CartCleared domain event in apps/api/src/modules/order-management/domain/events/cart-cleared.ts
+- [x] T129 [US2] Create OrderPlaced domain event in apps/api/src/modules/order-management/domain/events/order-placed.ts
+- [x] T130 [US2] Create OrderCancelled domain event in apps/api/src/modules/order-management/domain/events/order-cancelled.ts
+- [x] T131 [US2] Create InventoryReservationRequested domain event in apps/api/src/modules/order-management/domain/events/inventory-reservation-requested.ts
+- [x] T132 [US2] Create ICartRepository interface in apps/api/src/modules/order-management/domain/repositories/icart-repository.ts
+- [x] T133 [US2] Create IOrderRepository interface in apps/api/src/modules/order-management/domain/repositories/iorder-repository.ts
 
 #### Application Layer (CQRS)
 
-- [ ] T134 [US2] Create AddToCartCommand in apps/api/src/modules/order-management/application/commands/add-to-cart.command.ts
-- [ ] T135 [US2] Create UpdateCartItemCommand in apps/api/src/modules/order-management/application/commands/update-cart-item.command.ts
-- [ ] T136 [US2] Create RemoveFromCartCommand in apps/api/src/modules/order-management/application/commands/remove-from-cart.command.ts
-- [ ] T137 [US2] Create ClearCartCommand in apps/api/src/modules/order-management/application/commands/clear-cart.command.ts
-- [ ] T138 [US2] Create PlaceOrderCommand in apps/api/src/modules/order-management/application/commands/place-order.command.ts
-- [ ] T139 [US2] Create CancelOrderCommand in apps/api/src/modules/order-management/application/commands/cancel-order.command.ts
-- [ ] T140 [US2] Create AddToCartCommandHandler in apps/api/src/modules/order-management/application/handlers/add-to-cart.handler.ts
-- [ ] T141 [US2] Create UpdateCartItemCommandHandler in apps/api/src/modules/order-management/application/handlers/update-cart-item.handler.ts
-- [ ] T142 [US2] Create RemoveFromCartCommandHandler in apps/api/src/modules/order-management/application/handlers/remove-from-cart.handler.ts
-- [ ] T143 [US2] Create ClearCartCommandHandler in apps/api/src/modules/order-management/application/handlers/clear-cart.handler.ts
-- [ ] T144 [US2] Create PlaceOrderCommandHandler in apps/api/src/modules/order-management/application/handlers/place-order.handler.ts
-- [ ] T145 [US2] Create CancelOrderCommandHandler in apps/api/src/modules/order-management/application/handlers/cancel-order.handler.ts
-- [ ] T146 [US2] Create OrderPlacementSaga for inventory reservation in apps/api/src/modules/order-management/application/sagas/order-placement.saga.ts
-- [ ] T147 [US2] Create GetCartQuery in apps/api/src/modules/order-management/application/queries/get-cart.query.ts
-- [ ] T148 [US2] Create GetCartQueryHandler in apps/api/src/modules/order-management/application/handlers/get-cart.handler.ts
-- [ ] T149 [US2] Create CartDto in apps/api/src/modules/order-management/application/dtos/cart.dto.ts
-- [ ] T150 [US2] Create CartItemDto in apps/api/src/modules/order-management/application/dtos/cart-item.dto.ts
-- [ ] T151 [US2] Create OrderDto in apps/api/src/modules/order-management/application/dtos/order.dto.ts
-- [ ] T152 [US2] Create OrderItemDto in apps/api/src/modules/order-management/application/dtos/order-item.dto.ts
+- [x] T134 [US2] Create AddToCartCommand in apps/api/src/modules/order-management/application/commands/add-to-cart.command.ts
+- [x] T135 [US2] Create UpdateCartItemCommand in apps/api/src/modules/order-management/application/commands/update-cart-item.command.ts
+- [x] T136 [US2] Create RemoveFromCartCommand in apps/api/src/modules/order-management/application/commands/remove-from-cart.command.ts
+- [x] T137 [US2] Create ClearCartCommand in apps/api/src/modules/order-management/application/commands/clear-cart.command.ts
+- [x] T138 [US2] Create PlaceOrderCommand in apps/api/src/modules/order-management/application/commands/place-order.command.ts
+- [x] T139 [US2] Create CancelOrderCommand in apps/api/src/modules/order-management/application/commands/cancel-order.command.ts
+- [x] T140 [US2] Create AddToCartCommandHandler in apps/api/src/modules/order-management/application/handlers/add-to-cart.handler.ts
+- [x] T141 [US2] Create UpdateCartItemCommandHandler in apps/api/src/modules/order-management/application/handlers/update-cart-item.handler.ts
+- [x] T142 [US2] Create RemoveFromCartCommandHandler in apps/api/src/modules/order-management/application/handlers/remove-from-cart.handler.ts
+- [x] T143 [US2] Create ClearCartCommandHandler in apps/api/src/modules/order-management/application/handlers/clear-cart.handler.ts
+- [x] T144 [US2] Create PlaceOrderCommandHandler in apps/api/src/modules/order-management/application/handlers/place-order.handler.ts
+- [x] T145 [US2] Create CancelOrderCommandHandler in apps/api/src/modules/order-management/application/handlers/cancel-order.handler.ts
+- [x] T146 [US2] Create OrderPlacementSaga for inventory reservation in apps/api/src/modules/order-management/application/sagas/order-placement.saga.ts
+- [x] T147 [US2] Create GetCartQuery in apps/api/src/modules/order-management/application/queries/get-cart.query.ts
+- [x] T148 [US2] Create GetCartQueryHandler in apps/api/src/modules/order-management/application/handlers/get-cart.handler.ts
+- [x] T149 [US2] Create CartDto in apps/api/src/modules/order-management/application/dtos/cart.dto.ts
+- [x] T150 [US2] Create CartItemDto in apps/api/src/modules/order-management/application/dtos/cart-item.dto.ts
+- [x] T151 [US2] Create OrderDto in apps/api/src/modules/order-management/application/dtos/order.dto.ts
+- [x] T152 [US2] Create OrderItemDto in apps/api/src/modules/order-management/application/dtos/order-item.dto.ts
 
 #### Infrastructure Layer
 
-- [ ] T153 [US2] Create Cart entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/cart.entity.ts
-- [ ] T154 [US2] Create CartItem entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/cart-item.entity.ts
-- [ ] T155 [US2] Create Order entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/order.entity.ts
-- [ ] T156 [US2] Create OrderItem entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/order-item.entity.ts
-- [ ] T157 [US2] Create CartRepository implementation in apps/api/src/modules/order-management/infrastructure/persistence/repositories/cart.repository.ts
-- [ ] T158 [US2] Create OrderRepository implementation in apps/api/src/modules/order-management/infrastructure/persistence/repositories/order.repository.ts
-- [ ] T159 [US2] Create domain-to-persistence mapper for Cart in apps/api/src/modules/order-management/infrastructure/persistence/mappers/cart.mapper.ts
-- [ ] T160 [US2] Create domain-to-persistence mapper for Order in apps/api/src/modules/order-management/infrastructure/persistence/mappers/order.mapper.ts
-- [ ] T161 [US2] Create database migration for carts, cart_items, orders, and order_items tables in apps/api/src/migrations/
-- [ ] T162 [US2] Create event handlers for cart and order events in apps/api/src/modules/order-management/infrastructure/events/order-event.handlers.ts
-- [ ] T163 [US2] Create email service for order confirmation in apps/api/src/modules/order-management/infrastructure/email/order-email.service.ts
+- [x] T153 [US2] Create Cart entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/cart.entity.ts
+- [x] T154 [US2] Create CartItem entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/cart-item.entity.ts
+- [x] T155 [US2] Create Order entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/order.entity.ts
+- [x] T156 [US2] Create OrderItem entity (TypeORM) in apps/api/src/modules/order-management/infrastructure/persistence/entities/order-item.entity.ts
+- [x] T157 [US2] Create CartRepository implementation in apps/api/src/modules/order-management/infrastructure/persistence/repositories/cart.repository.ts
+- [x] T158 [US2] Create OrderRepository implementation in apps/api/src/modules/order-management/infrastructure/persistence/repositories/order.repository.ts
+- [x] T159 [US2] Create domain-to-persistence mapper for Cart in apps/api/src/modules/order-management/infrastructure/persistence/mappers/cart.mapper.ts
+- [x] T160 [US2] Create domain-to-persistence mapper for Order in apps/api/src/modules/order-management/infrastructure/persistence/mappers/order.mapper.ts
+- [x] T161 [US2] Create database migration for carts, cart_items, orders, and order_items tables in apps/api/src/migrations/
+- [x] T162 [US2] Create event handlers for cart and order events in apps/api/src/modules/order-management/infrastructure/events/order-event.handlers.ts
+- [x] T163 [US2] Create email service for order confirmation in apps/api/src/modules/order-management/infrastructure/email/order-email.service.ts
 
 #### Presentation Layer
 
-- [ ] T164 [US2] Create CartController with GET /api/cart endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
-- [ ] T165 [US2] Create CartController with POST /api/cart/items endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
-- [ ] T166 [US2] Create CartController with PUT /api/cart/items/:itemId endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
-- [ ] T167 [US2] Create CartController with DELETE /api/cart/items/:itemId endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
-- [ ] T168 [US2] Create OrderController with POST /api/orders endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
-- [ ] T169 [US2] Create cart.hbs page template in apps/api/src/views/pages/cart.hbs
-- [ ] T170 [US2] Create checkout.hbs page template in apps/api/src/views/pages/checkout.hbs
-- [ ] T171 [US2] Create cart-item.hbs molecule component in apps/api/src/views/components/molecules/cart-item.hbs
-- [ ] T172 [US2] Create checkout-form.hbs organism component in apps/api/src/views/components/organisms/checkout-form.hbs
-- [ ] T173 [US2] Create view model builders (presenters) for cart and checkout pages in apps/api/src/modules/order-management/presentation/presenters/cart.presenter.ts
-- [ ] T174 [US2] Create OrderManagementModule with all providers in apps/api/src/modules/order-management/order-management.module.ts
+- [x] T164 [US2] Create CartController with GET /api/cart endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
+- [x] T165 [US2] Create CartController with POST /api/cart/items endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
+- [x] T166 [US2] Create CartController with PUT /api/cart/items/:itemId endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
+- [x] T167 [US2] Create CartController with DELETE /api/cart/items/:itemId endpoint in apps/api/src/modules/order-management/presentation/controllers/cart.controller.ts
+- [x] T168 [US2] Create OrderController with POST /api/orders endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
+- [x] T169 [US2] Create cart.hbs page template in apps/api/src/views/pages/cart.hbs
+- [x] T170 [US2] Create checkout.hbs page template in apps/api/src/views/pages/checkout.hbs
+- [x] T171 [US2] Create cart-item.hbs molecule component in apps/api/src/views/components/molecules/cart-item.hbs
+- [x] T172 [US2] Create checkout-form.hbs organism component in apps/api/src/views/components/organisms/checkout-form.hbs
+- [x] T173 [US2] Create view model builders (presenters) for cart and checkout pages in apps/api/src/modules/order-management/presentation/presenters/cart.presenter.ts
+- [x] T174 [US2] Create OrderManagementModule with all providers in apps/api/src/modules/order-management/order-management.module.ts
 
 **Checkpoint**: At this point, User Story 2 should be fully functional and testable independently. Users can add products to cart, manage cart contents, and complete checkout to place orders.
 
@@ -309,39 +309,72 @@
 
 **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T175 [P] [US3] Create unit test for GetOrderHistoryQuery handler in apps/api/test/unit/order-management/get-order-history.handler.spec.ts
-- [ ] T176 [P] [US3] Create unit test for GetOrderByIdQuery handler in apps/api/test/unit/order-management/get-order-by-id.handler.spec.ts
+- [x] T175 [P] [US3] Create unit test for GetOrderHistoryQuery handler in apps/api/test/unit/order-management/get-order-history.handler.spec.ts
+- [x] T176 [P] [US3] Create unit test for GetOrderByIdQuery handler in apps/api/test/unit/order-management/get-order-by-id.handler.spec.ts
 - [ ] T177 [P] [US3] Create integration test for GetOrderHistoryQuery handler in apps/api/test/integration/order-management/get-order-history.handler.spec.ts
 - [ ] T178 [P] [US3] Create integration test for GetOrderByIdQuery handler in apps/api/test/integration/order-management/get-order-by-id.handler.spec.ts
-- [ ] T179 [P] [US3] Create E2E test for order history flow in apps/api/test/e2e/order-history.e2e-spec.ts
+- [x] T179 [P] [US3] Create E2E test for order history flow in apps/api/test/e2e/order-history.e2e-spec.ts
 
 ### Implementation for User Story 3
 
 #### Application Layer (CQRS)
 
-- [ ] T180 [US3] Create GetOrderHistoryQuery in apps/api/src/modules/order-management/application/queries/get-order-history.query.ts
-- [ ] T181 [US3] Create GetOrderByIdQuery in apps/api/src/modules/order-management/application/queries/get-order-by-id.query.ts
-- [ ] T182 [US3] Create GetOrderHistoryQueryHandler in apps/api/src/modules/order-management/application/handlers/get-order-history.handler.ts
-- [ ] T183 [US3] Create GetOrderByIdQueryHandler in apps/api/src/modules/order-management/application/handlers/get-order-by-id.handler.ts
-- [ ] T184 [US3] Create ReorderCommand in apps/api/src/modules/order-management/application/commands/reorder.command.ts
-- [ ] T185 [US3] Create ReorderCommandHandler in apps/api/src/modules/order-management/application/handlers/reorder.handler.ts
-- [ ] T186 [US3] Create OrderHistoryReadModel DTO in apps/api/src/modules/order-management/application/dtos/order-history-read-model.dto.ts
+- [x] T180 [US3] Create GetOrderHistoryQuery in apps/api/src/modules/order-management/application/queries/get-order-history.query.ts
+- [x] T181 [US3] Create GetOrderByIdQuery in apps/api/src/modules/order-management/application/queries/get-order-by-id.query.ts
+- [x] T182 [US3] Create GetOrderHistoryQueryHandler in apps/api/src/modules/order-management/application/handlers/get-order-history.handler.ts
+- [x] T183 [US3] Create GetOrderByIdQueryHandler in apps/api/src/modules/order-management/application/handlers/get-order-by-id.handler.ts
+- [x] T184 [US3] Create ReorderCommand in apps/api/src/modules/order-management/application/commands/reorder.command.ts
+- [x] T185 [US3] Create ReorderCommandHandler in apps/api/src/modules/order-management/application/handlers/reorder.handler.ts
+- [x] T186 [US3] Create OrderHistoryReadModel DTO in apps/api/src/modules/order-management/application/dtos/order-history-read-model.dto.ts
 
 #### Infrastructure Layer
 
-- [ ] T187 [US3] Create OrderHistoryReadModel entity for CQRS queries in apps/api/src/modules/order-management/infrastructure/persistence/read-models/order-history-read-model.entity.ts
-- [ ] T188 [US3] Create event handlers for synchronizing order history read model in apps/api/src/modules/order-management/infrastructure/events/order-history-sync.handlers.ts
+- [x] T187 [US3] Create OrderHistoryReadModel entity for CQRS queries in apps/api/src/modules/order-management/infrastructure/persistence/read-models/order-history-read-model.entity.ts
+- [x] T188 [US3] Create event handlers for synchronizing order history read model in apps/api/src/modules/order-management/infrastructure/events/order-history-sync.handlers.ts
 
 #### Presentation Layer
 
-- [ ] T189 [US3] Create OrderController with GET /api/orders endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
-- [ ] T190 [US3] Create OrderController with GET /api/orders/:id endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
-- [ ] T191 [US3] Create OrderController with POST /api/orders/:id/reorder endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
-- [ ] T192 [US3] Create orders.hbs page template in apps/api/src/views/pages/orders.hbs
-- [ ] T193 [US3] Create order-detail.hbs page template in apps/api/src/views/pages/order-detail.hbs
-- [ ] T194 [US3] Create view model builders (presenters) for order pages in apps/api/src/modules/order-management/presentation/presenters/order.presenter.ts
+- [x] T189 [US3] Create OrderController with GET /api/orders endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
+- [x] T190 [US3] Create OrderController with GET /api/orders/:id endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
+- [x] T191 [US3] Create OrderController with POST /api/orders/:id/reorder endpoint in apps/api/src/modules/order-management/presentation/controllers/order.controller.ts
+- [x] T192 [US3] Create orders.hbs page template in apps/api/src/views/pages/orders.hbs
+- [x] T193 [US3] Create order-detail.hbs page template in apps/api/src/views/pages/order-detail.hbs
+- [x] T194 [US3] Create view model builders (presenters) for order pages in apps/api/src/modules/order-management/presentation/presenters/order.presenter.ts
 
 **Checkpoint**: At this point, User Story 3 should be fully functional and testable independently. Users can view order history, track orders, and reorder from past orders.
+
+---
+
+## Phase 5.5: UI/UX Enhancements (Priority: P1) 🎯 MVP
+
+**Goal**: Enhance the user experience with additional navigation, product information tabs, and improved cart functionality
+
+**Independent Test**: Can be tested by navigating the site, viewing categories, exploring product details tabs, and observing cart badge updates.
+
+### Product Detail Enhancements
+
+- [x] T195a [US1] Add functional tabs (Description, Specifications, Documents, Reviews) to product detail page in apps/api/src/views/pages/product-detail.hbs
+- [x] T195b [US1] Add JavaScript tab switching functionality in product-detail.hbs
+- [x] T195c [US1] Create migration to add specifications, documents, and reviews columns to products table in apps/api/src/migrations/1732300000000-AddProductMetadataFields.ts
+- [x] T195d [US1] Update ProductEntity to include specifications, documents, and reviews fields in apps/api/src/modules/product-catalog/infrastructure/persistence/entities/product.entity.ts
+- [x] T195e [US1] Update seed script to include sample specifications, documents, and reviews data in apps/api/src/scripts/seed-database.ts
+
+### Navigation Enhancements
+
+- [x] T196a [US1] Create categories listing page template in apps/api/src/views/pages/categories.hbs
+- [x] T196b [US1] Update CategoryController to support HTML rendering for categories page in apps/api/src/modules/product-catalog/presentation/controllers/category.controller.ts
+- [x] T196c [US2] Add cart count badge to header navigation in apps/api/src/views/partials/organisms/header.hbs
+- [x] T196d [US1] Add categories link to main navigation in header.hbs
+- [x] T196e [US3] Add orders link to main navigation in header.hbs
+- [x] T196f [US1] Add category icon button to header toolbar in header.hbs
+
+### Cart Functionality Enhancements
+
+- [x] T197a [US2] Add cart count update JavaScript function to product-detail page
+- [x] T197b [US2] Update Add to Cart button to show loading states and success feedback
+- [x] T197c [US2] Add quantity validation on product detail page
+
+**Checkpoint**: At this point, the UI/UX is enhanced with full product information display, improved navigation, and visual cart feedback.
 
 ---
 

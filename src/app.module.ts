@@ -17,7 +17,7 @@ import { AppController } from './app.controller';
 // import { IdentityModule } from './modules/identity/identity.module';
 // import { LandingCmsModule } from './modules/landing-cms/landing-cms.module';
 import { ProductCatalogModule } from './modules/product-catalog/product-catalog.module';
-// import { OrderManagementModule } from './modules/order-management/order-management.module';
+import { OrderManagementModule } from './modules/order-management/order-management.module';
 
 @Module({
   imports: [
@@ -54,7 +54,7 @@ import { ProductCatalogModule } from './modules/product-catalog/product-catalog.
     // IdentityModule,
     // LandingCmsModule,
     ProductCatalogModule,
-    // OrderManagementModule,
+    OrderManagementModule,
   ],
   controllers: [AppController],
   providers: [],

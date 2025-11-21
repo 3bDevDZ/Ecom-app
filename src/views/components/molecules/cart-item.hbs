@@ -1,0 +1,101 @@
+{{!-- Cart Item Component (T171) --}}
+<div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+  <div class="flex items-start space-x-4">
+    {{!-- Product Image --}}
+    <div class="flex-shrink-0">
+      <img src="{{item.productSnapshot.image}}"
+           alt="{{item.productSnapshot.name}}"
+           class="w-24 h-24 object-cover rounded-lg">
+    </div>
+
+    {{!-- Product Details --}}
+    <div class="flex-1 min-w-0">
+      <div class="flex items-start justify-between">
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold text-gray-900 mb-1">
+            <a href="/products/{{item.productId}}" class="hover:text-blue-600 transition">
+              {{item.productSnapshot.name}}
+            </a>
+          </h3>
+          <p class="text-sm text-gray-600 mb-2">
+            SKU: {{item.productSnapshot.sku}}
+          </p>
+
+          {{!-- Variant Attributes (if applicable) --}}
+          {{#if item.variantAttributes}}
+            <div class="flex flex-wrap gap-2 mb-2">
+              {{#each item.variantAttributes}}
+                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                  {{@key}}: {{this}}
+                </span>
+              {{/each}}
+            </div>
+          {{/if}}
+
+          {{!-- Price --}}
+          <div class="flex items-baseline space-x-2 mb-3">
+            <span class="text-xl font-bold text-blue-600">
+              ${{item.priceSnapshot.basePrice}}
+            </span>
+            <span class="text-sm text-gray-500">per unit</span>
+          </div>
+        </div>
+
+        {{!-- Item Subtotal --}}
+        <div class="ml-4 text-right">
+          <p class="text-sm text-gray-600 mb-1">Subtotal</p>
+          <p class="text-xl font-bold text-gray-900">
+            ${{multiply item.quantity item.priceSnapshot.basePrice}}
+          </p>
+        </div>
+      </div>
+
+      {{!-- Quantity Controls & Remove Button --}}
+      <div class="flex items-center justify-between mt-4 pt-4 border-t">
+        <div class="flex items-center space-x-3">
+          <label for="quantity-{{item.id}}" class="text-sm font-medium text-gray-700">
+            Quantity:
+          </label>
+          <div class="flex items-center border rounded-lg">
+            <button
+              onclick="updateQuantity('{{cartId}}', '{{item.id}}', {{subtract item.quantity 1}})"
+              class="px-3 py-1 hover:bg-gray-100 transition"
+              {{#if (eq item.quantity 1)}}disabled{{/if}}>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+              </svg>
+            </button>
+
+            <input
+              type="number"
+              id="quantity-{{item.id}}"
+              value="{{item.quantity}}"
+              min="1"
+              max="100"
+              class="w-16 text-center border-x py-1 focus:outline-none"
+              onchange="updateQuantity('{{cartId}}', '{{item.id}}', this.value)">
+
+            <button
+              onclick="updateQuantity('{{cartId}}', '{{item.id}}', {{add item.quantity 1}})"
+              class="px-3 py-1 hover:bg-gray-100 transition">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button
+          onclick="removeItem('{{cartId}}', '{{item.id}}')"
+          class="flex items-center space-x-1 text-red-600 hover:text-red-700 transition font-medium text-sm">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          <span>Remove</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

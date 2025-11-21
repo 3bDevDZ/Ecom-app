@@ -21,6 +21,11 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
       join(viewsPath, 'partials', 'molecules'),
       join(viewsPath, 'partials', 'organisms'),
     ],
+    // Runtime options to allow prototype property access
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
     // Minimal helpers (no unused ones)
     helpers: {
       /**
@@ -79,7 +84,7 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
       ifCond: function (v1: any, operator: string, v2: any, options?: any) {
         // Check if this is a block helper call (has options with fn/inverse)
         const isBlockHelper = options && typeof options.fn === 'function' && typeof options.inverse === 'function';
-        
+
         // Evaluate the condition
         let result: boolean;
         switch (operator) {
@@ -116,12 +121,12 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
           default:
             result = false;
         }
-        
+
         // If block helper, return the appropriate block
         if (isBlockHelper) {
           return result ? options.fn(this) : options.inverse(this);
         }
-        
+
         // If regular helper, return boolean
         return result;
       },
@@ -288,6 +293,23 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
       callMethod: function (obj: any, methodName: string, ...args: any[]) {
         if (!obj || typeof obj[methodName] !== 'function') return '';
         return obj[methodName](...args);
+      },
+
+      /**
+       * Calculate final price with base price and delta
+       * Usage: {{calculatePrice basePrice priceDelta}}
+       */
+      calculatePrice: (basePrice: number, priceDelta: number | null): number => {
+        if (priceDelta === null || priceDelta === undefined) return basePrice;
+        return basePrice + priceDelta;
+      },
+
+      /**
+       * Check if value is greater than another
+       * Usage: {{#if (greaterThan value 0)}}...{{/if}}
+       */
+      greaterThan: (value: number, compare: number): boolean => {
+        return value > compare;
       },
     }
   });

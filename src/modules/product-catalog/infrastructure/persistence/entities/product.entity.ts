@@ -75,6 +75,28 @@ export class ProductEntity {
   @Index()
   tags!: string[];
 
+  // Product specifications (key-value pairs)
+  @Column('jsonb', { default: '{}' })
+  specifications?: Record<string, any>;
+
+  // Product documents (datasheets, manuals, CAD files)
+  @Column('jsonb', { default: '[]' })
+  documents?: Array<{
+    title: string;
+    type: string;
+    size: string;
+    url: string;
+  }>;
+
+  // Product reviews
+  @Column('jsonb', { default: '[]' })
+  reviews?: Array<{
+    userName: string;
+    date: string;
+    rating: number;
+    comment: string;
+  }>;
+
   @CreateDateColumn()
   createdAt!: Date;
 

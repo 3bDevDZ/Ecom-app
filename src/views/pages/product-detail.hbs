@@ -8,11 +8,11 @@
     <div class="flex flex-col w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
       <!-- Breadcrumbs -->
       {{> breadcrumbs items=breadcrumbs}}
-    
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-4">
       <!-- Left Column: Image Gallery -->
       {{> image-gallery images=product.images productName=product.name}}
-      
+
       <!-- Right Column: Product Info & Actions -->
       <div class="flex flex-col gap-6">
         <!-- Page Heading -->
@@ -26,11 +26,11 @@
             </p>
           </div>
         </div>
-        
+
         <p class="text-slate-600 dark:text-slate-300 text-base">
           {{product.description}}
         </p>
-        
+
         <div class="flex items-center gap-3">
           {{#if product.isActive}}
             <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/20 text-success">
@@ -46,7 +46,7 @@
             <span class="text-slate-500 dark:text-slate-400 text-sm">Currently unavailable</span>
           {{/if}}
         </div>
-        
+
         <!-- Action Panel -->
         <div class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col gap-6">
           <div class="flex flex-col gap-2">
@@ -60,46 +60,94 @@
               </a>
             {{/if}}
           </div>
-          
-          {{#if product.variants}}
-            <!-- Variant Selection -->
-            <div class="flex flex-col gap-4">
-              {{#each product.variants}}
-                <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{@key}}
-                  </label>
-                  <select class="form-select rounded-lg border border-slate-300 dark:border-slate-600">
-                    {{#each this}}
-                      <option value="{{id}}">{{attributes}}</option>
-                    {{/each}}
-                  </select>
+
+          {{#if product.hasVariants}}
+            {{! Variant Selection }}
+            <div class="flex flex-col gap-4" id="variant-selector">
+              <input type="hidden" id="selected-variant-id" value="">
+              <input type="hidden" id="selected-variant-price" value="{{product.basePrice}}">
+
+              {{! Display price range }}
+              <div class="text-sm text-slate-600 dark:text-slate-400">
+                Price range:
+                <span class="font-semibold text-slate-800 dark:text-white">
+                  {{formatCurrency product.priceRange.min product.currency}} - {{formatCurrency product.priceRange.max product.currency}}
+                </span>
+              </div>
+
+              {{! Variant Options as Radio Cards }}
+              <div class="flex flex-col gap-3">
+                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                  Select Configuration:
+                </label>
+                <div class="grid grid-cols-1 gap-2">
+                  {{#each product.variants}}
+                    <label class="variant-option cursor-pointer relative flex items-center justify-between p-4 border-2 border-slate-200 dark:border-slate-700 rounded-lg hover:border-primary dark:hover:border-primary transition-colors {{#unless isActive}}opacity-50{{/unless}}"
+                      data-variant-id="{{id}}"
+                      data-variant-price="{{price}}"
+                      data-variant-available="{{isActive}}">
+                      <input type="radio"
+                        name="variant"
+                        value="{{id}}"
+                        class="sr-only variant-radio"
+                        {{#unless isActive}}disabled{{/unless}}
+                        {{#if @first}}checked{{/if}}>
+                      <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                          <span class="text-sm font-medium text-slate-800 dark:text-white">{{sku}}</span>
+                          {{#if isActive}}
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-success/20 text-success">In Stock ({{availableQuantity}})</span>
+                          {{else}}
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300">Out of Stock</span>
+                          {{/if}}
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs text-slate-600 dark:text-slate-400">
+                          {{#each attributes}}
+                            <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800">
+                              <span class="font-medium capitalize">{{@key}}:</span> {{this}}
+                            </span>
+                          {{/each}}
+                        </div>
+                      </div>
+                      <div class="ml-4 text-right">
+                        <div class="text-lg font-bold text-slate-800 dark:text-white">
+                          {{formatCurrency price ../currency}}
+                        </div>
+                        {{#if priceDelta}}
+                          <div class="text-xs text-slate-500 dark:text-slate-400">
+                            {{#if (greaterThan priceDelta 0)}}+{{/if}}{{formatCurrency priceDelta ../currency}}
+                          </div>
+                        {{/if}}
+                      </div>
+                    </label>
+                  {{/each}}
                 </div>
-              {{/each}}
+              </div>
             </div>
           {{/if}}
-          
+
           <div class="flex flex-col sm:flex-row gap-4 items-end">
             <div class="w-full sm:w-auto">
               <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="quantity">
                 Quantity
               </label>
-              {{> quantity-selector 
+              {{> quantity-selector
                 id="quantity"
                 label="Quantity"
                 value="1"
-                min=product.minOrderQuantity 
+                min=product.minOrderQuantity
                 max=product.maxOrderQuantity
               }}
             </div>
             <button
-              class="flex w-full sm:flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90"
+              id="add-to-cart-btn"
+              class="flex w-full sm:flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
               onclick="addToCart('{{product.id}}', document.querySelector('#quantity').value)"
               {{#unless product.isActive}}disabled{{/unless}}>
               <span class="truncate">Add to Cart</span>
             </button>
           </div>
-          
+
           <button
             class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-slate-200 dark:hover:bg-slate-600">
             <span class="truncate">Request a Quote</span>
@@ -107,40 +155,133 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Tabbed Information Section -->
     <div class="mt-12">
       <div class="border-b border-slate-200 dark:border-slate-700">
         <nav aria-label="Tabs" class="-mb-px flex space-x-8">
-          <a aria-current="page"
-            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-primary border-primary"
-            href="#description">Description</a>
-          <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
-            href="#specifications">Specifications</a>
-          <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
-            href="#documents">Documents</a>
-          <a class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
-            href="#reviews">Reviews</a>
+          <button
+            class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-primary border-primary"
+            data-tab="description"
+            onclick="switchTab('description')">
+            Description
+          </button>
+          <button
+            class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+            data-tab="specifications"
+            onclick="switchTab('specifications')">
+            Specifications
+          </button>
+          <button
+            class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+            data-tab="documents"
+            onclick="switchTab('documents')">
+            Documents
+          </button>
+          <button
+            class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+            data-tab="reviews"
+            onclick="switchTab('reviews')">
+            Reviews
+          </button>
         </nav>
       </div>
+
       <div class="py-8">
-        <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
-          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Product Overview</h3>
-          <p>{{product.description}}</p>
-          {{#if product.tags}}
-            <h4 class="text-lg font-bold text-slate-800 dark:text-white mt-6 mb-2">Tags</h4>
-            <div class="flex flex-wrap gap-2">
-              {{#each product.tags}}
-                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm">
-                  {{this}}
-                </span>
+        <!-- Description Tab -->
+        <div id="tab-description" class="tab-content">
+          <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Product Overview</h3>
+            <p>{{product.description}}</p>
+            {{#if product.tags}}
+              <h4 class="text-lg font-bold text-slate-800 dark:text-white mt-6 mb-2">Tags</h4>
+              <div class="flex flex-wrap gap-2">
+                {{#each product.tags}}
+                  <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm">
+                    {{this}}
+                  </span>
+                {{/each}}
+              </div>
+            {{/if}}
+          </div>
+        </div>
+
+        <!-- Specifications Tab -->
+        <div id="tab-specifications" class="tab-content hidden">
+          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-6">Technical Specifications</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{#if product.specifications}}
+              {{#each product.specifications}}
+                <div class="flex flex-col p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                  <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">{{@key}}</span>
+                  <span class="text-base text-slate-800 dark:text-white mt-1">{{this}}</span>
+                </div>
               {{/each}}
+            {{else}}
+              <div class="col-span-2 p-8 text-center">
+                <span class="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-600 mb-2">description</span>
+                <p class="text-slate-600 dark:text-slate-400">Specifications coming soon</p>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div id="tab-documents" class="tab-content hidden">
+          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-6">Product Documents</h3>
+          <div class="space-y-4">
+            {{#if product.documents}}
+              {{#each product.documents}}
+                <a href="{{url}}" target="_blank" class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                  <span class="material-symbols-outlined text-3xl text-primary">description</span>
+                  <div class="flex-1">
+                    <h4 class="font-semibold text-slate-800 dark:text-white">{{title}}</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">{{type}} • {{size}}</p>
+                  </div>
+                  <span class="material-symbols-outlined text-slate-400">download</span>
+                </a>
+              {{/each}}
+            {{else}}
+              <div class="p-8 text-center">
+                <span class="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-600 mb-2">folder_open</span>
+                <p class="text-slate-600 dark:text-slate-400">No documents available</p>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div id="tab-reviews" class="tab-content hidden">
+          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-6">Customer Reviews</h3>
+          {{#if product.reviews}}
+            <div class="space-y-6">
+              {{#each product.reviews}}
+                <div class="p-6 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                  <div class="flex items-center justify-between mb-4">
+                    <div>
+                      <h4 class="font-semibold text-slate-800 dark:text-white">{{userName}}</h4>
+                      <p class="text-sm text-slate-600 dark:text-slate-400">{{date}}</p>
+                    </div>
+                    <div class="flex gap-1">
+                      {{#repeat rating}}
+                        <span class="material-symbols-outlined text-yellow-500">star</span>
+                      {{/repeat}}
+                    </div>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300">{{comment}}</p>
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <div class="p-8 text-center">
+              <span class="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-600 mb-2">rate_review</span>
+              <p class="text-slate-600 dark:text-slate-400">No reviews yet. Be the first to review this product!</p>
             </div>
           {{/if}}
         </div>
       </div>
     </div>
-    
+
     <!-- Related Products Carousel -->
       {{#if relatedProducts}}
         <div class="mt-12">
@@ -154,11 +295,12 @@
 </div>
 
 <script>
+// Image Gallery
 function changeMainImage(url, altText, element) {
   const mainImage = document.getElementById('main-product-image');
   mainImage.style.backgroundImage = `url('${url}')`;
   mainImage.setAttribute('data-alt', altText);
-  
+
   // Update active thumbnail
   document.querySelectorAll('.image-gallery .cursor-pointer').forEach(thumb => {
     thumb.classList.remove('border-2', 'border-primary');
@@ -168,6 +310,7 @@ function changeMainImage(url, altText, element) {
   element.classList.remove('opacity-60');
 }
 
+// Quantity Selector
 function increaseQuantity(button) {
   const input = button.previousElementSibling;
   const max = button.getAttribute('data-max');
@@ -186,10 +329,240 @@ function decreaseQuantity(button) {
   }
 }
 
-function addToCart(productId, quantity) {
-  // TODO: Implement add to cart functionality
-  console.log('Add to cart:', productId, quantity);
-  // This will be implemented when Order Management module is ready
+// Variant Selection
+document.addEventListener('DOMContentLoaded', function() {
+  const variantOptions = document.querySelectorAll('.variant-option');
+  const selectedVariantIdInput = document.getElementById('selected-variant-id');
+  const selectedVariantPriceInput = document.getElementById('selected-variant-price');
+  const addToCartBtn = document.getElementById('add-to-cart-btn');
+  const priceDisplay = document.querySelector('.text-3xl.font-bold');
+
+  // Initialize with first variant if exists
+  if (variantOptions.length > 0) {
+    const firstVariant = variantOptions[0];
+    const firstVariantId = firstVariant.dataset.variantId;
+    const firstVariantPrice = firstVariant.dataset.variantPrice;
+    const firstVariantAvailable = firstVariant.dataset.variantAvailable === 'true';
+
+    if (selectedVariantIdInput) selectedVariantIdInput.value = firstVariantId;
+    if (selectedVariantPriceInput) selectedVariantPriceInput.value = firstVariantPrice;
+    if (priceDisplay) priceDisplay.textContent = formatCurrency(parseFloat(firstVariantPrice));
+    if (addToCartBtn) addToCartBtn.disabled = !firstVariantAvailable;
+  }
+
+  variantOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      const variantId = this.dataset.variantId;
+      const variantPrice = this.dataset.variantPrice;
+      const variantAvailable = this.dataset.variantAvailable === 'true';
+
+      // Update hidden inputs
+      if (selectedVariantIdInput) selectedVariantIdInput.value = variantId;
+      if (selectedVariantPriceInput) selectedVariantPriceInput.value = variantPrice;
+
+      // Update price display
+      if (priceDisplay) {
+        priceDisplay.textContent = formatCurrency(parseFloat(variantPrice));
+      }
+
+      // Update button state
+      if (addToCartBtn) {
+        addToCartBtn.disabled = !variantAvailable;
+      }
+
+      // Update visual selection
+      variantOptions.forEach(opt => {
+        opt.classList.remove('border-primary', 'bg-primary/5');
+        opt.classList.add('border-slate-200', 'dark:border-slate-700');
+      });
+      this.classList.remove('border-slate-200', 'dark:border-slate-700');
+      this.classList.add('border-primary', 'bg-primary/5');
+
+      // Check the radio button
+      const radio = this.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+    });
+  });
+
+  // Helper function to format currency
+  function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(amount);
+  }
+});
+
+// Tab Switching
+function switchTab(tabName) {
+  // Hide all tab contents
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.add('hidden');
+  });
+
+  // Remove active state from all buttons
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.classList.remove('text-primary', 'border-primary');
+    button.classList.add('text-slate-500', 'dark:text-slate-400', 'border-transparent');
+  });
+
+  // Show selected tab content
+  const selectedTab = document.getElementById(`tab-${tabName}`);
+  if (selectedTab) {
+    selectedTab.classList.remove('hidden');
+  }
+
+  // Add active state to clicked button
+  const selectedButton = document.querySelector(`[data-tab="${tabName}"]`);
+  if (selectedButton) {
+    selectedButton.classList.remove('text-slate-500', 'dark:text-slate-400', 'border-transparent');
+    selectedButton.classList.add('text-primary', 'border-primary');
+  }
 }
+
+// Add to Cart
+async function addToCart(productId, quantity) {
+  const selectedVariantId = document.getElementById('selected-variant-id')?.value;
+  const hasVariants = document.getElementById('variant-selector') !== null;
+  const addToCartBtn = document.getElementById('add-to-cart-btn');
+
+  // If product has variants but none selected, alert user
+  if (hasVariants && !selectedVariantId) {
+    alert('Please select a product variant before adding to cart.');
+    return;
+  }
+
+  // Validate quantity
+  const qty = parseInt(quantity);
+  if (isNaN(qty) || qty < 1) {
+    alert('Please enter a valid quantity.');
+    return;
+  }
+
+  // Disable button during request
+  if (addToCartBtn) {
+    addToCartBtn.disabled = true;
+    addToCartBtn.textContent = 'Adding...';
+  }
+
+  // Prepare request data
+  const requestData = {
+    productId: productId,
+    quantity: qty,
+    variantId: selectedVariantId || undefined
+  };
+
+  try {
+    const response = await fetch('/api/cart/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // TODO: Add authentication token when Keycloak integration is ready
+        // 'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify(requestData)
+    });
+
+    if (response.ok) {
+      const cartData = await response.json();
+      // Show success message
+      showNotification('Product added to cart successfully!', 'success');
+      // Update cart count badge
+      await updateCartCount();
+      // Optional: Redirect to cart after 1 second
+      // setTimeout(() => { window.location.href = '/cart'; }, 1000);
+    } else if (response.status === 401) {
+      showNotification('Please sign in to add items to cart.', 'warning');
+      // Optionally redirect to login
+      // window.location.href = '/auth/login';
+    } else if (response.status === 404) {
+      showNotification('Product not found. Please refresh the page.', 'error');
+    } else if (response.status === 409) {
+      const error = await response.json().catch(() => ({ message: 'Insufficient inventory or MOQ not met' }));
+      showNotification(error.message || 'Unable to add to cart. Please check quantity and inventory.', 'error');
+    } else {
+      const error = await response.json().catch(() => ({ message: 'Failed to add item to cart' }));
+      showNotification(error.message || 'An error occurred. Please try again.', 'error');
+    }
+  } catch (error) {
+    console.error('Add to cart error:', error);
+    showNotification('Network error. Please check your connection and try again.', 'error');
+  } finally {
+    // Re-enable button
+    if (addToCartBtn) {
+      addToCartBtn.disabled = false;
+      addToCartBtn.innerHTML = '<span class="truncate">Add to Cart</span>';
+    }
+  }
+}
+
+// Show notification (simple alert for now, can be replaced with toast component)
+function showNotification(message, type = 'info') {
+  // Create a simple toast notification
+  const toast = document.createElement('div');
+  toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg text-white font-semibold transform transition-all duration-300 ${
+    type === 'success' ? 'bg-green-500' :
+    type === 'error' ? 'bg-red-500' :
+    type === 'warning' ? 'bg-yellow-500' :
+    'bg-blue-500'
+  }`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // Animate in
+  setTimeout(() => toast.style.transform = 'translateX(0)', 10);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    toast.style.transform = 'translateX(400px)';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+// Update cart count badge
+async function updateCartCount() {
+  try {
+    const response = await fetch('/api/cart', {
+      headers: {
+        // TODO: Add authentication token when Keycloak integration is ready
+        // 'Authorization': `Bearer ${authToken}`
+      }
+    });
+
+    if (response.ok) {
+      const cartData = await response.json();
+      const totalItems = cartData.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+      const cartBadge = document.getElementById('cart-count-badge');
+
+      if (cartBadge) {
+        if (totalItems > 0) {
+          cartBadge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+          cartBadge.classList.remove('hidden');
+        } else {
+          cartBadge.classList.add('hidden');
+        }
+      }
+
+      // Also update cart badge from header if page is loaded in an iframe or the element exists
+      const headerCartBadge = document.querySelector('#cart-count-badge');
+      if (headerCartBadge) {
+        if (totalItems > 0) {
+          headerCartBadge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+          headerCartBadge.classList.remove('hidden');
+        } else {
+          headerCartBadge.classList.add('hidden');
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Failed to update cart count:', error);
+    // Silently fail - cart count is not critical
+  }
+}
+
+// Update cart count on page load
+document.addEventListener('DOMContentLoaded', function() {
+  updateCartCount();
+});
 </script>
 

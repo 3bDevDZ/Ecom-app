@@ -11,9 +11,9 @@ config();
 
 /**
  * Database Seeding Script
- * 
+ *
  * Seeds the database with sample categories and products for testing.
- * 
+ *
  * Usage:
  *   ts-node src/scripts/seed-database.ts
  *   or
@@ -35,7 +35,7 @@ async function seedDatabase() {
 
   try {
     console.log('🌱 Starting database seeding...');
-    
+
     // Initialize connection
     await dataSource.initialize();
     console.log('✅ Connected to database');
@@ -147,6 +147,64 @@ async function seedDatabase() {
         maxOrderQuantity: 50,
         isActive: true,
         tags: ['robotic', 'automation', 'assembly', 'precision'],
+        specifications: {
+          'Operating Voltage': '110-240V AC, 50/60Hz',
+          'Power Consumption': '850W max',
+          'Weight': '65 kg',
+          'Dimensions': '1200mm x 800mm x 400mm',
+          'Reach': '1500mm',
+          'Payload Capacity': '25 kg',
+          'Repeatability': '±0.05mm',
+          'IP Rating': 'IP54',
+          'Operating Temperature': '5°C to 45°C',
+          'Control System': 'Integrated PLC with HMI',
+        },
+        documents: [
+          {
+            title: 'Technical Specifications',
+            type: 'PDF',
+            size: '3.2 MB',
+            url: '/documents/arm-5000-specs.pdf',
+          },
+          {
+            title: 'Installation Manual',
+            type: 'PDF',
+            size: '8.5 MB',
+            url: '/documents/arm-5000-install.pdf',
+          },
+          {
+            title: 'Programming Guide',
+            type: 'PDF',
+            size: '12.1 MB',
+            url: '/documents/arm-5000-programming.pdf',
+          },
+          {
+            title: 'CAD Model (STEP)',
+            type: 'STEP',
+            size: '15.4 MB',
+            url: '/documents/arm-5000-model.step',
+          },
+        ],
+        reviews: [
+          {
+            userName: 'Michael Chen',
+            date: 'November 15, 2024',
+            rating: 5,
+            comment: 'Outstanding robotic arm! We integrated it into our production line and it has exceeded all expectations. The precision is remarkable and the build quality is exceptional.',
+          },
+          {
+            userName: 'Emily Rodriguez',
+            date: 'November 8, 2024',
+            rating: 5,
+            comment: 'Excellent investment for our manufacturing facility. Installation was straightforward with the detailed manual. The control system is very intuitive.',
+          },
+          {
+            userName: 'David Thompson',
+            date: 'October 30, 2024',
+            rating: 4,
+            comment: 'Very good product. Works as advertised. Only minor issue was that some mounting hardware was not included in the package. Customer service quickly resolved this.',
+          },
+        ],
       },
       {
         id: uuidv4(),
@@ -294,12 +352,13 @@ async function seedDatabase() {
     // Create Product Variants for some products
     console.log('🔧 Creating product variants...');
     const variants = [
+      // PGM-1000 Variants - Power options
       {
         id: uuidv4(),
         productId: savedProducts[0].id, // PGM-1000
         sku: 'PGM-1000-STD',
-        attributes: { power: 'Standard' },
-        priceDelta: null,
+        attributes: { power: 'Standard', voltage: '24V' },
+        priceDelta: 0,
         currency: 'USD',
         availableQuantity: 50,
         reservedQuantity: 0,
@@ -308,8 +367,8 @@ async function seedDatabase() {
       {
         id: uuidv4(),
         productId: savedProducts[0].id, // PGM-1000
-        sku: 'PGM-1000-HP',
-        attributes: { power: 'High Power' },
+        sku: 'PGM-1000-HP-24V',
+        attributes: { power: 'High Power', voltage: '24V' },
         priceDelta: 150.00,
         currency: 'USD',
         availableQuantity: 25,
@@ -318,10 +377,22 @@ async function seedDatabase() {
       },
       {
         id: uuidv4(),
+        productId: savedProducts[0].id, // PGM-1000
+        sku: 'PGM-1000-HP-48V',
+        attributes: { power: 'High Power', voltage: '48V' },
+        priceDelta: 200.00,
+        currency: 'USD',
+        availableQuantity: 15,
+        reservedQuantity: 0,
+        isActive: true,
+      },
+      // LA-3000 Variants - Stroke lengths
+      {
+        id: uuidv4(),
         productId: savedProducts[4].id, // LA-3000
         sku: 'LA-3000-50MM',
         attributes: { stroke: '50mm' },
-        priceDelta: null,
+        priceDelta: 0,
         currency: 'USD',
         availableQuantity: 30,
         reservedQuantity: 0,
@@ -346,6 +417,74 @@ async function seedDatabase() {
         priceDelta: 100.00,
         currency: 'USD',
         availableQuantity: 15,
+        reservedQuantity: 0,
+        isActive: true,
+      },
+      // RAU-5C Variants - Payload capacity
+      {
+        id: uuidv4(),
+        productId: savedProducts[1].id, // RAU-5C
+        sku: 'RAU-5C-5KG',
+        attributes: { payload: '5kg', reach: '800mm' },
+        priceDelta: 0,
+        currency: 'USD',
+        availableQuantity: 10,
+        reservedQuantity: 0,
+        isActive: true,
+      },
+      {
+        id: uuidv4(),
+        productId: savedProducts[1].id, // RAU-5C
+        sku: 'RAU-5C-10KG',
+        attributes: { payload: '10kg', reach: '800mm' },
+        priceDelta: 800.00,
+        currency: 'USD',
+        availableQuantity: 8,
+        reservedQuantity: 0,
+        isActive: true,
+      },
+      {
+        id: uuidv4(),
+        productId: savedProducts[1].id, // RAU-5C
+        sku: 'RAU-5C-10KG-EXT',
+        attributes: { payload: '10kg', reach: '1200mm' },
+        priceDelta: 1200.00,
+        currency: 'USD',
+        availableQuantity: 5,
+        reservedQuantity: 0,
+        isActive: true,
+      },
+      // HDP-24V Variants - Amperage
+      {
+        id: uuidv4(),
+        productId: savedProducts[2].id, // HDP-24V
+        sku: 'HDP-24V-5A',
+        attributes: { amperage: '5A' },
+        priceDelta: 0,
+        currency: 'USD',
+        availableQuantity: 100,
+        reservedQuantity: 0,
+        isActive: true,
+      },
+      {
+        id: uuidv4(),
+        productId: savedProducts[2].id, // HDP-24V
+        sku: 'HDP-24V-10A',
+        attributes: { amperage: '10A' },
+        priceDelta: 75.00,
+        currency: 'USD',
+        availableQuantity: 80,
+        reservedQuantity: 0,
+        isActive: true,
+      },
+      {
+        id: uuidv4(),
+        productId: savedProducts[2].id, // HDP-24V
+        sku: 'HDP-24V-15A',
+        attributes: { amperage: '15A' },
+        priceDelta: 125.00,
+        currency: 'USD',
+        availableQuantity: 60,
         reservedQuantity: 0,
         isActive: true,
       },

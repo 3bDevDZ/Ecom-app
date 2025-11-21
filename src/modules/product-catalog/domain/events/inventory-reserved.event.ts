@@ -11,6 +11,8 @@ import { DomainEvent } from '../../../../shared/domain/domain-event.base';
  * - Coordinate with Order Management context
  */
 export class InventoryReservedEvent extends DomainEvent {
+  readonly eventType = 'InventoryReserved';
+
   constructor(
     aggregateId: string,
     public readonly variantId: string,
