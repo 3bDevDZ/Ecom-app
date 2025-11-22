@@ -1,0 +1,103 @@
+{{!-- Checkout Page (T170) --}}
+{{> layouts/main title="Checkout" }}
+
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="container mx-auto px-4 max-w-7xl">
+    {{!-- Page Header --}}
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Checkout</h1>
+      <p class="mt-2 text-gray-600">Complete your order</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {{!-- Checkout Form --}}
+      <div class="lg:col-span-2">
+        {{> organisms/checkout-form cart=cart}}
+      </div>
+
+      {{!-- Order Summary --}}
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Order Summary</h2>
+
+          {{!-- Items List --}}
+          <div class="space-y-3 mb-6 max-h-64 overflow-y-auto">
+            {{#each cart.items}}
+              <div class="flex items-center space-x-3 pb-3 border-b">
+                <img src="{{this.productSnapshot.image}}"
+                     alt="{{this.productSnapshot.name}}"
+                     class="w-16 h-16 object-cover rounded">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate">
+                    {{this.productSnapshot.name}}
+                  </p>
+                  <p class="text-sm text-gray-500">
+                    Qty: {{this.quantity}} × ${{this.priceSnapshot.basePrice}}
+                  </p>
+                </div>
+                <div class="text-sm font-medium text-gray-900">
+                  ${{multiply this.quantity this.priceSnapshot.basePrice}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+
+          {{!-- Price Breakdown --}}
+          <div class="space-y-3 mb-6">
+            <div class="flex justify-between text-gray-600">
+              <span>Subtotal</span>
+              <span class="font-medium">${{cart.subtotal}}</span>
+            </div>
+            <div class="flex justify-between text-gray-600">
+              <span>Shipping</span>
+              <span class="font-medium">
+                {{#if cart.shipping}}
+                  ${{cart.shipping}}
+                {{else}}
+                  <span class="text-green-600">FREE</span>
+                {{/if}}
+              </span>
+            </div>
+            <div class="flex justify-between text-gray-600">
+              <span>Tax</span>
+              <span class="font-medium">${{cart.tax}}</span>
+            </div>
+
+            <div class="border-t pt-3">
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-semibold text-gray-900">Total</span>
+                <span class="text-2xl font-bold text-blue-600">${{cart.total}}</span>
+              </div>
+            </div>
+          </div>
+
+          {{!-- Trust Badges --}}
+          <div class="border-t pt-4 space-y-2">
+            <div class="flex items-center text-sm text-gray-600">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Secure Checkout
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Free Returns
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Fast Delivery
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Handlebars Helper for multiplication --}}
+{{!-- Note: This should be registered in the Handlebars config --}}
+

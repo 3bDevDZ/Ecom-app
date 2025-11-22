@@ -11,6 +11,8 @@ import { DomainEvent } from '../../../../shared/domain/domain-event.base';
  * - Notify subscribers of product changes
  */
 export class ProductUpdatedEvent extends DomainEvent {
+  readonly eventType = 'ProductUpdated';
+
   constructor(
     aggregateId: string,
     public readonly updatedFields: {

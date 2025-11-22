@@ -28,7 +28,7 @@ async function bootstrap() {
   const viewsPath = join(__dirname, 'views');
   setupHandlebarsEngine(app, viewsPath);
 
-  // API prefix
+  // API prefix - exclude routes that should be accessed without /api prefix (for HTML views)
   app.setGlobalPrefix('api', {
     exclude: [
       '/',
@@ -37,8 +37,38 @@ async function bootstrap() {
       '/logout',
       '/callback',
       '/products',
-      '/products/:id',
+      '/categories',
+      '/cart',
+      '/orders',
     ],
+  });
+
+  // Register Express routes for parameterized paths AFTER global prefix is set
+  // NestJS route exclusion doesn't work with :id parameters, so we handle them manually
+  // These routes rewrite the URL and forward to NestJS controllers with /api prefix
+  const httpAdapter = app.getHttpAdapter();
+  const instance = httpAdapter.getInstance();
+
+  // Proxy /products/:id to /api/products/:id
+  instance.all('/products/:id', (req, res, next) => {
+    const id = req.params.id;
+    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
+    // Rewrite URL to include /api prefix for NestJS controller
+    req.url = `/api/products/${id}${queryString ? '?' + queryString : ''}`;
+    req.originalUrl = req.url;
+    // Continue to NestJS routing
+    next();
+  });
+
+  // Proxy /categories/:id to /api/categories/:id
+  instance.all('/categories/:id', (req, res, next) => {
+    const id = req.params.id;
+    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
+    // Rewrite URL to include /api prefix for NestJS controller
+    req.url = `/api/categories/${id}${queryString ? '?' + queryString : ''}`;
+    req.originalUrl = req.url;
+    // Continue to NestJS routing
+    next();
   });
 
   // Swagger/OpenAPI configuration

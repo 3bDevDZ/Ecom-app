@@ -1,39 +1,39 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
   Body,
-  Param,
-  Query,
+  Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
-  UseGuards,
-  Res,
   Inject,
+  Param,
+  Post,
+  Put,
+  Query,
+  Res,
+  UseGuards
 } from '@nestjs/common';
-import { Response } from 'express';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import { UuidValidationPipe } from '../../../../common/pipes/uuid-validation.pipe';
+import { PaginatedResponse } from '../../../../shared/application/pagination.dto';
+import { JwtAuthGuard } from '../../../identity/application/guards/jwt-auth.guard';
 import {
   CreateProductCommand,
-  UpdateProductCommand,
   DeleteProductCommand,
+  UpdateProductCommand,
 } from '../../application/commands';
-import { SearchProductsQuery, GetProductByIdQuery, GetCategoriesQuery } from '../../application/queries';
 import {
-  ProductDto,
-  ProductVariantDto,
-  ProductImageDto,
   CreateProductDto,
+  ProductDto,
+  ProductImageDto,
+  ProductVariantDto,
   UpdateProductDto,
 } from '../../application/dtos';
-import { PaginatedResponse } from '../../../../shared/application/pagination.dto';
-import { UuidValidationPipe } from '../../../../common/pipes/uuid-validation.pipe';
-import { JwtAuthGuard } from '../../../identity/application/guards/jwt-auth.guard';
-import { ProductPresenter } from '../presenters/product.presenter';
+import { GetCategoriesQuery, GetProductByIdQuery, SearchProductsQuery } from '../../application/queries';
 import { ICategoryRepository } from '../../domain/repositories/category.repository.interface';
+import { ProductPresenter } from '../presenters/product.presenter';
 import { ProductSearchParamsDto } from './product-search-params.dto';
 
 /**
@@ -50,7 +50,7 @@ export class ProductController {
     private readonly queryBus: QueryBus,
     @Inject('ICategoryRepository')
     private readonly categoryRepository: ICategoryRepository,
-  ) {}
+  ) { }
 
   @Get()
   @ApiOperation({ summary: 'Search and list products' })

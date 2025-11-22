@@ -1,5 +1,5 @@
-import { ProductDto, CategoryDto } from '../../application/dtos';
 import { PaginatedResponse } from '../../../../shared/application/pagination.dto';
+import { CategoryDto, ProductDto } from '../../application/dtos';
 
 /**
  * Product Listing Page View Model
@@ -191,16 +191,32 @@ export class ProductPresenter {
     const breadcrumbs: Array<{ label: string; href?: string }> = [
       { label: 'Home', href: '/' },
       { label: 'Products', href: '/products' },
+      { label: 'Categories', href: '/categories' },
     ];
 
     if (category) {
-      breadcrumbs.push({ label: category.name, href: `/products?categoryId=${category.id}` });
+      breadcrumbs.push({ label: category.name, href: `/categories/${category.id}` });
     }
 
     breadcrumbs.push({ label: product.name });
 
+    // Enhance variants with calculated final prices for easier template rendering
+    const enhancedVariants = product.variants.map(variant => ({
+      ...variant,
+      price: variant.calculateFinalPrice(product.basePrice),
+    }));
+
+    // Create an enhanced product object that preserves getters
+    const enhancedProduct = {
+      ...product,
+      variants: enhancedVariants,
+      hasVariants: product.hasVariants, // Explicitly copy the getter result
+      priceRange: product.priceRange,   // Explicitly copy the getter result
+      primaryImage: product.primaryImage, // Explicitly copy the getter result
+    };
+
     return {
-      product,
+      product: enhancedProduct as any,
       relatedProducts: relatedProducts || [],
       breadcrumbs,
     };

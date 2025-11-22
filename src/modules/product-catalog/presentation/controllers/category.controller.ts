@@ -1,29 +1,32 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
   Body,
-  Param,
-  Query,
+  Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
-  UseGuards,
   NotFoundException,
+  Param,
+  Post,
+  Put,
+  Query,
+  Res,
+  UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import { UuidValidationPipe } from '../../../../common/pipes/uuid-validation.pipe';
+import { PaginatedResponse } from '../../../../shared/application/pagination.dto';
+import { JwtAuthGuard } from '../../../identity/application/guards/jwt-auth.guard';
 import {
   CreateCategoryCommand,
-  UpdateCategoryCommand,
   DeleteCategoryCommand,
+  UpdateCategoryCommand,
 } from '../../application/commands';
-import { GetCategoriesQuery } from '../../application/queries';
 import { CategoryDto, CreateCategoryDto, UpdateCategoryDto } from '../../application/dtos';
-import { PaginatedResponse } from '../../../../shared/application/pagination.dto';
-import { UuidValidationPipe } from '../../../../common/pipes/uuid-validation.pipe';
-import { JwtAuthGuard } from '../../../identity/application/guards/jwt-auth.guard';
+import { GetCategoriesQuery } from '../../application/queries';
+import { SearchProductsQuery } from '../../application/queries/search-products.query';
 
 /**
  * CategoryController
@@ -37,7 +40,7 @@ export class CategoryController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-  ) {}
+  ) { }
 
   @Get()
   @ApiOperation({ summary: 'Get all categories' })
@@ -45,11 +48,14 @@ export class CategoryController {
   @ApiQuery({ name: 'parentId', required: false, description: 'Filter by parent category ID' })
   @ApiQuery({ name: 'rootOnly', required: false, description: 'Get only root categories' })
   @ApiQuery({ name: 'isActive', required: false, description: 'Filter by active status' })
+  @ApiQuery({ name: 'format', required: false, description: 'Response format: json or html' })
   async getCategories(
     @Query('parentId') parentId?: string,
     @Query('rootOnly') rootOnly?: string,
     @Query('isActive') isActive?: string,
-  ): Promise<CategoryDto[]> {
+    @Query('format') format?: string,
+    @Res() res?: Response,
+  ): Promise<CategoryDto[] | void> {
     const query = new GetCategoriesQuery(
       rootOnly === 'true' ? null : parentId,
       isActive !== undefined ? isActive === 'true' : undefined,
@@ -58,6 +64,24 @@ export class CategoryController {
     );
 
     const result: PaginatedResponse<CategoryDto> = await this.queryBus.execute(query);
+
+    // Return HTML view if format=html or Accept header prefers HTML
+    const isHtmlRequest =
+      format === 'html' ||
+      res?.req.headers.accept?.includes('text/html') ||
+      (res && !res.req.headers.accept?.includes('application/json'));
+
+    if (isHtmlRequest && res) {
+      const viewModel = {
+        categories: result.data,
+        breadcrumbs: [
+          { label: 'Home', href: '/' },
+          { label: 'Categories' },
+        ],
+      };
+      return res.render('categories', viewModel);
+    }
+
     return result.data;
   }
 
@@ -65,17 +89,72 @@ export class CategoryController {
   @ApiOperation({ summary: 'Get category by ID' })
   @ApiResponse({ status: 200, description: 'Category retrieved successfully', type: CategoryDto })
   @ApiResponse({ status: 404, description: 'Category not found' })
-  async getCategoryById(@Param('id', UuidValidationPipe) id: string): Promise<CategoryDto> {
-    // We need to get the category by ID - for now, get all and filter
-    // In production, create a GetCategoryByIdQuery
-    const query = new GetCategoriesQuery(undefined, undefined, 1, 1000);
-    const result: PaginatedResponse<CategoryDto> = await this.queryBus.execute(query);
-    const category = result.data.find(c => c.id === id);
-    
+  @ApiQuery({ name: 'format', required: false, description: 'Response format: json or html' })
+  async getCategoryById(
+    @Param('id', UuidValidationPipe) id: string,
+    @Query('format') format?: string,
+    @Res() res?: Response,
+  ): Promise<CategoryDto | void> {
+    // Get category by ID
+    const categoriesQuery = new GetCategoriesQuery(undefined, undefined, 1, 1000);
+    const categoriesResult: PaginatedResponse<CategoryDto> = await this.queryBus.execute(categoriesQuery);
+    const category = categoriesResult.data.find(c => c.id === id);
+
     if (!category) {
       throw new NotFoundException(`Category with ID ${id} not found`);
     }
-    
+
+    // Return HTML view if format=html or Accept header prefers HTML
+    const isHtmlRequest =
+      format === 'html' ||
+      res?.req.headers.accept?.includes('text/html') ||
+      (res && !res.req.headers.accept?.includes('application/json'));
+
+    if (isHtmlRequest && res) {
+      // Get products for this category (default pagination)
+      const productsQuery = new SearchProductsQuery(
+        undefined, // search term
+        id, // categoryId
+        undefined, // brand
+        undefined, // tags
+        undefined, // minPrice
+        undefined, // maxPrice
+        true, // isActive
+        1, // page
+        20, // limit
+      );
+
+      const productsResult = await this.queryBus.execute(productsQuery);
+
+      // Build breadcrumbs
+      const breadcrumbs = [
+        { label: 'Home', href: '/' },
+        { label: 'Products', href: '/products' },
+        { label: 'Categories', href: '/categories' },
+        { label: category.name },
+      ];
+
+      // Calculate pagination info
+      const totalPages = Math.ceil(productsResult.total / productsResult.limit);
+
+      const viewModel = {
+        category,
+        products: productsResult.data,
+        pagination: {
+          page: productsResult.page,
+          limit: productsResult.limit,
+          total: productsResult.total,
+          totalPages,
+          hasNext: productsResult.page < totalPages,
+          hasPrev: productsResult.page > 1,
+        },
+        breadcrumbs,
+      };
+
+      return res.render('category-detail', viewModel);
+    }
+
+    // Return JSON for API
     return category;
   }
 

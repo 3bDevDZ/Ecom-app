@@ -6,10 +6,10 @@
   <!-- Main Image -->
   <div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl min-h-80 md:min-h-[480px] bg-white dark:bg-slate-800/50"
     data-alt="A high-resolution image of the {{productName}}, showing its metallic body and precision components."
-    style='background-image: url("{{#if images.0}}{{images.0.url}}{{/if}}");'
+    style='background-image: url("{{#if images}}{{#with (lookup images 0)}}{{url}}{{/with}}{{/if}}");'
     id="main-product-image">
   </div>
-  
+
   <!-- Thumbnail Carousel -->
   {{#if images}}
     <div class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

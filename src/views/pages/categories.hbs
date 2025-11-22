@@ -1,0 +1,81 @@
+{{!--
+  Categories Page
+  Browse all product categories
+--}}
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<main class="layout-container flex h-full grow flex-col">
+  <div class="flex flex-1 justify-center py-5">
+    <div class="flex flex-col w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
+
+      {{! Breadcrumbs }}
+      {{> breadcrumbs items=breadcrumbs}}
+
+      {{! Page Header }}
+      <div class="flex flex-col gap-3 mt-6 mb-8">
+        <h1 class="text-slate-800 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+          Product Categories
+        </h1>
+        <p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">
+          Browse our complete catalog by category
+        </p>
+      </div>
+
+      {{#if categories}}
+        {{! Categories Grid }}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {{#each categories}}
+            <a href="/categories/{{id}}"
+              class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg hover:border-primary dark:hover:border-primary transition-all">
+
+              {{! Category Icon }}
+              <div class="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-3xl">category</span>
+              </div>
+
+              {{! Category Info }}
+              <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-primary dark:group-hover:text-primary transition-colors">
+                {{name}}
+              </h3>
+
+              {{#if description}}
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                  {{description}}
+                </p>
+              {{/if}}
+
+              {{! Product Count (if available) }}
+              {{#if productCount}}
+                <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                  <span class="material-symbols-outlined text-lg">inventory_2</span>
+                  <span>{{productCount}} products</span>
+                </div>
+              {{/if}}
+
+              {{! View Category Link }}
+              <div class="mt-4 flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
+                <span>Browse Products</span>
+                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+              </div>
+            </a>
+          {{/each}}
+        </div>
+      {{else}}
+        {{! Empty State }}
+        <div class="flex flex-col items-center justify-center py-16 px-4">
+          <span class="material-symbols-outlined text-6xl text-slate-400 dark:text-slate-600 mb-4">
+            category
+          </span>
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">
+            No Categories Available
+          </h3>
+          <p class="text-slate-600 dark:text-slate-400 text-center">
+            Categories will appear here once they are added to the catalog.
+          </p>
+        </div>
+      {{/if}}
+
+    </div>
+  </div>
+</main>
+</div>
+

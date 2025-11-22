@@ -1,26 +1,21 @@
-import {
-  PipeTransform,
-  Injectable,
-  ArgumentMetadata,
-  BadRequestException,
-} from '@nestjs/common';
-import { validate as isUUID } from 'uuid';
+import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
+import { validate as uuidValidate } from 'uuid';
 
 /**
- * UUID Validation Pipe
- * 
- * Validates that a parameter is a valid UUID
- * Usage: @Param('id', UuidValidationPipe) id: string
+ * UuidValidationPipe
+ *
+ * Validates that a string parameter is a valid UUID.
+ * Used for path parameters that should be UUIDs.
+ *
+ * Usage:
+ * @Param('id', UuidValidationPipe) id: string
  */
 @Injectable()
-export class UuidValidationPipe implements PipeTransform<string> {
-  transform(value: string, metadata: ArgumentMetadata): string {
-    if (!isUUID(value)) {
-      throw new BadRequestException(
-        `Validation failed: ${metadata.data} must be a valid UUID`,
-      );
+export class UuidValidationPipe implements PipeTransform<string, string> {
+  transform(value: string): string {
+    if (!uuidValidate(value)) {
+      throw new BadRequestException(`Invalid UUID: ${value}`);
     }
     return value;
   }
 }
-

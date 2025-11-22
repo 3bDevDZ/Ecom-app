@@ -10,6 +10,8 @@ import { DomainEvent } from '../../../../shared/domain/domain-event.base';
  * - Send notifications to relevant stakeholders
  */
 export class ProductCreatedEvent extends DomainEvent {
+  readonly eventType = 'ProductCreated';
+
   constructor(
     aggregateId: string,
     public readonly sku: string,

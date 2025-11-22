@@ -1,0 +1,111 @@
+{{!--
+  Category Detail Page
+  Shows products for a specific category
+--}}
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<main class="layout-container flex h-full grow flex-col">
+  <div class="flex flex-1 justify-center py-5">
+    <div class="flex flex-col w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
+
+      {{! Breadcrumbs }}
+      {{> breadcrumbs items=breadcrumbs}}
+
+      {{! Category Header }}
+      <div class="flex flex-col gap-3 mt-6 mb-8">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary">
+            <span class="material-symbols-outlined text-3xl">category</span>
+          </div>
+          <div>
+            <h1 class="text-slate-800 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+              {{category.name}}
+            </h1>
+            {{#if category.description}}
+              <p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal mt-2">
+                {{category.description}}
+              </p>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      {{#if products}}
+        {{! Products Count and Filters }}
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+          <div class="text-slate-600 dark:text-slate-400 text-sm">
+            <span class="font-semibold">{{pagination.total}}</span> product{{#unless (ifCond pagination.total "===" 1)}}s{{/unless}} found
+          </div>
+
+          {{! Sort Options }}
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-slate-700 dark:text-slate-300 font-medium">Sort by:</label>
+            <select id="sort-by" class="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              onchange="handleSortChange(this.value)">
+              <option value="best-match" {{#ifEquals sortBy "best-match"}}selected{{/ifEquals}}>Best Match</option>
+              <option value="price-asc" {{#ifEquals sortBy "price-asc"}}selected{{/ifEquals}}>Price: Low to High</option>
+              <option value="price-desc" {{#ifEquals sortBy "price-desc"}}selected{{/ifEquals}}>Price: High to Low</option>
+              <option value="name-asc" {{#ifEquals sortBy "name-asc"}}selected{{/ifEquals}}>Name: A to Z</option>
+              <option value="name-desc" {{#ifEquals sortBy "name-desc"}}selected{{/ifEquals}}>Name: Z to A</option>
+            </select>
+          </div>
+        </div>
+
+        {{! Products Grid }}
+        {{> product-grid products=products}}
+
+        {{! Pagination }}
+        {{#if pagination}}
+          <div class="flex items-center justify-center gap-2 mt-8">
+            {{#if pagination.hasPrev}}
+              <a href="/categories/{{category.id}}?page={{math pagination.page "-" 1}}&limit={{pagination.limit}}&sortBy={{sortBy}}"
+                class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                Previous
+              </a>
+            {{/if}}
+
+            <span class="px-4 py-2 text-slate-600 dark:text-slate-400">
+              Page {{pagination.page}} of {{pagination.totalPages}}
+            </span>
+
+            {{#if pagination.hasNext}}
+              <a href="/categories/{{category.id}}?page={{math pagination.page "+" 1}}&limit={{pagination.limit}}&sortBy={{sortBy}}"
+                class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                Next
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
+
+      {{else}}
+        {{! Empty State }}
+        <div class="flex flex-col items-center justify-center py-16 px-4">
+          <span class="material-symbols-outlined text-6xl text-slate-400 dark:text-slate-600 mb-4">
+            inventory_2
+          </span>
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">
+            No Products in This Category
+          </h3>
+          <p class="text-slate-600 dark:text-slate-400 text-center mb-6">
+            There are currently no products available in this category.
+          </p>
+          <a href="/categories"
+            class="px-6 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition-colors">
+            Browse All Categories
+          </a>
+        </div>
+      {{/if}}
+
+    </div>
+  </div>
+</main>
+</div>
+
+<script>
+function handleSortChange(value) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('sortBy', value);
+  url.searchParams.set('page', '1'); // Reset to first page when sorting changes
+  window.location.href = url.toString();
+}
+</script>
+

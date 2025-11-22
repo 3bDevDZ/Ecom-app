@@ -1,0 +1,196 @@
+{{!--
+  Order Detail Page
+  User Story 3: View and Track Orders
+--}}
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<main class="layout-container flex h-full grow flex-col">
+  <div class="flex flex-1 justify-center py-5">
+    <div class="flex flex-col w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
+
+      {{! Breadcrumbs }}
+      {{> breadcrumbs items=breadcrumbs}}
+
+      {{! Order Header }}
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mt-6 mb-8">
+        <div>
+          <h1 class="text-slate-800 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] mb-2">
+            Order #{{order.orderNumber}}
+          </h1>
+          <p class="text-slate-500 dark:text-slate-400 text-base">
+            Placed on {{order.orderDate}}
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="window.print()"
+            class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+            <span class="material-symbols-outlined text-lg">print</span>
+            Print
+          </button>
+          <button onclick="reorder('{{order.id}}')"
+            class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition-colors">
+            <span class="material-symbols-outlined text-lg">shopping_cart</span>
+            Reorder
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {{! Main Content - Order Items }}
+        <div class="lg:col-span-2 space-y-6">
+
+          {{! Order Status }}
+          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Order Status</h2>
+            <div class="flex items-center gap-4">
+              <span class="px-4 py-2 rounded-full text-sm font-semibold
+                {{#ifEquals order.status 'pending'}}bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300{{/ifEquals}}
+                {{#ifEquals order.status 'confirmed'}}bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300{{/ifEquals}}
+                {{#ifEquals order.status 'shipped'}}bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300{{/ifEquals}}
+                {{#ifEquals order.status 'delivered'}}bg-success/20 text-success{{/ifEquals}}
+                {{#ifEquals order.status 'cancelled'}}bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300{{/ifEquals}}">
+                {{order.statusDisplay}}
+              </span>
+              {{#unless (ifEquals order.status 'cancelled')}}
+                <span class="text-sm text-slate-600 dark:text-slate-400">
+                  Estimated delivery: {{order.estimatedDelivery}}
+                </span>
+              {{/unless}}
+            </div>
+          </div>
+
+          {{! Order Items }}
+          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">
+              Items ({{order.itemCount}})
+            </h2>
+            <div class="space-y-4">
+              {{#each order.items}}
+                <div class="flex gap-4 pb-4 border-b border-slate-200 dark:border-slate-700 last:border-0 last:pb-0">
+                  <div class="flex-1">
+                    <h3 class="font-semibold text-slate-800 dark:text-white mb-1">
+                      {{productName}}
+                    </h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                      SKU: {{sku}}
+                    </p>
+                    <div class="flex items-center gap-4 text-sm">
+                      <span class="text-slate-600 dark:text-slate-400">
+                        Qty: {{quantity}}
+                      </span>
+                      <span class="text-slate-600 dark:text-slate-400">
+                        ${unitPrice} each
+                      </span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-bold text-slate-800 dark:text-white">
+                      ${{subtotal}}
+                    </p>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+
+        </div>
+
+        {{! Sidebar - Order Summary & Details }}
+        <div class="space-y-6">
+
+          {{! Order Summary }}
+          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Order Summary</h2>
+            <div class="space-y-3">
+              <div class="flex justify-between text-slate-600 dark:text-slate-400">
+                <span>Subtotal:</span>
+                <span>${{order.subtotalFormatted}}</span>
+              </div>
+              <div class="flex justify-between text-slate-600 dark:text-slate-400">
+                <span>Tax:</span>
+                <span>${{order.taxFormatted}}</span>
+              </div>
+              <div class="flex justify-between text-slate-600 dark:text-slate-400">
+                <span>Shipping:</span>
+                <span>${{order.shippingFormatted}}</span>
+              </div>
+              <div class="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between font-bold text-lg text-slate-800 dark:text-white">
+                <span>Total:</span>
+                <span>${{order.totalFormatted}}</span>
+              </div>
+            </div>
+          </div>
+
+          {{! Shipping Address }}
+          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Shipping Address</h2>
+            <address class="text-slate-600 dark:text-slate-400 not-italic text-sm leading-relaxed">
+              {{order.shippingAddress.street}}<br>
+              {{#if order.shippingAddress.addressLine2}}
+                {{order.shippingAddress.addressLine2}}<br>
+              {{/if}}
+              {{order.shippingAddress.city}}, {{order.shippingAddress.state}} {{order.shippingAddress.postalCode}}<br>
+              {{order.shippingAddress.country}}
+            </address>
+          </div>
+
+          {{! Additional Information }}
+          {{#if order.poNumber}}
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+              <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Purchase Order</h2>
+              <p class="text-slate-600 dark:text-slate-400 text-sm">
+                {{order.poNumber}}
+              </p>
+            </div>
+          {{/if}}
+
+          {{#if order.notes}}
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+              <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Notes</h2>
+              <p class="text-slate-600 dark:text-slate-400 text-sm">
+                {{order.notes}}
+              </p>
+            </div>
+          {{/if}}
+
+        </div>
+      </div>
+
+      {{! Back to Orders }}
+      <div class="mt-8">
+        <a href="/orders"
+          class="inline-flex items-center gap-2 text-primary hover:underline font-semibold">
+          <span class="material-symbols-outlined text-lg">arrow_back</span>
+          Back to Order History
+        </a>
+      </div>
+
+    </div>
+  </div>
+</main>
+</div>
+
+<script>
+async function reorder(orderId) {
+  try {
+    const response = await fetch(`/api/orders/${orderId}/reorder`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // TODO: Add authentication header when Keycloak integration is ready
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // Redirect to cart
+      window.location.href = '/cart';
+    } else {
+      alert('Failed to reorder. Please try again.');
+    }
+  } catch (error) {
+    console.error('Reorder error:', error);
+    alert('An error occurred. Please try again.');
+  }
+}
+</script>
+
