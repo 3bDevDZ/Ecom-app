@@ -1,0 +1,98 @@
+{{!--
+  Product List Organism Component
+  Usage: {{> organisms/product-list products=products }}
+--}}
+<div class="flex flex-col gap-4">
+  {{#each products}}
+    <div class="flex gap-4 bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group">
+      {{! Product Image }}
+      <div class="relative w-48 flex-shrink-0">
+        <a href="/products/{{id}}">
+          {{#if images}}
+            {{#each images}}
+              {{#if isPrimary}}
+                <div class="bg-center bg-no-repeat aspect-square bg-cover w-full bg-white dark:bg-slate-800/50"
+                  data-alt="{{altText}}"
+                  style="background-image: url('{{url}}');">
+                </div>
+              {{/if}}
+            {{/each}}
+            {{#hasPrimaryImage images}}
+            {{else}}
+              <div class="bg-center bg-no-repeat aspect-square bg-cover w-full bg-white dark:bg-slate-800/50"
+                data-alt="{{name}}"
+                style="background-image: url('{{images.[0].url}}');">
+              </div>
+            {{/hasPrimaryImage}}
+          {{else}}
+            <div class="bg-center bg-no-repeat aspect-square bg-cover w-full bg-white dark:bg-slate-800/50"
+              data-alt="{{name}}"
+              style="background-image: url('/images/placeholder.png');">
+            </div>
+          {{/if}}
+        </a>
+      </div>
+
+      {{! Product Details }}
+      <div class="flex-1 p-4 flex flex-col gap-3">
+        <div class="flex-1">
+          <a href="/products/{{id}}">
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white hover:text-primary transition-colors mb-1">
+              {{name}}
+            </h3>
+          </a>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">SKU: {{sku}}</p>
+          {{#if description}}
+            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+              {{description}}
+            </p>
+          {{/if}}
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-2xl font-extrabold text-gray-900 dark:text-white mb-2">
+              {{formatCurrency basePrice currency}}
+            </p>
+            {{#if isActive}}
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 dark:bg-green-900/50 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300">
+                <span class="size-1.5 rounded-full bg-green-500"></span>
+                In Stock
+              </span>
+            {{else}}
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-red-100 dark:bg-red-900/50 px-2 py-1 text-xs font-medium text-red-700 dark:text-red-300">
+                <span class="size-1.5 rounded-full bg-red-500"></span>
+                Out of Stock
+              </span>
+            {{/if}}
+          </div>
+
+          {{! Add to Cart Section }}
+          <div class="flex items-center gap-2">
+            <input
+              class="form-input w-20 text-center rounded-lg bg-background-light dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary"
+              type="number"
+              value="{{minOrderQuantity}}"
+              min="{{minOrderQuantity}}"
+              {{#if maxOrderQuantity}}max="{{maxOrderQuantity}}"{{/if}}
+              data-product-id="{{id}}"
+              {{#unless isActive}}disabled{{/unless}}
+            />
+            <button
+              class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 {{#if isActive}}bg-primary text-white hover:bg-primary/90{{else}}bg-primary/20 text-primary hover:bg-primary/30 cursor-not-allowed{{/if}} gap-2 text-sm font-bold leading-normal tracking-[0.015em]"
+              data-product-id="{{id}}"
+              {{#unless isActive}}disabled{{/unless}}
+              onclick="addToCart('{{id}}', this.previousElementSibling.value)">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{else}}
+    <div class="col-span-full text-center py-12">
+      <p class="text-gray-500 dark:text-gray-400">No products found.</p>
+    </div>
+  {{/each}}
+</div>
+

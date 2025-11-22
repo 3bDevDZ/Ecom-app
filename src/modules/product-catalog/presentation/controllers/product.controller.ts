@@ -65,20 +65,31 @@ export class ProductController {
   @ApiQuery({ name: 'page', required: false, description: 'Page number (default: 1)' })
   @ApiQuery({ name: 'limit', required: false, description: 'Items per page (default: 20)' })
   @ApiQuery({ name: 'format', required: false, description: 'Response format: json or html (default: json)' })
+  @ApiQuery({ name: 'sortBy', required: false, description: 'Sort option: best-match, price-low, price-high, name' })
+  @ApiQuery({ name: 'viewMode', required: false, description: 'View mode: grid or list' })
   async searchProducts(
     @Query() params: ProductSearchParamsDto,
     @Res() res?: Response,
   ): Promise<PaginatedResponse<ProductDto> | void> {
+    // Handle multiple values for categoryId and brand (AND filtering)
+    const categoryIds = params.categoryId
+      ? (Array.isArray(params.categoryId) ? params.categoryId : [params.categoryId])
+      : undefined;
+    const brands = params.brand
+      ? (Array.isArray(params.brand) ? params.brand : [params.brand])
+      : undefined;
+
     const query = new SearchProductsQuery(
       params.search,
-      params.categoryId,
-      params.brand,
+      categoryIds,
+      brands,
       params.tags ? params.tags.split(',').map(t => t.trim()) : undefined,
       params.minPrice ? Number.parseFloat(params.minPrice) : undefined,
       params.maxPrice ? Number.parseFloat(params.maxPrice) : undefined,
       params.isActive === undefined ? undefined : params.isActive === 'true',
       params.page ? Number.parseInt(params.page, 10) : 1,
       params.limit ? Number.parseInt(params.limit, 10) : 20,
+      params.sortBy as 'best-match' | 'price-low' | 'price-high' | 'name' | 'name-desc' | undefined,
     );
 
     const productsResponse = await this.queryBus.execute(query);
@@ -95,17 +106,34 @@ export class ProductController {
       );
       const categories = categoriesResponse.data;
 
-      const activeFilters = [params.categoryId, params.brand, params.isActive].filter(
-        (item): item is string => item !== undefined && item !== null && item !== '',
-      );
+      // Build activeFilters array from URL params (support multiple values)
+      const activeFilters: string[] = [];
+
+      // Handle categoryId (can be array or single value)
+      const categoryIds = Array.isArray(params.categoryId)
+        ? params.categoryId
+        : (params.categoryId ? [params.categoryId] : []);
+      activeFilters.push(...categoryIds);
+
+      // Handle brand (can be array or single value)
+      const brands = Array.isArray(params.brand)
+        ? params.brand
+        : (params.brand ? [params.brand] : []);
+      activeFilters.push(...brands);
+
+      // Handle isActive
+      if (params.isActive) {
+        activeFilters.push(params.isActive);
+      }
 
       const viewModel = ProductPresenter.toListingViewModel(
         productsResponse,
         categories,
         params.search,
-        params.categoryId,
+        categoryIds.length > 0 ? categoryIds[0] : undefined, // Pass first for backward compatibility
         params.sortBy,
         activeFilters,
+        params.viewMode,
       );
 
       return res.render('products', viewModel);

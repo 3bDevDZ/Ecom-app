@@ -25,6 +25,7 @@ export interface ProductListingViewModel {
   activeFilters: string[];
   searchTerm?: string;
   sortBy?: string;
+  viewMode?: string;
   category?: CategoryDto;
 }
 
@@ -53,6 +54,7 @@ export class ProductPresenter {
     categoryId?: string,
     sortBy?: string,
     activeFilters: string[] = [],
+    viewMode?: string,
   ): ProductListingViewModel {
     const category = categoryId
       ? categories.find(c => c.id === categoryId)
@@ -175,6 +177,7 @@ export class ProductPresenter {
       activeFilters,
       searchTerm,
       sortBy: sortBy || 'best-match',
+      viewMode: viewMode || 'grid',
       category,
     };
   }
