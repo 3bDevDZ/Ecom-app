@@ -1,13 +1,32 @@
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as session from 'express-session';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { setupHandlebarsEngine } from './config/handlebars.config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const configService = app.get(ConfigService);
+
+  // Configure express-session for OAuth flow and user session management
+  app.use(
+    session({
+      secret: configService.get<string>('app.sessionSecret') || 'change-me-in-production',
+      resave: false,
+      saveUninitialized: true, // Save session even if unmodified (needed for PKCE state)
+      cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        sameSite: 'lax',
+      },
+      name: 'b2b-ecommerce.sid', // Session cookie name
+    }),
+  );
 
   // Global validation pipe with class-validator
   app.useGlobalPipes(
@@ -66,6 +85,27 @@ async function bootstrap() {
     const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
     // Rewrite URL to include /api prefix for NestJS controller
     req.url = `/api/categories/${id}${queryString ? '?' + queryString : ''}`;
+    req.originalUrl = req.url;
+    // Continue to NestJS routing
+    next();
+  });
+
+  // Proxy /login to /api/auth/login with format=html for HTML rendering
+  instance.all('/login', (req, res, next) => {
+    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
+    const params = new URLSearchParams(queryString);
+    params.set('format', 'html'); // Force HTML format
+    // Rewrite URL to include /api prefix for NestJS controller
+    req.url = `/api/auth/login?${params.toString()}`;
+    req.originalUrl = req.url;
+    // Continue to NestJS routing
+    next();
+  });
+
+  // Proxy /logout to /api/auth/logout
+  instance.all('/logout', (req, res, next) => {
+    // Rewrite URL to include /api prefix for NestJS controller
+    req.url = '/api/auth/logout';
     req.originalUrl = req.url;
     // Continue to NestJS routing
     next();

@@ -25,6 +25,9 @@
   "accessCodeLifespanLogin": 1800,
   "actionTokenGeneratedByAdminLifespan": 43200,
   "actionTokenGeneratedByUserLifespan": 300,
+  "attributes": {
+    "frontendUrl": "http://localhost:8080"
+  },
   "clients": [
     {
       "clientId": "ecommerce-app",
@@ -34,18 +37,14 @@
       "adminUrl": "http://localhost:3333",
       "baseUrl": "http://localhost:3333",
       "enabled": true,
-      "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
       "redirectUris": [
+        "http://localhost:3333/api/auth/callback",
         "http://localhost:3333/*",
         "http://localhost:3000/*"
       ],
-      "webOrigins": [
-        "http://localhost:3333",
-        "http://localhost:3000"
-      ],
+      "webOrigins": ["http://localhost:3333", "http://localhost:3000"],
       "protocol": "openid-connect",
-      "publicClient": false,
+      "publicClient": true,
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
@@ -180,4 +179,3 @@
     ]
   }
 }
-

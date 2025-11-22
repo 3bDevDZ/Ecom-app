@@ -49,17 +49,19 @@
 
         <!-- Action Panel -->
         <div class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col gap-6">
-          <div class="flex flex-col gap-2">
-            <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Price per unit</span>
-            <p class="text-slate-800 dark:text-white text-3xl font-bold">
-              {{formatCurrency product.basePrice product.currency}}
-            </p>
-            {{#if product.hasVariants}}
-              <a class="text-primary text-sm font-semibold hover:underline" href="#variants">
-                View variant pricing
-              </a>
-            {{/if}}
-          </div>
+          {{#if isAuthenticated}}
+            <div class="flex flex-col gap-2">
+              <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Price per unit</span>
+              <p class="text-slate-800 dark:text-white text-3xl font-bold">
+                {{formatCurrency product.basePrice product.currency}}
+              </p>
+              {{#if product.hasVariants}}
+                <a class="text-primary text-sm font-semibold hover:underline" href="#variants">
+                  View variant pricing
+                </a>
+              {{/if}}
+            </div>
+          {{/if}}
 
           {{#if product.hasVariants}}
             {{! Variant Selection }}
@@ -68,12 +70,14 @@
               <input type="hidden" id="selected-variant-price" value="{{product.basePrice}}">
 
               {{! Display price range }}
-              <div class="text-sm text-slate-600 dark:text-slate-400">
-                Price range:
-                <span class="font-semibold text-slate-800 dark:text-white">
-                  {{formatCurrency product.priceRange.min product.currency}} - {{formatCurrency product.priceRange.max product.currency}}
-                </span>
-              </div>
+              {{#if isAuthenticated}}
+                <div class="text-sm text-slate-600 dark:text-slate-400">
+                  Price range:
+                  <span class="font-semibold text-slate-800 dark:text-white">
+                    {{formatCurrency product.priceRange.min product.currency}} - {{formatCurrency product.priceRange.max product.currency}}
+                  </span>
+                </div>
+              {{/if}}
 
               {{! Variant Options as Radio Cards }}
               <div class="flex flex-col gap-3">
@@ -109,16 +113,18 @@
                           {{/each}}
                         </div>
                       </div>
-                      <div class="ml-4 text-right">
-                        <div class="text-lg font-bold text-slate-800 dark:text-white">
-                          {{formatCurrency price ../currency}}
-                        </div>
-                        {{#if priceDelta}}
-                          <div class="text-xs text-slate-500 dark:text-slate-400">
-                            {{#if (greaterThan priceDelta 0)}}+{{/if}}{{formatCurrency priceDelta ../currency}}
+                      {{#if ../../isAuthenticated}}
+                        <div class="ml-4 text-right">
+                          <div class="text-lg font-bold text-slate-800 dark:text-white">
+                            {{formatCurrency price ../currency}}
                           </div>
-                        {{/if}}
-                      </div>
+                          {{#if priceDelta}}
+                            <div class="text-xs text-slate-500 dark:text-slate-400">
+                              {{#if (greaterThan priceDelta 0)}}+{{/if}}{{formatCurrency priceDelta ../currency}}
+                            </div>
+                          {{/if}}
+                        </div>
+                      {{/if}}
                     </label>
                   {{/each}}
                 </div>
@@ -126,27 +132,29 @@
             </div>
           {{/if}}
 
-          <div class="flex flex-col sm:flex-row gap-4 items-end">
-            <div class="w-full sm:w-auto">
-              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="quantity">
-                Quantity
-              </label>
-              {{> quantity-selector
-                id="quantity"
-                label="Quantity"
-                value="1"
-                min=product.minOrderQuantity
-                max=product.maxOrderQuantity
-              }}
+          {{#if isAuthenticated}}
+            <div class="flex flex-col sm:flex-row gap-4 items-end">
+              <div class="w-full sm:w-auto">
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" for="quantity">
+                  Quantity
+                </label>
+                {{> quantity-selector
+                  id="quantity"
+                  label="Quantity"
+                  value="1"
+                  min=product.minOrderQuantity
+                  max=product.maxOrderQuantity
+                }}
+              </div>
+              <button
+                id="add-to-cart-btn"
+                class="flex w-full sm:flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                onclick="addToCart('{{product.id}}', document.querySelector('#quantity').value)"
+                {{#unless product.isActive}}disabled{{/unless}}>
+                <span class="truncate">Add to Cart</span>
+              </button>
             </div>
-            <button
-              id="add-to-cart-btn"
-              class="flex w-full sm:flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
-              onclick="addToCart('{{product.id}}', document.querySelector('#quantity').value)"
-              {{#unless product.isActive}}disabled{{/unless}}>
-              <span class="truncate">Add to Cart</span>
-            </button>
-          </div>
+          {{/if}}
 
           <button
             class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-slate-200 dark:hover:bg-slate-600">

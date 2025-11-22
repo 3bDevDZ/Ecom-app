@@ -32,8 +32,8 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-ecommerce_password}
       RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_VHOST:-/}
     ports:
-      - "${RABBITMQ_PORT:-5672}:5672"      # AMQP protocol
-      - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"  # Management UI
+      - "${RABBITMQ_PORT:-5672}:5672" # AMQP protocol
+      - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672" # Management UI
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
       - ./docker/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
@@ -60,8 +60,10 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME:-localhost}
       KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_PORT: ${KEYCLOAK_PORT:-8080}
       KC_HTTP_ENABLED: "true"
       KC_PROXY: edge
+      KC_PROXY_ADDRESS_FORWARDING: "true"
       KC_HEALTH_ENABLED: "true"
       KC_METRICS_ENABLED: "true"
     command:
@@ -76,7 +78,11 @@ services:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '200 OK'"]
+      test:
+        [
+          "CMD-SHELL",
+          "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '200 OK'",
+        ]
       interval: 15s
       timeout: 5s
       retries: 10
@@ -95,8 +101,8 @@ services:
       MINIO_BROWSER_REDIRECT_URL: http://localhost:${MINIO_CONSOLE_PORT:-9001}
     command: server /data --console-address ":9001"
     ports:
-      - "${MINIO_API_PORT:-9000}:9000"      # API
-      - "${MINIO_CONSOLE_PORT:-9001}:9001"  # Console UI
+      - "${MINIO_API_PORT:-9000}:9000" # API
+      - "${MINIO_CONSOLE_PORT:-9001}:9001" # Console UI
     volumes:
       - minio_data:/data
     healthcheck:

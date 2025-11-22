@@ -191,12 +191,41 @@ export class KeycloakAuthService {
   }
 
   /**
-   * Generate logout URL
+   * Logout from Keycloak by invalidating refresh token
+   */
+  async logout(refreshToken: string): Promise<void> {
+    try {
+      const response = await fetch(
+        `${this.keycloakUrl}/realms/${this.realm}/protocol/openid-connect/logout`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+            client_id: this.clientId,
+            refresh_token: refreshToken,
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        this.logger.warn('Keycloak logout failed, but continuing with local session cleanup');
+      }
+    } catch (error) {
+      const { message, stack } = getErrorDetails(error);
+      this.logger.warn('Keycloak logout error (non-fatal)', message, stack);
+      // Don't throw - we still want to clear local session
+    }
+  }
+
+  /**
+   * Generate logout URL (for front-channel logout)
    */
   generateLogoutUrl(redirectUri?: string): string {
     const params = new URLSearchParams({
       client_id: this.clientId,
-      post_logout_redirect_uri: redirectUri || this.callbackUrl,
+      post_logout_redirect_uri: redirectUri || 'http://localhost:3333',
     });
 
     return `${this.keycloakUrl}/realms/${this.realm}/protocol/openid-connect/logout?${params.toString()}`;
