@@ -5,7 +5,7 @@
 <div class="relative flex h-auto min-h-screen w-full flex-col">
   <div class="flex flex-1">
   {{> filters-sidebar filters=filters activeFilters=activeFilters searchTerm=searchTerm category=category}}
-  
+
   <!-- Products Grid -->
   <main class="flex-1 p-8">
     <div class="flex flex-col gap-6">
@@ -27,22 +27,32 @@
           </div>
           <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg p-1">
             <button
-              class="p-1.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              onclick="setViewMode('grid')">
+              id="view-grid-btn"
+              class="p-1.5 rounded-md {{#ifEquals viewMode "grid"}}bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200{{else}}text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800{{/ifEquals}} transition-colors"
+              onclick="setViewMode('grid')"
+              title="Grid View">
               <span class="material-symbols-outlined !text-xl">grid_view</span>
             </button>
             <button
-              class="p-1.5 rounded-md text-gray-500 dark:text-gray-400"
-              onclick="setViewMode('list')">
+              id="view-list-btn"
+              class="p-1.5 rounded-md {{#ifEquals viewMode "list"}}bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200{{else}}text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800{{/ifEquals}} transition-colors"
+              onclick="setViewMode('list')"
+              title="List View">
               <span class="material-symbols-outlined !text-xl">view_list</span>
             </button>
           </div>
         </div>
       </div>
-      
-      <!-- Product Cards -->
-      {{> product-grid products=products}}
-      
+
+      <!-- Product Cards/List -->
+      <div id="product-container">
+        {{#ifEquals viewMode "list"}}
+          {{> product-list products=products showCheckbox=true}}
+        {{else}}
+          {{> product-grid products=products}}
+        {{/ifEquals}}
+      </div>
+
       <!-- Pagination -->
       {{#if pagination}}
         <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -80,44 +90,416 @@
 </div>
 
 <script>
-function handleSortChange(value) {
-  const url = new URL(window.location);
-  url.searchParams.set('sortBy', value);
-  window.location.href = url.toString();
-}
+(function() {
+  'use strict';
 
-function setViewMode(mode) {
-  localStorage.setItem('productViewMode', mode);
-  // Reload or update view
-  window.location.reload();
-}
-
-function goToPage(page) {
-  const url = new URL(window.location);
-  url.searchParams.set('page', page);
-  window.location.href = url.toString();
-}
-
-function applyFilters() {
-  const form = document.querySelector('aside');
-  const formData = new FormData(form);
-  const params = new URLSearchParams();
-  
-  for (const [key, value] of formData.entries()) {
-    params.append(key, value);
+  // Debounce function
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction() {
+      const args = arguments;
+      const context = this;
+      const later = function() {
+        clearTimeout(timeout);
+        func.apply(context, args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
-  
-  window.location.href = '/products?' + params.toString();
-}
 
-function clearFilters() {
-  window.location.href = '/products';
-}
+  // Initialize view mode from URL params first, then localStorage
+  function getViewModeFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('viewMode') || localStorage.getItem('productViewMode') || 'grid';
+  }
 
-function addToCart(productId, quantity) {
-  // TODO: Implement add to cart functionality
-  console.log('Add to cart:', productId, quantity);
-  // This will be implemented when Order Management module is ready
-}
+  let currentViewMode = getViewModeFromUrl();
+
+  // Update currentViewMode from URL on page load
+  currentViewMode = getViewModeFromUrl();
+
+  // Update view mode buttons state
+  function updateViewModeButtons() {
+    const gridBtn = document.getElementById('view-grid-btn');
+    const listBtn = document.getElementById('view-list-btn');
+
+    if (gridBtn && listBtn) {
+      if (currentViewMode === 'grid') {
+        gridBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+        gridBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+        listBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+        listBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+      } else {
+        listBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+        listBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+        gridBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+        gridBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+      }
+    }
+  }
+
+  // Set view mode and reload with query param
+  window.setViewMode = function(mode) {
+    currentViewMode = mode;
+    localStorage.setItem('productViewMode', mode);
+    const url = new URL(window.location);
+    url.searchParams.set('viewMode', mode);
+    // Preserve all other params (filters, search, sortBy)
+    // Don't remove page param - keep current page
+    window.location.href = url.toString();
+  };
+
+  // Handle sort change
+  window.handleSortChange = function(value) {
+    const url = new URL(window.location);
+    url.searchParams.set('sortBy', value);
+    // Reset to page 1 when sorting changes
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+  };
+
+  // Go to page
+  window.goToPage = function(page) {
+    const url = new URL(window.location);
+    url.searchParams.set('page', page);
+    window.location.href = url.toString();
+  };
+
+  // Apply filters - preserves all selected filters and viewMode
+  window.applyFilters = function() {
+    const form = document.querySelector('aside');
+    if (!form) {
+      console.error('Filters sidebar not found');
+      return;
+    }
+
+    const params = new URLSearchParams();
+
+    // Get search input value
+    const searchInput = form.querySelector('input[type="text"], input[name="search"], input[type="search"]');
+    if (searchInput && searchInput.value && searchInput.value.trim()) {
+      params.set('search', searchInput.value.trim());
+    }
+
+    // Get all checked checkboxes - collect multiple values per filter name
+    const filterValues = {};
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+
+    checkboxes.forEach(function(checkbox) {
+      const name = checkbox.name;
+      const value = checkbox.value;
+
+      if (name && value) {
+        if (!filterValues[name]) {
+          filterValues[name] = [];
+        }
+        filterValues[name].push(value);
+      }
+    });
+
+    // Add all filter values to params (each value gets its own param)
+    Object.keys(filterValues).forEach(function(filterName) {
+      filterValues[filterName].forEach(function(value) {
+        params.append(filterName, value);
+      });
+    });
+
+    // Reset to page 1 when applying filters
+    params.set('page', '1');
+
+    // Preserve sortBy if exists
+    const currentSortBy = new URL(window.location).searchParams.get('sortBy');
+    if (currentSortBy) {
+      params.set('sortBy', currentSortBy);
+    }
+
+    // Preserve viewMode (important!) - get from URL or current state
+    const urlParams = new URLSearchParams(window.location.search);
+    const savedViewMode = urlParams.get('viewMode') || currentViewMode || 'grid';
+    params.set('viewMode', savedViewMode);
+
+    window.location.href = '/products?' + params.toString();
+  };
+
+  // Clear filters
+  window.clearFilters = function() {
+    const url = new URL('/products', window.location.origin);
+
+    // Preserve viewMode
+    if (currentViewMode) {
+      url.searchParams.set('viewMode', currentViewMode);
+    }
+
+    window.location.href = url.toString();
+  };
+
+  // Debounced search function - only reloads after user stops typing
+  let searchTimeout = null;
+
+  const performSearch = debounce(function(searchTerm) {
+    const url = new URL(window.location);
+
+    if (searchTerm && searchTerm.trim()) {
+      url.searchParams.set('search', searchTerm.trim());
+    } else {
+      url.searchParams.delete('search');
+    }
+
+    // Reset to page 1 when searching
+    url.searchParams.set('page', '1');
+
+    // Preserve other filters
+    const form = document.querySelector('aside');
+    if (form) {
+      // First, clear existing filter params
+      url.searchParams.delete('categoryId');
+      url.searchParams.delete('brand');
+      url.searchParams.delete('isActive');
+
+      // Then add checked checkboxes
+      const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+      checkboxes.forEach(function(checkbox) {
+        const name = checkbox.name;
+        const value = checkbox.value;
+
+        if (name && value) {
+          url.searchParams.append(name, value);
+        }
+      });
+    }
+
+    // Preserve sortBy
+    const currentSortBy = new URL(window.location).searchParams.get('sortBy');
+    if (currentSortBy) {
+      url.searchParams.set('sortBy', currentSortBy);
+    }
+
+    // Preserve viewMode
+    if (currentViewMode) {
+      url.searchParams.set('viewMode', currentViewMode);
+    }
+
+    window.location.href = url.toString();
+  }, 800); // 800ms debounce delay - longer to avoid interrupting typing
+
+  // Setup debounced search for any search input (sidebar or navbar)
+  function setupDebouncedSearch(searchInput, preserveFilters) {
+    if (!searchInput) return;
+
+    // Set current search value from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentSearch = urlParams.get('search');
+    if (currentSearch) {
+      searchInput.value = currentSearch;
+    }
+
+    let localSearchTimeout = null;
+
+    // Add input event listener - don't reload while typing
+    searchInput.addEventListener('input', function(e) {
+      const target = e.target;
+      const searchTerm = target.value;
+
+      // Clear any pending search
+      if (localSearchTimeout) {
+        clearTimeout(localSearchTimeout);
+      }
+      if (searchTimeout) {
+        clearTimeout(searchTimeout);
+      }
+
+      // Only trigger search after user stops typing for 800ms
+      localSearchTimeout = window.setTimeout(function() {
+        if (preserveFilters) {
+          performSearch(searchTerm);
+        } else {
+          // For navbar, just redirect to products page with search
+          const url = new URL('/products', window.location.origin);
+          if (searchTerm && searchTerm.trim()) {
+            url.searchParams.set('search', searchTerm.trim());
+          }
+          // Preserve viewMode
+          const currentViewModeFromUrl = getViewModeFromUrl();
+          url.searchParams.set('viewMode', currentViewModeFromUrl);
+          window.location.href = url.toString();
+        }
+      }, 800);
+      searchTimeout = localSearchTimeout;
+    });
+
+    // Handle Enter key - search immediately
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (localSearchTimeout) {
+          clearTimeout(localSearchTimeout);
+        }
+        if (searchTimeout) {
+          clearTimeout(searchTimeout);
+        }
+        const target = e.target;
+        const searchTerm = target.value;
+        if (preserveFilters) {
+          performSearch(searchTerm);
+        } else {
+          // For navbar, just redirect to products page with search
+          const url = new URL('/products', window.location.origin);
+          if (searchTerm && searchTerm.trim()) {
+            url.searchParams.set('search', searchTerm.trim());
+          }
+          // Preserve viewMode
+          const currentViewModeFromUrl = getViewModeFromUrl();
+          url.searchParams.set('viewMode', currentViewModeFromUrl);
+          window.location.href = url.toString();
+        }
+      }
+    });
+  }
+
+  // Setup search input listeners on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    // Update currentViewMode from URL first (before anything else)
+    currentViewMode = getViewModeFromUrl();
+    // Save to localStorage for next time
+    if (currentViewMode) {
+      localStorage.setItem('productViewMode', currentViewMode);
+    }
+
+    // Initialize view mode buttons first
+    updateViewModeButtons();
+
+    // Setup sidebar search (preserves filters)
+    const sidebarSearchInput = document.querySelector('aside input[type="text"], aside input[name="search"], aside input[type="search"]');
+    if (sidebarSearchInput) {
+      setupDebouncedSearch(sidebarSearchInput, true);
+      // Restore checkbox states from URL
+      restoreCheckboxStates();
+    }
+
+    // Setup navbar search (doesn't preserve filters - starts fresh)
+    const navbarSearchInput = document.getElementById('navbar-search');
+    if (navbarSearchInput) {
+      setupDebouncedSearch(navbarSearchInput, false);
+    }
+  });
+
+  // Restore checkbox states from URL parameters
+  function restoreCheckboxStates() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const form = document.querySelector('aside');
+
+    if (form) {
+      // Get all filter values from URL
+      const categoryIds = urlParams.getAll('categoryId');
+      const brands = urlParams.getAll('brand');
+      const isActive = urlParams.get('isActive');
+
+      // Restore category checkboxes
+      categoryIds.forEach(function(categoryId) {
+        const checkbox = form.querySelector('input[type="checkbox"][name="categoryId"][value="' + categoryId + '"]');
+        if (checkbox) {
+          checkbox.checked = true;
+        }
+      });
+
+      // Restore brand checkboxes
+      brands.forEach(function(brand) {
+        const checkbox = form.querySelector('input[type="checkbox"][name="brand"][value="' + brand + '"]');
+        if (checkbox) {
+          checkbox.checked = true;
+        }
+      });
+
+      // Restore isActive checkbox
+      if (isActive) {
+        const checkbox = form.querySelector('input[type="checkbox"][name="isActive"][value="' + isActive + '"]');
+        if (checkbox) {
+          checkbox.checked = true;
+        }
+      }
+    }
+  }
+
+  // Add to cart function
+  window.addToCart = function(productId, quantity) {
+    const qty = parseInt(quantity) || 1;
+
+    fetch('/api/cart/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        productId: productId,
+        quantity: qty,
+      }),
+    })
+      .then(response => {
+        if (response.status === 401) {
+          window.location.href = '/login';
+          return;
+        }
+        if (!response.ok) {
+          return response.json().then(err => {
+            throw new Error(err.message || 'Failed to add to cart');
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Show success message
+        const message = document.createElement('div');
+        message.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+        message.textContent = 'Product added to cart!';
+        document.body.appendChild(message);
+
+        setTimeout(() => {
+          message.remove();
+        }, 3000);
+
+        // Update cart count
+        updateCartCount();
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error);
+        const message = document.createElement('div');
+        message.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+        message.textContent = error.message || 'Failed to add product to cart';
+        document.body.appendChild(message);
+
+        setTimeout(() => {
+          message.remove();
+        }, 3000);
+      });
+  };
+
+  // Update cart count
+  function updateCartCount() {
+    fetch('/api/cart', {
+      credentials: 'include',
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        return null;
+      })
+      .then(cart => {
+        if (cart && cart.items) {
+          const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+          const cartBadge = document.querySelector('[data-cart-count]');
+          if (cartBadge) {
+            cartBadge.textContent = totalItems;
+            cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error updating cart count:', error);
+      });
+  }
+})();
 </script>
 

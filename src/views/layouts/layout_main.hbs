@@ -46,5 +46,60 @@
         </main>
         {{> footer}}
     </div>
+    <script>
+    // Navbar search is handled in products page for debounced search
+    // This script only handles basic navigation for non-products pages
+    (function() {
+      'use strict';
+
+      // Only setup basic navbar search if not on products page
+      if (window.location.pathname !== '/products' && !window.location.pathname.startsWith('/products')) {
+        function handleNavbarSearch() {
+          const navbarSearch = document.getElementById('navbar-search');
+
+          if (navbarSearch) {
+            // Handle Enter key press
+            navbarSearch.addEventListener('keydown', function(e) {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                const searchTerm = this.value.trim();
+
+                if (searchTerm) {
+                  window.location.href = '/products?search=' + encodeURIComponent(searchTerm);
+                } else {
+                  window.location.href = '/products';
+                }
+              }
+            });
+
+            // Handle search icon click
+            const searchContainer = navbarSearch.closest('label');
+            if (searchContainer) {
+              const searchIconContainer = searchContainer.querySelector('.text-gray-500, .dark\\:text-gray-400');
+              if (searchIconContainer) {
+                searchIconContainer.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  const searchTerm = navbarSearch.value.trim();
+
+                  if (searchTerm) {
+                    window.location.href = '/products?search=' + encodeURIComponent(searchTerm);
+                  } else {
+                    window.location.href = '/products';
+                  }
+                });
+              }
+            }
+          }
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', handleNavbarSearch);
+        } else {
+          handleNavbarSearch();
+        }
+      }
+    })();
+    </script>
 </body>
 </html>

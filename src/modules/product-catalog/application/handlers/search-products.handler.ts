@@ -1,10 +1,10 @@
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
-import { SearchProductsQuery } from '../queries/search-products.query';
-import { ProductDto, ProductImageDto, ProductVariantDto } from '../dtos';
-import { IProductRepository } from '../../domain/repositories/product.repository.interface';
-import { Product } from '../../domain/aggregates/product';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PaginatedResponse } from '../../../../shared/application/pagination.dto';
+import { Product } from '../../domain/aggregates/product';
+import { IProductRepository } from '../../domain/repositories/product.repository.interface';
+import { ProductDto, ProductImageDto, ProductVariantDto } from '../dtos';
+import { SearchProductsQuery } from '../queries/search-products.query';
 
 /**
  * SearchProductsQueryHandler
@@ -17,44 +17,58 @@ export class SearchProductsQueryHandler implements IQueryHandler<SearchProductsQ
   constructor(
     @Inject('IProductRepository')
     private readonly productRepository: IProductRepository,
-  ) {}
+  ) { }
 
   async execute(query: SearchProductsQuery): Promise<PaginatedResponse<ProductDto>> {
     let products: Product[];
     let total: number;
 
-    // Handle different search scenarios
+    // Normalize arrays for filtering
+    const categoryIds = Array.isArray(query.categoryId) ? query.categoryId : (query.categoryId ? [query.categoryId] : undefined);
+    const brands = Array.isArray(query.brand) ? query.brand : (query.brand ? [query.brand] : undefined);
+
+    // Start with search or all products
     if (query.searchTerm) {
       products = await this.productRepository.search(
         query.searchTerm,
-        query.categoryId,
+        categoryIds?.[0], // Repository search supports single categoryId
         query.skip,
-        query.limit,
+        query.limit * 2, // Get more products to filter
       );
-      total = await this.productRepository.countSearch(query.searchTerm, query.categoryId);
-    } else if (query.categoryId) {
-      products = await this.productRepository.findByCategory(
-        query.categoryId,
-        query.skip,
-        query.limit,
-      );
-      total = await this.productRepository.countByCategory(query.categoryId);
-    } else if (query.brand) {
-      products = await this.productRepository.findByBrand(query.brand, query.skip, query.limit);
-      total = await this.productRepository.count();
-    } else if (query.tags && query.tags.length > 0) {
-      products = await this.productRepository.findByTags(query.tags, query.skip, query.limit);
-      total = await this.productRepository.count();
+      total = await this.productRepository.countSearch(query.searchTerm, categoryIds?.[0]);
     } else {
-      products = await this.productRepository.findAll(query.skip, query.limit);
+      products = await this.productRepository.findAll(query.skip, query.limit * 2);
       total = await this.productRepository.count();
     }
 
-    // Apply additional filters in memory (for MVP, this could be moved to repository later)
+    // Apply AND filtering - all filters must match
+    // Category filter (OR within categories - match any selected category)
+    if (categoryIds && categoryIds.length > 0) {
+      products = products.filter(p => categoryIds.includes(p.categoryId));
+      total = products.length;
+    }
+
+    // Brand filter (OR within brands - match any selected brand)
+    if (brands && brands.length > 0) {
+      products = products.filter(p => p.brand && brands.includes(p.brand));
+      total = products.length;
+    }
+
+    // Tags filter (OR within tags)
+    if (query.tags && query.tags.length > 0) {
+      products = products.filter(p =>
+        p.tags && query.tags!.some(tag => p.tags.includes(tag))
+      );
+      total = products.length;
+    }
+
+    // Active status filter
     if (query.isActive !== undefined) {
       products = products.filter(p => p.isActive === query.isActive);
+      total = products.length;
     }
 
+    // Price range filter
     if (query.minPrice !== undefined || query.maxPrice !== undefined) {
       products = products.filter(p => {
         const price = p.basePrice.amount;
@@ -62,10 +76,21 @@ export class SearchProductsQueryHandler implements IQueryHandler<SearchProductsQ
         if (query.maxPrice !== undefined && price > query.maxPrice) return false;
         return true;
       });
+      total = products.length;
     }
 
+    // Apply pagination after filtering
+    const skip = query.skip;
+    const limit = query.limit;
+    products = products.slice(skip, skip + limit);
+
     // Transform to DTOs
-    const productDtos = products.map(p => this.toDto(p));
+    let productDtos = products.map(p => this.toDto(p));
+
+    // Apply sorting
+    if (query.sortBy) {
+      productDtos = this.sortProducts(productDtos, query.sortBy);
+    }
 
     return new PaginatedResponse(productDtos, total, query.page, query.limit);
   }
@@ -115,5 +140,41 @@ export class SearchProductsQueryHandler implements IQueryHandler<SearchProductsQ
       product.updatedAt,
       totalAvailableQuantity,
     );
+  }
+
+  /**
+   * Sort products based on sortBy option
+   */
+  private sortProducts(products: ProductDto[], sortBy: string): ProductDto[] {
+    const sorted = [...products];
+
+    switch (sortBy) {
+      case 'price-low':
+        sorted.sort((a, b) => {
+          const priceA = a.priceRange?.min ?? a.basePrice;
+          const priceB = b.priceRange?.min ?? b.basePrice;
+          return priceA - priceB;
+        });
+        break;
+      case 'price-high':
+        sorted.sort((a, b) => {
+          const priceA = a.priceRange?.max ?? a.basePrice;
+          const priceB = b.priceRange?.max ?? b.basePrice;
+          return priceB - priceA;
+        });
+        break;
+      case 'name':
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'name-desc':
+        sorted.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'best-match':
+      default:
+        // Best match: Keep original order (products from repository are already sorted by relevance)
+        break;
+    }
+
+    return sorted;
   }
 }
