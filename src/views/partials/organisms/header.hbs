@@ -23,20 +23,30 @@
             <a class="text-gray-800 dark:text-white text-sm font-medium leading-normal hover:text-primary" href="#">Support</a>
         </div>
         <div class="flex gap-2">
-            <button class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
-                <span class="truncate">Sign In</span>
-            </button>
+            {{#if isAuthenticated}}
+                <a href="/logout" class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <span class="truncate">Logout</span>
+                </a>
+            {{else}}
+                <a href="/login" class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                    <span class="truncate">Sign In</span>
+                </a>
+            {{/if}}
             <a href="/categories" class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-background-light dark:bg-gray-800 text-gray-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5" title="Categories">
                 <span class="material-symbols-outlined text-xl">category</span>
             </a>
             <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-background-light dark:bg-gray-800 text-gray-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5" title="Favorites">
                 <span class="material-symbols-outlined text-xl">favorite</span>
             </button>
-            <a href="/cart" class="relative flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-background-light dark:bg-gray-800 text-gray-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5" title="Shopping Cart">
-                <span class="material-symbols-outlined text-xl">shopping_cart</span>
-                <span id="cart-count-badge" class="hidden absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center">0</span>
-            </a>
+            {{#if isAuthenticated}}
+                <a href="/cart" class="relative flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-background-light dark:bg-gray-800 text-gray-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5" title="Shopping Cart">
+                    <span class="material-symbols-outlined text-xl">shopping_cart</span>
+                    <span id="cart-count-badge" class="hidden absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center">0</span>
+                </a>
+            {{/if}}
         </div>
-        <div class="hidden sm:block bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://via.placeholder.com/40");'></div>
+        {{#if isAuthenticated}}
+            <div class="hidden sm:block bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://via.placeholder.com/40");'></div>
+        {{/if}}
     </div>
 </header>

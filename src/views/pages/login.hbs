@@ -1,0 +1,74 @@
+{{!
+  Login Page
+  Simple login page that redirects to Keycloak authentication
+}}
+<div
+  class="relative flex h-auto min-h-screen w-full flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 py-12"
+>
+  <div class="w-full max-w-md">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+      <!-- Logo/Header -->
+      <div class="flex flex-col items-center mb-8">
+        <div class="flex items-center gap-2 mb-4">
+          <span
+            class="material-symbols-outlined text-primary !text-4xl"
+          >all_inbox</span>
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">B2B
+            Solutions</h1>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Sign
+          In to Your Account</h2>
+      </div>
+
+      <!-- Error Message -->
+      {{#ifEquals query.error "auth_failed"}}
+        <div
+          class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+        >
+          <p class="text-sm text-red-800 dark:text-red-200">
+            Authentication failed. Please try again.
+          </p>
+        </div>
+      {{/ifEquals}}
+
+      <!-- Login Form -->
+      <form action="/api/auth/login" method="GET" class="space-y-6">
+        <input type="hidden" name="action" value="login" />
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+          Sign in with your Keycloak account to access product prices, add items
+          to cart, and manage orders.
+        </p>
+
+        <button
+          type="submit"
+          class="w-full flex items-center justify-center gap-3 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          <span class="material-symbols-outlined">login</span>
+          <span>Sign In with Keycloak</span>
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <div
+        class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center"
+      >
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          Don't have an account? Contact your administrator.
+        </p>
+      </div>
+    </div>
+
+    <!-- Features Info -->
+    <div class="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+      <p class="mb-2">
+        <span class="font-semibold">After signing in, you can:</span>
+      </p>
+      <ul class="list-disc list-inside space-y-1">
+        <li>View product prices</li>
+        <li>Add items to your cart</li>
+        <li>Place and track orders</li>
+        <li>Manage your account</li>
+      </ul>
+    </div>
+  </div>
+</div>

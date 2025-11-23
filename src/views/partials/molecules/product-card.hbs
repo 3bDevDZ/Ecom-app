@@ -43,9 +43,11 @@
     <p class="text-xs text-gray-500 dark:text-gray-400">SKU: {{product.sku}}</p>
     <div class="flex-1"></div>
     <div class="flex items-center justify-between">
-      <p class="text-lg font-extrabold text-gray-900 dark:text-white">
-        {{formatCurrency product.basePrice product.currency}}
-      </p>
+      {{#if @root.isAuthenticated}}
+        <p class="text-lg font-extrabold text-gray-900 dark:text-white">
+          {{formatCurrency product.basePrice product.currency}}
+        </p>
+      {{/if}}
       {{#if product.isActive}}
         <span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 dark:bg-green-900/50 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300">
           <span class="size-1.5 rounded-full bg-green-500"></span>
@@ -59,23 +61,25 @@
       {{/if}}
     </div>
   </div>
-  <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2">
-    <input
-      class="form-input w-16 text-center rounded-lg bg-background-light dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary"
-      type="number" 
-      value="{{product.minOrderQuantity}}" 
-      min="{{product.minOrderQuantity}}"
-      {{#if product.maxOrderQuantity}}max="{{product.maxOrderQuantity}}"{{/if}}
-      data-product-id="{{product.id}}"
-      {{#unless product.isActive}}disabled{{/unless}}
-    />
-    <button
-      class="flex-1 flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 {{#if product.isActive}}bg-primary text-white hover:bg-primary/90{{else}}bg-primary/20 text-primary hover:bg-primary/30 cursor-not-allowed{{/if}} gap-2 text-sm font-bold leading-normal tracking-[0.015em]"
-      data-product-id="{{product.id}}"
-      {{#unless product.isActive}}disabled{{/unless}}
-      onclick="addToCart('{{product.id}}', this.previousElementSibling.value)">
-      Add to Cart
-    </button>
-  </div>
+  {{#if @root.isAuthenticated}}
+    <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2">
+      <input
+        class="form-input w-16 text-center rounded-lg bg-background-light dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary"
+        type="number"
+        value="{{product.minOrderQuantity}}"
+        min="{{product.minOrderQuantity}}"
+        {{#if product.maxOrderQuantity}}max="{{product.maxOrderQuantity}}"{{/if}}
+        data-product-id="{{product.id}}"
+        {{#unless product.isActive}}disabled{{/unless}}
+      />
+      <button
+        class="flex-1 flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 {{#if product.isActive}}bg-primary text-white hover:bg-primary/90{{else}}bg-primary/20 text-primary hover:bg-primary/30 cursor-not-allowed{{/if}} gap-2 text-sm font-bold leading-normal tracking-[0.015em]"
+        data-product-id="{{product.id}}"
+        {{#unless product.isActive}}disabled{{/unless}}
+        onclick="addToCart('{{product.id}}', this.previousElementSibling.value)">
+        Add to Cart
+      </button>
+    </div>
+  {{/if}}
 </div>
 

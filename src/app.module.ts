@@ -1,23 +1,27 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ScheduleModule } from '@nestjs/schedule';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 // Configuration
+import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import keycloakConfig from './config/keycloak.config';
 import rabbitmqConfig from './config/rabbitmq.config';
-import appConfig from './config/app.config';
 
 // Controllers
 import { AppController } from './app.controller';
 
+// Middleware
+import { RouteProxyMiddleware } from './common/middleware/route-proxy.middleware';
+import { ViewUserMiddleware } from './common/middleware/view-user.middleware';
+
 // Modules (to be imported as implemented)
-// import { IdentityModule } from './modules/identity/identity.module';
+import { IdentityModule } from './modules/identity/identity.module';
 // import { LandingCmsModule } from './modules/landing-cms/landing-cms.module';
-import { ProductCatalogModule } from './modules/product-catalog/product-catalog.module';
 import { OrderManagementModule } from './modules/order-management/order-management.module';
+import { ProductCatalogModule } from './modules/product-catalog/product-catalog.module';
 
 @Module({
   imports: [
@@ -51,13 +55,20 @@ import { OrderManagementModule } from './modules/order-management/order-manageme
     ScheduleModule.forRoot(),
 
     // Bounded Context Modules (uncomment as implemented)
-    // IdentityModule,
+    IdentityModule,
     // LandingCmsModule,
     ProductCatalogModule,
     OrderManagementModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [ViewUserMiddleware, RouteProxyMiddleware],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // Apply ViewUserMiddleware to all routes to attach user info for views
+    consumer.apply(ViewUserMiddleware).forRoutes('*');
 
+    // Apply RouteProxyMiddleware to handle route proxying
+    consumer.apply(RouteProxyMiddleware).forRoutes('*');
+  }
+}

@@ -1,13 +1,32 @@
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as session from 'express-session';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { setupHandlebarsEngine } from './config/handlebars.config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const configService = app.get(ConfigService);
+
+  // Configure express-session for OAuth flow and user session management
+  app.use(
+    session({
+      secret: configService.get<string>('app.sessionSecret') || 'change-me-in-production',
+      resave: false,
+      saveUninitialized: true, // Save session even if unmodified (needed for PKCE state)
+      cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        sameSite: 'lax',
+      },
+      name: 'b2b-ecommerce.sid', // Session cookie name
+    }),
+  );
 
   // Global validation pipe with class-validator
   app.useGlobalPipes(
@@ -41,34 +60,6 @@ async function bootstrap() {
       '/cart',
       '/orders',
     ],
-  });
-
-  // Register Express routes for parameterized paths AFTER global prefix is set
-  // NestJS route exclusion doesn't work with :id parameters, so we handle them manually
-  // These routes rewrite the URL and forward to NestJS controllers with /api prefix
-  const httpAdapter = app.getHttpAdapter();
-  const instance = httpAdapter.getInstance();
-
-  // Proxy /products/:id to /api/products/:id
-  instance.all('/products/:id', (req, res, next) => {
-    const id = req.params.id;
-    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
-    // Rewrite URL to include /api prefix for NestJS controller
-    req.url = `/api/products/${id}${queryString ? '?' + queryString : ''}`;
-    req.originalUrl = req.url;
-    // Continue to NestJS routing
-    next();
-  });
-
-  // Proxy /categories/:id to /api/categories/:id
-  instance.all('/categories/:id', (req, res, next) => {
-    const id = req.params.id;
-    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
-    // Rewrite URL to include /api prefix for NestJS controller
-    req.url = `/api/categories/${id}${queryString ? '?' + queryString : ''}`;
-    req.originalUrl = req.url;
-    // Continue to NestJS routing
-    next();
   });
 
   // Swagger/OpenAPI configuration

@@ -24,6 +24,8 @@
     "migration:run": "npm run typeorm -- migration:run -d src/config/typeorm.config.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/config/typeorm.config.ts",
     "seed": "ts-node -r tsconfig-paths/register src/scripts/seed-database.ts",
+    "seed:keycloak": "ts-node -r tsconfig-paths/register src/scripts/seed-keycloak-users.ts",
+    "keycloak:get-key": "node scripts/get-keycloak-public-key.js",
     "db:setup": "node scripts/run-setup.js",
     "db:check": "node scripts/run-check.js",
     "db:test": "node scripts/test-connection.js",

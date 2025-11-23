@@ -378,6 +378,53 @@
 
 ---
 
+## Phase 5.6: Product Listing Page Enhancements (Priority: P1) 🎯 MVP
+
+**Goal**: Enhance the product listing page with advanced filtering, search, sorting, and view mode toggling
+
+**Independent Test**: Can be tested by filtering products, searching with debounced input, sorting results, and toggling between grid/list views. All states should be preserved across actions.
+
+### Product Filtering and Search Enhancements
+
+- [x] T198a [US1] Implement debounced search in filters sidebar (800ms delay) in apps/api/src/views/pages/products.hbs
+- [x] T198b [US1] Implement debounced search in navbar (800ms delay) in apps/api/src/views/layouts/layout_main.hbs
+- [x] T198c [US1] Add support for AND logic between different filter types (categoryId AND brand) in apps/api/src/modules/product-catalog/application/handlers/search-products.handler.ts
+- [x] T198d [US1] Add support for OR logic for multiple values of same filter type (multiple brands OR multiple categories) in apps/api/src/modules/product-catalog/application/handlers/search-products.handler.ts
+- [x] T198e [US1] Update ProductSearchParamsDto to handle array values for categoryId and brand in apps/api/src/modules/product-catalog/presentation/controllers/product-search-params.dto.ts
+- [x] T198f [US1] Update SearchProductsQuery to accept array values for categoryId and brand in apps/api/src/modules/product-catalog/application/queries/search-products.query.ts
+- [x] T198g [US1] Add checkbox state restoration from URL parameters on page load in apps/api/src/views/pages/products.hbs
+- [x] T198h [US1] Ensure filter checkboxes remain checked after applying filters in apps/api/src/views/pages/products.hbs
+
+### Product Sorting Functionality
+
+- [x] T199a [US1] Add sortBy parameter to SearchProductsQuery (best-match, price-low, price-high, name) in apps/api/src/modules/product-catalog/application/queries/search-products.query.ts
+- [x] T199b [US1] Implement sorting logic in SearchProductsQueryHandler (price-low, price-high, name) in apps/api/src/modules/product-catalog/application/handlers/search-products.handler.ts
+- [x] T199c [US1] Add sort dropdown UI to products listing page in apps/api/src/views/pages/products.hbs
+- [x] T199d [US1] Add sortBy to ProductSearchParamsDto with validation in apps/api/src/modules/product-catalog/presentation/controllers/product-search-params.dto.ts
+- [x] T199e [US1] Pass sortBy to ProductPresenter in apps/api/src/modules/product-catalog/presentation/controllers/product.controller.ts
+- [x] T199f [US1] Preserve sortBy when applying filters, searching, or changing view mode in apps/api/src/views/pages/products.hbs
+
+### View Mode Toggle (Grid/List)
+
+- [x] T200a [US1] Add viewMode parameter to ProductSearchParamsDto in apps/api/src/modules/product-catalog/presentation/controllers/product-search-params.dto.ts
+- [x] T200b [US1] Add viewMode to ProductListingViewModel in apps/api/src/modules/product-catalog/presentation/presenters/product.presenter.ts
+- [x] T200c [US1] Add grid/list view toggle buttons to products listing page in apps/api/src/views/pages/products.hbs
+- [x] T200d [US1] Implement setViewMode JavaScript function with localStorage persistence in apps/api/src/views/pages/products.hbs
+- [x] T200e [US1] Implement conditional rendering of product-grid or product-list partial based on viewMode in apps/api/src/views/pages/products.hbs
+- [x] T200f [US1] Initialize viewMode from URL parameters first, then localStorage in apps/api/src/views/pages/products.hbs
+- [x] T200g [US1] Preserve viewMode when applying filters, searching, sorting, or paginating in apps/api/src/views/pages/products.hbs
+
+### Category Detail Page
+
+- [x] T201a [US1] Create category-detail.hbs page template in apps/api/src/views/pages/category-detail.hbs
+- [x] T201b [US1] Update CategoryController.getCategoryById to support HTML rendering with products in apps/api/src/modules/product-catalog/presentation/controllers/category.controller.ts
+- [x] T201c [US1] Add GET /api/categories/:id endpoint with HTML support in apps/api/src/modules/product-catalog/presentation/controllers/category.controller.ts
+- [x] T201d [US1] Update product detail page breadcrumbs to link to category detail page in apps/api/src/modules/product-catalog/presentation/presenters/product.presenter.ts
+
+**Checkpoint**: At this point, the product listing page is fully functional with advanced filtering (AND/OR logic), debounced search (sidebar and navbar), sorting, view mode toggle (grid/list), and category detail pages. All user preferences (filters, search, sort, view mode) are preserved across actions.
+
+---
+
 ## Phase 6: User Story 4 - Manage Landing Page Content (Priority: P1) 🎯 MVP
 
 **Goal**: Enable site administrators to edit landing page content (hero, trust logos, product showcase, showroom, contact, footer) via CMS without developer assistance

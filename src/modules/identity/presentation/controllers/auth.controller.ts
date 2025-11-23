@@ -1,10 +1,10 @@
-import { Controller, Get, Query, Res, Req, Session, UseGuards, Logger } from '@nestjs/common';
-import { Response, Request } from 'express';
-import { KeycloakAuthService } from '../../application/services/keycloak-auth.service';
-import { JwtAuthGuard } from '../../application/guards/jwt-auth.guard';
 import { User } from '@common/decorators/user.decorator';
-import * as crypto from 'crypto';
 import { getErrorDetails } from '@common/utils/error.util';
+import { Controller, Get, Logger, Query, Req, Res, Session, UseGuards } from '@nestjs/common';
+import * as crypto from 'crypto';
+import { Request, Response } from 'express';
+import { JwtAuthGuard } from '../../application/guards/jwt-auth.guard';
+import { KeycloakAuthService } from '../../application/services/keycloak-auth.service';
 
 /**
  * Authentication Controller
@@ -15,14 +15,71 @@ import { getErrorDetails } from '@common/utils/error.util';
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
-  constructor(private readonly keycloakAuthService: KeycloakAuthService) {}
+  constructor(private readonly keycloakAuthService: KeycloakAuthService) { }
 
   /**
    * Initiate login - redirect to Keycloak
    * GET /api/auth/login
+   * GET /login (for HTML view)
    */
   @Get('login')
-  async login(@Res() res: Response, @Session() session: Record<string, any>) {
+  async login(
+    @Query('format') format?: string,
+    @Query('action') action?: string,
+    @Req() req?: Request,
+    @Res() res?: Response,
+    @Session() session?: Record<string, any>,
+  ) {
+    // Check if user is already authenticated
+    if (session?.accessToken) {
+      // If HTML request, redirect to home
+      if (res && (format === 'html' || !format)) {
+        return res.redirect('/');
+      }
+      // If API request, return profile
+      return { message: 'Already authenticated' };
+    }
+
+    // Check if this is a form submission (button clicked) - query param action=login
+    const isFormSubmission = action === 'login' || req?.query?.action === 'login';
+
+    // Check if this is an HTML request (show login page)
+    // Only show login page if it's NOT a form submission
+    const isHtmlRequest =
+      !isFormSubmission &&
+      (format === 'html' ||
+        (res && res.req.headers.accept?.includes('text/html')) ||
+        (res && !res.req.headers.accept?.includes('application/json')));
+
+    if (isHtmlRequest && res) {
+      // Render login page
+      return res.render('login', {
+        query: res.req.query || {},
+        breadcrumbs: [
+          { label: 'Home', href: '/' },
+          { label: 'Login' },
+        ],
+      });
+    }
+
+    // API request or form submission - redirect to Keycloak
+    if (!res) {
+      this.logger.error('Response not available for Keycloak redirect');
+      return { message: 'Response not available' };
+    }
+
+    // Ensure session exists (it will be created by express-session middleware)
+    if (!session) {
+      this.logger.error('Session not available - session middleware may not be configured correctly');
+      return res.status(500).render('login', {
+        query: { ...res.req.query, error: 'session_error' },
+        breadcrumbs: [
+          { label: 'Home', href: '/' },
+          { label: 'Login' },
+        ],
+      });
+    }
+
     try {
       // Generate PKCE code verifier and challenge
       const codeVerifier = this.generateCodeVerifier();
@@ -38,12 +95,12 @@ export class AuthController {
       // Generate authorization URL
       const authUrl = this.keycloakAuthService.generateAuthUrl(state, codeChallenge);
 
-      this.logger.log('Redirecting to Keycloak for authentication');
+      this.logger.log(`Redirecting to Keycloak for authentication: ${authUrl}`);
       return res.redirect(authUrl);
     } catch (error) {
       const { message, stack } = getErrorDetails(error);
       this.logger.error('Login error', message, stack);
-      return res.status(500).json({ message: 'Authentication failed' });
+      return res?.status(500).json({ message: 'Authentication failed' });
     }
   }
 
@@ -88,8 +145,8 @@ export class AuthController {
 
       this.logger.log('User authenticated successfully');
 
-      // Redirect to dashboard or home
-      return res.redirect('/dashboard');
+      // Redirect to home page (or original destination if stored)
+      return res.redirect('/');
     } catch (error) {
       const { message, stack } = getErrorDetails(error);
       this.logger.error('Callback error', message, stack);
@@ -98,31 +155,54 @@ export class AuthController {
   }
 
   /**
-   * Logout - clear session and redirect to Keycloak logout
+   * Logout - clear session and redirect to home
    * GET /api/auth/logout
+   * GET /logout (for HTML view)
+   *
+   * Note: Removed @UseGuards(JwtAuthGuard) so users can logout even if already logged out
    */
   @Get('logout')
-  @UseGuards(JwtAuthGuard)
-  async logout(@Req() req: Request, @Res() res: Response) {
+  async logout(@Req() req: Request, @Res() res: Response, @Session() session?: Record<string, any>) {
     try {
-      // Generate logout URL
-      const logoutUrl = this.keycloakAuthService.generateLogoutUrl(
-        req.protocol + '://' + req.get('host'),
-      );
+      // If user has tokens, try to logout from Keycloak first
+      if (session?.accessToken || session?.refreshToken) {
+        try {
+          // Try to logout from Keycloak (but don't fail if it doesn't work)
+          if (session.refreshToken) {
+            await this.keycloakAuthService.logout(session.refreshToken).catch(() => {
+              // Ignore errors - we still want to clear local session
+            });
+          }
+        } catch (error) {
+          // Ignore Keycloak logout errors - we still clear local session
+          this.logger.warn('Keycloak logout failed, clearing local session anyway');
+        }
+      }
 
-      // Clear session
-      req.session?.destroy((err: unknown) => {
-        if (err) {
-          const { message, stack } = getErrorDetails(err);
-          this.logger.error('Session destruction  error', message, stack);
+      // Destroy local session
+      return new Promise<void>((resolve) => {
+        if (req.session) {
+          req.session.destroy((err: unknown) => {
+            if (err) {
+              const { message, stack } = getErrorDetails(err);
+              this.logger.error('Session destruction error', message, stack);
+            } else {
+              this.logger.log('Session destroyed successfully');
+            }
+            // Always redirect, even if session destruction failed
+            res.redirect('/');
+            resolve();
+          });
+        } else {
+          // No session to destroy, just redirect
+          res.redirect('/');
+          resolve();
         }
       });
-
-      this.logger.log('User logged out successfully');
-      return res.redirect(logoutUrl);
     } catch (error) {
       const { message, stack } = getErrorDetails(error);
       this.logger.error('Logout error', message, stack);
+      // Always redirect on error
       return res.redirect('/');
     }
   }
