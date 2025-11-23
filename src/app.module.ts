@@ -14,6 +14,7 @@ import rabbitmqConfig from './config/rabbitmq.config';
 import { AppController } from './app.controller';
 
 // Middleware
+import { RouteProxyMiddleware } from './common/middleware/route-proxy.middleware';
 import { ViewUserMiddleware } from './common/middleware/view-user.middleware';
 
 // Modules (to be imported as implemented)
@@ -60,12 +61,14 @@ import { ProductCatalogModule } from './modules/product-catalog/product-catalog.
     OrderManagementModule,
   ],
   controllers: [AppController],
-  providers: [ViewUserMiddleware],
+  providers: [ViewUserMiddleware, RouteProxyMiddleware],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     // Apply ViewUserMiddleware to all routes to attach user info for views
     consumer.apply(ViewUserMiddleware).forRoutes('*');
+
+    // Apply RouteProxyMiddleware to handle route proxying
+    consumer.apply(RouteProxyMiddleware).forRoutes('*');
   }
 }
-

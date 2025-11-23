@@ -62,55 +62,6 @@ async function bootstrap() {
     ],
   });
 
-  // Register Express routes for parameterized paths AFTER global prefix is set
-  // NestJS route exclusion doesn't work with :id parameters, so we handle them manually
-  // These routes rewrite the URL and forward to NestJS controllers with /api prefix
-  const httpAdapter = app.getHttpAdapter();
-  const instance = httpAdapter.getInstance();
-
-  // Proxy /products/:id to /api/products/:id
-  instance.all('/products/:id', (req, res, next) => {
-    const id = req.params.id;
-    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
-    // Rewrite URL to include /api prefix for NestJS controller
-    req.url = `/api/products/${id}${queryString ? '?' + queryString : ''}`;
-    req.originalUrl = req.url;
-    // Continue to NestJS routing
-    next();
-  });
-
-  // Proxy /categories/:id to /api/categories/:id
-  instance.all('/categories/:id', (req, res, next) => {
-    const id = req.params.id;
-    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
-    // Rewrite URL to include /api prefix for NestJS controller
-    req.url = `/api/categories/${id}${queryString ? '?' + queryString : ''}`;
-    req.originalUrl = req.url;
-    // Continue to NestJS routing
-    next();
-  });
-
-  // Proxy /login to /api/auth/login with format=html for HTML rendering
-  instance.all('/login', (req, res, next) => {
-    const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
-    const params = new URLSearchParams(queryString);
-    params.set('format', 'html'); // Force HTML format
-    // Rewrite URL to include /api prefix for NestJS controller
-    req.url = `/api/auth/login?${params.toString()}`;
-    req.originalUrl = req.url;
-    // Continue to NestJS routing
-    next();
-  });
-
-  // Proxy /logout to /api/auth/logout
-  instance.all('/logout', (req, res, next) => {
-    // Rewrite URL to include /api prefix for NestJS controller
-    req.url = '/api/auth/logout';
-    req.originalUrl = req.url;
-    // Continue to NestJS routing
-    next();
-  });
-
   // Swagger/OpenAPI configuration
   const config = new DocumentBuilder()
     .setTitle('B2B E-Commerce Platform API')
