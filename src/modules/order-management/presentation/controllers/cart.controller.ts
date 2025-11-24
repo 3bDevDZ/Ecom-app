@@ -78,7 +78,20 @@ export class CartController {
             return res.render('cart', { cart, user: req.user });
         }
 
-        // Return JSON for API
+        // Return JSON for API - return empty cart structure if cart is null
+        if (!cart) {
+            return {
+                id: null,
+                userId: userId,
+                status: 'active',
+                items: [],
+                totalAmount: 0,
+                itemCount: 0,
+                createdAt: null,
+                updatedAt: null,
+            } as CartDto;
+        }
+
         return cart;
     }
 

@@ -19,7 +19,7 @@ export class CartEntity {
   @Column({ type: 'varchar', length: 20 })
   status: string;
 
-  @OneToMany(() => CartItemEntity, item => item.cart, { cascade: true, eager: true })
+  @OneToMany(() => CartItemEntity, item => item.cart, { cascade: true })
   items: CartItemEntity[];
 
   @CreateDateColumn()
@@ -27,5 +27,8 @@ export class CartEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({ type: 'timestamp' })
+  expiresAt: Date;
 }
 

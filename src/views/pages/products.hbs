@@ -425,12 +425,27 @@
   window.addToCart = function(productId, quantity) {
     const qty = parseInt(quantity) || 1;
 
+    if (isNaN(qty) || qty < 1) {
+      alert('Please enter a valid quantity.');
+      return;
+    }
+
+    // Find and disable all "Add to Cart" buttons for this product
+    const buttons = document.querySelectorAll(`button[data-product-id="${productId}"]`);
+    const originalTexts = [];
+    buttons.forEach((btn, index) => {
+      originalTexts[index] = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span>Adding...</span>';
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+    });
+
     fetch('/api/cart/items', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
+      credentials: 'include', // Include session cookies for authentication
       body: JSON.stringify({
         productId: productId,
         quantity: qty,
@@ -449,21 +464,79 @@
         return response.json();
       })
       .then(data => {
-        // Show success message
-        const message = document.createElement('div');
-        message.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-        message.textContent = 'Product added to cart!';
-        document.body.appendChild(message);
+        console.log('Add to cart response:', data);
 
-        setTimeout(() => {
-          message.remove();
-        }, 3000);
+        // Calculate total items from the response
+        let totalItems = 0;
+        if (data) {
+          if (data.itemCount !== undefined && data.itemCount !== null) {
+            totalItems = data.itemCount;
+          } else if (data.items && Array.isArray(data.items)) {
+            totalItems = data.items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+          }
+        }
 
-        // Update cart count
-        updateCartCount();
+        console.log('Total items from add to cart response:', totalItems);
+
+        // Update badge directly with the response data
+        const badge = document.getElementById('cart-count-badge');
+        if (badge && totalItems > 0) {
+          badge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+          badge.setAttribute('style',
+            'display: flex !important; ' +
+            'visibility: visible !important; ' +
+            'opacity: 1 !important; ' +
+            'position: absolute !important; ' +
+            'top: -4px !important; ' +
+            'right: -4px !important; ' +
+            'z-index: 9999 !important; ' +
+            'background-color: #ef4444 !important; ' +
+            'color: #ffffff !important; ' +
+            'border-radius: 9999px !important; ' +
+            'min-width: 20px !important; ' +
+            'height: 20px !important; ' +
+            'padding: 0 6px !important; ' +
+            'font-size: 12px !important; ' +
+            'font-weight: bold !important; ' +
+            'align-items: center !important; ' +
+            'justify-content: center !important; ' +
+            'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;'
+          );
+          badge.classList.remove('hidden');
+
+          // Animate the badge
+          badge.classList.add('animate-bounce');
+          setTimeout(() => {
+            badge.classList.remove('animate-bounce');
+          }, 1000);
+        } else if (badge) {
+          console.warn('Badge found but totalItems is 0 or badge not found');
+        } else {
+          console.error('Cart badge element not found after adding to cart');
+        }
+
+        // Also update via the global function as backup
+        if (typeof window.updateCartCount === 'function') {
+          window.updateCartCount();
+        }
+
+        // Re-enable buttons
+        buttons.forEach((btn, index) => {
+          btn.disabled = false;
+          btn.innerHTML = originalTexts[index];
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        });
       })
       .catch(error => {
         console.error('Error adding to cart:', error);
+
+        // Re-enable buttons on error
+        buttons.forEach((btn, index) => {
+          btn.disabled = false;
+          btn.innerHTML = originalTexts[index];
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        });
+
         const message = document.createElement('div');
         message.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
         message.textContent = error.message || 'Failed to add product to cart';
@@ -476,29 +549,39 @@
   };
 
   // Update cart count
+  // Use global updateCartCount from layout if available, otherwise define local fallback
   function updateCartCount() {
-    fetch('/api/cart', {
-      credentials: 'include',
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        return null;
+    if (typeof window.updateCartCount === 'function') {
+      window.updateCartCount();
+    } else {
+      // Fallback local implementation
+      fetch('/api/cart', {
+        credentials: 'include',
       })
-      .then(cart => {
-        if (cart && cart.items) {
-          const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
-          const cartBadge = document.querySelector('[data-cart-count]');
-          if (cartBadge) {
-            cartBadge.textContent = totalItems;
-            cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+        .then(response => {
+          if (response.ok) {
+            return response.json();
           }
-        }
-      })
-      .catch(error => {
-        console.error('Error updating cart count:', error);
-      });
+          return null;
+        })
+        .then(cart => {
+          if (cart && cart.items) {
+            const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+            const cartBadge = document.getElementById('cart-count-badge');
+            if (cartBadge) {
+              if (totalItems > 0) {
+                cartBadge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+                cartBadge.classList.remove('hidden');
+              } else {
+                cartBadge.classList.add('hidden');
+              }
+            }
+          }
+        })
+        .catch(error => {
+          console.error('Error updating cart count:', error);
+        });
+    }
   }
 })();
 </script>

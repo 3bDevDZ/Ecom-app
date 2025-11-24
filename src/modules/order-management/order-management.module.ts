@@ -17,6 +17,7 @@ import { CartController } from './presentation/controllers/cart.controller';
 import { OrderController } from './presentation/controllers/order.controller';
 // Presentation - Controllers - Views
 import { CartViewController } from './presentation/controllers/cart-view.controller';
+import { CheckoutViewController } from './presentation/controllers/checkout-view.controller';
 import { OrderViewController } from './presentation/controllers/order-view.controller';
 
 // Application - Command Handlers
@@ -106,6 +107,7 @@ const sagas = [OrderPlacementSaga];
     OrderController,
     // View Controllers (without /api prefix, excluded from global prefix)
     CartViewController,
+    CheckoutViewController,
     OrderViewController,
   ],
   providers: [

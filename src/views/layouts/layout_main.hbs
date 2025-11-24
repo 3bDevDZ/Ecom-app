@@ -36,6 +36,19 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        /* Facebook-style notification badge animation */
+        #cart-count-badge {
+            transition: transform 0.2s ease-out;
+        }
+        #cart-count-badge.animate-bounce {
+            animation: badgeBounce 0.6s ease-out;
+        }
+        @keyframes badgeBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-4px) scale(1.1); }
+            50% { transform: translateY(0) scale(1.05); }
+            75% { transform: translateY(-2px) scale(1.02); }
+        }
     </style>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
@@ -47,6 +60,141 @@
         {{> footer}}
     </div>
     <script>
+    // Global cart count update function - available on all pages
+    window.updateCartCount = async function() {
+      try {
+        const response = await fetch('/api/cart', {
+          credentials: 'include', // Include session cookies for authentication
+        });
+
+        if (response.ok) {
+          const cartData = await response.json();
+          console.log('Cart API response:', cartData);
+
+          // Calculate total items - use itemCount if available, otherwise sum quantities
+          let totalItems = 0;
+          if (cartData) {
+            if (cartData.itemCount !== undefined && cartData.itemCount !== null) {
+              totalItems = cartData.itemCount;
+            } else if (cartData.items && Array.isArray(cartData.items)) {
+              totalItems = cartData.items.reduce((sum, item) => {
+                return sum + (item.quantity || 0);
+              }, 0);
+            }
+          }
+
+          console.log('Calculated total items:', totalItems);
+          const cartBadge = document.getElementById('cart-count-badge');
+
+          if (cartBadge) {
+            const previousCount = parseInt(cartBadge.textContent) || 0;
+            console.log('Updating cart badge:', { totalItems, previousCount, badgeElement: cartBadge });
+
+            if (totalItems > 0) {
+              cartBadge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+              // Force show badge with !important styles
+              cartBadge.setAttribute('style',
+                'display: flex !important; ' +
+                'visibility: visible !important; ' +
+                'opacity: 1 !important; ' +
+                'position: absolute !important; ' +
+                'top: -4px !important; ' +
+                'right: -4px !important; ' +
+                'z-index: 9999 !important; ' +
+                'background-color: #ef4444 !important; ' +
+                'color: #ffffff !important; ' +
+                'border-radius: 9999px !important; ' +
+                'min-width: 20px !important; ' +
+                'height: 20px !important; ' +
+                'padding: 0 6px !important; ' +
+                'font-size: 12px !important; ' +
+                'font-weight: bold !important; ' +
+                'align-items: center !important; ' +
+                'justify-content: center !important; ' +
+                'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;'
+              );
+              cartBadge.classList.remove('hidden');
+
+              // If count increased, trigger bounce animation
+              if (totalItems > previousCount) {
+                cartBadge.classList.add('animate-bounce');
+                setTimeout(() => {
+                  cartBadge.classList.remove('animate-bounce');
+                }, 1000);
+              }
+              console.log('Badge updated and should be visible with count:', totalItems);
+            } else {
+              cartBadge.setAttribute('style', 'display: none !important;');
+              cartBadge.classList.add('hidden');
+            }
+          } else {
+            console.error('Cart badge element not found! Make sure you are logged in. Looking for element with id="cart-count-badge"');
+          }
+        } else if (response.status === 401) {
+          console.log('User not authenticated, badge will not show');
+        } else {
+          console.warn('Failed to fetch cart:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('Failed to update cart count:', error);
+        // Silently fail - cart count is not critical
+      }
+    };
+
+    // Update cart count on page load
+    function initializeCartBadge() {
+      const badge = document.getElementById('cart-count-badge');
+      const cartLink = document.getElementById('cart-icon-link');
+
+      console.log('Initializing cart badge...', {
+        badgeExists: !!badge,
+        cartLinkExists: !!cartLink,
+        isAuthenticated: !!cartLink,
+        badgeElement: badge
+      });
+
+      if (badge) {
+        console.log('Cart badge found, making it visible and updating count...');
+        // Make badge visible immediately for testing
+        badge.setAttribute('style',
+          'display: flex !important; ' +
+          'visibility: visible !important; ' +
+          'opacity: 1 !important; ' +
+          'position: absolute !important; ' +
+          'top: -4px !important; ' +
+          'right: -4px !important; ' +
+          'z-index: 9999 !important; ' +
+          'background-color: #ef4444 !important; ' +
+          'color: #ffffff !important; ' +
+          'border-radius: 9999px !important; ' +
+          'min-width: 20px !important; ' +
+          'height: 20px !important; ' +
+          'padding: 0 6px !important; ' +
+          'font-size: 12px !important; ' +
+          'font-weight: bold !important; ' +
+          'align-items: center !important; ' +
+          'justify-content: center !important; ' +
+          'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;'
+        );
+        window.updateCartCount();
+      } else {
+        console.error('Cart badge element not found in DOM - user might not be authenticated or element not rendered');
+      }
+    }
+
+    // Try multiple times to catch the element
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initializeCartBadge, 100);
+        setTimeout(initializeCartBadge, 500);
+        setTimeout(initializeCartBadge, 1000);
+      });
+    } else {
+      initializeCartBadge();
+      setTimeout(initializeCartBadge, 500);
+      setTimeout(initializeCartBadge, 1000);
+    }
+
     // Navbar search is handled in products page for debounced search
     // This script only handles basic navigation for non-products pages
     (function() {

@@ -40,11 +40,13 @@ export class CartPresenter {
         const total = subtotal + tax + shipping;
 
         return {
+            title: 'Shopping Cart',
             cart: {
                 id: cartDto.id,
                 items: cartDto.items.map((item) => ({
                     ...item,
                     subtotal: this.formatCurrency(item.lineTotal),
+                    unitPriceFormatted: this.formatCurrency(item.unitPrice),
                 })),
                 totalItems: cartDto.items.reduce((sum, item) => sum + item.quantity, 0),
                 subtotal: this.formatCurrency(subtotal),
@@ -71,11 +73,14 @@ export class CartPresenter {
         const total = subtotal + tax + shipping;
 
         return {
+            title: 'Review Your Order',
             cart: {
                 id: cartDto.id,
                 items: cartDto.items.map((item) => ({
                     ...item,
                     subtotal: this.formatCurrency(item.lineTotal),
+                    unitPriceFormatted: this.formatCurrency(item.unitPrice),
+                    lineTotalFormatted: this.formatCurrency(item.lineTotal),
                 })),
                 totalItems: cartDto.items.reduce((sum, item) => sum + item.quantity, 0),
                 subtotal: this.formatCurrency(subtotal),
