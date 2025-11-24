@@ -311,8 +311,8 @@
 
 - [x] T175 [P] [US3] Create unit test for GetOrderHistoryQuery handler in apps/api/test/unit/order-management/get-order-history.handler.spec.ts
 - [x] T176 [P] [US3] Create unit test for GetOrderByIdQuery handler in apps/api/test/unit/order-management/get-order-by-id.handler.spec.ts
-- [ ] T177 [P] [US3] Create integration test for GetOrderHistoryQuery handler in apps/api/test/integration/order-management/get-order-history.handler.spec.ts
-- [ ] T178 [P] [US3] Create integration test for GetOrderByIdQuery handler in apps/api/test/integration/order-management/get-order-by-id.handler.spec.ts
+- [x] T177 [P] [US3] Create integration test for GetOrderHistoryQuery handler in apps/api/test/integration/order-management/get-order-history.handler.spec.ts
+- [x] T178 [P] [US3] Create integration test for GetOrderByIdQuery handler in apps/api/test/integration/order-management/get-order-by-id.handler.spec.ts
 - [x] T179 [P] [US3] Create E2E test for order history flow in apps/api/test/e2e/order-history.e2e-spec.ts
 
 ### Implementation for User Story 3
