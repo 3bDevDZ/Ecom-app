@@ -126,8 +126,10 @@ services:
       /usr/bin/mc mb --ignore-existing myminio/product-images;
       /usr/bin/mc mb --ignore-existing myminio/landing-page-assets;
       /usr/bin/mc mb --ignore-existing myminio/documents;
+      /usr/bin/mc mb --ignore-existing myminio/receipts;
       /usr/bin/mc anonymous set download myminio/product-images;
       /usr/bin/mc anonymous set download myminio/landing-page-assets;
+      /usr/bin/mc anonymous set download myminio/receipts;
       echo 'MinIO buckets created and configured';
       exit 0;
       "

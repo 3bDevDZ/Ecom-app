@@ -35,7 +35,16 @@ export class OrderRepository implements IOrderRepository {
       return null;
     }
 
-    return OrderMapper.toDomain(entity);
+    try {
+      return OrderMapper.toDomain(entity);
+    } catch (error: any) {
+      console.error(`[OrderRepository] Failed to map order ${id}:`, error.message);
+      console.error(`  Error stack:`, error.stack);
+      console.error(`  Shipping address:`, JSON.stringify(entity.shippingAddress));
+      console.error(`  Billing address:`, JSON.stringify(entity.billingAddress));
+      // Re-throw to allow handler to handle the error
+      throw error;
+    }
   }
 
   async findByOrderNumber(orderNumber: string): Promise<Order | null> {
@@ -58,7 +67,24 @@ export class OrderRepository implements IOrderRepository {
       order: { createdAt: 'DESC' },
     });
 
-    return entities.map(entity => OrderMapper.toDomain(entity));
+    const orders: Order[] = [];
+    for (const entity of entities) {
+      try {
+        const order = OrderMapper.toDomain(entity);
+        orders.push(order);
+      } catch (error: any) {
+        console.error(`[OrderRepository] Failed to map order ${entity.orderNumber || entity.id}:`, error.message);
+        console.error(`  Error stack:`, error.stack);
+        console.error(`  Shipping address:`, JSON.stringify(entity.shippingAddress));
+        console.error(`  Billing address:`, JSON.stringify(entity.billingAddress));
+        // Skip orders that fail mapping instead of breaking the entire query
+        continue;
+      }
+    }
+
+    console.log(`[OrderRepository] Successfully mapped ${orders.length} out of ${entities.length} orders`);
+
+    return orders;
   }
 
   async findByUserIdPaginated(

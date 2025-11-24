@@ -23,6 +23,7 @@ import { OrderDto } from '../../application/dtos/order.dto';
 import { GetOrderByIdQuery } from '../../application/queries/get-order-by-id.query';
 import { GetOrderHistoryQuery } from '../../application/queries/get-order-history.query';
 import { AddressProps } from '../../domain/value-objects/address';
+import { ReceiptService } from '../../infrastructure/services/receipt.service';
 import { CartPresenter } from '../presenters/cart.presenter';
 
 /**
@@ -35,7 +36,7 @@ import { CartPresenter } from '../presenters/cart.presenter';
  * User Story 3: View and Track Orders
  */
 @ApiTags('Orders')
-@Controller('orders')
+@Controller('api/orders')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth('JWT-auth')
 export class OrderController {
@@ -43,6 +44,7 @@ export class OrderController {
         private readonly commandBus: CommandBus,
         private readonly queryBus: QueryBus,
         private readonly cartPresenter: CartPresenter,
+        private readonly receiptService: ReceiptService,
     ) { }
 
     /**
@@ -146,19 +148,44 @@ export class OrderController {
     @ApiResponse({ status: 401, description: 'Unauthorized' })
     async getOrderHistory(
         @Req() req: any,
-        @Query('page') page: number = 1,
-        @Query('limit') limit: number = 10,
+        @Query('page') page?: string | number,
+        @Query('limit') limit?: string | number,
         @Query('format') format?: string,
         @Res() res?: Response,
     ): Promise<PaginatedResponse<OrderDto> | void> {
-        const userId = req.user?.userId || req.user?.sub;
+        const userId = req.user?.userId || req.user?.sub || req.user?.id;
+
+        // Debug logging
+        console.log('[OrderController] getOrderHistory - req.user:', JSON.stringify(req.user, null, 2));
+        console.log('[OrderController] getOrderHistory - userId extracted:', userId);
+        console.log('[OrderController] getOrderHistory - session:', req.session?.accessToken ? 'has token' : 'no token');
 
         if (!userId) {
+            console.error('[OrderController] getOrderHistory - User ID not found in request');
             throw new HttpException('User ID not found', HttpStatus.UNAUTHORIZED);
         }
 
-        const query = new GetOrderHistoryQuery(userId, Number(page), Number(limit));
+        // Ensure page and limit are valid numbers with defaults
+        let pageNum = page ? Number(page) : 1;
+        let limitNum = limit ? Number(limit) : 10;
+
+        // Validate and fix pagination parameters (default invalid values instead of throwing)
+        if (isNaN(pageNum) || pageNum < 1) {
+            pageNum = 1;
+        }
+        if (isNaN(limitNum) || limitNum < 1) {
+            limitNum = 10;
+        }
+        if (limitNum > 100) {
+            limitNum = 100;
+        }
+
+        console.log('[OrderController] getOrderHistory - pagination:', { page: pageNum, limit: limitNum });
+
+        const query = new GetOrderHistoryQuery(userId, pageNum, limitNum);
         const orderHistory = await this.queryBus.execute(query);
+
+        console.log('[OrderController] getOrderHistory - Orders found:', orderHistory.total);
 
         // Return HTML view if format=html
         const isHtmlRequest =
@@ -167,17 +194,105 @@ export class OrderController {
             (res && !res.req.headers.accept?.includes('application/json'));
 
         if (isHtmlRequest && res) {
+            console.log('[OrderController] Rendering HTML view with orderHistory:', {
+                dataLength: orderHistory.data.length,
+                total: orderHistory.total,
+                page: orderHistory.page,
+            });
+
             const viewModel = this.cartPresenter.toOrderHistoryViewModel(
                 orderHistory.data,
                 orderHistory.page,
                 orderHistory.limit,
                 orderHistory.total,
             );
+
+            console.log('[OrderController] View model prepared:', {
+                ordersCount: viewModel.orders?.length || 0,
+                total: viewModel.pagination?.total || 0,
+            });
+
             return res.render('orders', viewModel);
         }
 
         // Return JSON for API
         return orderHistory;
+    }
+
+    /**
+     * Debug endpoint to check current user ID
+     * GET /api/orders/debug/user-id
+     */
+    @Get('debug/user-id')
+    @ApiOperation({ summary: 'Debug: Get current user ID' })
+    async debugUserId(@Req() req: any): Promise<any> {
+        return {
+            user: req.user,
+            userId: req.user?.userId || req.user?.sub || req.user?.id,
+            session: req.session?.accessToken ? 'has token' : 'no token',
+            sessionUser: req.session?.user,
+        };
+    }
+
+    /**
+     * Download receipt for an order
+     * GET /orders/:id/receipt
+     *
+     * Downloads the PDF receipt for the specified order.
+     * This route must come before @Get(':id') to avoid route conflicts.
+     */
+    @Get(':id/receipt')
+    @ApiOperation({ summary: 'Download order receipt' })
+    @ApiResponse({
+        status: 200,
+        description: 'Receipt downloaded successfully',
+        content: {
+            'application/pdf': {
+                schema: {
+                    type: 'string',
+                    format: 'binary',
+                },
+            },
+        },
+    })
+    @ApiResponse({ status: 404, description: 'Receipt not found' })
+    @ApiResponse({ status: 401, description: 'Unauthorized' })
+    async downloadReceipt(
+        @Param('id', UuidValidationPipe) id: string,
+        @Req() req: any,
+        @Res() res: Response,
+    ): Promise<void> {
+        const userId = req.user?.userId || req.user?.sub;
+
+        if (!userId) {
+            throw new HttpException('User ID not found', HttpStatus.UNAUTHORIZED);
+        }
+
+        // Get order to verify ownership and get order number
+        const query = new GetOrderByIdQuery(id, userId);
+        const order = await this.queryBus.execute(query);
+
+        if (!order) {
+            throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
+        }
+
+        // Download receipt from MinIO
+        const receiptBuffer = await this.receiptService.downloadReceipt(order.orderNumber, order.id);
+
+        if (!receiptBuffer) {
+            throw new HttpException('Receipt not found', HttpStatus.NOT_FOUND);
+        }
+
+        // Set response headers
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader(
+            'Content-Disposition',
+            `attachment; filename="receipt-${order.orderNumber}.pdf"`,
+        );
+        res.setHeader('Content-Length', receiptBuffer.length.toString());
+
+        // Send PDF
+        res.send(receiptBuffer);
     }
 
     /**
@@ -203,28 +318,58 @@ export class OrderController {
         @Query('format') format?: string,
         @Res() res?: Response,
     ): Promise<OrderDto | void> {
-        const userId = req.user?.userId || req.user?.sub;
+        const userId = req.user?.userId || req.user?.sub || req.user?.id;
+
+        console.log(`[OrderController] getOrderById - Request for order ${id}, userId: ${userId}`);
 
         if (!userId) {
+            console.error(`[OrderController] getOrderById - User ID not found`);
             throw new HttpException('User ID not found', HttpStatus.UNAUTHORIZED);
         }
 
-        const query = new GetOrderByIdQuery(id, userId);
-        const order = await this.queryBus.execute(query);
+        try {
+            const query = new GetOrderByIdQuery(id, userId);
+            console.log(`[OrderController] getOrderById - Executing query for order ${id}`);
+            const order = await this.queryBus.execute(query);
+            console.log(`[OrderController] getOrderById - Order retrieved successfully: ${order.orderNumber}`);
 
-        // Return HTML view if format=html
-        const isHtmlRequest =
-            format === 'html' ||
-            res?.req.headers.accept?.includes('text/html') ||
-            (res && !res.req.headers.accept?.includes('application/json'));
+            // Determine if this is an HTML request (browser navigation) or JSON request (API)
+            const acceptHeader = req.headers?.accept || '';
+            const isExplicitJsonRequest = format === 'json' || acceptHeader.includes('application/json');
+            const isHtmlRequest = !isExplicitJsonRequest && res;
 
-        if (isHtmlRequest && res) {
-            const viewModel = this.cartPresenter.toOrderDetailViewModel(order);
-            return res.render('order-detail', viewModel);
+            if (isHtmlRequest) {
+                // Render HTML page for browser navigation
+                const viewModel = this.cartPresenter.toOrderDetailViewModel(order);
+                res.render('order-detail', viewModel);
+                return;
+            }
+
+            // Return JSON for API requests
+            if (res) {
+                res.json(order);
+                return;
+            }
+
+            // If no response object, return order (NestJS will serialize automatically)
+            return order;
+        } catch (error: any) {
+            console.error(`[OrderController] getOrderById - Error getting order ${id}:`, error.message);
+            console.error(`[OrderController] getOrderById - Error stack:`, error.stack);
+
+            if (error instanceof HttpException) {
+                throw error;
+            }
+
+            // Throw an exception - NestJS will handle the response
+            throw new HttpException(
+                {
+                    message: 'Failed to retrieve order',
+                    error: error.message,
+                },
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
         }
-
-        // Return JSON for API
-        return order;
     }
 
     /**
@@ -247,7 +392,7 @@ export class OrderController {
         @Req() req: any,
         @Res() res?: Response,
     ): Promise<{ cartId: string } | void> {
-        const userId = req.user?.userId || req.user?.sub;
+        const userId = req.user?.userId || req.user?.sub || req.user?.id;
 
         if (!userId) {
             throw new HttpException('User ID not found', HttpStatus.UNAUTHORIZED);

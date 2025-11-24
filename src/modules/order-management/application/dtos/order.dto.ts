@@ -27,5 +27,6 @@ export class OrderDto {
   updatedAt: Date;
   deliveredAt?: Date;
   cancellationReason?: string;
+  receiptUrl?: string;
 }
 

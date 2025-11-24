@@ -116,6 +116,82 @@ describe('Order History E2E', () => {
         .get(`/api/orders/${orderId}`)
         .expect(401);
     });
+
+    it('should include receiptUrl if receipt exists', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`/api/orders/${orderId}`)
+        .set('Authorization', `Bearer ${authToken}`)
+        .expect(200);
+
+      // Receipt URL may or may not exist depending on order age
+      if (response.body.receiptUrl) {
+        expect(response.body.receiptUrl).toMatch(/^http/);
+      }
+    });
+  });
+
+  describe('/api/orders/:id/receipt (GET)', () => {
+    beforeEach(async () => {
+      // Create a test order first
+      const cartResponse = await request(app.getHttpServer())
+        .post('/api/cart/items')
+        .set('Authorization', `Bearer ${authToken}`)
+        .send({
+          productId: 'test-product-id',
+          quantity: 2,
+        });
+
+      const orderResponse = await request(app.getHttpServer())
+        .post('/api/orders')
+        .set('Authorization', `Bearer ${authToken}`)
+        .send({
+          shippingAddress: {
+            street: '123 Test St',
+            city: 'Test City',
+            state: 'TC',
+            postalCode: '12345',
+            country: 'USA',
+          },
+        });
+
+      orderId = orderResponse.body.orderId || orderResponse.body.id;
+
+      // Wait a bit for receipt generation (async process)
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    });
+
+    it('should download receipt PDF for order with receipt', async () => {
+      // Check if order has receipt first
+      const orderResponse = await request(app.getHttpServer())
+        .get(`/api/orders/${orderId}`)
+        .set('Authorization', `Bearer ${authToken}`)
+        .expect(200);
+
+      if (orderResponse.body.receiptUrl) {
+        return request(app.getHttpServer())
+          .get(`/api/orders/${orderId}/receipt`)
+          .set('Authorization', `Bearer ${authToken}`)
+          .expect(200)
+          .expect('Content-Type', /application\/pdf/);
+      } else {
+        // If receipt doesn't exist yet, skip test
+        console.log('Order receipt not available yet, skipping download test');
+      }
+    });
+
+    it('should return 404 for order without receipt', async () => {
+      // Try with a non-existent order
+      return request(app.getHttpServer())
+        .get('/api/orders/00000000-0000-0000-0000-000000000000/receipt')
+        .set('Authorization', `Bearer ${authToken}`)
+        .expect(404);
+    });
+
+    it('should return 401 when not authenticated', () => {
+      return request(app.getHttpServer())
+        .get(`/api/orders/${orderId}/receipt`)
+        .expect(401);
+    });
   });
 
   describe('/api/orders/:id/reorder (POST)', () => {

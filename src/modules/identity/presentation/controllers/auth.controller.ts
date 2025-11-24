@@ -11,7 +11,7 @@ import { KeycloakAuthService } from '../../application/services/keycloak-auth.se
  *
  * Handles Keycloak OAuth 2.0 authentication flow with PKCE
  */
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 

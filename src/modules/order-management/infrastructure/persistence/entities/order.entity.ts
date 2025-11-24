@@ -1,10 +1,10 @@
 import {
-  Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
+  Entity,
   OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { OrderItemEntity } from './order-item.entity';
 
@@ -61,5 +61,8 @@ export class OrderEntity {
 
   @Column({ type: 'timestamp', nullable: true })
   deliveredAt?: Date;
+
+  @Column({ type: 'varchar', length: 500, nullable: true })
+  receiptUrl?: string;
 }
 

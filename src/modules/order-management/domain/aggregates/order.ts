@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import { AggregateRoot } from '../base/aggregate-root';
 import { OrderItem, OrderItemProps } from '../entities/order-item';
+import { InventoryReservationRequested } from '../events/inventory-reservation-requested';
+import { OrderCancelled } from '../events/order-cancelled';
+import { OrderPlaced } from '../events/order-placed';
+import { Address } from '../value-objects/address';
 import { OrderNumber } from '../value-objects/order-number';
 import { OrderStatus } from '../value-objects/order-status';
-import { Address } from '../value-objects/address';
-import { OrderPlaced } from '../events/order-placed';
-import { OrderCancelled } from '../events/order-cancelled';
-import { InventoryReservationRequested } from '../events/inventory-reservation-requested';
 
 export interface CreateOrderProps {
   userId: string;
@@ -78,7 +78,7 @@ export class Order extends AggregateRoot {
       orderNumber,
       props.userId,
       props.cartId,
-      OrderStatus.PENDING,
+      OrderStatus.RECEIVED,
       items,
       props.shippingAddress,
       props.billingAddress,
@@ -145,7 +145,15 @@ export class Order extends AggregateRoot {
   }
 
   process(): void {
-    this.transitionTo(OrderStatus.PROCESSING);
+    this.transitionTo(OrderStatus.IN_CONFIRMATION);
+  }
+
+  confirm(): void {
+    this.transitionTo(OrderStatus.CONFIRMED);
+  }
+
+  prepareForShipping(): void {
+    this.transitionTo(OrderStatus.IN_SHIPPING);
   }
 
   ship(): void {

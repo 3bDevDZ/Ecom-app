@@ -12,9 +12,12 @@ import { OrderEntity } from './infrastructure/persistence/entities/order.entity'
 import { CartRepository } from './infrastructure/persistence/repositories/cart.repository';
 import { OrderRepository } from './infrastructure/persistence/repositories/order.repository';
 
-// Presentation - Controllers
+// Presentation - Controllers - API
 import { CartController } from './presentation/controllers/cart.controller';
 import { OrderController } from './presentation/controllers/order.controller';
+// Presentation - Controllers - Views
+import { CartViewController } from './presentation/controllers/cart-view.controller';
+import { OrderViewController } from './presentation/controllers/order-view.controller';
 
 // Application - Command Handlers
 import { AddToCartCommandHandler } from './application/handlers/add-to-cart.handler';
@@ -49,6 +52,10 @@ import { ProductCatalogModule } from '../product-catalog/product-catalog.module'
 
 // Shared Infrastructure - Outbox Module (for event publishing)
 import { OutboxModule } from '../../shared/infrastructure/outbox/outbox.module';
+// Shared Infrastructure - Storage Module (for MinIO)
+import { StorageModule } from '../../shared/infrastructure/storage/storage.module';
+// Infrastructure - Receipt Service
+import { ReceiptService } from './infrastructure/services/receipt.service';
 
 const commandHandlers = [
   AddToCartCommandHandler,
@@ -91,8 +98,16 @@ const sagas = [OrderPlacementSaga];
     ]),
     ProductCatalogModule, // For product lookup during cart operations
     OutboxModule, // For event publishing via Outbox pattern
+    StorageModule, // For file storage (receipts, documents)
   ],
-  controllers: [CartController, OrderController],
+  controllers: [
+    // API Controllers (with /api prefix)
+    CartController,
+    OrderController,
+    // View Controllers (without /api prefix, excluded from global prefix)
+    CartViewController,
+    OrderViewController,
+  ],
   providers: [
     ...commandHandlers,
     ...queryHandlers,
@@ -109,6 +124,7 @@ const sagas = [OrderPlacementSaga];
     },
     // Services
     OrderEmailService,
+    ReceiptService,
     CartPresenter,
   ],
   exports: ['ICartRepository', 'IOrderRepository', CartPresenter],
