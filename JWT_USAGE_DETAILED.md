@@ -23,9 +23,9 @@
 
 ```typescript
 // After successful token exchange with Keycloak
-session.accessToken = tokens.access_token;  // ← JWT stored here
+session.accessToken = tokens.access_token; // ← JWT stored here
 session.refreshToken = tokens.refresh_token; // ← JWT stored here
-session.idToken = tokens.id_token;          // ← JWT stored here
+session.idToken = tokens.id_token; // ← JWT stored here
 ```
 
 **When**: After user logs in via Keycloak callback (`/api/auth/callback`)
@@ -75,6 +75,7 @@ if (req.session?.accessToken) {
 **When**: **EVERY HTTP REQUEST** (applied to all routes in `app.module.ts`)
 
 **What happens**:
+
 - Extracts JWT from session
 - **Decodes** JWT payload (without verification - just reads it)
 - Checks expiration
@@ -133,6 +134,7 @@ async validate(payload: any) {
 **When**: **Automatically triggered** when `JwtAuthGuard` is used on a route
 
 **What happens**:
+
 - **Extracts** JWT from `Authorization: Bearer <token>` header OR session
 - **Validates** JWT signature using Keycloak public key (RS256)
 - **Verifies** expiration, issuer, and audience
@@ -206,12 +208,14 @@ handleRequest(err: any, user: any, info: any, context: ExecutionContext) {
 **When**: **Every request to a protected route** (routes with `@UseGuards(JwtAuthGuard)`)
 
 **What happens**:
+
 - Checks if route needs authentication
 - If JWT exists → triggers `JwtStrategy` to validate it
 - If validation fails → tries manual decode as fallback
 - If no JWT → throws `UnauthorizedException`
 
 **Used on**:
+
 - `OrderController` (line 40)
 - `CartController` (line 40)
 - `ProductController` (lines 197, 225, 254)
@@ -260,6 +264,7 @@ async getUserInfo(accessToken: string): Promise<any> {
 **When**: Called by `KeycloakStrategy.validate()` (line 29)
 
 **What happens**:
+
 - Decodes JWT to check structure
 - Sends JWT to Keycloak `/userinfo` endpoint
 - Keycloak validates JWT and returns user info
@@ -357,17 +362,17 @@ async refresh(@Session() session: Record<string, any>, @Res() res: Response) {
 
 ## 📊 JWT Usage Summary
 
-| Location | What It Does | When It Runs | JWT Operation |
-|----------|-------------|--------------|---------------|
-| `auth.controller.ts:138` | Stores JWT in session | After login | **Store** |
-| `view-user.middleware.ts:26` | Decodes JWT for views | **Every request** | **Decode** (no verification) |
-| `jwt.strategy.ts:48` | Extracts JWT from request | When guard is used | **Extract** |
-| `jwt.strategy.ts:60-68` | Validates JWT signature | When guard is used | **Validate** (RS256) |
-| `jwt.strategy.ts:75` | Extracts user from JWT | When guard is used | **Decode payload** |
-| `jwt-auth.guard.ts:41` | Checks for JWT | Protected routes | **Check exists** |
-| `jwt-auth.guard.ts:63` | Fallback JWT decode | If validation fails | **Decode** (fallback) |
-| `keycloak-auth.service.ts:151` | Decodes JWT structure | Token validation | **Decode** |
-| `keycloak-auth.service.ts:176` | Sends JWT to Keycloak | User info request | **Use as Bearer token** |
+| Location                       | What It Does              | When It Runs        | JWT Operation                |
+| ------------------------------ | ------------------------- | ------------------- | ---------------------------- |
+| `auth.controller.ts:138`       | Stores JWT in session     | After login         | **Store**                    |
+| `view-user.middleware.ts:26`   | Decodes JWT for views     | **Every request**   | **Decode** (no verification) |
+| `jwt.strategy.ts:48`           | Extracts JWT from request | When guard is used  | **Extract**                  |
+| `jwt.strategy.ts:60-68`        | Validates JWT signature   | When guard is used  | **Validate** (RS256)         |
+| `jwt.strategy.ts:75`           | Extracts user from JWT    | When guard is used  | **Decode payload**           |
+| `jwt-auth.guard.ts:41`         | Checks for JWT            | Protected routes    | **Check exists**             |
+| `jwt-auth.guard.ts:63`         | Fallback JWT decode       | If validation fails | **Decode** (fallback)        |
+| `keycloak-auth.service.ts:151` | Decodes JWT structure     | Token validation    | **Decode**                   |
+| `keycloak-auth.service.ts:176` | Sends JWT to Keycloak     | User info request   | **Use as Bearer token**      |
 
 ---
 
@@ -385,23 +390,27 @@ async refresh(@Session() session: Record<string, any>, @Res() res: Response) {
 ## 🔍 How to See JWT in Action
 
 ### Check JWT in Session:
+
 ```typescript
 // In any controller
-console.log('JWT Token:', req.session?.accessToken);
+console.log("JWT Token:", req.session?.accessToken);
 ```
 
 ### Decode JWT Manually:
+
 ```typescript
 const token = req.session?.accessToken;
-const parts = token.split('.');
+const parts = token.split(".");
 const payload = JSON.parse(
-    Buffer.from(parts[1], 'base64url').toString('utf-8')
+  Buffer.from(parts[1], "base64url").toString("utf-8")
 );
-console.log('JWT Payload:', payload);
+console.log("JWT Payload:", payload);
 ```
 
 ### See JWT Validation:
+
 Add logging in `jwt.strategy.ts` line 75:
+
 ```typescript
 async validate(payload: any) {
     console.log('JWT Payload received:', payload);
@@ -419,4 +428,3 @@ async validate(payload: any) {
 - **Used**: To identify users and authorize requests
 
 The JWT tokens come from Keycloak and are used throughout the application for authentication and authorization.
-

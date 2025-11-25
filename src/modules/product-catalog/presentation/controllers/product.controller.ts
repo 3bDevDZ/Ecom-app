@@ -157,10 +157,11 @@ export class ProductController {
     const product = await this.queryBus.execute(query);
 
     // Return HTML view if format=html or Accept header prefers HTML, or if no res object (browser request)
+    const acceptHeader = res?.req.headers.accept || '';
     const isHtmlRequest =
       format === 'html' ||
-      res?.req.headers.accept?.includes('text/html') ||
-      (res && !res.req.headers.accept?.includes('application/json'));
+      (acceptHeader.includes('text/html') && !acceptHeader.includes('application/json')) ||
+      (res && !acceptHeader.includes('application/json') && !acceptHeader.includes('*/*'));
 
     if (isHtmlRequest && res) {
       // Get category for breadcrumbs
@@ -189,7 +190,14 @@ export class ProductController {
       return res.render('product-detail', viewModel);
     }
 
-    // Return JSON for API
+    // Return JSON for API - explicitly set content type and return JSON
+    if (res) {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(product);
+      return;
+    }
+
+    // If no res object, return product directly (NestJS will serialize it)
     return product;
   }
 

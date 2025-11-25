@@ -1,5 +1,6 @@
 {{!--
   Order Detail Page
+  Based on design template: orderDetails.html
   User Story 3: View and Track Orders
 --}}
 <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
@@ -7,169 +8,341 @@
   <div class="flex flex-1 justify-center py-5">
     <div class="flex flex-col w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
 
-      {{! Breadcrumbs }}
-      {{> breadcrumbs items=breadcrumbs}}
+      {{! Breadcrumbs and Back Button }}
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div class="flex items-center gap-2 text-sm text-neutral-gray-text dark:text-gray-400">
+          <a class="text-primary hover:text-corporate-blue transition-colors font-medium" href="/orders">Orders</a>
+          <span class="material-symbols-outlined text-base text-neutral-gray-text dark:text-gray-400">chevron_right</span>
+          <span class="font-medium text-[#111418] dark:text-gray-200">Order #{{order.orderNumber}}</span>
+        </div>
+        <a href="/orders"
+          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-white dark:bg-gray-800 border-2 border-primary/20 dark:border-primary/30 text-primary dark:text-primary text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/5 dark:hover:bg-primary/10 hover:border-primary/40 transition-all">
+          <span class="material-symbols-outlined">arrow_back</span>
+          <span class="truncate">Back to Orders</span>
+        </a>
+      </div>
 
-      {{! Order Header }}
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mt-6 mb-8">
-        <div>
-          <h1 class="text-slate-800 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] mb-2">
+      {{! Page Heading and Actions }}
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+        <div class="flex flex-col gap-2">
+          <h1 class="text-4xl font-black leading-tight tracking-[-0.033em] text-[#111418] dark:text-white">
             Order #{{order.orderNumber}}
           </h1>
-          <p class="text-slate-500 dark:text-slate-400 text-base">
-            Placed on {{order.orderDate}}
-          </p>
+          <div class="flex items-center gap-2">
+            <span class="font-medium text-neutral-gray-text dark:text-gray-400">Status:</span>
+            <span class="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold
+              {{#eq order.status 'received'}}bg-status-info/10 text-status-info{{/eq}}
+              {{#eq order.status 'in_confirmation'}}bg-status-warning/10 text-status-warning{{/eq}}
+              {{#eq order.status 'confirmed'}}bg-status-success/10 text-status-success{{/eq}}
+              {{#eq order.status 'in_shipping'}}bg-status-info/10 text-status-info{{/eq}}
+              {{#eq order.status 'shipped'}}bg-status-info/10 text-status-info{{/eq}}
+              {{#eq order.status 'delivered'}}bg-status-success/10 text-status-success{{/eq}}
+              {{#eq order.status 'cancelled'}}bg-status-error/10 text-status-error{{/eq}}
+              {{#eq order.status 'pending'}}bg-status-warning/10 text-status-warning{{/eq}}
+              {{#eq order.status 'processing'}}bg-status-warning/10 text-status-warning{{/eq}}">
+              {{order.statusDisplay}}
+            </span>
+          </div>
         </div>
-        <div class="flex gap-3">
+        <div class="flex flex-1 sm:flex-initial justify-start sm:justify-end gap-3 flex-wrap">
           {{#if order.hasReceipt}}
             <a href="/api/orders/{{order.id}}/receipt"
               download
-              class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-primary text-primary font-semibold hover:bg-primary/10 transition-colors">
-              <span class="material-symbols-outlined text-lg">download</span>
-              Receipt
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-corporate-blue text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90">
+              <span class="truncate">Download Invoice</span>
             </a>
           {{/if}}
-          <button onclick="window.print()"
-            class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-            <span class="material-symbols-outlined text-lg">print</span>
-            Print
-          </button>
           <button onclick="reorder('{{order.id}}')"
-            class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition-colors">
-            <span class="material-symbols-outlined text-lg">shopping_cart</span>
-            Reorder
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-white dark:bg-gray-800 border-2 border-primary/30 dark:border-primary/40 text-primary dark:text-primary text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/10 dark:hover:bg-primary/20 hover:border-primary/50 transition-all">
+            <span class="material-symbols-outlined text-base mr-1">refresh</span>
+            <span class="truncate">Reorder</span>
+          </button>
+          <button onclick="requestReturn('{{order.id}}')"
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-white dark:bg-gray-800 border-2 border-status-warning/30 dark:border-status-warning/40 text-status-warning dark:text-status-warning text-sm font-bold leading-normal tracking-[0.015em] hover:bg-status-warning/10 dark:hover:bg-status-warning/20 hover:border-status-warning/50 transition-all">
+            <span class="material-symbols-outlined text-base mr-1">undo</span>
+            <span class="truncate">Request Return</span>
           </button>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {{! Main Content - Order Items }}
-        <div class="lg:col-span-2 space-y-6">
+      {{! Main Content Grid }}
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {{! Left Column - Order Summary, Shipping, Billing }}
+        <div class="lg:col-span-1 flex flex-col gap-6">
 
-          {{! Order Status }}
-          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Order Status</h2>
-            <div class="flex items-center gap-4">
-              <span class="px-4 py-2 rounded-full text-sm font-semibold
-                {{#eq order.status 'pending'}}bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300{{/eq}}
-                {{#eq order.status 'confirmed'}}bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300{{/eq}}
-                {{#eq order.status 'shipped'}}bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300{{/eq}}
-                {{#eq order.status 'delivered'}}bg-success/20 text-success{{/eq}}
-                {{#eq order.status 'cancelled'}}bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300{{/eq}}">
-                {{order.statusDisplay}}
-              </span>
-              {{#ifCond order.status '!==' 'cancelled'}}
-                <span class="text-sm text-slate-600 dark:text-slate-400">
-                  Estimated delivery: {{order.estimatedDelivery}}
-                </span>
-              {{/ifCond}}
-            </div>
-          </div>
-
-          {{! Order Items }}
-          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">
-              Items ({{order.itemCount}})
+          {{! Order Summary Card }}
+          <section class="bg-gradient-to-br from-white to-neutral-gray-bg/50 dark:from-gray-800 dark:to-gray-900 border-2 border-primary/10 dark:border-primary/20 rounded-xl p-6 flex flex-col gap-4 shadow-sm">
+            <h2 class="text-lg font-bold text-[#111418] dark:text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-xl">receipt_long</span>
+              Order Summary
             </h2>
-            <div class="space-y-4">
-              {{#each order.items}}
-                <div class="flex gap-4 pb-4 border-b border-slate-200 dark:border-slate-700 last:border-0 last:pb-0">
-                  <div class="flex-1">
-                    <h3 class="font-semibold text-slate-800 dark:text-white mb-1">
-                      {{productName}}
-                    </h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">
-                      SKU: {{sku}}
-                    </p>
-                    <div class="flex items-center gap-4 text-sm">
-                      <span class="text-slate-600 dark:text-slate-400">
-                        Qty: {{quantity}}
-                      </span>
-                      <span class="text-slate-600 dark:text-slate-400">
-                        ${unitPrice} each
-                      </span>
+            <dl class="space-y-3 text-sm">
+              <div class="flex justify-between py-2 border-b border-neutral-gray-border/50 dark:border-gray-700/50">
+                <dt class="text-neutral-gray-text dark:text-gray-400">Order Date</dt>
+                <dd class="font-medium text-[#111418] dark:text-white">{{order.orderDate}}</dd>
+            </div>
+              <div class="flex justify-between py-2 border-b border-neutral-gray-border/50 dark:border-gray-700/50">
+                <dt class="text-neutral-gray-text dark:text-gray-400">Payment Method</dt>
+                <dd class="font-medium text-primary dark:text-primary">Net 30 Terms</dd>
+          </div>
+              <div class="flex justify-between text-base pt-2">
+                <dt class="text-neutral-gray-text dark:text-gray-400 font-normal">Order Total</dt>
+                <dd class="font-bold text-lg text-corporate-blue dark:text-corporate-blue">${{order.totalFormatted}}</dd>
                     </div>
+            </dl>
+          </section>
+
+          {{! Shipping Details }}
+          <section class="bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/10 border-2 border-status-info/20 dark:border-status-info/30 rounded-xl p-6 flex flex-col gap-4 shadow-sm">
+            <h2 class="text-lg font-bold text-[#111418] dark:text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-status-info text-xl">local_shipping</span>
+              Shipping Details
+            </h2>
+            <div class="text-sm space-y-3">
+              <div class="font-medium text-[#111418] dark:text-white">
+                {{#if order.shippingAddress.contactName}}
+                  <p>{{order.shippingAddress.contactName}}</p>
+                {{/if}}
+                <p>{{order.shippingAddress.street}}</p>
+                {{#if order.shippingAddress.addressLine2}}
+                  <p>{{order.shippingAddress.addressLine2}}</p>
+                {{/if}}
+                <p>{{order.shippingAddress.city}}, {{order.shippingAddress.state}} {{order.shippingAddress.postalCode}}</p>
+                <p>{{order.shippingAddress.country}}</p>
                   </div>
-                  <div class="text-right">
-                    <p class="font-bold text-slate-800 dark:text-white">
-                      ${{subtotal}}
-                    </p>
+              <dl class="space-y-2">
+                <div class="flex justify-between">
+                  <dt class="text-neutral-gray-text dark:text-gray-400">Method</dt>
+                  <dd class="font-medium text-[#111418] dark:text-white">Freight Standard</dd>
                   </div>
+                <div class="flex justify-between items-center">
+                  <dt class="text-neutral-gray-text dark:text-gray-400">Tracking</dt>
+                  <dd class="font-medium text-[#111418] dark:text-white">
+                    {{#if order.trackingNumber}}
+                      <a class="text-status-info hover:text-corporate-blue hover:underline font-semibold transition-colors" href="#">{{order.trackingNumber}}</a>
+                    {{else}}
+                      <span class="text-neutral-gray-text dark:text-gray-400 italic">Unavailable</span>
+                    {{/if}}
+                  </dd>
                 </div>
-              {{/each}}
+              </dl>
             </div>
+          </section>
+
+          {{! Billing Details }}
+          <section class="bg-gradient-to-br from-white to-green-50/30 dark:from-gray-800 dark:to-green-900/10 border-2 border-status-success/20 dark:border-status-success/30 rounded-xl p-6 flex flex-col gap-4 shadow-sm">
+            <h2 class="text-lg font-bold text-[#111418] dark:text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-status-success text-xl">account_balance</span>
+              Billing Details
+            </h2>
+            <div class="text-sm space-y-3">
+              <div class="font-medium text-[#111418] dark:text-white">
+                {{#if order.billingAddress.contactName}}
+                  <p>{{order.billingAddress.contactName}}</p>
+                {{/if}}
+                <p>{{order.billingAddress.street}}</p>
+                {{#if order.billingAddress.addressLine2}}
+                  <p>{{order.billingAddress.addressLine2}}</p>
+                {{/if}}
+                <p>{{order.billingAddress.city}}, {{order.billingAddress.state}} {{order.billingAddress.postalCode}}</p>
+                <p>{{order.billingAddress.country}}</p>
+              </div>
+              <dl>
+                <div class="flex justify-between items-center">
+                  <dt class="text-neutral-gray-text dark:text-gray-400">Payment Status</dt>
+                  <dd>
+                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold
+                      {{#eq order.status 'delivered'}}bg-status-success/10 text-status-success{{/eq}}
+                      {{#eq order.status 'cancelled'}}bg-status-error/10 text-status-error{{/eq}}
+                      {{#ifCond order.status '===' 'delivered'}}{{else}}{{#ifCond order.status '===' 'cancelled'}}{{else}}bg-status-warning/10 text-status-warning{{/ifCond}}{{/ifCond}}">
+                      {{#eq order.status 'delivered'}}Paid{{/eq}}
+                      {{#eq order.status 'cancelled'}}Cancelled{{/eq}}
+                      {{#ifCond order.status '===' 'delivered'}}{{else}}{{#ifCond order.status '===' 'cancelled'}}{{else}}Pending{{/ifCond}}{{/ifCond}}
+                    </span>
+                  </dd>
+                </div>
+              </dl>
           </div>
+          </section>
 
         </div>
 
-        {{! Sidebar - Order Summary & Details }}
-        <div class="space-y-6">
+        {{! Right Column - Order Progress and Items }}
+        <div class="lg:col-span-2 flex flex-col gap-8">
 
-          {{! Order Summary }}
-          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Order Summary</h2>
-            <div class="space-y-3">
-              <div class="flex justify-between text-slate-600 dark:text-slate-400">
-                <span>Subtotal:</span>
-                <span>${{order.subtotalFormatted}}</span>
+          {{! Order Progress Tracker }}
+          <section class="bg-gradient-to-br from-white to-primary/5 dark:from-gray-800 dark:to-primary/10 border-2 border-primary/20 dark:border-primary/30 rounded-xl p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-[#111418] dark:text-white mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-xl">timeline</span>
+              Order Progress
+            </h2>
+            <div class="grid grid-cols-[auto_1fr] gap-x-4">
+              {{! Order Placed - Always completed }}
+              <div class="flex flex-col items-center gap-1.5 pt-1.5">
+                <div class="text-status-success flex items-center justify-center rounded-full bg-status-success/20 dark:bg-status-success/30 size-10 shadow-md border-2 border-status-success/30">
+                  <span class="material-symbols-outlined text-xl">check_circle</span>
+                </div>
+                <div class="w-[2px] bg-gradient-to-b from-status-success/50 to-status-warning/30 dark:from-status-success/30 dark:to-status-warning/20 h-full"></div>
               </div>
-              <div class="flex justify-between text-slate-600 dark:text-slate-400">
-                <span>Tax:</span>
-                <span>${{order.taxFormatted}}</span>
+              <div class="flex flex-1 flex-col pb-8">
+                <p class="font-bold text-base leading-normal text-[#111418] dark:text-white">Order Placed</p>
+                <p class="text-neutral-gray-text dark:text-gray-400 text-sm leading-normal">{{order.orderDate}}</p>
               </div>
-              <div class="flex justify-between text-slate-600 dark:text-slate-400">
-                <span>Shipping:</span>
-                <span>${{order.shippingFormatted}}</span>
+
+              {{! Processing/Confirmed - Show based on status }}
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-[2px] {{#if order.isProcessingActive}}bg-gradient-to-b from-status-success/50 to-status-warning/50{{else}}bg-neutral-gray-border dark:bg-gray-700{{/if}} h-1.5"></div>
+                <div class="flex items-center justify-center rounded-full size-10
+                  {{#if order.isProcessingActive}}
+                    text-status-warning bg-status-warning/20 dark:bg-status-warning/30 shadow-md border-2 border-status-warning/30
+                  {{else}}
+                    text-neutral-gray-text dark:text-gray-400 bg-neutral-gray-bg dark:bg-gray-700 border border-neutral-gray-border dark:border-gray-600
+                  {{/if}}">
+                  <span class="material-symbols-outlined text-xl">hourglass_top</span>
+                </div>
+                <div class="w-[2px] {{#if order.isProcessingActive}}bg-gradient-to-b from-status-warning/50 to-status-info/30{{else}}bg-neutral-gray-border dark:bg-gray-700{{/if}} h-full"></div>
               </div>
-              <div class="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between font-bold text-lg text-slate-800 dark:text-white">
-                <span>Total:</span>
-                <span>${{order.totalFormatted}}</span>
+              <div class="flex flex-1 flex-col pb-8">
+                <p class="text-base leading-normal
+                  {{#if order.isProcessingActive}}
+                    font-bold text-[#111418] dark:text-white
+                  {{else}}
+                    text-neutral-gray-text dark:text-gray-400 font-medium
+                  {{/if}}">
+                  Processing
+                </p>
+                {{#if order.isProcessingActive}}
+                  {{#ifCond order.status '===' 'in_confirmation'}}
+                    <p class="text-neutral-gray-text dark:text-gray-400 text-sm leading-normal">{{order.orderDate}}</p>
+                  {{/ifCond}}
+                  {{#ifCond order.status '===' 'confirmed'}}
+                    <p class="text-neutral-gray-text dark:text-gray-400 text-sm leading-normal">{{order.orderDate}}</p>
+                  {{/ifCond}}
+                {{/if}}
+              </div>
+
+              {{! Shipped - Show based on status }}
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-[2px] {{#if order.isShippedActive}}bg-gradient-to-b from-status-warning/50 to-status-info/50{{else}}bg-neutral-gray-border dark:bg-gray-700{{/if}} h-1.5"></div>
+                <div class="flex items-center justify-center rounded-full size-10
+                  {{#if order.isShippedActive}}
+                    text-status-info bg-status-info/20 dark:bg-status-info/30 shadow-md border-2 border-status-info/30
+                  {{else}}
+                    text-neutral-gray-text dark:text-gray-400 bg-neutral-gray-bg dark:bg-gray-700 border border-neutral-gray-border dark:border-gray-600
+                  {{/if}}">
+                  <span class="material-symbols-outlined text-xl">local_shipping</span>
+                </div>
+                <div class="w-[2px] {{#if order.isShippedActive}}bg-gradient-to-b from-status-info/50 to-status-success/30{{else}}bg-neutral-gray-border dark:bg-gray-700{{/if}} h-full"></div>
+              </div>
+              <div class="flex flex-1 flex-col pb-8">
+                <p class="text-base leading-normal
+                  {{#if order.isShippedActive}}
+                    font-bold text-[#111418] dark:text-white
+                  {{else}}
+                    text-neutral-gray-text dark:text-gray-400 font-medium
+                  {{/if}}">
+                  Shipped
+                </p>
+                {{#ifCond order.status '===' 'shipped'}}
+                  <p class="text-neutral-gray-text dark:text-gray-400 text-sm leading-normal">{{order.orderDate}}</p>
+                {{/ifCond}}
+              </div>
+
+              {{! Delivered - Show based on status }}
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-[2px] {{#eq order.status 'delivered'}}bg-gradient-to-b from-status-info/50 to-status-success/50{{else}}bg-neutral-gray-border dark:bg-gray-700{{/eq}} h-1.5"></div>
+                <div class="flex items-center justify-center rounded-full size-10
+                  {{#eq order.status 'delivered'}}
+                    text-status-success bg-status-success/20 dark:bg-status-success/30 shadow-md border-2 border-status-success/30
+                  {{else}}
+                    text-neutral-gray-text dark:text-gray-400 bg-neutral-gray-bg dark:bg-gray-700 border border-neutral-gray-border dark:border-gray-600
+                  {{/eq}}">
+                  <span class="material-symbols-outlined text-xl">inventory_2</span>
+                </div>
+              </div>
+              <div class="flex flex-1 flex-col">
+                <p class="text-base leading-normal
+                  {{#eq order.status 'delivered'}}
+                    font-bold text-[#111418] dark:text-white
+                  {{else}}
+                    text-neutral-gray-text dark:text-gray-400 font-medium
+                  {{/eq}}">
+                  Delivered
+                </p>
+                {{#if (eq order.status 'delivered')}}
+                  <p class="text-neutral-gray-text dark:text-gray-400 text-sm leading-normal">{{order.orderDate}}</p>
+                {{/if}}
               </div>
             </div>
+          </section>
+
+          {{! Items Purchased Table }}
+          <section class="bg-gradient-to-br from-white to-neutral-gray-bg/30 dark:from-gray-800 dark:to-gray-900 border-2 border-primary/10 dark:border-primary/20 rounded-xl shadow-sm">
+            <div class="p-6 border-b border-neutral-gray-border/50 dark:border-gray-700/50">
+              <h2 class="text-lg font-bold text-[#111418] dark:text-white flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">shopping_bag</span>
+                Items Purchased
+              </h2>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm text-left">
+                <thead class="bg-gradient-to-r from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 text-xs text-neutral-gray-text dark:text-gray-400 uppercase">
+                  <tr>
+                    <th class="px-6 py-3 w-2/5 font-semibold" scope="col">Product</th>
+                    <th class="px-6 py-3 text-center font-semibold" scope="col">Quantity</th>
+                    <th class="px-6 py-3 text-right font-semibold" scope="col">Unit Price</th>
+                    <th class="px-6 py-3 text-right font-semibold" scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each order.items}}
+                    <tr class="border-b border-neutral-gray-border/30 dark:border-gray-700/50 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+                      <td class="px-6 py-4 font-medium whitespace-nowrap">
+                        <div class="flex items-center gap-4">
+                          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-12 flex-shrink-0 border-2 border-primary/20 shadow-sm"
+                            data-alt="{{this.productName}}"
+                            style="background-image: url('https://via.placeholder.com/48?text={{this.productName}}');">
+                          </div>
+                          <div>
+                            <p class="font-bold text-[#111418] dark:text-gray-200">{{this.productName}}</p>
+                            <p class="text-xs text-neutral-gray-text dark:text-gray-400">SKU: <span class="font-mono text-primary/80">{{this.sku}}</span></p>
           </div>
-
-          {{! Shipping Address }}
-          <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-            <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Shipping Address</h2>
-            <address class="text-slate-600 dark:text-slate-400 not-italic text-sm leading-relaxed">
-              {{order.shippingAddress.street}}<br>
-              {{#if order.shippingAddress.addressLine2}}
-                {{order.shippingAddress.addressLine2}}<br>
-              {{/if}}
-              {{order.shippingAddress.city}}, {{order.shippingAddress.state}} {{order.shippingAddress.postalCode}}<br>
-              {{order.shippingAddress.country}}
-            </address>
           </div>
-
-          {{! Additional Information }}
-          {{#if order.poNumber}}
-            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-              <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Purchase Order</h2>
-              <p class="text-slate-600 dark:text-slate-400 text-sm">
-                {{order.poNumber}}
-              </p>
+                      </td>
+                      <td class="px-6 py-4 text-center">
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary font-semibold">{{this.quantity}}</span>
+                      </td>
+                      <td class="px-6 py-4 text-right font-semibold text-[#111418] dark:text-white">${{this.unitPrice}}</td>
+                      <td class="px-6 py-4 text-right font-bold text-corporate-blue dark:text-corporate-blue">${{this.subtotal}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
             </div>
-          {{/if}}
-
-          {{#if order.notes}}
-            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-              <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-4">Notes</h2>
-              <p class="text-slate-600 dark:text-slate-400 text-sm">
-                {{order.notes}}
-              </p>
+            <div class="p-6 flex justify-end bg-gradient-to-r from-neutral-gray-bg/50 to-transparent dark:from-gray-900/50">
+              <div class="w-full max-w-sm space-y-3 text-sm">
+                <div class="flex justify-between py-2">
+                  <span class="text-neutral-gray-text dark:text-gray-400">Subtotal</span>
+                  <span class="font-medium text-[#111418] dark:text-white">${{order.subtotalFormatted}}</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span class="text-neutral-gray-text dark:text-gray-400">Shipping</span>
+                  <span class="font-medium text-status-info dark:text-status-info">${{order.shippingFormatted}}</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span class="text-neutral-gray-text dark:text-gray-400">Taxes</span>
+                  <span class="font-medium text-status-warning dark:text-status-warning">${{order.taxFormatted}}</span>
+                </div>
+                <div class="border-t-2 border-primary/20 dark:border-primary/30 my-3"></div>
+                <div class="flex justify-between text-lg font-bold pt-2">
+                  <span class="text-[#111418] dark:text-white">Grand Total</span>
+                  <span class="text-corporate-blue dark:text-corporate-blue text-xl">${{order.totalFormatted}}</span>
+                </div>
+              </div>
             </div>
-          {{/if}}
+          </section>
 
         </div>
-      </div>
-
-      {{! Back to Orders }}
-      <div class="mt-8">
-        <a href="/orders"
-          class="inline-flex items-center gap-2 text-primary hover:underline font-semibold">
-          <span class="material-symbols-outlined text-lg">arrow_back</span>
-          Back to Order History
-        </a>
       </div>
 
     </div>
@@ -184,14 +357,14 @@ async function reorder(orderId) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // TODO: Add authentication header when Keycloak integration is ready
       },
+      credentials: 'include',
     });
 
     if (response.ok) {
       const data = await response.json();
       // Redirect to cart
-      window.location.href = '/cart';
+      window.location.href = '/checkout';
     } else {
       alert('Failed to reorder. Please try again.');
     }
@@ -200,5 +373,9 @@ async function reorder(orderId) {
     alert('An error occurred. Please try again.');
   }
 }
-</script>
 
+function requestReturn(orderId) {
+  // TODO: Implement return request functionality
+  alert('Return request functionality coming soon. Please contact support for returns.');
+}
+</script>

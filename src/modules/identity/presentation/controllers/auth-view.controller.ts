@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Req, Res, Session } from '@nestjs/common';
+import * as crypto from 'crypto';
 import { Request, Response } from 'express';
 import { KeycloakAuthService } from '../../application/services/keycloak-auth.service';
-import * as crypto from 'crypto';
 
 /**
  * AuthViewController

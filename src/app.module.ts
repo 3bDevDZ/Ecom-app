@@ -63,6 +63,7 @@ import { ProductCatalogModule } from './modules/product-catalog/product-catalog.
   providers: [ViewUserMiddleware],
 })
 export class AppModule implements NestModule {
+  // Note: ViewUserMiddleware can inject KeycloakAuthService because IdentityModule exports it
   configure(consumer: MiddlewareConsumer) {
     // Apply ViewUserMiddleware to all routes to attach user info for views
     consumer.apply(ViewUserMiddleware).forRoutes('*');

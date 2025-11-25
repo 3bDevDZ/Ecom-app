@@ -40,11 +40,13 @@ export class CartPresenter {
         const total = subtotal + tax + shipping;
 
         return {
+            title: 'Shopping Cart',
             cart: {
                 id: cartDto.id,
                 items: cartDto.items.map((item) => ({
                     ...item,
                     subtotal: this.formatCurrency(item.lineTotal),
+                    unitPriceFormatted: this.formatCurrency(item.unitPrice),
                 })),
                 totalItems: cartDto.items.reduce((sum, item) => sum + item.quantity, 0),
                 subtotal: this.formatCurrency(subtotal),
@@ -71,11 +73,14 @@ export class CartPresenter {
         const total = subtotal + tax + shipping;
 
         return {
+            title: 'Review Your Order',
             cart: {
                 id: cartDto.id,
                 items: cartDto.items.map((item) => ({
                     ...item,
                     subtotal: this.formatCurrency(item.lineTotal),
+                    unitPriceFormatted: this.formatCurrency(item.unitPrice),
+                    lineTotalFormatted: this.formatCurrency(item.lineTotal),
                 })),
                 totalItems: cartDto.items.reduce((sum, item) => sum + item.quantity, 0),
                 subtotal: this.formatCurrency(subtotal),
@@ -254,6 +259,28 @@ export class CartPresenter {
      * User Story 3: View and Track Orders
      */
     toOrderDetailViewModel(order: OrderDto): any {
+        // Calculate subtotal from items
+        const subtotal = order.items.reduce((sum, item) => sum + item.lineTotal, 0);
+
+        // Calculate tax (8% of subtotal)
+        const tax = subtotal * 0.08;
+
+        // Calculate shipping (free over $500, otherwise $25)
+        const shipping = subtotal >= 500 ? 0 : 25.0;
+
+        // Total should match order.totalAmount
+        const calculatedTotal = subtotal + tax + shipping;
+
+        // Helper to check if status is in a set of statuses
+        const isStatusIn = (status: string, statuses: string[]): boolean => {
+            return statuses.includes(status.toLowerCase());
+        };
+
+        const status = order.status.toLowerCase();
+        const isProcessingActive = isStatusIn(status, ['in_confirmation', 'confirmed', 'in_shipping', 'shipped', 'delivered']);
+        const isShippedActive = isStatusIn(status, ['shipped', 'delivered']);
+        const isDeliveredActive = isStatusIn(status, ['delivered']);
+
         return {
             order: {
                 ...order,
@@ -263,14 +290,39 @@ export class CartPresenter {
                     unitPrice: this.formatCurrency(item.unitPrice),
                 })),
                 statusDisplay: this.getOrderStatusDisplay(order.status),
-                subtotalFormatted: this.formatCurrency(order.totalAmount),
-                taxFormatted: this.formatCurrency(0), // TODO: Add tax calculation
-                shippingFormatted: this.formatCurrency(0), // TODO: Add shipping calculation
+                subtotalFormatted: this.formatCurrency(subtotal),
+                taxFormatted: this.formatCurrency(tax),
+                shippingFormatted: this.formatCurrency(shipping),
                 totalFormatted: this.formatCurrency(order.totalAmount),
                 orderDate: this.formatDate(new Date(order.createdAt)),
-                estimatedDelivery: 'To be determined', // TODO: Add delivery estimation
+                estimatedDelivery: order.deliveredAt
+                    ? this.formatDate(new Date(order.deliveredAt))
+                    : 'To be determined',
                 itemCount: order.items.reduce((sum, item) => sum + item.quantity, 0),
                 hasReceipt: !!order.receiptUrl,
+                // Progress tracker flags
+                isProcessingActive,
+                isShippedActive,
+                isDeliveredActive,
+                // Ensure addresses are available
+                shippingAddress: order.shippingAddress || {
+                    street: '',
+                    city: '',
+                    state: '',
+                    postalCode: '',
+                    country: '',
+                    contactName: '',
+                    contactPhone: '',
+                },
+                billingAddress: order.billingAddress || {
+                    street: '',
+                    city: '',
+                    state: '',
+                    postalCode: '',
+                    country: '',
+                    contactName: '',
+                    contactPhone: '',
+                },
             },
             breadcrumbs: [
                 { label: 'Home', href: '/' },

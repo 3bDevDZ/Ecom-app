@@ -17,7 +17,12 @@ export class CartRepository implements ICartRepository {
   ) {}
 
   async save(cart: Cart): Promise<void> {
-    const entity = CartMapper.toPersistence(cart);
+    // Check if cart already exists to preserve expiresAt
+    const existingEntity = await this.cartEntityRepository.findOne({
+      where: { id: cart.id },
+    });
+
+    const entity = CartMapper.toPersistence(cart, existingEntity || undefined);
 
     // Delete existing items and save new ones (simplest approach for cart items)
     await this.cartItemEntityRepository.delete({ cartId: cart.id });

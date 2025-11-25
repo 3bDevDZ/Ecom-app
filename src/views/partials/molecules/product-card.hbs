@@ -2,7 +2,7 @@
   Product Card Molecule Component
   Usage: {{> product-card product=product }}
 --}}
-<div class="flex flex-col bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group">
+<div class="flex flex-col bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group" data-product-id="{{product.id}}" data-has-variants="{{#if product.hasVariants}}true{{else}}false{{/if}}">
   <div class="relative">
     <a href="/products/{{product.id}}">
       {{#if product.images}}

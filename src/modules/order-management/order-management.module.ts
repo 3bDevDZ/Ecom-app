@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+// Identity Module (for JwtAuthGuard and KeycloakAuthService)
+import { IdentityModule } from '../identity/identity.module';
+
 // Infrastructure - Persistence Entities
 import { CartItemEntity } from './infrastructure/persistence/entities/cart-item.entity';
 import { CartEntity } from './infrastructure/persistence/entities/cart.entity';
@@ -17,6 +20,7 @@ import { CartController } from './presentation/controllers/cart.controller';
 import { OrderController } from './presentation/controllers/order.controller';
 // Presentation - Controllers - Views
 import { CartViewController } from './presentation/controllers/cart-view.controller';
+import { CheckoutViewController } from './presentation/controllers/checkout-view.controller';
 import { OrderViewController } from './presentation/controllers/order-view.controller';
 
 // Application - Command Handlers
@@ -90,6 +94,7 @@ const sagas = [OrderPlacementSaga];
 @Module({
   imports: [
     CqrsModule,
+    IdentityModule, // Required for JwtAuthGuard which needs KeycloakAuthService
     TypeOrmModule.forFeature([
       CartEntity,
       CartItemEntity,
@@ -106,6 +111,7 @@ const sagas = [OrderPlacementSaga];
     OrderController,
     // View Controllers (without /api prefix, excluded from global prefix)
     CartViewController,
+    CheckoutViewController,
     OrderViewController,
   ],
   providers: [

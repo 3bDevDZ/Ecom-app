@@ -440,8 +440,16 @@ async function addToCart(productId, quantity) {
     return;
   }
 
+  // Get quantity - try from parameter first, then from input field
+  let qty = parseInt(quantity);
+  if (isNaN(qty) || qty < 1) {
+    const quantityInput = document.getElementById('quantity');
+    if (quantityInput) {
+      qty = parseInt(quantityInput.value);
+    }
+  }
+
   // Validate quantity
-  const qty = parseInt(quantity);
   if (isNaN(qty) || qty < 1) {
     alert('Please enter a valid quantity.');
     return;
@@ -465,37 +473,113 @@ async function addToCart(productId, quantity) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // TODO: Add authentication token when Keycloak integration is ready
-        // 'Authorization': `Bearer ${authToken}`
       },
+      credentials: 'include', // Include session cookies for authentication
       body: JSON.stringify(requestData)
     });
 
     if (response.ok) {
       const cartData = await response.json();
-      // Show success message
-      showNotification('Product added to cart successfully!', 'success');
-      // Update cart count badge
-      await updateCartCount();
+      console.log('Add to cart response:', cartData);
+
+      // Use itemCount (number of unique products) or items.length as fallback
+      let totalItems = 0;
+      if (cartData) {
+        if (cartData.itemCount !== undefined && cartData.itemCount !== null) {
+          totalItems = cartData.itemCount;
+        } else if (cartData.items && Array.isArray(cartData.items)) {
+          totalItems = cartData.items.length;
+        }
+      }
+
+      console.log('Total items from add to cart response:', totalItems);
+
+      // Update badge directly with the response data
+      const badge = document.getElementById('cart-count-badge');
+      if (badge && totalItems > 0) {
+        badge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+        badge.setAttribute('style',
+          'display: flex !important; ' +
+          'visibility: visible !important; ' +
+          'opacity: 1 !important; ' +
+          'position: absolute !important; ' +
+          'top: -4px !important; ' +
+          'right: -4px !important; ' +
+          'z-index: 9999 !important; ' +
+          'background-color: #ef4444 !important; ' +
+          'color: #ffffff !important; ' +
+          'border-radius: 9999px !important; ' +
+          'min-width: 20px !important; ' +
+          'height: 20px !important; ' +
+          'padding: 0 6px !important; ' +
+          'font-size: 12px !important; ' +
+          'font-weight: bold !important; ' +
+          'align-items: center !important; ' +
+          'justify-content: center !important; ' +
+          'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;'
+        );
+        badge.classList.remove('hidden');
+
+        // Animate the badge
+        badge.classList.add('animate-bounce');
+        setTimeout(() => {
+          badge.classList.remove('animate-bounce');
+        }, 1000);
+      } else if (badge) {
+        console.warn('Badge found but totalItems is 0');
+      } else {
+        console.error('Cart badge element not found after adding to cart');
+      }
+
+      // Also update via the global function as backup, passing the count directly
+      if (typeof window.updateCartCount === 'function') {
+        const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : cartData.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+        await window.updateCartCount(totalItems);
+      }
+
+      // Re-enable button
+      if (addToCartBtn) {
+        addToCartBtn.disabled = false;
+        addToCartBtn.innerHTML = '<span class="truncate">Add to Cart</span>';
+      }
       // Optional: Redirect to cart after 1 second
       // setTimeout(() => { window.location.href = '/cart'; }, 1000);
     } else if (response.status === 401) {
       showNotification('Please sign in to add items to cart.', 'warning');
+      // Re-enable button
+      if (addToCartBtn) {
+        addToCartBtn.disabled = false;
+        addToCartBtn.innerHTML = '<span class="truncate">Add to Cart</span>';
+      }
       // Optionally redirect to login
       // window.location.href = '/auth/login';
     } else if (response.status === 404) {
       showNotification('Product not found. Please refresh the page.', 'error');
+      // Re-enable button
+      if (addToCartBtn) {
+        addToCartBtn.disabled = false;
+        addToCartBtn.innerHTML = '<span class="truncate">Add to Cart</span>';
+      }
     } else if (response.status === 409) {
       const error = await response.json().catch(() => ({ message: 'Insufficient inventory or MOQ not met' }));
       showNotification(error.message || 'Unable to add to cart. Please check quantity and inventory.', 'error');
+      // Re-enable button
+      if (addToCartBtn) {
+        addToCartBtn.disabled = false;
+        addToCartBtn.innerHTML = '<span class="truncate">Add to Cart</span>';
+      }
     } else {
       const error = await response.json().catch(() => ({ message: 'Failed to add item to cart' }));
       showNotification(error.message || 'An error occurred. Please try again.', 'error');
+      // Re-enable button
+      if (addToCartBtn) {
+        addToCartBtn.disabled = false;
+        addToCartBtn.innerHTML = '<span class="truncate">Add to Cart</span>';
+      }
     }
   } catch (error) {
     console.error('Add to cart error:', error);
     showNotification('Network error. Please check your connection and try again.', 'error');
-  } finally {
     // Re-enable button
     if (addToCartBtn) {
       addToCartBtn.disabled = false;
@@ -531,10 +615,7 @@ function showNotification(message, type = 'info') {
 async function updateCartCount() {
   try {
     const response = await fetch('/api/cart', {
-      headers: {
-        // TODO: Add authentication token when Keycloak integration is ready
-        // 'Authorization': `Bearer ${authToken}`
-      }
+      credentials: 'include', // Include session cookies for authentication
     });
 
     if (response.ok) {

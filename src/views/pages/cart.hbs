@@ -1,6 +1,7 @@
-{{!-- Cart Page (T169) --}}
-{{> layouts/main title="Shopping Cart" }}
-
+{{!--
+  Cart Page (T169)
+  User Story 2: Add Products to Cart and Checkout
+--}}
 <div class="min-h-screen bg-gray-50 py-8">
   <div class="container mx-auto px-4 max-w-7xl">
     {{!-- Page Header --}}
@@ -14,7 +15,7 @@
         {{!-- Cart Items --}}
         <div class="lg:col-span-2 space-y-4">
           {{#each cart.items}}
-            {{> molecules/cart-item item=this cartId=../cart.id}}
+            {{> cart-item item=this cartId=../cart.id}}
           {{/each}}
         </div>
 
@@ -97,12 +98,19 @@
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         },
+        credentials: 'include',
         body: JSON.stringify({ quantity }),
       });
 
       if (response.ok) {
+        const cartData = await response.json();
+        // Update cart badge count
+        if (typeof window.updateCartCount === 'function') {
+          // Use itemCount (number of unique products) or items.length as fallback
+          const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : (cartData.items?.length || 0);
+          window.updateCartCount(totalItems);
+        }
         location.reload();
       } else {
         alert('Failed to update quantity');
@@ -122,11 +130,19 @@
       const response = await fetch(`/api/cart/items/${itemId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Content-Type': 'application/json',
         },
+        credentials: 'include',
       });
 
       if (response.ok) {
+        const cartData = await response.json();
+        // Update cart badge count
+        if (typeof window.updateCartCount === 'function') {
+          // Use itemCount (number of unique products) or items.length as fallback
+          const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : (cartData.items?.length || 0);
+          window.updateCartCount(totalItems);
+        }
         location.reload();
       } else {
         alert('Failed to remove item');
@@ -146,11 +162,16 @@
       const response = await fetch('/api/cart/clear', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Content-Type': 'application/json',
         },
+        credentials: 'include',
       });
 
       if (response.ok) {
+        // Update cart badge to 0
+        if (typeof window.updateCartCount === 'function') {
+          window.updateCartCount(0);
+        }
         location.reload();
       } else {
         alert('Failed to clear cart');

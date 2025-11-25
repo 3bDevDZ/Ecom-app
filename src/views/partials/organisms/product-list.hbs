@@ -4,7 +4,7 @@
 --}}
 <div class="flex flex-col gap-4">
   {{#each products}}
-    <div class="flex gap-4 bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group">
+    <div class="flex gap-4 bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group" data-product-id="{{id}}" data-has-variants="{{#if hasVariants}}true{{else}}false{{/if}}">
       {{! Product Image }}
       <div class="relative w-48 flex-shrink-0">
         <a href="/products/{{id}}">
