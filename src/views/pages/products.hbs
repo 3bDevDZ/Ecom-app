@@ -682,12 +682,12 @@ window.addToCart = async function(productId, quantity) {
 
     // Also manually ensure visibility (fallback if CSS doesn't work immediately)
     setTimeout(() => {
-      const modalContainer = document.querySelector('.fixed.bottom-0.z-50');
+      const modalContainer = document.querySelector('.fixed.right-0.z-50');
       const backdrop = document.querySelector('label[for="variant-modal"]');
 
       if (modalContainer) {
         console.log('Modal container found, ensuring visibility');
-        modalContainer.style.transform = 'translateY(0)';
+        modalContainer.style.transform = 'translateX(0)';
         modalContainer.style.display = 'flex';
         modalContainer.style.visibility = 'visible';
         modalContainer.style.opacity = '1';
@@ -1027,7 +1027,7 @@ window.addToCart = async function(productId, quantity) {
 
       // Force visibility after data is loaded
       setTimeout(() => {
-        const modalContainer = document.querySelector('.fixed.bottom-0.z-50');
+        const modalContainer = document.querySelector('.fixed.right-0.z-50');
         const backdrop = document.querySelector('label[for="variant-modal"]');
 
         console.log('Checking modal visibility:', {
@@ -1039,9 +1039,9 @@ window.addToCart = async function(productId, quantity) {
         if (modalContainer) {
           console.log('Modal container found, ensuring visibility');
           // Remove any conflicting classes and force visibility
-          modalContainer.classList.remove('translate-y-full');
-          modalContainer.classList.add('translate-y-0');
-          modalContainer.style.transform = 'translateY(0)';
+          modalContainer.classList.remove('translate-x-full');
+          modalContainer.classList.add('translate-x-0');
+          modalContainer.style.transform = 'translateX(0)';
           modalContainer.style.display = 'flex';
           modalContainer.style.visibility = 'visible';
           modalContainer.style.opacity = '1';
@@ -1085,11 +1085,11 @@ window.addToCart = async function(productId, quantity) {
 
       // Hide modal container
       setTimeout(() => {
-        const modalContainer = document.querySelector('.fixed.bottom-0.z-50');
+        const modalContainer = document.querySelector('.fixed.right-0.z-50');
         const backdrop = document.querySelector('label[for="variant-modal"]');
 
         if (modalContainer) {
-          modalContainer.style.transform = 'translateY(100%)';
+          modalContainer.style.transform = 'translateX(100%)';
           modalContainer.style.display = 'none';
         }
 
@@ -1191,24 +1191,24 @@ window.addToCart = async function(productId, quantity) {
 
     try {
       const response = await fetch('/api/cart/items', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          productId: productId,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        productId: productId,
           variantId: variantId,
-          quantity: qty,
-        }),
+        quantity: qty,
+      }),
       });
 
-      if (response.status === 401) {
-        window.location.href = '/login';
-        return;
-      }
+        if (response.status === 401) {
+          window.location.href = '/login';
+          return;
+        }
 
-      if (!response.ok) {
+        if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Failed to add to cart');
       }
@@ -1216,7 +1216,7 @@ window.addToCart = async function(productId, quantity) {
       const data = await response.json();
       console.log('Add to cart response:', data);
 
-      // Update cart count
+        // Update cart count
       const totalItems = data.itemCount !== undefined ? data.itemCount : (data.items?.length || 0);
       if (typeof window.updateCartCount === 'function') {
         window.updateCartCount(totalItems);
@@ -1229,12 +1229,12 @@ window.addToCart = async function(productId, quantity) {
       }
 
       // Hide modal container
-      setTimeout(() => {
-        const modalContainer = document.querySelector('.fixed.bottom-0.z-50');
+        setTimeout(() => {
+        const modalContainer = document.querySelector('.fixed.right-0.z-50');
         const backdrop = document.querySelector('label[for="variant-modal"]');
 
         if (modalContainer) {
-          modalContainer.style.transform = 'translateY(100%)';
+          modalContainer.style.transform = 'translateX(100%)';
           modalContainer.style.display = 'none';
         }
 
