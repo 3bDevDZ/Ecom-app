@@ -482,13 +482,13 @@ async function addToCart(productId, quantity) {
       const cartData = await response.json();
       console.log('Add to cart response:', cartData);
 
-      // Calculate total items from the response
+      // Use itemCount (number of unique products) or items.length as fallback
       let totalItems = 0;
       if (cartData) {
         if (cartData.itemCount !== undefined && cartData.itemCount !== null) {
           totalItems = cartData.itemCount;
         } else if (cartData.items && Array.isArray(cartData.items)) {
-          totalItems = cartData.items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+          totalItems = cartData.items.length;
         }
       }
 
@@ -531,9 +531,10 @@ async function addToCart(productId, quantity) {
         console.error('Cart badge element not found after adding to cart');
       }
 
-      // Also update via the global function as backup
+      // Also update via the global function as backup, passing the count directly
       if (typeof window.updateCartCount === 'function') {
-        await window.updateCartCount();
+        const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : cartData.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+        await window.updateCartCount(totalItems);
       }
 
       // Re-enable button

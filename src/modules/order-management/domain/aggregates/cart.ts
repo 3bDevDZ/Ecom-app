@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { AggregateRoot } from '../base/aggregate-root';
 import { CartItem, CartItemProps } from '../entities/cart-item';
-import { CartStatus } from '../value-objects/cart-status';
+import { CartCleared } from '../events/cart-cleared';
 import { ItemAddedToCart } from '../events/item-added-to-cart';
 import { ItemRemovedFromCart } from '../events/item-removed-from-cart';
-import { CartCleared } from '../events/cart-cleared';
+import { CartStatus } from '../value-objects/cart-status';
 
 /**
  * Cart Aggregate Root
@@ -196,7 +196,8 @@ export class Cart extends AggregateRoot {
   }
 
   get itemCount(): number {
-    return this._items.reduce((count, item) => count + item.quantity, 0);
+    // Return number of unique products (items), not total quantity
+    return this._items.length;
   }
 
   get createdAt(): Date {

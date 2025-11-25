@@ -104,6 +104,13 @@
       });
 
       if (response.ok) {
+        const cartData = await response.json();
+        // Update cart badge count
+        if (typeof window.updateCartCount === 'function') {
+          // Use itemCount (number of unique products) or items.length as fallback
+          const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : (cartData.items?.length || 0);
+          window.updateCartCount(totalItems);
+        }
         location.reload();
       } else {
         alert('Failed to update quantity');
@@ -129,6 +136,13 @@
       });
 
       if (response.ok) {
+        const cartData = await response.json();
+        // Update cart badge count
+        if (typeof window.updateCartCount === 'function') {
+          // Use itemCount (number of unique products) or items.length as fallback
+          const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : (cartData.items?.length || 0);
+          window.updateCartCount(totalItems);
+        }
         location.reload();
       } else {
         alert('Failed to remove item');
@@ -154,6 +168,10 @@
       });
 
       if (response.ok) {
+        // Update cart badge to 0
+        if (typeof window.updateCartCount === 'function') {
+          window.updateCartCount(0);
+        }
         location.reload();
       } else {
         alert('Failed to clear cart');

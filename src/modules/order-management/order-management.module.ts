@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+// Identity Module (for JwtAuthGuard and KeycloakAuthService)
+import { IdentityModule } from '../identity/identity.module';
+
 // Infrastructure - Persistence Entities
 import { CartItemEntity } from './infrastructure/persistence/entities/cart-item.entity';
 import { CartEntity } from './infrastructure/persistence/entities/cart.entity';
@@ -91,6 +94,7 @@ const sagas = [OrderPlacementSaga];
 @Module({
   imports: [
     CqrsModule,
+    IdentityModule, // Required for JwtAuthGuard which needs KeycloakAuthService
     TypeOrmModule.forFeature([
       CartEntity,
       CartItemEntity,

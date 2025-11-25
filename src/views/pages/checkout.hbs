@@ -177,9 +177,12 @@
       });
 
       if (response.ok) {
+        const cartData = await response.json();
         // Update cart count and reload page to reflect changes
-        if (typeof updateCartCount === 'function') {
-          updateCartCount();
+        if (typeof window.updateCartCount === 'function') {
+          // Use itemCount (number of unique products) or items.length as fallback
+          const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : (cartData.items?.length || 0);
+          window.updateCartCount(totalItems);
         }
         location.reload();
       } else {
@@ -207,9 +210,12 @@
       });
 
       if (response.ok) {
+        const cartData = await response.json();
         // Update cart count and reload page
-        if (typeof updateCartCount === 'function') {
-          updateCartCount();
+        if (typeof window.updateCartCount === 'function') {
+          // Use itemCount (number of unique products) or items.length as fallback
+          const totalItems = cartData.itemCount !== undefined ? cartData.itemCount : (cartData.items?.length || 0);
+          window.updateCartCount(totalItems);
         }
         location.reload();
       } else {

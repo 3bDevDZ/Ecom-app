@@ -1,0 +1,104 @@
+{{!
+  Variant Selection Modal
+  Sliding window/popup for selecting product variants before adding to cart
+}}
+<input class="peer hidden" id="variant-modal" type="checkbox" />
+<label
+  class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm hidden peer-checked:block cursor-pointer"
+  for="variant-modal"
+  onclick="if(typeof closeVariantModal === 'function') closeVariantModal();"
+></label>
+<div
+  class="fixed bottom-0 left-0 right-0 z-50 h-[85vh] bg-background-light dark:bg-background-dark rounded-t-2xl shadow-lg transform translate-y-full peer-checked:translate-y-0 transition-transform duration-300 ease-in-out flex flex-col"
+>
+  <div
+    class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800"
+  >
+    <h3 class="text-lg font-bold text-slate-900 dark:text-slate-50">Select
+      Variant</h3>
+    <label
+      class="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+      for="variant-modal"
+      onclick="if(typeof closeVariantModal === 'function') closeVariantModal();"
+    >
+      <span class="material-symbols-outlined text-2xl">close</span>
+    </label>
+  </div>
+  <div
+    class="p-4 flex gap-4 items-start border-b border-slate-200 dark:border-slate-800"
+    id="variant-modal-product-info"
+  >
+    {{! Product info will be populated by JavaScript }}
+    <div
+      class="w-20 h-20 rounded-lg object-cover bg-slate-200 dark:bg-slate-800 flex-shrink-0"
+      id="variant-modal-image"
+    ></div>
+    <div class="flex-1 min-w-0">
+      <h4
+        class="font-bold text-slate-900 dark:text-slate-50"
+        id="variant-modal-name"
+      >Loading...</h4>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+        Starting from
+        <span
+          class="font-semibold text-slate-800 dark:text-slate-200"
+          id="variant-modal-price"
+        >$0.00</span>
+      </p>
+    </div>
+  </div>
+  <div class="flex-1 overflow-y-auto p-4 space-y-4" id="variant-modal-content">
+    {{! Variant options will be populated by JavaScript }}
+    <div class="text-center py-8 text-slate-500 dark:text-slate-400">Loading
+      variants...</div>
+  </div>
+  <div
+    class="p-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-4"
+  >
+    <div class="flex items-center justify-between">
+      <label
+        class="text-sm font-medium text-slate-700 dark:text-slate-300"
+        for="variant-modal-quantity"
+      >
+        Quantity
+      </label>
+      <div
+        class="flex items-center border border-slate-300 dark:border-slate-600 rounded-md overflow-hidden w-32"
+      >
+        <button
+          type="button"
+          id="variant-modal-decrease-qty"
+          class="px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          onclick="decreaseVariantQuantity()"
+        >
+          <span class="material-symbols-outlined text-lg">remove</span>
+        </button>
+        <input
+          type="number"
+          id="variant-modal-quantity"
+          class="w-full text-center border-x border-slate-300 dark:border-slate-600 bg-transparent focus:ring-0 focus:border-x focus:border-primary p-2 text-slate-900 dark:text-white"
+          value="1"
+          min="1"
+          onchange="validateVariantQuantity()"
+        />
+        <button
+          type="button"
+          id="variant-modal-increase-qty"
+          class="px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          onclick="increaseVariantQuantity()"
+        >
+          <span class="material-symbols-outlined text-lg">add</span>
+        </button>
+      </div>
+    </div>
+    <button
+      type="button"
+      id="variant-modal-add-to-cart-btn"
+      class="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      onclick="addToCartFromModal()"
+      disabled
+    >
+      <span class="truncate">Add to Cart</span>
+    </button>
+  </div>
+</div>

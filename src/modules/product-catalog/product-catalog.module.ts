@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+// Identity Module (for JwtAuthGuard and KeycloakAuthService)
+import { IdentityModule } from '../identity/identity.module';
+
 // Entities
 import {
   CategoryEntity,
@@ -60,6 +63,7 @@ import {
 @Module({
   imports: [
     CqrsModule,
+    IdentityModule, // Required for JwtAuthGuard which needs KeycloakAuthService
     TypeOrmModule.forFeature([
       ProductEntity,
       ProductVariantEntity,

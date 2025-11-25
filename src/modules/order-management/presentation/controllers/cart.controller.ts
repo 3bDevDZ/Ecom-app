@@ -61,38 +61,50 @@ export class CartController {
         const userId = req.user?.userId || req.user?.sub;
 
         if (!userId) {
+            if (res) {
+                res.status(401).json({ error: 'User ID not found in request' });
+                return; // Return void when manually handling response
+            }
             throw new Error('User ID not found in request');
         }
 
         const query = new GetCartQuery(userId);
         const cart = await this.queryBus.execute(query);
 
-        // Return HTML view if format=html or Accept header prefers HTML
-        const isHtmlRequest =
-            format === 'html' ||
-            res?.req.headers.accept?.includes('text/html') ||
-            (res && !res.req.headers.accept?.includes('application/json'));
+        // Check if JSON is explicitly requested
+        const acceptHeader = req.headers?.accept || '';
+        const wantsJson = format === 'json' || acceptHeader.includes('application/json');
+        const wantsHtml = format === 'html' || (acceptHeader.includes('text/html') && !wantsJson);
 
-        if (isHtmlRequest && res) {
+        // Return HTML view if format=html or Accept header prefers HTML
+        if (wantsHtml && res) {
             // TODO: Implement cart view presenter
             return res.render('cart', { cart, user: req.user });
         }
 
         // Return JSON for API - return empty cart structure if cart is null
-        if (!cart) {
-            return {
-                id: null,
-                userId: userId,
-                status: 'active',
-                items: [],
-                totalAmount: 0,
-                itemCount: 0,
-                createdAt: null,
-                updatedAt: null,
-            } as CartDto;
+        const cartDto: CartDto = !cart
+            ? {
+                  id: null,
+                  userId: userId,
+                  status: 'active',
+                  items: [],
+                  totalAmount: 0,
+                  itemCount: 0,
+                  createdAt: null,
+                  updatedAt: null,
+              }
+            : cart;
+
+        // If res is provided, explicitly send JSON response
+        if (res) {
+            res.setHeader('Content-Type', 'application/json');
+            res.json(cartDto);
+            return; // Return void when manually handling response
         }
 
-        return cart;
+        // Otherwise, return the DTO and let NestJS serialize it
+        return cartDto;
     }
 
     /**

@@ -61,139 +61,394 @@
     </div>
     <script>
     // Global cart count update function - available on all pages
-    window.updateCartCount = async function() {
+    let cartUpdateInProgress = false;
+    window.updateCartCount = async function(newCount = null) {
+      // Prevent multiple simultaneous updates
+      if (cartUpdateInProgress && newCount === null) {
+        console.log('Cart update already in progress, skipping duplicate call');
+        return;
+      }
+
+      if (newCount === null) {
+        cartUpdateInProgress = true;
+      }
+      // Try to find the badge - if not found, user is not authenticated
+      let cartBadge = document.getElementById('cart-count-badge');
+
+      // If badge not found, try again after a short delay (in case DOM is still loading)
+      if (!cartBadge) {
+        // Wait a bit and try again
+        await new Promise(resolve => setTimeout(resolve, 100));
+        cartBadge = document.getElementById('cart-count-badge');
+      }
+
+      if (!cartBadge) {
+        console.log('Cart badge not found - user may not be authenticated');
+        return;
+      }
+
       try {
-        const response = await fetch('/api/cart', {
-          credentials: 'include', // Include session cookies for authentication
-        });
+        let totalItems = 0;
 
-        if (response.ok) {
-          const cartData = await response.json();
-          console.log('Cart API response:', cartData);
-
-          // Calculate total items - use itemCount if available, otherwise sum quantities
-          let totalItems = 0;
-          if (cartData) {
-            if (cartData.itemCount !== undefined && cartData.itemCount !== null) {
-              totalItems = cartData.itemCount;
-            } else if (cartData.items && Array.isArray(cartData.items)) {
-              totalItems = cartData.items.reduce((sum, item) => {
-                return sum + (item.quantity || 0);
-              }, 0);
-            }
-          }
-
-          console.log('Calculated total items:', totalItems);
-          const cartBadge = document.getElementById('cart-count-badge');
-
-          if (cartBadge) {
-            const previousCount = parseInt(cartBadge.textContent) || 0;
-            console.log('Updating cart badge:', { totalItems, previousCount, badgeElement: cartBadge });
-
-            if (totalItems > 0) {
-              cartBadge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
-              // Force show badge with !important styles
-              cartBadge.setAttribute('style',
-                'display: flex !important; ' +
-                'visibility: visible !important; ' +
-                'opacity: 1 !important; ' +
-                'position: absolute !important; ' +
-                'top: -4px !important; ' +
-                'right: -4px !important; ' +
-                'z-index: 9999 !important; ' +
-                'background-color: #ef4444 !important; ' +
-                'color: #ffffff !important; ' +
-                'border-radius: 9999px !important; ' +
-                'min-width: 20px !important; ' +
-                'height: 20px !important; ' +
-                'padding: 0 6px !important; ' +
-                'font-size: 12px !important; ' +
-                'font-weight: bold !important; ' +
-                'align-items: center !important; ' +
-                'justify-content: center !important; ' +
-                'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;'
-              );
-              cartBadge.classList.remove('hidden');
-
-              // If count increased, trigger bounce animation
-              if (totalItems > previousCount) {
-                cartBadge.classList.add('animate-bounce');
-                setTimeout(() => {
-                  cartBadge.classList.remove('animate-bounce');
-                }, 1000);
-              }
-              console.log('Badge updated and should be visible with count:', totalItems);
-            } else {
-              cartBadge.setAttribute('style', 'display: none !important;');
-              cartBadge.classList.add('hidden');
-            }
-          } else {
-            console.error('Cart badge element not found! Make sure you are logged in. Looking for element with id="cart-count-badge"');
-          }
-        } else if (response.status === 401) {
-          console.log('User not authenticated, badge will not show');
+        // If newCount is provided, use it directly (from add to cart response)
+        if (newCount !== null && newCount !== undefined) {
+          totalItems = parseInt(newCount) || 0;
+          console.log('Using provided count:', totalItems);
         } else {
-          console.warn('Failed to fetch cart:', response.status, response.statusText);
+          // Otherwise, fetch from API
+          console.log('Fetching cart from API...');
+          try {
+            // Add timeout to prevent hanging
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+              console.warn('Cart API fetch timeout after 5 seconds');
+              controller.abort();
+            }, 5000);
+
+            const response = await fetch('/api/cart', {
+              credentials: 'include',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              signal: controller.signal,
+            }).catch(fetchError => {
+              clearTimeout(timeoutId);
+              if (fetchError.name === 'AbortError') {
+                console.error('Cart API fetch was aborted (timeout)');
+              } else {
+                console.error('Fetch error (network/CORS):', fetchError);
+              }
+              throw fetchError;
+            });
+
+            clearTimeout(timeoutId);
+            console.log('Cart API response received, status:', response.status, response.statusText);
+            console.log('Cart API response headers:', Object.fromEntries(response.headers.entries()));
+
+            if (response.ok) {
+              const contentType = response.headers.get('content-type');
+              console.log('Cart API content-type:', contentType);
+
+              if (!contentType || !contentType.includes('application/json')) {
+                console.warn('Cart API returned non-JSON response:', contentType);
+                // Try to read as text to see what we got
+                const text = await response.text();
+                console.warn('Cart API response text:', text.substring(0, 200));
+                return;
+              }
+
+              const cartData = await response.json();
+              console.log('Cart API response data on page load:', cartData);
+              console.log('Cart API response - itemCount:', cartData?.itemCount, 'items length:', cartData?.items?.length);
+
+              // Calculate number of unique products - use itemCount if available, otherwise use items array length
+              if (cartData) {
+                if (cartData.itemCount !== undefined && cartData.itemCount !== null) {
+                  totalItems = cartData.itemCount;
+                } else if (cartData.items && Array.isArray(cartData.items)) {
+                  totalItems = cartData.items.length;
+                }
+              }
+              console.log('Calculated total items from API on page load:', totalItems);
+
+              // If we have items, log it (badge will be shown below)
+              if (totalItems > 0) {
+                console.log('Cart has', totalItems, 'items on page load - badge will be shown');
+              } else {
+                console.log('Cart is empty on page load (itemCount:', cartData?.itemCount, ', items length:', cartData?.items?.length, ') - badge will be hidden');
+              }
+            } else if (response.status === 401) {
+              console.log('User not authenticated, hiding badge');
+              cartBadge.style.display = 'none';
+              cartBadge.style.visibility = 'hidden';
+              cartBadge.style.opacity = '0';
+              cartBadge.classList.add('hidden');
+              return;
+            } else {
+              console.warn('Failed to fetch cart:', response.status, response.statusText);
+              return;
+            }
+          } catch (fetchError) {
+            console.error('Error fetching cart from API:', fetchError);
+            console.error('Error details:', {
+              name: fetchError?.name,
+              message: fetchError?.message,
+              stack: fetchError?.stack
+            });
+            // On network error, don't show badge (might be offline or server issue)
+            return;
+          }
+        }
+
+        const previousCount = parseInt(cartBadge.textContent) || 0;
+        console.log('Updating cart badge:', { totalItems, previousCount, badgeExists: !!cartBadge, badgeElement: cartBadge });
+
+        if (totalItems > 0) {
+          console.log('Showing cart badge with count:', totalItems);
+          cartBadge.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+
+          // Log badge state before making it visible
+          const beforeStyle = window.getComputedStyle(cartBadge);
+          console.log('Badge state BEFORE making visible:', {
+            display: beforeStyle.display,
+            visibility: beforeStyle.visibility,
+            opacity: beforeStyle.opacity,
+            textContent: cartBadge.textContent
+          });
+
+          // Remove hidden class first
+          cartBadge.classList.remove('hidden');
+
+          // Ensure badge is visible with all necessary styles - use !important to override any CSS
+          cartBadge.style.setProperty('display', 'flex', 'important');
+          cartBadge.style.setProperty('visibility', 'visible', 'important');
+          cartBadge.style.setProperty('opacity', '1', 'important');
+          cartBadge.style.setProperty('position', 'absolute', 'important');
+          cartBadge.style.setProperty('top', '-4px', 'important');
+          cartBadge.style.setProperty('right', '-4px', 'important');
+          cartBadge.style.setProperty('z-index', '9999', 'important');
+          cartBadge.style.setProperty('background-color', '#ef4444', 'important');
+          cartBadge.style.setProperty('color', '#ffffff', 'important');
+          cartBadge.style.setProperty('border-radius', '9999px', 'important');
+          cartBadge.style.setProperty('min-width', '20px', 'important');
+          cartBadge.style.setProperty('height', '20px', 'important');
+          cartBadge.style.setProperty('padding', '0 6px', 'important');
+          cartBadge.style.setProperty('font-size', '12px', 'important');
+          cartBadge.style.setProperty('font-weight', 'bold', 'important');
+          cartBadge.style.setProperty('align-items', 'center', 'important');
+          cartBadge.style.setProperty('justify-content', 'center', 'important');
+          cartBadge.style.setProperty('box-shadow', '0 4px 6px -1px rgba(0, 0, 0, 0.1)', 'important');
+
+          // Verify it's actually visible
+          setTimeout(() => {
+            const computedStyle = window.getComputedStyle(cartBadge);
+            const isVisible = computedStyle.display !== 'none' &&
+                             computedStyle.visibility !== 'hidden' &&
+                             parseFloat(computedStyle.opacity) > 0;
+            console.log('Badge visibility verification:', {
+              display: computedStyle.display,
+              visibility: computedStyle.visibility,
+              opacity: computedStyle.opacity,
+              isVisible: isVisible,
+              textContent: cartBadge.textContent
+            });
+
+            if (!isVisible && totalItems > 0) {
+              console.warn('Badge should be visible but computed styles show it as hidden - forcing again');
+              cartBadge.style.setProperty('display', 'flex', 'important');
+              cartBadge.style.setProperty('visibility', 'visible', 'important');
+              cartBadge.style.setProperty('opacity', '1', 'important');
+            }
+          }, 50);
+
+          console.log('Cart badge should now be visible with count:', totalItems);
+
+          // If count increased, trigger bounce animation (only if it was already visible)
+          if (totalItems > previousCount && previousCount > 0) {
+            cartBadge.classList.add('animate-bounce');
+            setTimeout(() => {
+              cartBadge.classList.remove('animate-bounce');
+            }, 1000);
+          }
+        } else {
+          // Hide badge when count is 0
+          cartBadge.style.display = 'none';
+          cartBadge.style.visibility = 'hidden';
+          cartBadge.style.opacity = '0';
+          cartBadge.classList.add('hidden');
         }
       } catch (error) {
         console.error('Failed to update cart count:', error);
-        // Silently fail - cart count is not critical
+        // On error, ensure badge is hidden (don't show incorrect count)
+        if (cartBadge) {
+          cartBadge.style.display = 'none';
+          cartBadge.style.visibility = 'hidden';
+          cartBadge.style.opacity = '0';
+          cartBadge.classList.add('hidden');
+        }
+      } finally {
+        // Reset the flag when done
+        if (newCount === null) {
+          cartUpdateInProgress = false;
+        }
       }
     };
 
     // Update cart count on page load
     function initializeCartBadge() {
       const badge = document.getElementById('cart-count-badge');
-      const cartLink = document.getElementById('cart-icon-link');
-
-      console.log('Initializing cart badge...', {
-        badgeExists: !!badge,
-        cartLinkExists: !!cartLink,
-        isAuthenticated: !!cartLink,
-        badgeElement: badge
-      });
 
       if (badge) {
-        console.log('Cart badge found, making it visible and updating count...');
-        // Make badge visible immediately for testing
-        badge.setAttribute('style',
-          'display: flex !important; ' +
-          'visibility: visible !important; ' +
-          'opacity: 1 !important; ' +
-          'position: absolute !important; ' +
-          'top: -4px !important; ' +
-          'right: -4px !important; ' +
-          'z-index: 9999 !important; ' +
-          'background-color: #ef4444 !important; ' +
-          'color: #ffffff !important; ' +
-          'border-radius: 9999px !important; ' +
-          'min-width: 20px !important; ' +
-          'height: 20px !important; ' +
-          'padding: 0 6px !important; ' +
-          'font-size: 12px !important; ' +
-          'font-weight: bold !important; ' +
-          'align-items: center !important; ' +
-          'justify-content: center !important; ' +
-          'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;'
-        );
-        window.updateCartCount();
+        console.log('Cart badge found, fetching cart count on page load...');
+        // Call updateCartCount immediately - no delay needed
+        // The function will handle the API call and show the badge if items exist
+        window.updateCartCount().then(() => {
+          console.log('Cart badge update completed on page load');
+
+          // Double-check badge visibility after update - do it multiple times to ensure it sticks
+          setTimeout(() => {
+              const checkBadge = document.getElementById('cart-count-badge');
+              if (checkBadge) {
+                const count = parseInt(checkBadge.textContent) || 0;
+                const computedStyle = window.getComputedStyle(checkBadge);
+                console.log('Badge state after update (100ms):', {
+                  count: count,
+                  display: computedStyle.display,
+                  visibility: computedStyle.visibility,
+                  opacity: computedStyle.opacity,
+                  hasHiddenClass: checkBadge.classList.contains('hidden')
+                });
+
+                if (count > 0) {
+                  console.log('Forcing badge visibility with count:', count);
+                  // Force visibility one more time to ensure it's shown
+                  checkBadge.style.setProperty('display', 'flex', 'important');
+                  checkBadge.style.setProperty('visibility', 'visible', 'important');
+                  checkBadge.style.setProperty('opacity', '1', 'important');
+                  checkBadge.classList.remove('hidden');
+                }
+              }
+            }, 100);
+
+            // Second check after a longer delay
+            setTimeout(() => {
+              const checkBadge = document.getElementById('cart-count-badge');
+              if (checkBadge) {
+                const count = parseInt(checkBadge.textContent) || 0;
+                if (count > 0) {
+                  const computedStyle = window.getComputedStyle(checkBadge);
+                  const isVisible = computedStyle.display !== 'none' &&
+                                   computedStyle.visibility !== 'hidden' &&
+                                   parseFloat(computedStyle.opacity) > 0;
+
+                  if (!isVisible) {
+                    console.warn('Badge still not visible after 500ms, forcing again');
+                    checkBadge.style.setProperty('display', 'flex', 'important');
+                    checkBadge.style.setProperty('visibility', 'visible', 'important');
+                    checkBadge.style.setProperty('opacity', '1', 'important');
+                    checkBadge.classList.remove('hidden');
+                  }
+                }
+              }
+            }, 500);
+        }).catch(error => {
+          console.error('Failed to initialize cart badge:', error);
+        });
       } else {
-        console.error('Cart badge element not found in DOM - user might not be authenticated or element not rendered');
+        console.log('Cart badge not found - user may not be authenticated');
       }
     }
 
-    // Try multiple times to catch the element
+    // Initialize when DOM is ready - try multiple times to ensure badge is rendered
+    function tryInitialize() {
+      const badge = document.getElementById('cart-count-badge');
+      if (badge) {
+        console.log('Cart badge element found, initializing...');
+        // Make sure badge is not hidden by default inline style
+        if (badge.style.display === 'none') {
+          console.log('Badge has display:none, will be shown after API call');
+        }
+        initializeCartBadge();
+        return true;
+      }
+      // Badge not found - might be because user is not authenticated
+      // Check if user should be authenticated by looking for other auth elements
+      const logoutBtn = document.querySelector('a[href="/logout"]');
+      const userAvatar = document.querySelector('[data-alt="User profile picture"]');
+      if (logoutBtn || userAvatar) {
+        console.warn('User appears to be authenticated but cart badge not found - check header template');
+      } else {
+        console.log('Cart badge element not found - user may not be authenticated');
+      }
+      return false;
+    }
+
+    // Try to initialize immediately (in case DOM is already ready)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      console.log('Document already ready, initializing cart badge immediately');
+      if (!tryInitialize()) {
+        // Retry after short delays if badge not found
+        setTimeout(() => {
+          console.log('Retrying cart badge initialization (100ms delay)');
+          tryInitialize();
+        }, 100);
+        setTimeout(() => {
+          console.log('Retrying cart badge initialization (500ms delay)');
+          tryInitialize();
+        }, 500);
+        setTimeout(() => {
+          console.log('Retrying cart badge initialization (1000ms delay)');
+          tryInitialize();
+        }, 1000);
+      }
+    }
+
+    // Also listen for DOMContentLoaded
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(initializeCartBadge, 100);
-        setTimeout(initializeCartBadge, 500);
-        setTimeout(initializeCartBadge, 1000);
+        console.log('DOMContentLoaded fired, initializing cart badge');
+        // Try immediately
+        if (!tryInitialize()) {
+          // Retry after a short delay if badge not found
+          setTimeout(() => {
+            console.log('Retrying cart badge initialization after DOMContentLoaded (100ms)');
+            tryInitialize();
+          }, 100);
+          setTimeout(() => {
+            console.log('Retrying cart badge initialization after DOMContentLoaded (500ms)');
+            tryInitialize();
+          }, 500);
+          setTimeout(() => {
+            console.log('Retrying cart badge initialization after DOMContentLoaded (1000ms)');
+            tryInitialize();
+          }, 1000);
+        }
       });
-    } else {
-      initializeCartBadge();
-      setTimeout(initializeCartBadge, 500);
-      setTimeout(initializeCartBadge, 1000);
     }
+
+    // Also try on window load as a fallback
+    window.addEventListener('load', () => {
+      console.log('Window load event fired, checking cart badge');
+      if (!tryInitialize()) {
+        setTimeout(() => {
+          console.log('Final retry for cart badge initialization');
+          tryInitialize();
+        }, 200);
+      }
+    });
+
+    // Use MutationObserver to watch for badge element being added to DOM (e.g., after login)
+    const observer = new MutationObserver((mutations, obs) => {
+      const badge = document.getElementById('cart-count-badge');
+      if (badge) {
+        console.log('Cart badge element detected via MutationObserver, initializing...');
+        obs.disconnect(); // Stop observing once badge is found
+        initializeCartBadge();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Also check periodically as a fallback (in case MutationObserver doesn't catch it)
+    let checkInterval = setInterval(() => {
+      const badge = document.getElementById('cart-count-badge');
+      if (badge && !badge.dataset.initialized) {
+        console.log('Cart badge element found via periodic check, initializing...');
+        badge.dataset.initialized = 'true'; // Mark as initialized to avoid duplicate calls
+        clearInterval(checkInterval); // Stop checking once found
+        initializeCartBadge();
+      }
+    }, 500); // Check every 500ms
+
+    // Stop checking after 10 seconds to avoid infinite checking
+    setTimeout(() => {
+      clearInterval(checkInterval);
+    }, 10000);
 
     // Navbar search is handled in products page for debounced search
     // This script only handles basic navigation for non-products pages
@@ -251,3 +506,4 @@
     </script>
 </body>
 </html>
+
