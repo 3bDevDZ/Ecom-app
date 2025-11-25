@@ -39,6 +39,19 @@ export class ProductDto {
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
     public readonly totalAvailableQuantity?: number, // Optional: calculated from variants
+    public readonly specifications?: Record<string, any>, // Optional: product specifications
+    public readonly documents?: Array<{ // Optional: product documents
+      title: string;
+      type: string;
+      size: string;
+      url: string;
+    }>,
+    public readonly reviews?: Array<{ // Optional: product reviews
+      userName: string;
+      date: string;
+      rating: number;
+      comment: string;
+    }>,
   ) {}
 
   /**

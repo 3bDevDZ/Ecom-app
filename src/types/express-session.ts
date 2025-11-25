@@ -9,6 +9,9 @@ declare module 'express-session' {
     accessToken?: string;
     refreshToken?: string;
     idToken?: string;
+    returnTo?: string; // URL to redirect to after login
+    codeVerifier?: string; // PKCE code verifier for OAuth flow
+    state?: string; // CSRF state for OAuth flow
   }
 }
 

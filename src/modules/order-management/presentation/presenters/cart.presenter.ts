@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetProductByIdQuery } from '../../../product-catalog/application/queries/get-product-by-id.query';
+import { IProductRepository } from '../../../product-catalog/domain/repositories/product.repository.interface';
 import { CartDto } from '../../application/dtos/cart.dto';
 import { OrderDto } from '../../application/dtos/order.dto';
 
@@ -14,10 +17,15 @@ import { OrderDto } from '../../application/dtos/order.dto';
  */
 @Injectable()
 export class CartPresenter {
+    constructor(
+        private readonly queryBus: QueryBus,
+        @Inject('IProductRepository')
+        private readonly productRepository: IProductRepository,
+    ) { }
     /**
      * Build view model for cart page
      */
-    buildCartViewModel(cartDto: CartDto, user?: any): any {
+    async buildCartViewModel(cartDto: CartDto, user?: any): Promise<any> {
         if (!cartDto) {
             return {
                 cart: {
@@ -39,15 +47,59 @@ export class CartPresenter {
         const shipping = this.calculateShipping(subtotal);
         const total = subtotal + tax + shipping;
 
+        // Fetch product images for each item
+        const itemsWithImages = await Promise.all(
+            cartDto.items.map(async (item) => {
+                let imageUrl = 'https://via.placeholder.com/96?text=Product';
+                try {
+                    // Try QueryBus first
+                    try {
+                        const productQuery = new GetProductByIdQuery(item.productId);
+                        const product = await this.queryBus.execute(productQuery);
+                        if (product?.primaryImage?.url) {
+                            imageUrl = product.primaryImage.url;
+                        } else if (product?.images?.length > 0) {
+                            imageUrl = product.images[0].url;
+                        }
+                    } catch (queryError: any) {
+                        // If QueryBus fails, try repository directly
+                        console.warn(`[CartPresenter] QueryBus failed for product ${item.productId}, trying repository:`, queryError?.message);
+                        try {
+                            const product = await this.productRepository.findById(item.productId);
+                            if (product) {
+                                // Product domain aggregate - access images via getter
+                                const images = product.images;
+                                if (images && images.length > 0) {
+                                    const primaryImg = images.find(img => img.isPrimary) || images[0];
+                                    if (primaryImg?.url) {
+                                        imageUrl = primaryImg.url;
+                                        console.log(`[CartPresenter] Found image via repository for product ${item.productId}: ${imageUrl}`);
+                                    }
+                                }
+                            }
+                        } catch (repoError: any) {
+                            console.error(`[CartPresenter] Repository also failed for product ${item.productId}:`, repoError?.message);
+                        }
+                    }
+                } catch (error) {
+                    // If product not found, use placeholder
+                    console.warn(`[CartPresenter] Product ${item.productId} not found for cart item image`);
+                }
+
+                return {
+                    ...item,
+                    subtotal: this.formatCurrency(item.lineTotal),
+                    unitPriceFormatted: this.formatCurrency(item.unitPrice),
+                    imageUrl,
+                };
+            })
+        );
+
         return {
             title: 'Shopping Cart',
             cart: {
                 id: cartDto.id,
-                items: cartDto.items.map((item) => ({
-                    ...item,
-                    subtotal: this.formatCurrency(item.lineTotal),
-                    unitPriceFormatted: this.formatCurrency(item.unitPrice),
-                })),
+                items: itemsWithImages,
                 totalItems: cartDto.items.reduce((sum, item) => sum + item.quantity, 0),
                 subtotal: this.formatCurrency(subtotal),
                 tax: this.formatCurrency(tax),
@@ -62,7 +114,7 @@ export class CartPresenter {
     /**
      * Build view model for checkout page
      */
-    buildCheckoutViewModel(cartDto: CartDto, user?: any): any {
+    async buildCheckoutViewModel(cartDto: CartDto, user?: any): Promise<any> {
         if (!cartDto || cartDto.items.length === 0) {
             throw new Error('Cannot checkout with empty cart');
         }
@@ -72,16 +124,60 @@ export class CartPresenter {
         const shipping = this.calculateShipping(subtotal);
         const total = subtotal + tax + shipping;
 
-        return {
-            title: 'Review Your Order',
-            cart: {
-                id: cartDto.id,
-                items: cartDto.items.map((item) => ({
+        // Fetch product images for each item
+        const itemsWithImages = await Promise.all(
+            cartDto.items.map(async (item) => {
+                let imageUrl = 'https://via.placeholder.com/64?text=Product';
+                try {
+                    // Try QueryBus first
+                    try {
+                        const productQuery = new GetProductByIdQuery(item.productId);
+                        const product = await this.queryBus.execute(productQuery);
+                        if (product?.primaryImage?.url) {
+                            imageUrl = product.primaryImage.url;
+                        } else if (product?.images?.length > 0) {
+                            imageUrl = product.images[0].url;
+                        }
+                    } catch (queryError: any) {
+                        // If QueryBus fails, try repository directly
+                        console.warn(`[CartPresenter] QueryBus failed for product ${item.productId}, trying repository:`, queryError?.message);
+                        try {
+                            const product = await this.productRepository.findById(item.productId);
+                            if (product) {
+                                // Product domain aggregate - access images via getter
+                                const images = product.images;
+                                if (images && images.length > 0) {
+                                    const primaryImg = images.find(img => img.isPrimary) || images[0];
+                                    if (primaryImg?.url) {
+                                        imageUrl = primaryImg.url;
+                                        console.log(`[CartPresenter] Found image via repository for product ${item.productId}: ${imageUrl}`);
+                                    }
+                                }
+                            }
+                        } catch (repoError: any) {
+                            console.error(`[CartPresenter] Repository also failed for product ${item.productId}:`, repoError?.message);
+                        }
+                    }
+                } catch (error) {
+                    // If product not found, use placeholder
+                    console.warn(`[CartPresenter] Product ${item.productId} not found for checkout item image`);
+                }
+
+                return {
                     ...item,
                     subtotal: this.formatCurrency(item.lineTotal),
                     unitPriceFormatted: this.formatCurrency(item.unitPrice),
                     lineTotalFormatted: this.formatCurrency(item.lineTotal),
-                })),
+                    imageUrl,
+                };
+            })
+        );
+
+        return {
+            title: 'Review Your Order',
+            cart: {
+                id: cartDto.id,
+                items: itemsWithImages,
                 totalItems: cartDto.items.reduce((sum, item) => sum + item.quantity, 0),
                 subtotal: this.formatCurrency(subtotal),
                 tax: this.formatCurrency(tax),
@@ -258,7 +354,7 @@ export class CartPresenter {
      * Build view model for order detail page
      * User Story 3: View and Track Orders
      */
-    toOrderDetailViewModel(order: OrderDto): any {
+    async toOrderDetailViewModel(order: OrderDto): Promise<any> {
         // Calculate subtotal from items
         const subtotal = order.items.reduce((sum, item) => sum + item.lineTotal, 0);
 
@@ -281,14 +377,68 @@ export class CartPresenter {
         const isShippedActive = isStatusIn(status, ['shipped', 'delivered']);
         const isDeliveredActive = isStatusIn(status, ['delivered']);
 
-        return {
-            order: {
-                ...order,
-                items: order.items.map((item) => ({
+        // Fetch product images for each item
+        const itemsWithImages = await Promise.all(
+            order.items.map(async (item) => {
+                let imageUrl = 'https://via.placeholder.com/48?text=' + encodeURIComponent(item.productName);
+                try {
+                    // Try QueryBus first
+                    try {
+                        const productQuery = new GetProductByIdQuery(item.productId);
+                        const product = await this.queryBus.execute(productQuery);
+
+                        if (product) {
+                            // Try to get primary image first (using getter)
+                            const primaryImg = product.primaryImage;
+                            if (primaryImg?.url) {
+                                imageUrl = primaryImg.url;
+                                console.log(`[CartPresenter] Found primary image for product ${item.productId}: ${imageUrl}`);
+                            } else if (product.images && product.images.length > 0) {
+                                // Use first image if no primary
+                                const firstImage = product.images.find((img: any) => img?.url) || product.images[0];
+                                if (firstImage?.url) {
+                                    imageUrl = firstImage.url;
+                                    console.log(`[CartPresenter] Found first image for product ${item.productId}: ${imageUrl}`);
+                                } else {
+                                    console.warn(`[CartPresenter] Product ${item.productId} images array exists but no valid image URL found`);
+                                }
+                            } else {
+                                console.warn(`[CartPresenter] Product ${item.productId} (${item.productName}) has no images array`);
+                            }
+                        }
+                    } catch (queryError: any) {
+                        // If QueryBus fails, try repository directly
+                        console.warn(`[CartPresenter] QueryBus failed for product ${item.productId}, trying repository:`, queryError?.message);
+                        const product = await this.productRepository.findById(item.productId);
+                        if (product) {
+                            const images = product.images;
+                            if (images && images.length > 0) {
+                                const primaryImg = images.find(img => img.isPrimary) || images[0];
+                                if (primaryImg?.url) {
+                                    imageUrl = primaryImg.url;
+                                    console.log(`[CartPresenter] Found image via repository for product ${item.productId}: ${imageUrl}`);
+                                }
+                            }
+                        }
+                    }
+                } catch (error: any) {
+                    // If product not found, use placeholder with product name
+                    console.error(`[CartPresenter] Error fetching product ${item.productId} for order item image:`, error?.message || error);
+                }
+
+                return {
                     ...item,
                     subtotal: this.formatCurrency(item.lineTotal),
                     unitPrice: this.formatCurrency(item.unitPrice),
-                })),
+                    imageUrl,
+                };
+            })
+        );
+
+        return {
+            order: {
+                ...order,
+                items: itemsWithImages,
                 statusDisplay: this.getOrderStatusDisplay(order.status),
                 subtotalFormatted: this.formatCurrency(subtotal),
                 taxFormatted: this.formatCurrency(tax),

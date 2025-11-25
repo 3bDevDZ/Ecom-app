@@ -45,7 +45,7 @@ export class CheckoutViewController {
       return res.redirect('/products');
     }
 
-    const viewModel = this.cartPresenter.buildCheckoutViewModel(cartDto, req.user);
+    const viewModel = await this.cartPresenter.buildCheckoutViewModel(cartDto, req.user);
 
     return res.render('checkout', viewModel);
   }

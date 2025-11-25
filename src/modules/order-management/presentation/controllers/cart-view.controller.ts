@@ -40,7 +40,7 @@ export class CartViewController {
         const query = new GetCartQuery(userId);
         const cartDto = await this.queryBus.execute(query);
 
-        const viewModel = this.cartPresenter.buildCartViewModel(cartDto, req.user);
+        const viewModel = await this.cartPresenter.buildCartViewModel(cartDto, req.user);
 
         return res.render('cart', viewModel);
     }

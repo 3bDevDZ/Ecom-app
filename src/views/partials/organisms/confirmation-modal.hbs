@@ -1,0 +1,137 @@
+{{!--
+  Confirmation Modal
+  Reusable modal for confirming actions (delete, clear, etc.)
+--}}
+<input class="peer hidden" id="confirmation-modal" type="checkbox" />
+<label
+  class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm hidden peer-checked:block cursor-pointer"
+  for="confirmation-modal"
+  onclick="closeConfirmationModal()"
+></label>
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden peer-checked:flex"
+>
+  <div
+    class="bg-white dark:bg-background-dark rounded-xl shadow-xl max-w-md w-full p-6 transform transition-all"
+  >
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white" id="confirmation-modal-title">
+        Confirm Action
+      </h3>
+      <label
+        class="cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+        for="confirmation-modal"
+        onclick="closeConfirmationModal()"
+      >
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </label>
+    </div>
+    <p class="text-gray-600 dark:text-gray-400 mb-6" id="confirmation-modal-message">
+      Are you sure you want to proceed?
+    </p>
+    <div class="flex gap-3 justify-end">
+      <button
+        type="button"
+        id="confirmation-modal-cancel"
+        onclick="closeConfirmationModal()"
+        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors font-medium"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        id="confirmation-modal-confirm"
+        class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+      >
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Global confirmation modal state
+  window.confirmationModalState = {
+    resolve: null,
+    reject: null,
+  };
+
+  // Open confirmation modal and return a promise
+  window.showConfirmationModal = function(title, message, confirmText = 'Confirm', cancelText = 'Cancel') {
+    return new Promise((resolve, reject) => {
+      const modal = document.getElementById('confirmation-modal');
+      const titleEl = document.getElementById('confirmation-modal-title');
+      const messageEl = document.getElementById('confirmation-modal-message');
+      const confirmBtn = document.getElementById('confirmation-modal-confirm');
+      const cancelBtn = document.getElementById('confirmation-modal-cancel');
+
+      if (!modal || !titleEl || !messageEl || !confirmBtn || !cancelBtn) {
+        console.error('Confirmation modal elements not found');
+        reject(new Error('Modal not found'));
+        return;
+      }
+
+      // Set content
+      titleEl.textContent = title;
+      messageEl.textContent = message;
+      confirmBtn.textContent = confirmText;
+      cancelBtn.textContent = cancelText;
+
+      // Store promise callbacks
+      window.confirmationModalState.resolve = resolve;
+      window.confirmationModalState.reject = reject;
+
+      // Open modal
+      modal.checked = true;
+      modal.dispatchEvent(new Event('change'));
+
+      // Set up confirm button handler
+      const handleConfirm = () => {
+        cleanup();
+        resolve(true);
+      };
+
+      const handleCancel = () => {
+        cleanup();
+        reject(new Error('User cancelled'));
+      };
+
+      const cleanup = () => {
+        confirmBtn.removeEventListener('click', handleConfirm);
+        cancelBtn.removeEventListener('click', handleCancel);
+        modal.removeEventListener('change', handleModalChange);
+        window.confirmationModalState.resolve = null;
+        window.confirmationModalState.reject = null;
+      };
+
+      const handleModalChange = () => {
+        if (!modal.checked) {
+          // Modal was closed (e.g., by clicking backdrop)
+          cleanup();
+          reject(new Error('User cancelled'));
+        }
+      };
+
+      confirmBtn.addEventListener('click', handleConfirm);
+      cancelBtn.addEventListener('click', handleCancel);
+      modal.addEventListener('change', handleModalChange);
+    });
+  };
+
+  // Close confirmation modal
+  window.closeConfirmationModal = function() {
+    const modal = document.getElementById('confirmation-modal');
+    if (modal) {
+      modal.checked = false;
+      modal.dispatchEvent(new Event('change'));
+
+      // Reject the promise if it exists
+      if (window.confirmationModalState.reject) {
+        window.confirmationModalState.reject(new Error('User cancelled'));
+        window.confirmationModalState.resolve = null;
+        window.confirmationModalState.reject = null;
+      }
+    }
+  };
+</script>
+

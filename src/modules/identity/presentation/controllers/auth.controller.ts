@@ -145,8 +145,12 @@ export class AuthController {
 
       this.logger.log('User authenticated successfully');
 
-      // Redirect to home page (or original destination if stored)
-      return res.redirect('/');
+      // Redirect to original page if stored, otherwise home
+      const returnTo = session.returnTo || '/';
+      if (session.returnTo) {
+        delete session.returnTo;
+      }
+      return res.redirect(returnTo);
     } catch (error) {
       const { message, stack } = getErrorDetails(error);
       this.logger.error('Callback error', message, stack);

@@ -5,7 +5,7 @@
     <div class="flex-shrink-0">
       <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg w-24 h-24 bg-gray-200"
            data-alt="{{item.productName}}"
-           style='background-image: url("https://via.placeholder.com/96?text=Product");'>
+           style='background-image: url("{{#if item.imageUrl}}{{item.imageUrl}}{{else}}https://via.placeholder.com/96?text=Product{{/if}}");'>
       </div>
     </div>
 
