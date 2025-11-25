@@ -47,20 +47,18 @@ async function bootstrap() {
   const viewsPath = join(__dirname, 'views');
   setupHandlebarsEngine(app, viewsPath);
 
-  // API prefix - exclude routes that should be accessed without /api prefix (for HTML views)
-  app.setGlobalPrefix('api', {
-    exclude: [
-      '/',
-      '/health',
-      '/login',
-      '/logout',
-      '/callback',
-      '/products',
-      '/categories',
-      '/cart',
-      '/orders',
-    ],
-  });
+  // No global prefix - API controllers add /api prefix manually
+  // Separation of concerns:
+  // - View Controllers: Handle HTML views (no prefix)
+  //   - /products, /products/:id → ProductViewController
+  //   - /categories, /categories/:id → CategoryViewController
+  //   - /cart → CartViewController
+  //   - /orders, /orders/:id → OrderViewController
+  // - API Controllers: Handle JSON responses (with /api prefix in controller)
+  //   - /api/products, /api/products/:id → ProductController
+  //   - /api/categories, /api/categories/:id → CategoryController
+  //   - /api/cart → CartController
+  //   - /api/orders, /api/orders/:id → OrderController
 
   // Swagger/OpenAPI configuration
   const config = new DocumentBuilder()

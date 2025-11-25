@@ -4,48 +4,51 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 // Entities
 import {
+  CategoryEntity,
   ProductEntity,
   ProductVariantEntity,
-  CategoryEntity,
 } from './infrastructure/persistence/entities';
 import { ProductReadModel } from './infrastructure/persistence/read-models/product-read-model.entity';
 
 // Repositories
-import { ProductRepository } from './infrastructure/persistence/repositories/product.repository';
 import { CategoryRepository } from './infrastructure/persistence/repositories/category.repository';
+import { ProductRepository } from './infrastructure/persistence/repositories/product.repository';
 
-// Controllers
-import { ProductController } from './presentation/controllers/product.controller';
+// Controllers - API
 import { CategoryController } from './presentation/controllers/category.controller';
+import { ProductController } from './presentation/controllers/product.controller';
+// Controllers - Views
+import { CategoryViewController } from './presentation/controllers/category-view.controller';
+import { ProductViewController } from './presentation/controllers/product-view.controller';
 
 // Command Handlers
 import {
-  CreateProductCommandHandler,
-  UpdateProductCommandHandler,
-  DeleteProductCommandHandler,
   CreateCategoryCommandHandler,
-  UpdateCategoryCommandHandler,
+  CreateProductCommandHandler,
   DeleteCategoryCommandHandler,
+  DeleteProductCommandHandler,
+  UpdateCategoryCommandHandler,
+  UpdateProductCommandHandler,
 } from './application/handlers';
 
 // Query Handlers
 import {
-  SearchProductsQueryHandler,
-  GetProductByIdQueryHandler,
   GetCategoriesQueryHandler,
+  GetProductByIdQueryHandler,
+  SearchProductsQueryHandler,
 } from './application/handlers';
 
 // Event Handlers
 import {
+  InventoryReleasedEventHandler,
+  InventoryReservedEventHandler,
   ProductCreatedEventHandler,
   ProductUpdatedEventHandler,
-  InventoryReservedEventHandler,
-  InventoryReleasedEventHandler,
 } from './infrastructure/events/product-event.handlers';
 
 /**
  * Product Catalog Module (Bounded Context)
- * 
+ *
  * Responsibilities:
  * - Product management (CRUD, variants, categories)
  * - Product search and filtering (10K-50K products)
@@ -64,7 +67,14 @@ import {
       ProductReadModel,
     ]),
   ],
-  controllers: [ProductController, CategoryController],
+  controllers: [
+    // API Controllers (with /api prefix)
+    ProductController,
+    CategoryController,
+    // View Controllers (without /api prefix, excluded from global prefix)
+    ProductViewController,
+    CategoryViewController,
+  ],
   providers: [
     // Repositories
     {
@@ -97,5 +107,5 @@ import {
     'ICategoryRepository',
   ],
 })
-export class ProductCatalogModule {}
+export class ProductCatalogModule { }
 

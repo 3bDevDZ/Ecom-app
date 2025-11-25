@@ -1,0 +1,60 @@
+{{!--
+  Order Details Modal Component
+  Shows detailed order information in a popup modal
+  Usage: Used by orders listing page
+--}}
+<div id="order-details-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+    {{! Overlay }}
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="closeOrderDetailsModal()"></div>
+
+    {{! Centered modal }}
+    <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>
+
+    <div class="inline-block transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:align-middle">
+      {{! Modal Header }}
+      <div class="bg-white dark:bg-slate-800 px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white" id="modal-order-number">
+            Order Details
+          </h3>
+          <button
+            type="button"
+            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            onclick="closeOrderDetailsModal()">
+            <span class="material-symbols-outlined text-2xl">close</span>
+          </button>
+        </div>
+      </div>
+
+      {{! Modal Body }}
+      <div class="bg-white dark:bg-slate-800 px-6 py-6">
+        <div id="order-details-content">
+          {{! Content will be loaded dynamically via JavaScript }}
+          <div class="flex items-center justify-center py-12">
+            <span class="material-symbols-outlined animate-spin text-4xl text-primary">sync</span>
+          </div>
+        </div>
+      </div>
+
+      {{! Modal Footer }}
+      <div class="bg-slate-50 dark:bg-slate-900 px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-end gap-3">
+        <button
+          type="button"
+          class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+          onclick="closeOrderDetailsModal()">
+          Close
+        </button>
+        <button
+          id="modal-download-receipt-btn"
+          type="button"
+          class="hidden px-4 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition-colors flex items-center gap-2"
+          onclick="downloadReceiptFromModal()">
+          <span class="material-symbols-outlined text-lg">download</span>
+          Download Receipt
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

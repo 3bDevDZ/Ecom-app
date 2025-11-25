@@ -35,7 +35,7 @@ import { SearchProductsQuery } from '../../application/queries/search-products.q
  * Handles HTTP requests and delegates to CQRS command/query handlers.
  */
 @ApiTags('Categories')
-@Controller('categories')
+@Controller('api/categories')
 export class CategoryController {
   constructor(
     private readonly commandBus: CommandBus,

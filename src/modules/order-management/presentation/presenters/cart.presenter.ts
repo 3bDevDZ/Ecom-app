@@ -165,15 +165,39 @@ export class CartPresenter {
      */
     private getOrderStatusDisplay(status: string): string {
         const statusMap: Record<string, string> = {
-            pending: 'Pending Confirmation',
+            received: 'Received',
+            in_confirmation: 'In Confirmation',
             confirmed: 'Confirmed',
-            external: 'Processing',
+            in_shipping: 'In Shipping',
             shipped: 'Shipped',
             delivered: 'Delivered',
             cancelled: 'Cancelled',
+            // Legacy compatibility
+            pending: 'Received',
+            processing: 'In Confirmation',
         };
 
         return statusMap[status.toLowerCase()] || status;
+    }
+
+    /**
+     * Get order status badge color class
+     */
+    getOrderStatusBadgeClass(status: string): string {
+        const statusClassMap: Record<string, string> = {
+            received: 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300',
+            in_confirmation: 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300',
+            confirmed: 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300',
+            in_shipping: 'bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300',
+            shipped: 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300',
+            delivered: 'bg-success/20 text-success',
+            cancelled: 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300',
+            // Legacy compatibility
+            pending: 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300',
+            processing: 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300',
+        };
+
+        return statusClassMap[status.toLowerCase()] || 'bg-gray-100 dark:bg-gray-900/50 text-gray-700 dark:text-gray-300';
     }
 
     /**
@@ -186,14 +210,30 @@ export class CartPresenter {
         limit: number,
         total: number,
     ): any {
+        console.log('[CartPresenter] toOrderHistoryViewModel - orders received:', orders.length);
+        console.log('[CartPresenter] toOrderHistoryViewModel - total:', total);
+
+        const viewOrders = orders.map((order) => {
+            try {
+                return {
+                    ...order,
+                    statusDisplay: this.getOrderStatusDisplay(order.status),
+                    statusBadgeClass: this.getOrderStatusBadgeClass(order.status),
+                    totalFormatted: this.formatCurrency(order.totalAmount),
+                    orderDate: this.formatDate(new Date(order.createdAt)),
+                    itemCount: order.items.reduce((sum, item) => sum + item.quantity, 0),
+                    hasReceipt: !!order.receiptUrl,
+                };
+            } catch (error: any) {
+                console.error(`[CartPresenter] Error mapping order ${order.id}:`, error.message);
+                return null;
+            }
+        }).filter(order => order !== null);
+
+        console.log('[CartPresenter] toOrderHistoryViewModel - orders after mapping:', viewOrders.length);
+
         return {
-            orders: orders.map((order) => ({
-                ...order,
-                statusDisplay: this.getOrderStatusDisplay(order.status),
-                totalFormatted: this.formatCurrency(order.totalAmount),
-                orderDate: this.formatDate(new Date(order.createdAt)),
-                itemCount: order.items.reduce((sum, item) => sum + item.quantity, 0),
-            })),
+            orders: viewOrders,
             pagination: {
                 page,
                 limit,
@@ -230,6 +270,7 @@ export class CartPresenter {
                 orderDate: this.formatDate(new Date(order.createdAt)),
                 estimatedDelivery: 'To be determined', // TODO: Add delivery estimation
                 itemCount: order.items.reduce((sum, item) => sum + item.quantity, 0),
+                hasReceipt: !!order.receiptUrl,
             },
             breadcrumbs: [
                 { label: 'Home', href: '/' },

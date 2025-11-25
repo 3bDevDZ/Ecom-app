@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 
 // Services
 import { KeycloakAuthService } from './application/services/keycloak-auth.service';
@@ -15,8 +15,10 @@ import { JwtAuthGuard } from './application/guards/jwt-auth.guard';
 import { KeycloakAuthGuard } from './application/guards/keycloak-auth.guard';
 import { RolesGuard } from './application/guards/roles.guard';
 
-// Controllers
+// Controllers - API
 import { AuthController } from './presentation/controllers/auth.controller';
+// Controllers - Views
+import { AuthViewController } from './presentation/controllers/auth-view.controller';
 
 /**
  * Identity Module (Bounded Context)
@@ -41,7 +43,12 @@ import { AuthController } from './presentation/controllers/auth.controller';
       }),
     }),
   ],
-  controllers: [AuthController],
+  controllers: [
+    // API Controller (with /api prefix)
+    AuthController,
+    // View Controller (without prefix)
+    AuthViewController,
+  ],
   providers: [
     // Services
     KeycloakAuthService,
@@ -64,4 +71,4 @@ import { AuthController } from './presentation/controllers/auth.controller';
     JwtModule,
   ],
 })
-export class IdentityModule {}
+export class IdentityModule { }

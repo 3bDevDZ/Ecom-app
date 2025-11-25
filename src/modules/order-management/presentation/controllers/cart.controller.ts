@@ -36,7 +36,7 @@ import { GetCartQuery } from '../../application/queries/get-cart.query';
  * User Story 2: Add Products to Cart and Checkout
  */
 @ApiTags('Cart')
-@Controller('cart')
+@Controller('api/cart')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth('JWT-auth')
 export class CartController {

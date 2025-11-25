@@ -43,7 +43,7 @@ import { ProductSearchParamsDto } from './product-search-params.dto';
  * Handles HTTP requests and delegates to CQRS command/query handlers.
  */
 @ApiTags('Products')
-@Controller('products')
+@Controller('api/products')
 export class ProductController {
   constructor(
     private readonly commandBus: CommandBus,

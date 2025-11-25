@@ -16,10 +16,15 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
     defaultLayout: 'layout_main',
     extname: 'hbs',
     // Auto-detect partials from atomic design directories
+    // Express-handlebars auto-discovers partials from these directories
+    // Partials can be referenced by their filename (e.g., {{> order-details-modal}})
+    // or with namespace if configured separately
     partialsDir: [
       join(viewsPath, 'partials', 'atoms'),
       join(viewsPath, 'partials', 'molecules'),
       join(viewsPath, 'partials', 'organisms'),
+      join(viewsPath, 'components', 'molecules'),
+      join(viewsPath, 'components', 'organisms'),
     ],
     // Runtime options to allow prototype property access
     runtimeOptions: {
@@ -157,11 +162,58 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
       },
 
       /**
-       * Conditional equality check
-       * Usage: {{#ifEquals value1 value2}}...{{/ifEquals}}
+       * Simple equality check (block helper)
+       * Usage: {{#eq value1 value2}}...{{/eq}}
        */
-      ifEquals: function (arg1: any, arg2: any, options: any) {
-        return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+      eq: function (arg1: any, arg2: any, options?: any) {
+        try {
+          // If no options or not a block helper, return boolean
+          if (!options || typeof options !== 'object' || typeof options.fn !== 'function') {
+            return arg1 === arg2;
+          }
+          // Block helper - values match
+          if (arg1 === arg2) {
+            return options.fn ? options.fn(this) : '';
+          }
+          // Block helper - values don't match, try inverse if available
+          if (options.inverse && typeof options.inverse === 'function') {
+            return options.inverse(this);
+          }
+          return '';
+        } catch (error) {
+          console.error('eq helper error:', error);
+          return arg1 === arg2 ? '' : '';
+        }
+      },
+
+      /**
+       * Conditional equality check (block helper)
+       * Usage: {{#ifEquals value1 value2}}...{{else}}...{{/ifEquals}}
+       */
+      ifEquals: function (arg1: any, arg2: any, options?: any) {
+        try {
+          // Safety check: if no options or options doesn't have fn, treat as regular helper
+          if (!options || typeof options !== 'object' || typeof options.fn !== 'function') {
+            return arg1 === arg2;
+          }
+
+          // Block helper usage - values match
+          if (arg1 === arg2) {
+            return options.fn ? options.fn(this) : '';
+          }
+
+          // Check for inverse (else block) - only call if it exists and is a function
+          if (options.inverse && typeof options.inverse === 'function') {
+            return options.inverse(this);
+          }
+
+          // No inverse block, return empty string
+          return '';
+        } catch (error) {
+          console.error('ifEquals helper error:', error);
+          // Fallback: return empty string to prevent template rendering failure
+          return '';
+        }
       },
 
       /**
