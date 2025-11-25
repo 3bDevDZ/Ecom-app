@@ -33,7 +33,12 @@ export class AuthViewController {
   ) {
     // Check if user is already authenticated
     if (session?.accessToken) {
-      return res.redirect('/');
+      // Redirect to original page if stored, otherwise home
+      const returnTo = session?.returnTo || '/';
+      if (session.returnTo) {
+        delete session.returnTo;
+      }
+      return res.redirect(returnTo);
     }
 
     // Check if this is a form submission (button clicked)
@@ -143,8 +148,10 @@ export class AuthViewController {
       delete session.codeVerifier;
       delete session.state;
 
-      // Redirect to home page
-      return res.redirect('/');
+      // Redirect to original page if stored, otherwise home
+      const returnTo = session.returnTo || '/';
+      delete session.returnTo;
+      return res.redirect(returnTo);
     } catch (error) {
       return res.redirect('/login?error=auth_failed');
     }

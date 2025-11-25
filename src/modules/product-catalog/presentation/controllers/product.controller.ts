@@ -306,6 +306,10 @@ export class ProductController {
       product.tags,
       product.createdAt,
       product.updatedAt,
+      undefined, // totalAvailableQuantity - will be calculated
+      product.specifications,
+      product.documents,
+      product.reviews,
     );
   }
 }

@@ -363,6 +363,19 @@ export function createHandlebarsConfig({ viewsPath }: HandlebarsConfigOptions) {
       greaterThan: (value: number, compare: number): boolean => {
         return value > compare;
       },
+
+      /**
+       * Repeat a block n times
+       * Usage: {{#repeat 5}}...{{/repeat}}
+       */
+      repeat: function (count: number, options: any) {
+        if (!count || count < 1) return '';
+        let result = '';
+        for (let i = 0; i < count; i++) {
+          result += options.fn(this);
+        }
+        return result;
+      },
     }
   });
 }

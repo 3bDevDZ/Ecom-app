@@ -1,9 +1,12 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { Inject, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { GetProductByIdQuery } from '../queries/get-product-by-id.query';
 import { ProductDto, ProductImageDto, ProductVariantDto } from '../dtos';
 import { IProductRepository } from '../../domain/repositories/product.repository.interface';
 import { Product } from '../../domain/aggregates/product';
+import { ProductEntity } from '../../infrastructure/persistence/entities/product.entity';
 
 /**
  * GetProductByIdQueryHandler
@@ -16,6 +19,8 @@ export class GetProductByIdQueryHandler implements IQueryHandler<GetProductByIdQ
   constructor(
     @Inject('IProductRepository')
     private readonly productRepository: IProductRepository,
+    @InjectRepository(ProductEntity)
+    private readonly productEntityRepository: Repository<ProductEntity>,
   ) {}
 
   async execute(query: GetProductByIdQuery): Promise<ProductDto> {
@@ -25,13 +30,18 @@ export class GetProductByIdQueryHandler implements IQueryHandler<GetProductByIdQ
       throw new NotFoundException(`Product with ID ${query.productId} not found`);
     }
 
-    return this.toDto(product);
+    // Get entity to access metadata (specifications, documents, reviews)
+    const entity = await this.productEntityRepository.findOne({
+      where: { id: query.productId },
+    });
+
+    return this.toDto(product, entity);
   }
 
   /**
    * Transform Product domain entity to ProductDto
    */
-  private toDto(product: Product): ProductDto {
+  private toDto(product: Product, entity?: ProductEntity): ProductDto {
     const variants = product.variants.map(
       v =>
         new ProductVariantDto(
@@ -72,6 +82,9 @@ export class GetProductByIdQueryHandler implements IQueryHandler<GetProductByIdQ
       product.createdAt,
       product.updatedAt,
       totalAvailableQuantity,
+      entity?.specifications,
+      entity?.documents,
+      entity?.reviews,
     );
   }
 }

@@ -6,6 +6,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as session from 'express-session';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { setupHandlebarsEngine } from './config/handlebars.config';
 
 async function bootstrap() {
@@ -27,6 +28,9 @@ async function bootstrap() {
       name: 'b2b-ecommerce.sid', // Session cookie name
     }),
   );
+
+  // Global exception filter - handles 401 redirects for HTML requests
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   // Global validation pipe with class-validator
   app.useGlobalPipes(

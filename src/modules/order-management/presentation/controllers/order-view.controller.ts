@@ -89,7 +89,7 @@ export class OrderViewController {
             const query = new GetOrderByIdQuery(id, userId);
             const order = await this.queryBus.execute(query);
 
-            const viewModel = this.cartPresenter.toOrderDetailViewModel(order);
+            const viewModel = await this.cartPresenter.toOrderDetailViewModel(order);
 
             return res.render('order-detail', viewModel);
         } catch (error: any) {

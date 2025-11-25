@@ -301,7 +301,7 @@
                         <div class="flex items-center gap-4">
                           <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-12 flex-shrink-0 border-2 border-primary/20 shadow-sm"
                             data-alt="{{this.productName}}"
-                            style="background-image: url('https://via.placeholder.com/48?text={{this.productName}}');">
+                            style="background-image: url('{{#if this.imageUrl}}{{{this.imageUrl}}}{{else}}https://via.placeholder.com/48?text={{this.productName}}{{/if}}');">
                           </div>
                           <div>
                             <p class="font-bold text-[#111418] dark:text-gray-200">{{this.productName}}</p>

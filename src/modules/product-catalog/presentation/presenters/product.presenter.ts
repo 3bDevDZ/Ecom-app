@@ -152,6 +152,9 @@ export class ProductPresenter {
           product.createdAt,
           product.updatedAt,
           totalQty,
+          product.specifications,
+          product.documents,
+          product.reviews,
         );
       }
       return product;
@@ -209,13 +212,16 @@ export class ProductPresenter {
       price: variant.calculateFinalPrice(product.basePrice),
     }));
 
-    // Create an enhanced product object that preserves getters
+    // Create an enhanced product object that preserves getters and metadata
     const enhancedProduct = {
       ...product,
       variants: enhancedVariants,
       hasVariants: product.hasVariants, // Explicitly copy the getter result
       priceRange: product.priceRange,   // Explicitly copy the getter result
       primaryImage: product.primaryImage, // Explicitly copy the getter result
+      specifications: product.specifications, // Preserve specifications
+      documents: product.documents, // Preserve documents
+      reviews: product.reviews, // Preserve reviews
     };
 
     return {
