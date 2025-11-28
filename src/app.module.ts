@@ -1,8 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 // Configuration
 import appConfig from './config/app.config';
@@ -21,6 +21,9 @@ import { IdentityModule } from './modules/identity/identity.module';
 // import { LandingCmsModule } from './modules/landing-cms/landing-cms.module';
 import { OrderManagementModule } from './modules/order-management/order-management.module';
 import { ProductCatalogModule } from './modules/product-catalog/product-catalog.module';
+import { MessagingModule } from './shared/infrastructure/messaging/messaging.module';
+import { EntityChangeSubscriber } from './shared/infrastructure/subscribers/entity-change.subscriber';
+import { UnitOfWorkModule } from './shared/infrastructure/uow/unit-of-work.module';
 
 @Module({
   imports: [
@@ -33,19 +36,48 @@ import { ProductCatalogModule } from './modules/product-catalog/product-catalog.
 
     // Database
     TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'postgres',
-        host: process.env.DATABASE_HOST || 'localhost',
-        port: parseInt(process.env.DATABASE_PORT || '5432'),
-        username: process.env.DATABASE_USER || 'ecommerce',
-        password: process.env.DATABASE_PASSWORD || 'ecommerce_password',
-        database: process.env.DATABASE_NAME || 'b2b_ecommerce',
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false, // Use migrations only
-        logging: process.env.NODE_ENV === 'development',
-        ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
-      }),
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+
+        const host = configService.get<string>('DATABASE_HOST') || 'localhost';
+        const port = configService.get<string>('DATABASE_PORT') || '5432';
+        const username = configService.get<string>('DATABASE_USER') || 'ecommerce';
+        const password = configService.get<string>('DATABASE_PASSWORD') || 'ecommerce_password';
+        const database = configService.get<string>('DATABASE_NAME') || 'b2b_ecommerce';
+
+        // Log connection details (without password) for debugging
+        console.log(`[TypeORM] Connecting to database: ${host}:${port}/${database} as ${username}`);
+
+        return {
+          type: 'postgres',
+          host,
+          port,
+          username,
+          password,
+          database,
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          subscribers: [EntityChangeSubscriber],
+          synchronize: false, // Use migrations only
+          logging: process.env.NODE_ENV === 'development',
+          ssl: false,
+          // Connection pool settings
+          extra: {
+            max: configService.get<string>('DATABASE_MAX_CONNECTIONS') || 10,
+            connectionTimeoutMillis: 10000,
+            idleTimeoutMillis: 30000,
+          },
+          // Retry settings
+          retryAttempts: configService.get<string>('DATABASE_RETRY_ATTEMPTS') || 3,
+          retryDelay: configService.get<string>('DATABASE_RETRY_DELAY') || 3000,
+        } as unknown as TypeOrmModuleOptions;
+      },
     }),
+
+    // Messaging (RabbitMQ - global, for event publishing)
+    MessagingModule,
+
+    // Unit of Work (global, provides transactional boundaries with event collection)
+    UnitOfWorkModule,
 
     // CQRS
     CqrsModule.forRoot(),

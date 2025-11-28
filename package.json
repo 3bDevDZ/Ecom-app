@@ -25,6 +25,7 @@
     "migration:revert": "npm run typeorm -- migration:revert -d src/config/typeorm.config.ts",
     "seed": "ts-node -r tsconfig-paths/register src/scripts/seed-database.ts",
     "seed:orders": "ts-node -r tsconfig-paths/register src/scripts/seed-orders.ts",
+    "seed:buyer": "ts-node -r tsconfig-paths/register src/scripts/seed-buyer-data.ts",
     "seed:keycloak": "ts-node -r tsconfig-paths/register src/scripts/seed-keycloak-users.ts",
     "generate:receipts": "ts-node -r tsconfig-paths/register src/scripts/generate-receipts.ts",
     "update-orders-user-id": "ts-node -r tsconfig-paths/register src/scripts/update-orders-user-id.ts",

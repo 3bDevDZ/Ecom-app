@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { IOrderRepository } from '../../../domain/repositories/iorder-repository';
+import { UnitOfWorkContext } from '@shared/infrastructure/uow/unit-of-work.context';
+import { EntityManager, Repository } from 'typeorm';
 import { Order } from '../../../domain/aggregates/order';
-import { OrderEntity } from '../entities/order.entity';
+import { IOrderRepository } from '../../../domain/repositories/iorder-repository';
 import { OrderItemEntity } from '../entities/order-item.entity';
+import { OrderEntity } from '../entities/order.entity';
 import { OrderMapper } from '../mappers/order.mapper';
 
 @Injectable()
@@ -14,19 +15,32 @@ export class OrderRepository implements IOrderRepository {
     private readonly orderEntityRepository: Repository<OrderEntity>,
     @InjectRepository(OrderItemEntity)
     private readonly orderItemEntityRepository: Repository<OrderItemEntity>,
-  ) {}
+  ) { }
 
-  async save(order: Order): Promise<void> {
+  async save(order: Order, manager?: EntityManager): Promise<void> {
     const entity = OrderMapper.toPersistence(order);
+    const orderRepo = manager ? manager.getRepository(OrderEntity) : this.orderEntityRepository;
+    const itemRepo = manager ? manager.getRepository(OrderItemEntity) : this.orderItemEntityRepository;
 
     // Delete existing items and save new ones
-    await this.orderItemEntityRepository.delete({ orderId: order.id });
+    await itemRepo.delete({ orderId: order.id });
 
-    await this.orderEntityRepository.save(entity);
+    await orderRepo.save(entity);
+
+    // Collect domain events from aggregate and add to UnitOfWorkContext
+    if (manager?.queryRunner) {
+      const context = UnitOfWorkContext.getOrCreate(manager.queryRunner);
+      const events = order.getDomainEvents();
+      if (events.length > 0) {
+        context.addEvents(events);
+        order.clearDomainEvents();
+      }
+    }
   }
 
-  async findById(id: string): Promise<Order | null> {
-    const entity = await this.orderEntityRepository.findOne({
+  async findById(id: string, manager?: EntityManager): Promise<Order | null> {
+    const repo = manager ? manager.getRepository(OrderEntity) : this.orderEntityRepository;
+    const entity = await repo.findOne({
       where: { id },
       relations: ['items'],
     });

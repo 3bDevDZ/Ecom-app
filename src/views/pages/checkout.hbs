@@ -132,10 +132,10 @@
                   <p class="text-gray-800 dark:text-white">Grand Total</p>
                   <p class="text-gray-900 dark:text-white text-right">{{cart.total}}</p>
                 </div>
-                <a href="/checkout/payment"
-                  class="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                  <span class="truncate">Proceed to Checkout</span>
-                </a>
+                <button onclick="placeOrder()" id="place-order-btn"
+                  class="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                  <span class="truncate">Order</span>
+                </button>
               </div>
             </div>
           </div>
@@ -160,6 +160,94 @@
 
 {{!-- JavaScript for cart interactions --}}
 <script>
+  // Pass user and address data to JavaScript
+  const userData = {{#if user}}{{{json user}}}{{else}}null{{/if}};
+  const defaultAddressData = {{#if defaultAddress}}{{{json defaultAddress}}}{{else}}null{{/if}};
+
+  async function placeOrder() {
+    const button = document.getElementById('place-order-btn');
+    if (!button) return;
+
+    // Disable button to prevent double submission
+    button.disabled = true;
+    const originalText = button.querySelector('span').textContent;
+    button.querySelector('span').innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 text-white inline" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Placing Order...';
+
+    try {
+      // Build shipping address - use default address if available, otherwise use defaults
+      // In production, you might want to collect this from a form or user profile
+      let shippingAddress;
+
+      if (defaultAddressData) {
+        shippingAddress = defaultAddressData;
+      } else if (userData) {
+        shippingAddress = {
+          street: userData.address?.street || userData.street || '123 Main Street',
+          city: userData.address?.city || userData.city || 'New York',
+          state: userData.address?.state || userData.state || 'NY',
+          postalCode: userData.address?.postalCode || userData.postalCode || '10001',
+          country: userData.address?.country || userData.country || 'US',
+          contactName: userData.name || (userData.firstName && userData.lastName
+            ? `${userData.firstName} ${userData.lastName}`
+            : userData.email?.split('@')[0] || 'Customer'),
+          contactPhone: userData.phone || userData.phoneNumber || '+1-555-0100',
+        };
+      } else {
+        shippingAddress = {
+          street: '123 Main Street',
+          city: 'New York',
+          state: 'NY',
+          postalCode: '10001',
+          country: 'US',
+          contactName: 'Customer',
+          contactPhone: '+1-555-0100',
+        };
+      }
+
+      const response = await fetch('/api/orders?format=html', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          shippingAddress: shippingAddress,
+        }),
+      });
+
+      if (response.ok) {
+        // If response is a redirect (status 302/303), follow it
+        if (response.redirected || response.status === 302 || response.status === 303) {
+          window.location.href = response.url;
+          return;
+        }
+
+        // Try to get order data from response
+        const order = await response.json();
+        if (order && order.orderNumber) {
+          window.location.href = `/orders/${order.orderNumber}`;
+        } else {
+          // Fallback: redirect to orders page
+          window.location.href = '/orders';
+        }
+      } else {
+        const error = await response.json().catch(() => ({ message: 'Failed to place order' }));
+        alert(`Failed to place order: ${error.message || 'Please try again'}`);
+
+        // Re-enable button
+        button.disabled = false;
+        button.querySelector('span').textContent = originalText;
+      }
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('An error occurred while placing your order. Please try again.');
+
+      // Re-enable button
+      button.disabled = false;
+      button.querySelector('span').textContent = originalText;
+    }
+  }
+
   async function updateQuantity(cartId, itemId, quantity) {
     const qty = parseInt(quantity);
     if (isNaN(qty) || qty < 1) {

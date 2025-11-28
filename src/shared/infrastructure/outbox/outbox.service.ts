@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, EntityManager } from 'typeorm';
-import { OutboxEntity } from './outbox.entity';
 import { DomainEvent } from '@shared/domain';
+import { EntityManager, Repository } from 'typeorm';
+import { OutboxEntity } from './outbox.entity';
 
 /**
  * Outbox Service
@@ -16,7 +16,7 @@ export class OutboxService {
   constructor(
     @InjectRepository(OutboxEntity)
     private readonly outboxRepository: Repository<OutboxEntity>,
-  ) {}
+  ) { }
 
   /**
    * Insert a domain event into the outbox
@@ -26,7 +26,7 @@ export class OutboxService {
     const repository = manager ? manager.getRepository(OutboxEntity) : this.outboxRepository;
 
     const outboxEntry = repository.create({
-      eventType: event.constructor.name,
+      eventType: event.eventType || event.constructor.name,
       aggregateId: event.aggregateId,
       aggregateType: this.extractAggregateType(event),
       payload: this.serializeEvent(event),
@@ -46,7 +46,7 @@ export class OutboxService {
 
     const outboxEntries = events.map((event) =>
       repository.create({
-        eventType: event.constructor.name,
+        eventType: event.eventType || event.constructor.name,
         aggregateId: event.aggregateId,
         aggregateType: this.extractAggregateType(event),
         payload: this.serializeEvent(event),
@@ -114,9 +114,33 @@ export class OutboxService {
    * Extract aggregate type from event metadata
    */
   private extractAggregateType(event: DomainEvent): string {
-    // Try to extract from event name (e.g., "ProductCreatedEvent" -> "Product")
+    // Try to extract from event name
+    // Examples:
+    // - "OrderPlaced" -> "Order"
+    // - "ProductCreatedEvent" -> "Product"
+    // - "CartConverted" -> "Cart"
     const eventName = event.constructor.name;
-    const match = eventName.match(/^(\w+?)(?:Created|Updated|Deleted|Event)/);
+
+    // Pattern 1: OrderPlaced, CartConverted, etc. (Aggregate + Action)
+    let match = eventName.match(/^(\w+?)(?:Placed|Converted|Cancelled|Created|Updated|Deleted)$/);
+    if (match) {
+      return match[1];
+    }
+
+    // Pattern 2: ProductCreatedEvent, etc. (Aggregate + Action + Event)
+    match = eventName.match(/^(\w+?)(?:Created|Updated|Deleted)Event$/);
+    if (match) {
+      return match[1];
+    }
+
+    // Pattern 3: Generic event suffix
+    match = eventName.match(/^(\w+?)Event$/);
+    if (match) {
+      return match[1];
+    }
+
+    // Fallback: try to extract first word (assumes CamelCase)
+    match = eventName.match(/^([A-Z][a-z]+)/);
     return match ? match[1] : 'Unknown';
   }
 }

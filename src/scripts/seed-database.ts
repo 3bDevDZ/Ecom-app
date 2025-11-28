@@ -1,10 +1,10 @@
-import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 import { join } from 'path';
+import { DataSource } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { CategoryEntity } from '../modules/product-catalog/infrastructure/persistence/entities/category.entity';
-import { ProductEntity } from '../modules/product-catalog/infrastructure/persistence/entities/product.entity';
 import { ProductVariantEntity } from '../modules/product-catalog/infrastructure/persistence/entities/product-variant.entity';
+import { ProductEntity } from '../modules/product-catalog/infrastructure/persistence/entities/product.entity';
 
 // Load environment variables
 config();
@@ -47,9 +47,33 @@ async function seedDatabase() {
     // Clear existing data (optional - comment out if you want to keep existing data)
     console.log('🧹 Clearing existing data...');
     // Delete in order to respect foreign key constraints
-    await variantRepo.query('TRUNCATE TABLE product_variants CASCADE');
-    await productRepo.query('TRUNCATE TABLE products CASCADE');
-    await categoryRepo.query('TRUNCATE TABLE categories CASCADE');
+    // Check if tables exist before truncating
+    try {
+      const variantTableExists = await dataSource.query(`
+        SELECT EXISTS (
+          SELECT FROM information_schema.tables
+          WHERE table_schema = 'public'
+          AND table_name = 'product_variants'
+        );
+      `);
+      if (variantTableExists[0]?.exists) {
+        await variantRepo.query('TRUNCATE TABLE product_variants CASCADE');
+      }
+    } catch (error) {
+      console.log('⚠️  product_variants table does not exist, skipping...');
+    }
+
+    try {
+      await productRepo.query('TRUNCATE TABLE products CASCADE');
+    } catch (error) {
+      console.log('⚠️  products table does not exist, skipping...');
+    }
+
+    try {
+      await categoryRepo.query('TRUNCATE TABLE categories CASCADE');
+    } catch (error) {
+      console.log('⚠️  categories table does not exist, skipping...');
+    }
     console.log('✅ Existing data cleared');
 
     // Create Categories
@@ -705,149 +729,162 @@ async function seedDatabase() {
     const savedProducts = await productRepo.save(products);
     console.log(`✅ Created ${savedProducts.length} products`);
 
-    // Create Product Variants for some products
+    // Create Product Variants for some products (only if table exists)
     console.log('🔧 Creating product variants...');
-    const variants = [
-      // PGM-1000 Variants - Power options
-      {
-        id: uuidv4(),
-        productId: savedProducts[0].id, // PGM-1000
-        sku: 'PGM-1000-STD',
-        attributes: { power: 'Standard', voltage: '24V' },
-        priceDelta: 0,
-        currency: 'USD',
-        availableQuantity: 50,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[0].id, // PGM-1000
-        sku: 'PGM-1000-HP-24V',
-        attributes: { power: 'High Power', voltage: '24V' },
-        priceDelta: 150.00,
-        currency: 'USD',
-        availableQuantity: 25,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[0].id, // PGM-1000
-        sku: 'PGM-1000-HP-48V',
-        attributes: { power: 'High Power', voltage: '48V' },
-        priceDelta: 200.00,
-        currency: 'USD',
-        availableQuantity: 15,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      // LA-3000 Variants - Stroke lengths
-      {
-        id: uuidv4(),
-        productId: savedProducts[4].id, // LA-3000
-        sku: 'LA-3000-50MM',
-        attributes: { stroke: '50mm' },
-        priceDelta: 0,
-        currency: 'USD',
-        availableQuantity: 30,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[4].id, // LA-3000
-        sku: 'LA-3000-100MM',
-        attributes: { stroke: '100mm' },
-        priceDelta: 50.00,
-        currency: 'USD',
-        availableQuantity: 20,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[4].id, // LA-3000
-        sku: 'LA-3000-200MM',
-        attributes: { stroke: '200mm' },
-        priceDelta: 100.00,
-        currency: 'USD',
-        availableQuantity: 15,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      // RAU-5C Variants - Payload capacity
-      {
-        id: uuidv4(),
-        productId: savedProducts[1].id, // RAU-5C
-        sku: 'RAU-5C-5KG',
-        attributes: { payload: '5kg', reach: '800mm' },
-        priceDelta: 0,
-        currency: 'USD',
-        availableQuantity: 10,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[1].id, // RAU-5C
-        sku: 'RAU-5C-10KG',
-        attributes: { payload: '10kg', reach: '800mm' },
-        priceDelta: 800.00,
-        currency: 'USD',
-        availableQuantity: 8,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[1].id, // RAU-5C
-        sku: 'RAU-5C-10KG-EXT',
-        attributes: { payload: '10kg', reach: '1200mm' },
-        priceDelta: 1200.00,
-        currency: 'USD',
-        availableQuantity: 5,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      // HDP-24V Variants - Amperage
-      {
-        id: uuidv4(),
-        productId: savedProducts[2].id, // HDP-24V
-        sku: 'HDP-24V-5A',
-        attributes: { amperage: '5A' },
-        priceDelta: 0,
-        currency: 'USD',
-        availableQuantity: 100,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[2].id, // HDP-24V
-        sku: 'HDP-24V-10A',
-        attributes: { amperage: '10A' },
-        priceDelta: 75.00,
-        currency: 'USD',
-        availableQuantity: 80,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-      {
-        id: uuidv4(),
-        productId: savedProducts[2].id, // HDP-24V
-        sku: 'HDP-24V-15A',
-        attributes: { amperage: '15A' },
-        priceDelta: 125.00,
-        currency: 'USD',
-        availableQuantity: 60,
-        reservedQuantity: 0,
-        isActive: true,
-      },
-    ];
+    const variantTableExists = await dataSource.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables
+        WHERE table_schema = 'public'
+        AND table_name = 'product_variants'
+      );
+    `);
 
-    await variantRepo.save(variants);
-    console.log(`✅ Created ${variants.length} product variants`);
+    let variants: any[] = [];
+    if (!variantTableExists[0]?.exists) {
+      console.log('⚠️  product_variants table does not exist, skipping variant creation...');
+    } else {
+      variants = [
+        // PGM-1000 Variants - Power options
+        {
+          id: uuidv4(),
+          productId: savedProducts[0].id, // PGM-1000
+          sku: 'PGM-1000-STD',
+          attributes: { power: 'Standard', voltage: '24V' },
+          priceDelta: 0,
+          currency: 'USD',
+          availableQuantity: 50,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[0].id, // PGM-1000
+          sku: 'PGM-1000-HP-24V',
+          attributes: { power: 'High Power', voltage: '24V' },
+          priceDelta: 150.00,
+          currency: 'USD',
+          availableQuantity: 25,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[0].id, // PGM-1000
+          sku: 'PGM-1000-HP-48V',
+          attributes: { power: 'High Power', voltage: '48V' },
+          priceDelta: 200.00,
+          currency: 'USD',
+          availableQuantity: 15,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        // LA-3000 Variants - Stroke lengths
+        {
+          id: uuidv4(),
+          productId: savedProducts[4].id, // LA-3000
+          sku: 'LA-3000-50MM',
+          attributes: { stroke: '50mm' },
+          priceDelta: 0,
+          currency: 'USD',
+          availableQuantity: 30,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[4].id, // LA-3000
+          sku: 'LA-3000-100MM',
+          attributes: { stroke: '100mm' },
+          priceDelta: 50.00,
+          currency: 'USD',
+          availableQuantity: 20,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[4].id, // LA-3000
+          sku: 'LA-3000-200MM',
+          attributes: { stroke: '200mm' },
+          priceDelta: 100.00,
+          currency: 'USD',
+          availableQuantity: 15,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        // RAU-5C Variants - Payload capacity
+        {
+          id: uuidv4(),
+          productId: savedProducts[1].id, // RAU-5C
+          sku: 'RAU-5C-5KG',
+          attributes: { payload: '5kg', reach: '800mm' },
+          priceDelta: 0,
+          currency: 'USD',
+          availableQuantity: 10,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[1].id, // RAU-5C
+          sku: 'RAU-5C-10KG',
+          attributes: { payload: '10kg', reach: '800mm' },
+          priceDelta: 800.00,
+          currency: 'USD',
+          availableQuantity: 8,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[1].id, // RAU-5C
+          sku: 'RAU-5C-10KG-EXT',
+          attributes: { payload: '10kg', reach: '1200mm' },
+          priceDelta: 1200.00,
+          currency: 'USD',
+          availableQuantity: 5,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        // HDP-24V Variants - Amperage
+        {
+          id: uuidv4(),
+          productId: savedProducts[2].id, // HDP-24V
+          sku: 'HDP-24V-5A',
+          attributes: { amperage: '5A' },
+          priceDelta: 0,
+          currency: 'USD',
+          availableQuantity: 100,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[2].id, // HDP-24V
+          sku: 'HDP-24V-10A',
+          attributes: { amperage: '10A' },
+          priceDelta: 75.00,
+          currency: 'USD',
+          availableQuantity: 80,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+        {
+          id: uuidv4(),
+          productId: savedProducts[2].id, // HDP-24V
+          sku: 'HDP-24V-15A',
+          attributes: { amperage: '15A' },
+          priceDelta: 125.00,
+          currency: 'USD',
+          availableQuantity: 60,
+          reservedQuantity: 0,
+          isActive: true,
+        },
+      ];
+
+      await variantRepo.save(variants);
+      console.log(`✅ Created ${variants.length} product variants`);
+    }
 
     console.log('\n🎉 Database seeding completed successfully!');
     console.log(`\n📊 Summary:`);

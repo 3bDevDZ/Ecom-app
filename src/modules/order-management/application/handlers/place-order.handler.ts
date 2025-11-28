@@ -1,10 +1,11 @@
-import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
-import { Inject, NotFoundException, BadRequestException } from '@nestjs/common';
-import { PlaceOrderCommand } from '../commands/place-order.command';
+import { BadRequestException, Inject, NotFoundException } from '@nestjs/common';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { UnitOfWorkService } from '@shared/infrastructure/uow/unit-of-work.service';
+import { Order } from '../../domain/aggregates/order';
 import { ICartRepository } from '../../domain/repositories/icart-repository';
 import { IOrderRepository } from '../../domain/repositories/iorder-repository';
-import { Order } from '../../domain/aggregates/order';
 import { Address } from '../../domain/value-objects/address';
+import { PlaceOrderCommand } from '../commands/place-order.command';
 
 @CommandHandler(PlaceOrderCommand)
 export class PlaceOrderCommandHandler
@@ -15,59 +16,60 @@ export class PlaceOrderCommandHandler
     private readonly cartRepository: ICartRepository,
     @Inject('IOrderRepository')
     private readonly orderRepository: IOrderRepository,
-    private readonly eventBus: EventBus,
-  ) {}
+    private readonly unitOfWork: UnitOfWorkService,
+  ) { }
 
   async execute(command: PlaceOrderCommand): Promise<string> {
     const { userId, shippingAddress } = command;
 
-    // Find active cart for user
-    const cart = await this.cartRepository.findActiveByUserId(userId);
-    if (!cart) {
-      throw new NotFoundException('Cart not found');
-    }
+    return await this.unitOfWork.execute(async (manager) => {
+      // Find active cart for user
+      const cart = await this.cartRepository.findActiveByUserId(userId, manager);
+      if (!cart) {
+        throw new NotFoundException('Cart not found');
+      }
 
-    if (cart.isEmpty()) {
-      throw new BadRequestException('Cannot place order from empty cart');
-    }
+      if (cart.isEmpty()) {
+        throw new BadRequestException('Cannot place order from empty cart');
+      }
 
-    // Create shipping address
-    const shipping = Address.create(shippingAddress);
+      // Create shipping address
+      const shipping = Address.create(shippingAddress);
 
-    // Create order from cart
-    const order = Order.create({
-      userId,
-      cartId: cart.id,
-      items: cart.items.map(item => ({
-        productId: item.productId,
-        productName: item.productName,
-        sku: item.sku,
-        quantity: item.quantity,
-        unitPrice: item.unitPrice,
-        currency: item.currency,
-      })),
-      shippingAddress: shipping,
-      billingAddress: shipping, // Use same address for billing for now
+      // Create order from cart
+      // This adds domain events: OrderPlaced, InventoryReservationRequested
+      const order = Order.create({
+        userId,
+        cartId: cart.id,
+        items: cart.items.map(item => ({
+          productId: item.productId,
+          productName: item.productName,
+          sku: item.sku,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          currency: item.currency,
+        })),
+        shippingAddress: shipping,
+        billingAddress: shipping, // Use same address for billing for now
+      });
+
+      // Save order (events are automatically collected by repository)
+      await this.orderRepository.save(order, manager);
+
+      // Convert cart (mark as converted)
+      // This may add domain events (e.g., CartConverted)
+      cart.convert();
+      await this.cartRepository.save(cart, manager);
+
+      // All domain events from both order and cart are:
+      // 1. Collected by repositories
+      // 2. Added to UnitOfWorkContext
+      // 3. Saved to outbox table (same transaction)
+      // 4. Published later by OutboxProcessor to RabbitMQ
+
+      // Return order number for redirect
+      return order.orderNumber.value;
     });
-
-    // Save order
-    await this.orderRepository.save(order);
-
-    // Convert cart (mark as converted)
-    cart.convert();
-    await this.cartRepository.save(cart);
-
-    // Publish domain events from order
-    const orderEvents = order.getDomainEvents();
-    orderEvents.forEach(event => this.eventBus.publish(event));
-    order.clearDomainEvents();
-
-    // Publish domain events from cart
-    const cartEvents = cart.getDomainEvents();
-    cartEvents.forEach(event => this.eventBus.publish(event));
-    cart.clearDomainEvents();
-
-    return order.id;
   }
 }
 

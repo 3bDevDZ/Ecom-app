@@ -1,3 +1,4 @@
+import { EntityManager } from 'typeorm';
 import { Cart } from '../aggregates/cart';
 
 /**
@@ -8,8 +9,10 @@ import { Cart } from '../aggregates/cart';
 export interface ICartRepository {
   /**
    * Save a cart (create or update)
+   * @param cart - The cart aggregate to save
+   * @param manager - Optional EntityManager for transaction support
    */
-  save(cart: Cart): Promise<void>;
+  save(cart: Cart, manager?: EntityManager): Promise<void>;
 
   /**
    * Find cart by ID
@@ -18,8 +21,10 @@ export interface ICartRepository {
 
   /**
    * Find active cart for user
+   * @param userId - The user ID
+   * @param manager - Optional EntityManager for transaction support
    */
-  findActiveByUserId(userId: string): Promise<Cart | null>;
+  findActiveByUserId(userId: string, manager?: EntityManager): Promise<Cart | null>;
 
   /**
    * Delete a cart

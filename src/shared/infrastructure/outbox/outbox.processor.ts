@@ -1,9 +1,10 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { ConfigService } from '@nestjs/config';
-import { OutboxService } from './outbox.service';
-import { OutboxEntity } from './outbox.entity';
 import { getErrorDetails } from '@common/utils/error.util';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { MessageBrokerService } from '../messaging/message-broker.service';
+import { OutboxEntity } from './outbox.entity';
+import { OutboxService } from './outbox.service';
 
 /**
  * Outbox Processor
@@ -18,24 +19,18 @@ export class OutboxProcessor implements OnModuleInit {
   private readonly logger = new Logger(OutboxProcessor.name);
   private isProcessing = false;
   private readonly maxRetries: number;
-  private eventPublisher: any; // Will be injected from messaging module
 
   constructor(
     private readonly outboxService: OutboxService,
     private readonly configService: ConfigService,
+    private readonly messageBroker: MessageBrokerService,
   ) {
     this.maxRetries = this.configService.get<number>('rabbitmq.retryAttempts', 5);
   }
 
   onModuleInit() {
     this.logger.log('Outbox Processor initialized');
-  }
-
-  /**
-   * Set the event publisher (injected after module initialization)
-   */
-  setEventPublisher(publisher: any): void {
-    this.eventPublisher = publisher;
+    this.logger.log('MessageBrokerService is available - events will be published to RabbitMQ');
   }
 
   /**
@@ -45,11 +40,6 @@ export class OutboxProcessor implements OnModuleInit {
   async processOutbox(): Promise<void> {
     if (this.isProcessing) {
       this.logger.debug('Outbox processing already in progress, skipping...');
-      return;
-    }
-
-    if (!this.eventPublisher) {
-      this.logger.debug('Event publisher not initialized yet, skipping...');
       return;
     }
 
@@ -72,7 +62,9 @@ export class OutboxProcessor implements OnModuleInit {
       this.logger.log(`Successfully processed ${events.length} events`);
     } catch (error) {
       const { message, stack } = getErrorDetails(error);
-      this.logger.error('Error processing outbox events', message, stack);
+      this.logger.error(
+        `Error processing outbox events: ${message}${stack ? '\nStack: ' + stack : ''}`,
+      );
     } finally {
       this.isProcessing = false;
     }
@@ -103,7 +95,9 @@ export class OutboxProcessor implements OnModuleInit {
       );
     } catch (error) {
       const { message, stack } = getErrorDetails(error);
-      this.logger.error(`Failed to process event ${outboxEntry.id}:`, message, stack);
+      this.logger.error(
+        `Failed to process event ${outboxEntry.id}: ${message}${stack ? '\nStack: ' + stack : ''}`,
+      );
 
       // Mark as failed and increment retry count
       await this.outboxService.markAsFailed(outboxEntry.id, message || 'Unknown error');
@@ -112,54 +106,55 @@ export class OutboxProcessor implements OnModuleInit {
 
   /**
    * Publish event to RabbitMQ
+   * Uses exchange and routing key from configuration
    */
   private async publishEvent(outboxEntry: OutboxEntity): Promise<void> {
-    if (!this.eventPublisher) {
-      throw new Error('Event publisher not initialized');
+    const exchangeName = this.configService.get<string>('rabbitmq.exchangeName', 'domain.events');
+    const routingKeys = this.configService.get<Record<string, string>>('rabbitmq.routingKeys', {});
+    const queueNames = this.configService.get<Record<string, string>>('rabbitmq.queueNames', {});
+
+    // Get routing key from configuration based on event type
+    const routingKey = routingKeys[outboxEntry.eventType];
+    const queueName = queueNames[outboxEntry.eventType];
+
+    if (!routingKey) {
+      const errorMsg = `Routing key not found in config for event type "${outboxEntry.eventType}"`;
+      this.logger.error(errorMsg);
+      throw new Error(errorMsg);
     }
 
-    const exchange = this.determineExchange(outboxEntry.eventType);
-    const routingKey = this.createRoutingKey(outboxEntry.aggregateType, outboxEntry.eventType);
+    if (!queueName) {
+      this.logger.warn(
+        `Queue name not found in config for event type "${outboxEntry.eventType}", but routing key exists: "${routingKey}"`,
+      );
+    }
 
-    await this.eventPublisher.publish(exchange, routingKey, outboxEntry.payload, {
+    this.logger.debug(
+      `Publishing event ${outboxEntry.id} (${outboxEntry.eventType}) to exchange: ${exchangeName}, routingKey: ${routingKey}${queueName ? `, queue: ${queueName}` : ''}`,
+    );
+
+    await this.messageBroker.publish(exchangeName, routingKey, outboxEntry.payload, {
       persistent: true,
       timestamp: outboxEntry.createdAt.getTime(),
       messageId: outboxEntry.id,
       type: outboxEntry.eventType,
     });
+
+    this.logger.debug(`Successfully published event ${outboxEntry.id} to exchange ${exchangeName} with routing key ${routingKey}`);
   }
 
-  /**
-   * Determine which exchange to use based on event type
-   */
-  private determineExchange(_eventType: string): string {
-    // Domain events go to domain.events exchange
-    // Integration events would go to integration.events
-    return 'domain.events';
-  }
 
-  /**
-   * Create routing key for RabbitMQ
-   * Format: {aggregateType}.{eventType}
-   * Example: Product.ProductCreatedEvent
-   */
-  private createRoutingKey(aggregateType: string, eventType: string): string {
-    return `${aggregateType.toLowerCase()}.${eventType}`;
-  }
 
   /**
    * Move event to dead-letter queue
    */
   private async moveToDeadLetter(outboxEntry: OutboxEntity): Promise<void> {
     try {
-      if (!this.eventPublisher) {
-        throw new Error('Event publisher not initialized');
-      }
+      // Publish directly to dead-letter queue (more reliable than using exchange)
+      const deadLetterQueue = this.configService.get<string>('RABBITMQ_DEAD_LETTER_QUEUE') || 'dead.letter.queue';
 
-      // Publish to dead-letter exchange
-      await this.eventPublisher.publish(
-        'dead.letter',
-        'outbox.failed',
+      await this.messageBroker.publishToQueue(
+        deadLetterQueue,
         {
           ...outboxEntry.payload,
           originalEventType: outboxEntry.eventType,
@@ -182,9 +177,7 @@ export class OutboxProcessor implements OnModuleInit {
     } catch (error) {
       const { message, stack } = getErrorDetails(error);
       this.logger.error(
-        `Failed to move event ${outboxEntry.id} to dead-letter queue`,
-        message,
-        stack,
+        `Failed to move event ${outboxEntry.id} to dead-letter queue: ${message}${stack ? '\nStack: ' + stack : ''}`,
       );
     }
   }

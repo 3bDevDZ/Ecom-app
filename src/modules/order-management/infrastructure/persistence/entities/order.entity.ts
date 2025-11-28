@@ -64,5 +64,23 @@ export class OrderEntity {
 
   @Column({ type: 'varchar', length: 500, nullable: true })
   receiptUrl?: string;
+
+  @Column('decimal', { precision: 10, scale: 2 })
+  subtotal: number;
+
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
+  tax: number;
+
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
+  shipping: number;
+
+  @Column('decimal', { precision: 10, scale: 2, nullable: true })
+  discount?: number;
+
+  @Column('decimal', { precision: 10, scale: 2 })
+  total: number;
+
+  @Column({ type: 'varchar', length: 3, default: 'USD' })
+  currency: string;
 }
 

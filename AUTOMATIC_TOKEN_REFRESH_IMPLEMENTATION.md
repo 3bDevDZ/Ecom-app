@@ -13,6 +13,7 @@ Automatic token refresh has been implemented to seamlessly maintain user session
 **File**: `src/common/middleware/view-user.middleware.ts`
 
 **What it does**:
+
 - Runs on **every request** (applied to all routes)
 - Checks if access token is expired or expires within **60 seconds**
 - Automatically refreshes token if refresh token is available
@@ -20,12 +21,14 @@ Automatic token refresh has been implemented to seamlessly maintain user session
 - Attaches user info to request for templates
 
 **Key Features**:
+
 - ✅ **Proactive refresh**: Refreshes tokens before they expire (60 second buffer)
 - ✅ **Automatic**: No user action required
 - ✅ **Graceful failure**: If refresh fails, clears session (user can log in again)
 - ✅ **Transparent**: User doesn't notice the refresh happening
 
 **Code Flow**:
+
 ```typescript
 async use(req: Request, res: Response, next: NextFunction) {
   if (req.session?.accessToken) {
@@ -66,18 +69,21 @@ async use(req: Request, res: Response, next: NextFunction) {
 **File**: `src/modules/identity/application/guards/jwt-auth.guard.ts`
 
 **What it does**:
+
 - Protects API routes with JWT authentication
 - Checks token expiration before authentication
 - Automatically refreshes expired tokens
 - Works for both session-based and Bearer token authentication
 
 **Key Features**:
+
 - ✅ **API protection**: Works for protected API endpoints
 - ✅ **Session tokens**: Refreshes tokens from session
 - ✅ **Bearer tokens**: Also supports Authorization header tokens
 - ✅ **Seamless**: API calls continue working even when tokens expire
 
 **Code Flow**:
+
 ```typescript
 async canActivate(context: ExecutionContext): Promise<boolean> {
   const request = context.switchToHttp().getRequest();
@@ -169,6 +175,7 @@ const shouldRefresh = expiresIn < 60; // Refresh if expires in less than 60 seco
 ```
 
 **Why 60 seconds?**
+
 - Gives enough time for refresh to complete
 - Prevents race conditions
 - Ensures token is valid for the entire request
@@ -245,16 +252,18 @@ Login
 **Scenario**: User has access token but no refresh token
 
 **Behavior**:
+
 - Session cleared
 - User marked as unauthenticated
 - Next protected route requires login
 
 **Code**:
+
 ```typescript
 if (!req.session?.refreshToken) {
   // Clear session
   delete req.session.accessToken;
-  req['viewUser'] = null;
+  req["viewUser"] = null;
   return next();
 }
 ```
@@ -264,11 +273,13 @@ if (!req.session?.refreshToken) {
 **Scenario**: Refresh token is also expired/invalid
 
 **Behavior**:
+
 - Refresh attempt fails
 - Session cleared
 - User needs to log in again
 
 **Code**:
+
 ```typescript
 try {
   const tokens = await this.keycloakAuthService.refreshToken(refreshToken);
@@ -285,11 +296,13 @@ try {
 **Scenario**: Keycloak server is down or unreachable
 
 **Behavior**:
+
 - Refresh attempt fails
 - Session cleared
 - User needs to log in again when Keycloak is back
 
 **Code**:
+
 ```typescript
 catch (refreshError) {
   this.logger.warn('Token refresh failed', refreshError);
@@ -348,12 +361,14 @@ curl -b cookies.txt http://localhost:3333/api/auth/refresh
 ### **1. Dependency Injection**
 
 **ViewUserMiddleware** needs `KeycloakAuthService`:
+
 - `KeycloakAuthService` is provided in `IdentityModule`
 - `IdentityModule` exports `KeycloakAuthService`
 - `AppModule` imports `IdentityModule`
 - `ViewUserMiddleware` can inject `KeycloakAuthService`
 
 **File**: `src/app.module.ts`
+
 ```typescript
 @Module({
   imports: [
@@ -367,6 +382,7 @@ curl -b cookies.txt http://localhost:3333/api/auth/refresh
 ### **2. Async Middleware**
 
 **Important**: Middleware method is now `async`:
+
 ```typescript
 async use(req: Request, res: Response, next: NextFunction) {
   // Can use await for token refresh
@@ -377,6 +393,7 @@ async use(req: Request, res: Response, next: NextFunction) {
 ### **3. Session Update**
 
 **Tokens are updated in session**:
+
 ```typescript
 req.session.accessToken = tokens.access_token;
 if (tokens.refresh_token) {
@@ -387,6 +404,7 @@ if (tokens.refresh_token) {
 ### **4. User Info Update**
 
 **After refresh, user info is re-attached**:
+
 ```typescript
 // Decode new token
 const newPayload = decodeJWT(tokens.access_token);
@@ -424,11 +442,13 @@ res.locals.user = { ... };
 **Current**: 60 seconds
 
 **To change**: Modify in `ViewUserMiddleware`:
+
 ```typescript
 const shouldRefresh = expiresIn < 60; // Change 60 to desired seconds
 ```
 
 **Recommendations**:
+
 - **30 seconds**: More frequent refreshes, safer
 - **60 seconds**: Balanced (current)
 - **120 seconds**: Less frequent, but risk of expiration during request
@@ -436,6 +456,7 @@ const shouldRefresh = expiresIn < 60; // Change 60 to desired seconds
 ### **Token Lifetimes**
 
 Configured in **Keycloak Admin Console**:
+
 - **Realm Settings** → **Tokens**
   - **Access Token Lifespan**: 5 minutes (default)
   - **SSO Session Idle**: 30 minutes
@@ -445,13 +466,13 @@ Configured in **Keycloak Admin Console**:
 
 ## 📚 Related Files
 
-| File | Purpose |
-|------|---------|
-| `src/common/middleware/view-user.middleware.ts` | Auto-refresh for HTML views |
-| `src/modules/identity/application/guards/jwt-auth.guard.ts` | Auto-refresh for API routes |
-| `src/modules/identity/application/services/keycloak-auth.service.ts` | Token refresh service |
-| `src/modules/identity/presentation/controllers/auth.controller.ts` | Manual refresh endpoint |
-| `src/app.module.ts` | Module configuration |
+| File                                                                 | Purpose                     |
+| -------------------------------------------------------------------- | --------------------------- |
+| `src/common/middleware/view-user.middleware.ts`                      | Auto-refresh for HTML views |
+| `src/modules/identity/application/guards/jwt-auth.guard.ts`          | Auto-refresh for API routes |
+| `src/modules/identity/application/services/keycloak-auth.service.ts` | Token refresh service       |
+| `src/modules/identity/presentation/controllers/auth.controller.ts`   | Manual refresh endpoint     |
+| `src/app.module.ts`                                                  | Module configuration        |
 
 ---
 
@@ -480,4 +501,3 @@ Configured in **Keycloak Admin Console**:
 - [JWT Refresh Token Explanation](./JWT_REFRESH_TOKEN_EXPLANATION.md)
 - [JWT Usage Detailed](./JWT_USAGE_DETAILED.md)
 - [Authentication Architecture](./AUTHENTICATION_ARCHITECTURE.md)
-

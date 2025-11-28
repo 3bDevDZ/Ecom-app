@@ -94,7 +94,7 @@ export class OrderController {
                 body.notes,
             );
 
-            const order = await this.commandBus.execute(command);
+            const orderNumber = await this.commandBus.execute(command);
 
             // Return HTML view if format=html
             const isHtmlRequest =
@@ -104,15 +104,17 @@ export class OrderController {
 
             if (isHtmlRequest && res) {
                 // Redirect to order confirmation page
-                return res.redirect(`/orders/${order.orderNumber}`);
+                return res.redirect(`/orders/${orderNumber}`);
             }
 
             // Return JSON for API
             if (res) {
-                res.status(HttpStatus.CREATED).json(order);
+                res.status(HttpStatus.CREATED).json({ orderNumber });
                 return;
             }
-            return order;
+
+            // This should never be reached when @Res() is used, but satisfy TypeScript
+            return;
         } catch (error) {
             // Handle domain errors
             if (error.message?.includes('Cart is empty')) {

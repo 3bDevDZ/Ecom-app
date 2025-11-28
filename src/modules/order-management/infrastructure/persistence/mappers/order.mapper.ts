@@ -88,6 +88,25 @@ export class OrderMapper {
       contactPhone: order.billingAddress.contactPhone,
     };
 
+    // Calculate financial values
+    // Subtotal is the sum of all item line totals
+    entity.subtotal = order.items.reduce((sum, item) => sum + item.lineTotal, 0);
+
+    // Tax is 8% of subtotal (matching CartPresenter calculation)
+    entity.tax = entity.subtotal * 0.08;
+
+    // Shipping is free over $500, otherwise $25 (matching CartPresenter calculation)
+    entity.shipping = entity.subtotal >= 500 ? 0 : 25.0;
+
+    // Discount is not currently used, but can be set in the future
+    entity.discount = null;
+
+    // Total is subtotal + tax + shipping - discount
+    entity.total = entity.subtotal + entity.tax + entity.shipping - (entity.discount || 0);
+
+    // Currency from first item (all items should have the same currency)
+    entity.currency = order.items.length > 0 ? order.items[0].currency : 'USD';
+
     entity.items = order.items.map(item => {
       const itemEntity = new OrderItemEntity();
       itemEntity.id = item.id;
@@ -97,6 +116,7 @@ export class OrderMapper {
       itemEntity.sku = item.sku;
       itemEntity.quantity = item.quantity;
       itemEntity.unitPrice = item.unitPrice;
+      itemEntity.subtotal = item.lineTotal; // lineTotal = quantity * unitPrice
       itemEntity.currency = item.currency;
       return itemEntity;
     });
