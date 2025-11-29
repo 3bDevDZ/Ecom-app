@@ -53,6 +53,24 @@ export class OrderEntity {
   @Column({ type: 'varchar', length: 500, nullable: true })
   cancellationReason?: string;
 
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  subtotal: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  tax: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  shipping: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  discount?: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  total: number;
+
+  @Column({ type: 'varchar', length: 3, default: 'USD' })
+  currency: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

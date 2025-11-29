@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, EntityManager } from 'typeorm';
-import { OutboxEntity } from './outbox.entity';
 import { DomainEvent } from '@shared/domain';
+import { EntityManager, Repository } from 'typeorm';
+import { OutboxEntity } from './outbox.entity';
 
 /**
  * Outbox Service
@@ -16,7 +16,7 @@ export class OutboxService {
   constructor(
     @InjectRepository(OutboxEntity)
     private readonly outboxRepository: Repository<OutboxEntity>,
-  ) {}
+  ) { }
 
   /**
    * Insert a domain event into the outbox
@@ -26,7 +26,7 @@ export class OutboxService {
     const repository = manager ? manager.getRepository(OutboxEntity) : this.outboxRepository;
 
     const outboxEntry = repository.create({
-      eventType: event.constructor.name,
+      eventType: event.eventType || event.constructor.name,
       aggregateId: event.aggregateId,
       aggregateType: this.extractAggregateType(event),
       payload: this.serializeEvent(event),
@@ -115,8 +115,8 @@ export class OutboxService {
    */
   private extractAggregateType(event: DomainEvent): string {
     // Try to extract from event name (e.g., "ProductCreatedEvent" -> "Product")
-    const eventName = event.constructor.name;
-    const match = eventName.match(/^(\w+?)(?:Created|Updated|Deleted|Event)/);
+    const eventType = event.constructor.name;
+    const match = eventType.match(/^(\w+?)(?:Created|Updated|Deleted|Event)/);
     return match ? match[1] : 'Unknown';
   }
 }

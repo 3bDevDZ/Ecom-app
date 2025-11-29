@@ -1,8 +1,8 @@
+import { getErrorDetails } from '@common/utils/error.util';
 import { Injectable, Logger } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
-import { MessageBrokerService } from './message-broker.service';
 import { DomainEvent } from '@shared/domain';
-import { getErrorDetails } from '@common/utils/error.util';
+import { MessageBrokerService } from './message-broker.service';
 
 /**
  * Event Publisher Service
@@ -17,7 +17,7 @@ export class EventPublisherService {
   constructor(
     private readonly messageBroker: MessageBrokerService,
     private readonly eventBus: EventBus,
-  ) {}
+  ) { }
 
   /**
    * Publish a domain event to RabbitMQ
@@ -97,21 +97,21 @@ export class EventPublisherService {
 
   /**
    * Create routing key from domain event
-   * Format: {aggregateType}.{eventName}
+   * Format: {aggregateType}.{eventType}
    * Example: order.OrderCreatedEvent
    */
   private createRoutingKey(event: DomainEvent): string {
-    const eventName = event.constructor.name;
-    const aggregateType = this.extractAggregateType(eventName);
-    return `${aggregateType}.${eventName}`;
+    const eventType = event.constructor.name;
+    const aggregateType = this.extractAggregateType(eventType);
+    return `${aggregateType}.${eventType}`;
   }
 
   /**
    * Extract aggregate type from event name
    * Example: "OrderCreatedEvent" -> "order"
    */
-  private extractAggregateType(eventName: string): string {
-    const match = eventName.match(/^(\w+?)(?:Created|Updated|Deleted|Event)/);
+  private extractAggregateType(eventType: string): string {
+    const match = eventType.match(/^(\w+?)(?:Created|Updated|Deleted|Event)/);
     return match ? match[1].toLowerCase() : 'unknown';
   }
 }

@@ -12,11 +12,9 @@ export interface OrderPlacedPayload {
 
 export class OrderPlaced extends DomainEvent {
   readonly eventType = 'OrderPlaced';
+  readonly occurredAt = new Date();
 
-  constructor(
-    aggregateId: string,
-    readonly payload: OrderPlacedPayload,
-  ) {
+  constructor(aggregateId: string, readonly payload: OrderPlacedPayload) {
     super(aggregateId);
   }
 }

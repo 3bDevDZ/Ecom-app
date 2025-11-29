@@ -11,6 +11,7 @@ import { CartStatus } from '../value-objects/cart-status';
  *
  * Represents a shopping cart that can contain multiple items
  */
+
 export class Cart extends AggregateRoot {
   private readonly _id: string;
   private readonly _userId: string;

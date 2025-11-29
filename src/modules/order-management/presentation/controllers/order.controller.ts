@@ -14,13 +14,13 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { UuidValidationPipe } from '../../../../common/pipes/uuid-validation.pipe';
 import { PaginatedResponse } from '../../../../shared/application/pagination.dto';
 import { JwtAuthGuard } from '../../../identity/application/guards/jwt-auth.guard';
 import { PlaceOrderCommand } from '../../application/commands/place-order.command';
 import { ReorderCommand } from '../../application/commands/reorder.command';
 import { OrderDto } from '../../application/dtos/order.dto';
 import { GetOrderByIdQuery } from '../../application/queries/get-order-by-id.query';
+import { GetOrderByNumberQuery } from '../../application/queries/get-order-by-number.query';
 import { GetOrderHistoryQuery } from '../../application/queries/get-order-history.query';
 import { AddressProps } from '../../domain/value-objects/address';
 import { ReceiptService } from '../../infrastructure/services/receipt.service';
@@ -258,7 +258,7 @@ export class OrderController {
     @ApiResponse({ status: 404, description: 'Receipt not found' })
     @ApiResponse({ status: 401, description: 'Unauthorized' })
     async downloadReceipt(
-        @Param('id', UuidValidationPipe) id: string,
+        @Param('id') id: string,
         @Req() req: any,
         @Res() res: Response,
     ): Promise<void> {
@@ -268,9 +268,18 @@ export class OrderController {
             throw new HttpException('User ID not found', HttpStatus.UNAUTHORIZED);
         }
 
+        // Check if id is a UUID or order number
+        const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
         // Get order to verify ownership and get order number
-        const query = new GetOrderByIdQuery(id, userId);
-        const order = await this.queryBus.execute(query);
+        let order;
+        if (isUuid) {
+            const query = new GetOrderByIdQuery(id, userId);
+            order = await this.queryBus.execute(query);
+        } else {
+            const query = new GetOrderByNumberQuery(id, userId);
+            order = await this.queryBus.execute(query);
+        }
 
         if (!order) {
             throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
@@ -303,7 +312,7 @@ export class OrderController {
      * User Story 3: View and Track Orders
      */
     @Get(':id')
-    @ApiOperation({ summary: 'Get order by ID' })
+    @ApiOperation({ summary: 'Get order by ID or order number' })
     @ApiQuery({ name: 'format', required: false, description: 'Response format: json or html' })
     @ApiResponse({
         status: 200,
@@ -313,7 +322,7 @@ export class OrderController {
     @ApiResponse({ status: 404, description: 'Order not found' })
     @ApiResponse({ status: 401, description: 'Unauthorized' })
     async getOrderById(
-        @Param('id', UuidValidationPipe) id: string,
+        @Param('id') id: string,
         @Req() req: any,
         @Query('format') format?: string,
         @Res() res?: Response,
@@ -328,9 +337,19 @@ export class OrderController {
         }
 
         try {
-            const query = new GetOrderByIdQuery(id, userId);
-            console.log(`[OrderController] getOrderById - Executing query for order ${id}`);
-            const order = await this.queryBus.execute(query);
+            // Check if id is a UUID or order number
+            const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
+            let order;
+            if (isUuid) {
+                const query = new GetOrderByIdQuery(id, userId);
+                console.log(`[OrderController] getOrderById - Executing query for order ID ${id}`);
+                order = await this.queryBus.execute(query);
+            } else {
+                const query = new GetOrderByNumberQuery(id, userId);
+                console.log(`[OrderController] getOrderById - Executing query for order number ${id}`);
+                order = await this.queryBus.execute(query);
+            }
             console.log(`[OrderController] getOrderById - Order retrieved successfully: ${order.orderNumber}`);
 
             // Determine if this is an HTML request (browser navigation) or JSON request (API)
@@ -388,7 +407,7 @@ export class OrderController {
     @ApiResponse({ status: 404, description: 'Order not found' })
     @ApiResponse({ status: 401, description: 'Unauthorized' })
     async reorder(
-        @Param('id', UuidValidationPipe) id: string,
+        @Param('id') id: string,
         @Req() req: any,
         @Res() res?: Response,
     ): Promise<{ cartId: string } | void> {

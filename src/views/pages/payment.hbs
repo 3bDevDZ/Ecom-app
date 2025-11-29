@@ -1,0 +1,93 @@
+{{!--
+  Payment/Checkout Form Page (T172)
+  User Story 2: Add Products to Cart and Checkout
+--}}
+<div class="font-display bg-background-light dark:bg-background-dark">
+  <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+      {{!-- Breadcrumbs --}}
+      <div class="flex flex-wrap gap-2 mb-8">
+        <a class="text-gray-500 dark:text-gray-400 hover:text-primary text-sm font-medium leading-normal" href="/">Home</a>
+        <span class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">/</span>
+        <a class="text-gray-500 dark:text-gray-400 hover:text-primary text-sm font-medium leading-normal" href="/products">Products</a>
+        <span class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">/</span>
+        <a class="text-gray-500 dark:text-gray-400 hover:text-primary text-sm font-medium leading-normal" href="/checkout">Cart</a>
+        <span class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">/</span>
+        <span class="text-gray-800 dark:text-white text-sm font-medium leading-normal">Payment</span>
+      </div>
+
+      {{!-- Page Header --}}
+      <div class="flex flex-wrap justify-between items-start gap-6 mb-8">
+        <div class="flex min-w-72 flex-col gap-2">
+          <p class="text-gray-900 dark:text-white text-3xl lg:text-4xl font-black leading-tight tracking-[-0.033em]">
+            Complete Your Order</p>
+          <p class="text-gray-600 dark:text-gray-400 text-base font-normal leading-normal">
+            Please provide your shipping information to complete your order.</p>
+        </div>
+        <a class="inline-flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          href="/checkout">
+          <span class="truncate">Back to Cart</span>
+        </a>
+      </div>
+
+      {{#if cart.items.length}}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+          {{!-- Checkout Form --}}
+          <div class="lg:col-span-2">
+            {{> checkout-form}}
+          </div>
+
+          {{!-- Order Summary Sidebar --}}
+          <div class="lg:col-span-1">
+            <div class="sticky top-8 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h3>
+              <div class="space-y-4 mb-6">
+                {{#each cart.items}}
+                  <div class="flex justify-between items-start border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <div class="flex-1">
+                      <p class="text-gray-800 dark:text-white font-medium text-sm">{{this.productName}}</p>
+                      <p class="text-gray-500 dark:text-gray-400 text-xs">Qty: {{this.quantity}}</p>
+                    </div>
+                    <p class="text-gray-800 dark:text-white font-semibold text-sm">{{this.lineTotalFormatted}}</p>
+                  </div>
+                {{/each}}
+              </div>
+              <div class="space-y-4 mb-6">
+                <div class="flex justify-between items-center">
+                  <p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Subtotal</p>
+                  <p class="text-gray-800 dark:text-white text-sm font-medium leading-normal text-right">
+                    {{cart.subtotal}}</p>
+                </div>
+                <div class="flex justify-between items-center">
+                  <p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Taxes</p>
+                  <p class="text-gray-800 dark:text-white text-sm font-medium leading-normal text-right">
+                    {{cart.tax}}</p>
+                </div>
+              </div>
+              <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                <div class="flex justify-between items-center text-lg font-bold">
+                  <p class="text-gray-800 dark:text-white">Grand Total</p>
+                  <p class="text-gray-900 dark:text-white text-right">{{cart.total}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{else}}
+        {{!-- Empty Cart State --}}
+        <div class="bg-white dark:bg-background-dark rounded-lg shadow-md p-12 text-center">
+          <svg class="mx-auto h-24 w-24 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Your cart is empty</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">Add some products to get started</p>
+          <a href="/products"
+            class="inline-block bg-primary text-white py-3 px-8 rounded-lg hover:bg-primary/90 transition font-medium">
+            Browse Products</a>
+        </div>
+      {{/if}}
+    </main>
+  </div>
+</div>
+

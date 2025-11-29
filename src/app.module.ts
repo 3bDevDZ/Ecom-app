@@ -21,9 +21,13 @@ import { IdentityModule } from './modules/identity/identity.module';
 // import { LandingCmsModule } from './modules/landing-cms/landing-cms.module';
 import { OrderManagementModule } from './modules/order-management/order-management.module';
 import { ProductCatalogModule } from './modules/product-catalog/product-catalog.module';
+import { EventModule } from './shared/event/event.module';
+import { UnitOfWorkModule } from './shared/infrastructure/uow/uow.module';
 
 @Module({
   imports: [
+    EventModule,
+    UnitOfWorkModule,
     // Configuration
     ConfigModule.forRoot({
       isGlobal: true,
