@@ -35,6 +35,7 @@ import { UpdateCartItemCommandHandler } from './application/handlers/update-cart
 // Application - Query Handlers
 import { GetCartQueryHandler } from './application/handlers/get-cart.handler';
 import { GetOrderByIdQueryHandler } from './application/handlers/get-order-by-id.handler';
+import { GetOrderByNumberQueryHandler } from './application/handlers/get-order-by-number.handler';
 import { GetOrderHistoryQueryHandler } from './application/handlers/get-order-history.handler';
 
 // Application - Sagas
@@ -59,6 +60,8 @@ import { OutboxModule } from '../../shared/infrastructure/outbox/outbox.module';
 // Shared Infrastructure - Storage Module (for MinIO)
 import { StorageModule } from '../../shared/infrastructure/storage/storage.module';
 // Infrastructure - Receipt Service
+import { EventModule } from '../../shared/event/event.module';
+import { UnitOfWorkModule } from '../../shared/infrastructure/uow/uow.module';
 import { ReceiptService } from './infrastructure/services/receipt.service';
 
 const commandHandlers = [
@@ -75,6 +78,7 @@ const queryHandlers = [
   GetCartQueryHandler,
   GetOrderHistoryQueryHandler,
   GetOrderByIdQueryHandler,
+  GetOrderByNumberQueryHandler,
 ];
 
 const sagas = [OrderPlacementSaga];
@@ -104,6 +108,8 @@ const sagas = [OrderPlacementSaga];
     ProductCatalogModule, // For product lookup during cart operations
     OutboxModule, // For event publishing via Outbox pattern
     StorageModule, // For file storage (receipts, documents)
+
+    UnitOfWorkModule, EventModule,
   ],
   controllers: [
     // API Controllers (with /api prefix)

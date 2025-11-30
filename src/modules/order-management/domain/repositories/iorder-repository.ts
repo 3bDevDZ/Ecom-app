@@ -1,3 +1,4 @@
+import { EntityManager } from 'typeorm';
 import { Order } from '../aggregates/order';
 
 /**
@@ -9,7 +10,7 @@ export interface IOrderRepository {
   /**
    * Save an order (create or update)
    */
-  save(order: Order): Promise<void>;
+  save(order: Order, manager?: EntityManager): Promise<void>;
 
   /**
    * Find order by ID

@@ -1,8 +1,8 @@
 import { Entity } from '../../../../shared/domain/entity.base';
-import { SKU } from '../value-objects/sku';
-import { Money } from '../value-objects/money';
-import { InventoryInfo } from '../value-objects/inventory-info';
 import { Result } from '../../../../shared/domain/result';
+import { InventoryInfo } from '../value-objects/inventory-info';
+import { Money } from '../value-objects/money';
+import { SKU } from '../value-objects/sku';
 
 /**
  * ProductVariant Entity

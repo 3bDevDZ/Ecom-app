@@ -38,57 +38,19 @@
   ],
   "queues": [
     {
-      "name": "order.events",
+      "name": "b2b.ecommerce.queue",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
       "arguments": {
         "x-message-ttl": 604800000,
-        "x-max-length": 100000
+        "x-max-length": 100000,
+        "x-dead-letter-exchange": "dead.letter",
+        "x-dead-letter-routing-key": "dead.letter.queue"
       }
     },
     {
-      "name": "product.events",
-      "vhost": "/",
-      "durable": true,
-      "auto_delete": false,
-      "arguments": {
-        "x-message-ttl": 604800000,
-        "x-max-length": 100000
-      }
-    },
-    {
-      "name": "inventory.events",
-      "vhost": "/",
-      "durable": true,
-      "auto_delete": false,
-      "arguments": {
-        "x-message-ttl": 604800000,
-        "x-max-length": 100000
-      }
-    },
-    {
-      "name": "landing-cms.events",
-      "vhost": "/",
-      "durable": true,
-      "auto_delete": false,
-      "arguments": {
-        "x-message-ttl": 604800000,
-        "x-max-length": 50000
-      }
-    },
-    {
-      "name": "email.notifications",
-      "vhost": "/",
-      "durable": true,
-      "auto_delete": false,
-      "arguments": {
-        "x-message-ttl": 86400000,
-        "x-max-length": 50000
-      }
-    },
-    {
-      "name": "dead-letter",
+      "name": "dead.letter.queue",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
@@ -97,18 +59,18 @@
   ],
   "exchanges": [
     {
-      "name": "ecommerce.events",
+      "name": "domain.events",
       "vhost": "/",
-      "type": "topic",
+      "type": "direct",
       "durable": true,
       "auto_delete": false,
       "internal": false,
       "arguments": {}
     },
     {
-      "name": "ecommerce.dlx",
+      "name": "dead.letter",
       "vhost": "/",
-      "type": "fanout",
+      "type": "direct",
       "durable": true,
       "auto_delete": false,
       "internal": false,
@@ -117,53 +79,20 @@
   ],
   "bindings": [
     {
-      "source": "ecommerce.events",
+      "source": "domain.events",
       "vhost": "/",
-      "destination": "order.events",
+      "destination": "b2b.ecommerce.queue",
       "destination_type": "queue",
-      "routing_key": "order.*",
+      "routing_key": "b2b.ecommerce.queue",
       "arguments": {}
     },
     {
-      "source": "ecommerce.events",
+      "source": "dead.letter",
       "vhost": "/",
-      "destination": "product.events",
+      "destination": "dead.letter.queue",
       "destination_type": "queue",
-      "routing_key": "product.*",
-      "arguments": {}
-    },
-    {
-      "source": "ecommerce.events",
-      "vhost": "/",
-      "destination": "inventory.events",
-      "destination_type": "queue",
-      "routing_key": "inventory.*",
-      "arguments": {}
-    },
-    {
-      "source": "ecommerce.events",
-      "vhost": "/",
-      "destination": "landing-cms.events",
-      "destination_type": "queue",
-      "routing_key": "landing-cms.*",
-      "arguments": {}
-    },
-    {
-      "source": "ecommerce.events",
-      "vhost": "/",
-      "destination": "email.notifications",
-      "destination_type": "queue",
-      "routing_key": "email.*",
-      "arguments": {}
-    },
-    {
-      "source": "ecommerce.dlx",
-      "vhost": "/",
-      "destination": "dead-letter",
-      "destination_type": "queue",
-      "routing_key": "",
+      "routing_key": "dead.letter.queue",
       "arguments": {}
     }
   ]
 }
-

@@ -1,9 +1,9 @@
 import {
-  Entity,
-  PrimaryColumn,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
 } from 'typeorm';
 import { OrderEntity } from './order.entity';
 
@@ -33,6 +33,9 @@ export class OrderItemEntity {
 
   @Column('decimal', { precision: 10, scale: 2 })
   unitPrice: number;
+
+  @Column('decimal', { precision: 10, scale: 2 })
+  subtotal: number;
 
   @Column({ type: 'varchar', length: 3 })
   currency: string;

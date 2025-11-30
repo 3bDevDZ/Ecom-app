@@ -73,7 +73,6 @@ export class CartPresenter {
                                     const primaryImg = images.find(img => img.isPrimary) || images[0];
                                     if (primaryImg?.url) {
                                         imageUrl = primaryImg.url;
-                                        console.log(`[CartPresenter] Found image via repository for product ${item.productId}: ${imageUrl}`);
                                     }
                                 }
                             }
@@ -150,7 +149,6 @@ export class CartPresenter {
                                     const primaryImg = images.find(img => img.isPrimary) || images[0];
                                     if (primaryImg?.url) {
                                         imageUrl = primaryImg.url;
-                                        console.log(`[CartPresenter] Found image via repository for product ${item.productId}: ${imageUrl}`);
                                     }
                                 }
                             }
@@ -392,13 +390,11 @@ export class CartPresenter {
                             const primaryImg = product.primaryImage;
                             if (primaryImg?.url) {
                                 imageUrl = primaryImg.url;
-                                console.log(`[CartPresenter] Found primary image for product ${item.productId}: ${imageUrl}`);
                             } else if (product.images && product.images.length > 0) {
                                 // Use first image if no primary
                                 const firstImage = product.images.find((img: any) => img?.url) || product.images[0];
                                 if (firstImage?.url) {
                                     imageUrl = firstImage.url;
-                                    console.log(`[CartPresenter] Found first image for product ${item.productId}: ${imageUrl}`);
                                 } else {
                                     console.warn(`[CartPresenter] Product ${item.productId} images array exists but no valid image URL found`);
                                 }
@@ -416,7 +412,6 @@ export class CartPresenter {
                                 const primaryImg = images.find(img => img.isPrimary) || images[0];
                                 if (primaryImg?.url) {
                                     imageUrl = primaryImg.url;
-                                    console.log(`[CartPresenter] Found image via repository for product ${item.productId}: ${imageUrl}`);
                                 }
                             }
                         }

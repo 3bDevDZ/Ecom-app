@@ -1,10 +1,10 @@
 import { Order } from '../../../domain/aggregates/order';
 import { OrderItem } from '../../../domain/entities/order-item';
+import { Address } from '../../../domain/value-objects/address';
 import { OrderNumber } from '../../../domain/value-objects/order-number';
 import { OrderStatus } from '../../../domain/value-objects/order-status';
-import { Address } from '../../../domain/value-objects/address';
-import { OrderEntity } from '../entities/order.entity';
 import { OrderItemEntity } from '../entities/order-item.entity';
+import { OrderEntity } from '../entities/order.entity';
 
 export class OrderMapper {
   static toDomain(entity: OrderEntity): Order {
@@ -68,6 +68,20 @@ export class OrderMapper {
     entity.deliveredAt = order.deliveredAt;
     entity.cancellationReason = order.cancellationReason;
 
+    // Calculate financial fields
+    const subtotal = order.items.reduce((sum, item) => sum + item.lineTotal, 0);
+    const tax = subtotal * 0.08; // 8% tax
+    const shipping = subtotal >= 500 ? 0 : 25.0; // Free shipping over $500
+    const total = subtotal + tax + shipping;
+    const currency = order.items.length > 0 ? order.items[0].currency : 'USD';
+
+    entity.subtotal = subtotal;
+    entity.tax = tax;
+    entity.shipping = shipping;
+    entity.discount = 0; // Can be set if discounts are implemented
+    entity.total = total;
+    entity.currency = currency;
+
     entity.shippingAddress = {
       street: order.shippingAddress.street,
       city: order.shippingAddress.city,
@@ -97,6 +111,7 @@ export class OrderMapper {
       itemEntity.sku = item.sku;
       itemEntity.quantity = item.quantity;
       itemEntity.unitPrice = item.unitPrice;
+      itemEntity.subtotal = item.lineTotal; // quantity * unitPrice
       itemEntity.currency = item.currency;
       return itemEntity;
     });

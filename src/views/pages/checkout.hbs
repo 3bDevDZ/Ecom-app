@@ -30,9 +30,12 @@
       </div>
 
       {{#if cart.items.length}}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-          {{!-- Products Table --}}
-          <div class="lg:col-span-2 @container">
+        <form id="placeOrderForm" onsubmit="handlePlaceOrder(event)">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+            {{!-- Products Table and Shipping Form --}}
+            <div class="lg:col-span-2 @container space-y-6">
+              {{!-- Products Table --}}
+              <div>
             <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark">
               <div class="overflow-x-auto">
                 <table class="w-full">
@@ -95,6 +98,70 @@
             </div>
           </div>
 
+          {{!-- Shipping Address Form --}}
+          <div class="mt-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Shipping Information</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="md:col-span-2">
+                <label for="contactName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Contact Name *
+                </label>
+                <input type="text" id="contactName" name="contactName" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background-light dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary"
+                  placeholder="John Doe" />
+              </div>
+              <div class="md:col-span-2">
+                <label for="contactPhone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Contact Phone *
+                </label>
+                <input type="tel" id="contactPhone" name="contactPhone" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background-light dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary"
+                  placeholder="+1 (555) 123-4567" />
+              </div>
+              <div class="md:col-span-2">
+                <label for="street" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Street Address *
+                </label>
+                <input type="text" id="street" name="street" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background-light dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary"
+                  placeholder="123 Main St" />
+              </div>
+              <div>
+                <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  City *
+                </label>
+                <input type="text" id="city" name="city" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background-light dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary"
+                  placeholder="New York" />
+              </div>
+              <div>
+                <label for="state" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  State/Province *
+                </label>
+                <input type="text" id="state" name="state" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background-light dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary"
+                  placeholder="NY" />
+              </div>
+              <div>
+                <label for="postalCode" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Postal Code *
+                </label>
+                <input type="text" id="postalCode" name="postalCode" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background-light dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary"
+                  placeholder="10001" />
+              </div>
+              <div>
+                <label for="country" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Country *
+                </label>
+                <input type="text" id="country" name="country" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background-light dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary"
+                  placeholder="USA" value="USA" />
+              </div>
+            </div>
+          </div>
+            </div>
+
           {{!-- Order Summary Sidebar --}}
           <div class="lg:col-span-1">
             <div class="sticky top-8 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
@@ -132,14 +199,15 @@
                   <p class="text-gray-800 dark:text-white">Grand Total</p>
                   <p class="text-gray-900 dark:text-white text-right">{{cart.total}}</p>
                 </div>
-                <a href="/checkout/payment"
+                <button type="submit" id="placeOrderBtn"
                   class="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                  <span class="truncate">Proceed to Checkout</span>
-                </a>
+                  <span class="truncate">Place Order</span>
+                </button>
               </div>
             </div>
           </div>
-        </div>
+          </div>
+        </form>
       {{else}}
         {{!-- Empty Cart State --}}
         <div class="bg-white dark:bg-background-dark rounded-lg shadow-md p-12 text-center">
@@ -234,6 +302,66 @@
     } catch (error) {
       console.error('Error removing item:', error);
       alert('An error occurred while removing the item');
+    }
+  }
+
+  async function handlePlaceOrder(event) {
+    event.preventDefault();
+    const form = event.target;
+    const submitButton = document.getElementById('placeOrderBtn');
+
+    // Disable submit button to prevent double submission
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...';
+
+    // Collect form data
+    const formData = new FormData(form);
+    const data = {
+      shippingAddress: {
+        street: formData.get('street'),
+        city: formData.get('city'),
+        state: formData.get('state').toUpperCase(),
+        postalCode: formData.get('postalCode'),
+        country: formData.get('country').toUpperCase(),
+        contactName: formData.get('contactName'),
+        contactPhone: formData.get('contactPhone'),
+      },
+    };
+
+    try {
+      const token = localStorage.getItem('authToken') || document.cookie
+        .split('; ')
+        .find(row => row.startsWith('authToken='))
+        ?.split('=')[1];
+
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : '',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const order = await response.json();
+        // Show success message and redirect
+        alert(`Order placed successfully! Order Number: ${order.orderNumber}`);
+        window.location.href = `/orders/${order.orderNumber}`;
+      } else {
+        const error = await response.json();
+        alert(`Failed to place order: ${error.message || 'Please try again'}`);
+        // Re-enable submit button
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<span class="truncate">Place Order</span>';
+      }
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('An error occurred while placing your order. Please try again.');
+      // Re-enable submit button
+      submitButton.disabled = false;
+      submitButton.innerHTML = '<span class="truncate">Place Order</span>';
     }
   }
 </script>

@@ -43,6 +43,7 @@
     "docker:restart": "docker-compose restart postgres"
   },
   "dependencies": {
+    "@golevelup/nestjs-rabbitmq": "^6.1.0",
     "@keycloak/keycloak-admin-client": "^23.0.0",
     "@nestjs/common": "^10.3.0",
     "@nestjs/config": "^3.1.1",

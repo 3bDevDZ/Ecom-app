@@ -1,9 +1,9 @@
 import { Controller, Get, Param, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { Response } from 'express';
-import { UuidValidationPipe } from '../../../../common/pipes/uuid-validation.pipe';
 import { JwtAuthGuard } from '../../../identity/application/guards/jwt-auth.guard';
 import { GetOrderByIdQuery } from '../../application/queries/get-order-by-id.query';
+import { GetOrderByNumberQuery } from '../../application/queries/get-order-by-number.query';
 import { GetOrderHistoryQuery } from '../../application/queries/get-order-history.query';
 import { CartPresenter } from '../presenters/cart.presenter';
 
@@ -71,11 +71,11 @@ export class OrderViewController {
 
     /**
      * Order detail page
-     * GET /orders/:id
+     * GET /orders/:id (accepts both UUID and order number)
      */
     @Get(':id')
     async getOrderDetail(
-        @Param('id', UuidValidationPipe) id: string,
+        @Param('id') id: string,
         @Req() req: any,
         @Res() res: Response,
     ): Promise<void> {
@@ -86,8 +86,18 @@ export class OrderViewController {
         }
 
         try {
-            const query = new GetOrderByIdQuery(id, userId);
-            const order = await this.queryBus.execute(query);
+            // Check if id is a UUID or order number
+            const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
+            let order;
+            if (isUuid) {
+                const query = new GetOrderByIdQuery(id, userId);
+                order = await this.queryBus.execute(query);
+            } else {
+                // It's an order number, find by order number
+                const query = new GetOrderByNumberQuery(id, userId);
+                order = await this.queryBus.execute(query);
+            }
 
             const viewModel = await this.cartPresenter.toOrderDetailViewModel(order);
 

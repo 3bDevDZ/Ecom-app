@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, EntityManager } from 'typeorm';
-import { OutboxEntity } from './outbox.entity';
 import { DomainEvent } from '@shared/domain';
+import { EntityManager, Repository } from 'typeorm';
+import { OutboxEntity } from './outbox.entity';
 
 /**
  * Outbox Service
@@ -16,7 +16,7 @@ export class OutboxService {
   constructor(
     @InjectRepository(OutboxEntity)
     private readonly outboxRepository: Repository<OutboxEntity>,
-  ) {}
+  ) { }
 
   /**
    * Insert a domain event into the outbox
@@ -26,7 +26,7 @@ export class OutboxService {
     const repository = manager ? manager.getRepository(OutboxEntity) : this.outboxRepository;
 
     const outboxEntry = repository.create({
-      eventType: event.constructor.name,
+      eventType: event.eventType || event.constructor.name,
       aggregateId: event.aggregateId,
       aggregateType: this.extractAggregateType(event),
       payload: this.serializeEvent(event),
@@ -73,8 +73,8 @@ export class OutboxService {
   /**
    * Mark an event as processed
    */
-  async markAsProcessed(id: string, manager?: EntityManager): Promise<void> {
-    const repository = manager ? manager.getRepository(OutboxEntity) : this.outboxRepository;
+  async markAsProcessed(id: string): Promise<void> {
+    const repository = this.outboxRepository;
 
     await repository.update(id, {
       processed: true,
@@ -85,16 +85,15 @@ export class OutboxService {
   /**
    * Mark an event as failed
    */
-  async markAsFailed(id: string, error: string, manager?: EntityManager): Promise<void> {
-    const repository = manager ? manager.getRepository(OutboxEntity) : this.outboxRepository;
+  async markAsFailed(id: string, error: string): Promise<void> {
+    const repository = this.outboxRepository;
 
     const outboxEntry = await repository.findOne({ where: { id } });
 
     if (outboxEntry) {
-      await repository.update(id, {
-        retryCount: outboxEntry.retryCount + 1,
-        error,
-      });
+      outboxEntry.retryCount += 1;
+      outboxEntry.error = error;
+      await repository.save(outboxEntry);
     }
   }
 
@@ -115,8 +114,8 @@ export class OutboxService {
    */
   private extractAggregateType(event: DomainEvent): string {
     // Try to extract from event name (e.g., "ProductCreatedEvent" -> "Product")
-    const eventName = event.constructor.name;
-    const match = eventName.match(/^(\w+?)(?:Created|Updated|Deleted|Event)/);
+    const eventType = event.constructor.name;
+    const match = eventType.match(/^(\w+?)(?:Created|Updated|Deleted|Event)/);
     return match ? match[1] : 'Unknown';
   }
 }
