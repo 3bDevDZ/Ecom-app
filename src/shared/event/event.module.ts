@@ -1,15 +1,16 @@
 // src/shared/event/event.module.ts
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
-import { Global, Module, OnModuleInit } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { OutboxEntity } from '../infrastructure/outbox/outbox.entity';
+import { OutboxModule } from '../infrastructure/outbox/outbox.module';
 import { EventBusService } from './event-bus.service';
-import { OutboxEntity } from './outbox/outbox.entity';
-import { OutboxPublisherService } from './outbox/outbox.publisher.service';
 
 @Global()
 @Module({
     imports: [
+        OutboxModule,
         RabbitMQModule.forRootAsync({
             useFactory: (config: ConfigService) => {
                 const queueName = config.get<string>('RABBITMQ_QUEUE');
@@ -48,13 +49,7 @@ import { OutboxPublisherService } from './outbox/outbox.publisher.service';
         }),
         TypeOrmModule.forFeature([OutboxEntity]),
     ],
-    providers: [EventBusService, OutboxPublisherService],
+    providers: [EventBusService],
     exports: [EventBusService],
 })
-export class EventModule implements OnModuleInit {
-    constructor(private readonly publisher: OutboxPublisherService) { }
-
-    onModuleInit() {
-        this.publisher.start();
-    }
-}
+export class EventModule { }

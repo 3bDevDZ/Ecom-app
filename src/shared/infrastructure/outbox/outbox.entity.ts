@@ -1,45 +1,37 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, Index } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-/**
- * Outbox Entity
- *
- * Implements the Outbox Pattern for reliable event publishing.
- * Events are stored in the database within the same transaction as business data,
- * then asynchronously published to RabbitMQ by the OutboxProcessor.
- */
 @Entity('outbox')
-@Index(['processed', 'createdAt'])
 export class OutboxEntity {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id: string;
 
   @Column({ type: 'varchar', length: 255 })
-  eventType!: string;
+  eventType: string;
 
   @Column({ type: 'varchar', length: 255 })
-  aggregateId!: string;
+  aggregateId: string;
 
   @Column({ type: 'varchar', length: 100 })
-  aggregateType!: string;
+  aggregateType: string;
 
   @Column({ type: 'jsonb' })
-  payload!: Record<string, any>;
+  payload: any;
 
-  @Column({ type: 'boolean', default: false })
-  processed!: boolean;
+  @Column({ default: false })
+  processed: boolean;
 
   @Column({ type: 'timestamp', nullable: true })
-  processedAt!: Date | null;
+  processedAt: Date | null;
 
   @Column({ type: 'int', default: 0 })
-  retryCount!: number;
+  retryCount: number;
 
   @Column({ type: 'text', nullable: true })
-  error!: string | null;
+  error: string | null;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt!: Date;
+  createdAt: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  scheduledFor!: Date | null;
+  scheduledFor: Date | null;
 }

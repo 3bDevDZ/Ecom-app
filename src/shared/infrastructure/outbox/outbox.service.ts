@@ -73,8 +73,8 @@ export class OutboxService {
   /**
    * Mark an event as processed
    */
-  async markAsProcessed(id: string, manager?: EntityManager): Promise<void> {
-    const repository = manager ? manager.getRepository(OutboxEntity) : this.outboxRepository;
+  async markAsProcessed(id: string): Promise<void> {
+    const repository = this.outboxRepository;
 
     await repository.update(id, {
       processed: true,
@@ -85,16 +85,15 @@ export class OutboxService {
   /**
    * Mark an event as failed
    */
-  async markAsFailed(id: string, error: string, manager?: EntityManager): Promise<void> {
-    const repository = manager ? manager.getRepository(OutboxEntity) : this.outboxRepository;
+  async markAsFailed(id: string, error: string): Promise<void> {
+    const repository = this.outboxRepository;
 
     const outboxEntry = await repository.findOne({ where: { id } });
 
     if (outboxEntry) {
-      await repository.update(id, {
-        retryCount: outboxEntry.retryCount + 1,
-        error,
-      });
+      outboxEntry.retryCount += 1;
+      outboxEntry.error = error;
+      await repository.save(outboxEntry);
     }
   }
 
