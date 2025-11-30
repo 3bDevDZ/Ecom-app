@@ -1,0 +1,19 @@
+{{!--
+  Molecule: Trust Logo Item
+  A single trust/partner logo with hover effect
+--}}
+
+<div class="flex items-center justify-center">
+  <img
+    src="{{imageUrl}}"
+    alt="{{name}}"
+    class="h-8 w-auto grayscale hover:grayscale-0 transition duration-300 {{className}}"
+  />
+</div>
+
+{{!
+Parameters:
+- imageUrl: Logo image URL (required)
+- name: Company name for alt text (required)
+- className: additional classes
+}}

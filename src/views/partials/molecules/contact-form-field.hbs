@@ -1,0 +1,46 @@
+{{!--
+  Molecule: Contact Form Field
+  Form field with label and input/textarea
+--}}
+
+<div class="{{wrapperClass}}">
+  <label
+    class="block text-sm font-medium leading-6 text-text-light dark:text-text-dark"
+    for="{{id}}"
+  >
+    {{label}}
+  </label>
+  <div class="mt-2.5">
+    {{#if isTextarea}}
+      <textarea
+        class="form-textarea block w-full rounded-md border-0 px-3.5 py-2 text-text-light shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-slate-800 dark:text-text-dark dark:ring-slate-700 dark:focus:ring-secondary sm:text-sm sm:leading-6"
+        id="{{id}}"
+        name="{{name}}"
+        rows="{{rows}}"
+        {{#if required}}required{{/if}}
+      ></textarea>
+    {{else}}
+      <input
+        {{#if autocomplete}}autocomplete="{{autocomplete}}"{{/if}}
+        class="form-input block w-full rounded-md border-0 px-3.5 py-2 text-text-light shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-slate-800 dark:text-text-dark dark:ring-slate-700 dark:focus:ring-secondary sm:text-sm sm:leading-6"
+        id="{{id}}"
+        name="{{name}}"
+        type="{{type}}"
+        {{#if required}}required{{/if}}
+      />
+    {{/if}}
+  </div>
+</div>
+
+{{!
+Parameters:
+- id: Field ID (required)
+- name: Field name (required)
+- label: Field label (required)
+- type: Input type (text, email, tel, etc.) - default: text
+- isTextarea: Boolean for textarea
+- rows: Number of rows for textarea (default: 4)
+- required: Boolean for required field
+- autocomplete: Autocomplete attribute
+- wrapperClass: Classes for wrapper div (e.g., sm:col-span-2)
+}}

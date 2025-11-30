@@ -1,0 +1,22 @@
+{{!--
+  Molecule: Showroom Info Item
+  Display showroom information with icon
+--}}
+
+<div class="flex items-start gap-4 {{className}}">
+  <div class="flex size-10 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+    {{> material-icon icon=icon size="text-2xl"}}
+  </div>
+  <div>
+    <h3 class="font-semibold text-text-headings dark:text-white">{{title}}</h3>
+    <p class="text-text-light dark:text-text-dark">{{description}}</p>
+  </div>
+</div>
+
+{{!
+Parameters:
+- icon: Material icon name (required)
+- title: Info title (required)
+- description: Info description (required)
+- className: additional classes
+}}

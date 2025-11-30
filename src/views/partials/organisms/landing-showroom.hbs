@@ -1,0 +1,45 @@
+{{!--
+  Organism: Landing Page Showroom Section
+  Two-column layout with showroom info and map
+--}}
+
+<section class="w-full">
+  <div class="grid grid-cols-1 gap-10 overflow-hidden rounded-xl bg-white dark:bg-slate-800/50 lg:grid-cols-2">
+    <div class="flex flex-col justify-center p-6 sm:p-8 lg:p-12">
+      <h2 class="text-2xl font-bold text-text-headings dark:text-text-headings-dark sm:text-3xl">
+        Visit Our Showroom
+      </h2>
+      <p class="mt-4 text-text-light dark:text-text-dark">
+        We invite you to visit our physical location to experience our products firsthand and discuss your business needs with our specialists.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-6">
+        {{> showroom-info-item
+          icon="location_on"
+          title="Our Address"
+          description=address
+        }}
+
+        {{> showroom-info-item
+          icon="schedule"
+          title="Business Hours"
+          description=businessHours
+        }}
+      </div>
+    </div>
+
+    <div class="h-64 bg-slate-200 lg:h-auto">
+      <div
+        class="h-full w-full bg-cover bg-center"
+        style='background-image: url("{{mapImageUrl}}");'
+      ></div>
+    </div>
+  </div>
+</section>
+
+{{!
+Parameters:
+- address: Showroom address (required)
+- businessHours: Business hours text (required)
+- mapImageUrl: Map image URL (required)
+}}

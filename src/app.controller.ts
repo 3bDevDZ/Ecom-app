@@ -1,5 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get } from '@nestjs/common';
 /**
  * Application Root Controller
  *
@@ -17,48 +16,49 @@ export class AppController {
     };
   }
 
-  @Get()
-  root(@Res() res: Response) {
-    const config = {
-      title: 'B2B E-Commerce Platform',
-      features: [
-        {
-          icon: '📦',
-          title: 'Inventory Management',
-          description: 'Real-time inventory tracking and automated reordering systems',
-        },
-        {
-          icon: '📊',
-          title: 'Analytics Dashboard',
-          description: 'Comprehensive reporting and business intelligence insights',
-        },
-        {
-          icon: '🔗',
-          title: 'Supplier Integration',
-          description: 'Seamless integration with suppliers and vendor management',
-        },
-        {
-          icon: '💰',
-          title: 'Pricing Management',
-          description: 'Dynamic pricing rules and quote management systems',
-        },
-        {
-          icon: '📱',
-          title: 'Mobile Ready',
-          description: 'Responsive design optimized for all devices and platforms',
-        },
-        {
-          icon: '🔐',
-          title: 'Enterprise Security',
-          description: 'Bank-grade security with role-based access controls',
-        },
-      ],
-      navigation: [
-        { label: 'Products', href: '/products' },
-        { label: 'API Documentation', href: '/api/docs' },
-      ],
-    };
-
-    res.render('homepage.hbs', { config });
-  }
+  // Root route now handled by LandingPageController
+  // @Get()
+  // root(@Res() res: Response) {
+  //   const config = {
+  //     title: 'B2B E-Commerce Platform',
+  //     features: [
+  //       {
+  //         icon: '📦',
+  //         title: 'Inventory Management',
+  //         description: 'Real-time inventory tracking and automated reordering systems',
+  //       },
+  //       {
+  //         icon: '📊',
+  //         title: 'Analytics Dashboard',
+  //         description: 'Comprehensive reporting and business intelligence insights',
+  //       },
+  //       {
+  //         icon: '🔗',
+  //         title: 'Supplier Integration',
+  //         description: 'Seamless integration with suppliers and vendor management',
+  //       },
+  //       {
+  //         icon: '💰',
+  //         title: 'Pricing Management',
+  //         description: 'Dynamic pricing rules and quote management systems',
+  //       },
+  //       {
+  //         icon: '📱',
+  //         title: 'Mobile Ready',
+  //         description: 'Responsive design optimized for all devices and platforms',
+  //       },
+  //       {
+  //         icon: '🔐',
+  //         title: 'Enterprise Security',
+  //         description: 'Bank-grade security with role-based access controls',
+  //       },
+  //     ],
+  //     navigation: [
+  //       { label: 'Products', href: '/products' },
+  //       { label: 'API Documentation', href: '/api/docs' },
+  //     ],
+  //   };
+  //
+  //   res.render('homepage.hbs', { config });
+  // }
 }

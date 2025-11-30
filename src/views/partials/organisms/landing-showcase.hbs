@@ -1,0 +1,32 @@
+{{!--
+  Organism: Landing Page Product Showcase Section
+  Grid of product categories
+--}}
+
+{{#if categories.length}}
+<section class="w-full">
+  <div class="flex flex-col items-center text-center">
+    <h2 class="text-text-headings dark:text-text-headings-dark text-2xl font-bold leading-tight tracking-[-0.015em] sm:text-3xl">
+      Our Product Showroom
+    </h2>
+    <p class="mt-2 max-w-2xl text-text-light dark:text-text-dark">
+      Explore our curated collection of high-quality products. Contact us for detailed specifications and partnership inquiries.
+    </p>
+  </div>
+
+  <div class="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {{#each categories}}
+      {{> showcase-card
+        link=(concat "/products?category=" this.id)
+        imageUrl=this.imageUrl
+        name=this.name
+      }}
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+{{!
+Parameters:
+- categories: Array of category objects with id, imageUrl, and name
+}}

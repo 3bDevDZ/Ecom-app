@@ -8,7 +8,19 @@
       "Bash(pnpm test:*)",
       "Bash(where:*)",
       "Bash(docker --version:*)",
-      "Bash(winget:*)"
+      "Bash(winget:*)",
+      "SlashCommand(/speckit.analyze)",
+      "Bash($env:SPECIFY_FEATURE = \"001-b2b-ecommerce-platform\")",
+      "Bash(mkdir:*)",
+      "Bash(pnpm start:dev)",
+      "Bash(pnpm migration:run:*)",
+      "Bash(pnpm typeorm:*)",
+      "Bash(curl:*)",
+      "Bash(cat:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill /PID 3616 /F)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": []

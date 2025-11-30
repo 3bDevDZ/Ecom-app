@@ -1,0 +1,80 @@
+{{!--
+  Organism: Landing Page Contact Section
+  Contact form with heading
+--}}
+
+<section class="w-full rounded-xl bg-white dark:bg-slate-800/50 p-6 sm:p-8 lg:p-12">
+  <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+    <div class="flex flex-col justify-center">
+      <h2 class="text-2xl font-bold text-text-headings dark:text-text-headings-dark sm:text-3xl">
+        {{heading}}
+      </h2>
+      <p class="mt-3 text-text-light dark:text-text-dark">
+        {{description}}
+      </p>
+    </div>
+
+    <form action="/api/contact" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8" method="POST">
+      {{> contact-form-field
+        id="name"
+        name="name"
+        label="Name"
+        type="text"
+        autocomplete="name"
+        required=true
+      }}
+
+      {{> contact-form-field
+        id="company_name"
+        name="company_name"
+        label="Company Name"
+        type="text"
+        autocomplete="organization"
+      }}
+
+      {{> contact-form-field
+        id="email"
+        name="email"
+        label="Email"
+        type="email"
+        autocomplete="email"
+        required=true
+        wrapperClass="sm:col-span-2"
+      }}
+
+      {{> contact-form-field
+        id="phone_number"
+        name="phone_number"
+        label="Phone Number"
+        type="tel"
+        autocomplete="tel"
+        wrapperClass="sm:col-span-2"
+      }}
+
+      {{> contact-form-field
+        id="message"
+        name="message"
+        label="Message"
+        isTextarea=true
+        rows="4"
+        required=true
+        wrapperClass="sm:col-span-2"
+      }}
+
+      <div class="sm:col-span-2">
+        <button
+          class="block w-full rounded-lg bg-primary px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{{!
+Parameters:
+- heading: Contact section heading (required)
+- description: Contact section description (required)
+}}

@@ -1,0 +1,38 @@
+{{!--
+  Organism: Landing Page Hero Section
+  Full-width hero with background image, heading, subheading, and CTAs
+--}}
+
+<section
+  class="min-h-[480px] w-full rounded-xl flex flex-col gap-6 bg-cover bg-center bg-no-repeat items-start justify-end px-6 pb-10 sm:px-10 sm:pb-12"
+  style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%), url("{{backgroundImageUrl}}");'
+>
+  <div class="flex max-w-3xl flex-col gap-4 text-left">
+    {{> hero-heading text=heading}}
+    {{> hero-subheading text=subheading}}
+  </div>
+
+  <div class="flex flex-wrap gap-4">
+    <a
+      href="{{ctaButtonLink}}"
+      class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-secondary text-primary text-base font-bold leading-normal tracking-[0.015em] transition-opacity hover:opacity-90"
+    >
+      <span class="truncate">{{ctaButtonText}}</span>
+    </a>
+    <a
+      href="/products"
+      class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-white text-text-headings text-base font-bold leading-normal tracking-[0.015em] transition-opacity hover:opacity-90"
+    >
+      <span class="truncate">View Catalog</span>
+    </a>
+  </div>
+</section>
+
+{{!
+Parameters:
+- heading: Main hero heading (required)
+- subheading: Hero subheading (required)
+- backgroundImageUrl: Background image URL (required)
+- ctaButtonText: Primary CTA button text (required)
+- ctaButtonLink: Primary CTA button link (required)
+}}

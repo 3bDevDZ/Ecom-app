@@ -1,0 +1,52 @@
+{{#> layouts/layout_main pageTitle=pageTitle}}
+
+{{!-- Preview Mode Banner --}}
+{{#if isPreview}}
+<div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
+  <p class="font-bold">Preview Mode</p>
+  <p>This is a preview of your changes. Click "Publish" to make them live.</p>
+</div>
+{{/if}}
+
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+  <div class="layout-container flex h-full grow flex-col">
+
+    <!-- Main Content -->
+    <main class="flex flex-1 flex-col items-center py-5 sm:py-8 md:py-12">
+      <div class="flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-8 md:px-10 md:gap-16">
+
+        {{!-- Hero Section (Organism) --}}
+        {{> landing-hero
+          heading=hero.heading
+          subheading=hero.subheading
+          backgroundImageUrl=hero.backgroundImageUrl
+          ctaButtonText=hero.ctaButtonText
+          ctaButtonLink=hero.ctaButtonLink
+        }}
+
+        {{!-- Trust Logos Section (Organism) --}}
+        {{> landing-trust-logos logos=trustLogos}}
+
+        {{!-- Product Showcase Section (Organism) --}}
+        {{> landing-showcase categories=productShowcase}}
+
+        {{!-- Showroom Section (Organism) --}}
+        {{> landing-showroom
+          address=showroom.address
+          businessHours=showroom.businessHours
+          mapImageUrl=showroom.mapImageUrl
+        }}
+
+        {{!-- Contact Section (Organism) --}}
+        {{> landing-contact
+          heading=contact.heading
+          description=contact.description
+        }}
+
+      </div>
+    </main>
+
+  </div>
+</div>
+
+{{/layouts/layout_main}}

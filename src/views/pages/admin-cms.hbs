@@ -1,0 +1,170 @@
+{{#> layouts/layout_main pageTitle="Landing Page CMS"}}
+
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold">Landing Page Content Management</h1>
+    <div class="space-x-4">
+      <button id="previewBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded">
+        Preview
+      </button>
+      <button id="publishBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+        Publish
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b border-gray-200 mb-6">
+    <nav class="flex space-x-8">
+      <button class="cms-tab active py-4 px-2 border-b-2 border-blue-600 font-medium text-blue-600" data-tab="hero">
+        Hero Section
+      </button>
+      <button class="cms-tab py-4 px-2 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="logos">
+        Trust Logos
+      </button>
+      <button class="cms-tab py-4 px-2 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="showcase">
+        Product Showcase
+      </button>
+      <button class="cms-tab py-4 px-2 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="showroom">
+        Showroom
+      </button>
+      <button class="cms-tab py-4 px-2 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="contact">
+        Contact
+      </button>
+      <button class="cms-tab py-4 px-2 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="footer">
+        Footer
+      </button>
+    </nav>
+  </div>
+
+  <!-- Hero Section Form -->
+  <div id="hero-panel" class="cms-panel">
+    <form id="heroForm" class="space-y-4 max-w-2xl">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Heading</label>
+        <input type="text" name="heading" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Subheading</label>
+        <textarea name="subheading" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Background Image URL</label>
+        <input type="url" name="backgroundImageUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">CTA Button Text</label>
+        <input type="text" name="ctaButtonText" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">CTA Button Link</label>
+        <input type="text" name="ctaButtonLink" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+      </div>
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded">
+        Save Hero Section
+      </button>
+    </form>
+  </div>
+
+  <!-- Other panels would be similar forms for logos, showcase, etc. -->
+  <div id="logos-panel" class="cms-panel hidden">
+    <p class="text-gray-600">Trust Logos management panel (to be implemented)</p>
+  </div>
+
+  <div id="showcase-panel" class="cms-panel hidden">
+    <p class="text-gray-600">Product Showcase management panel (to be implemented)</p>
+  </div>
+
+  <div id="showroom-panel" class="cms-panel hidden">
+    <p class="text-gray-600">Showroom management panel (to be implemented)</p>
+  </div>
+
+  <div id="contact-panel" class="cms-panel hidden">
+    <p class="text-gray-600">Contact section management panel (to be implemented)</p>
+  </div>
+
+  <div id="footer-panel" class="cms-panel hidden">
+    <p class="text-gray-600">Footer management panel (to be implemented)</p>
+  </div>
+</div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.cms-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      // Remove active class from all tabs
+      document.querySelectorAll('.cms-tab').forEach(t => {
+        t.classList.remove('active', 'border-blue-600', 'text-blue-600');
+        t.classList.add('border-transparent', 'text-gray-500');
+      });
+
+      // Add active class to clicked tab
+      this.classList.add('active', 'border-blue-600', 'text-blue-600');
+      this.classList.remove('border-transparent', 'text-gray-500');
+
+      // Hide all panels
+      document.querySelectorAll('.cms-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Show selected panel
+      const tabName = this.dataset.tab;
+      document.getElementById(`${tabName}-panel`).classList.remove('hidden');
+    });
+  });
+
+  // Hero form submission
+  document.getElementById('heroForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch('/api/cms/landing/hero', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert('Hero section updated successfully!');
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.message || 'Failed to update'}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  });
+
+  // Preview button
+  document.getElementById('previewBtn').addEventListener('click', function() {
+    window.open('/api/cms/landing/preview', '_blank');
+  });
+
+  // Publish button
+  document.getElementById('publishBtn').addEventListener('click', async function() {
+    if (!confirm('Are you sure you want to publish the current content?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/cms/landing/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+        alert('Landing page published successfully!');
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.message || 'Failed to publish'}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  });
+</script>
+
+{{/layouts/layout_main}}

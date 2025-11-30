@@ -1,0 +1,24 @@
+{{!--
+  Organism: Landing Page Trust Logos Section
+  Displays partner/customer logos
+--}}
+
+{{#if logos.length}}
+<section class="w-full">
+  <div class="flex flex-col items-center gap-6 rounded-xl bg-white p-6 dark:bg-slate-800/50">
+    <h3 class="text-center text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      Trusted by leading companies worldwide
+    </h3>
+    <div class="flex w-full flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:justify-between">
+      {{#each logos}}
+        {{> trust-logo-item imageUrl=this.imageUrl name=this.name}}
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!
+Parameters:
+- logos: Array of logo objects with imageUrl and name
+}}
