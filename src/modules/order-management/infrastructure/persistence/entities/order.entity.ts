@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
+  VersionColumn,
 } from 'typeorm';
 import { OrderItemEntity } from './order-item.entity';
 
@@ -82,5 +83,8 @@ export class OrderEntity {
 
   @Column({ type: 'varchar', length: 500, nullable: true })
   receiptUrl?: string;
+
+  @VersionColumn()
+  version: number;
 }
 

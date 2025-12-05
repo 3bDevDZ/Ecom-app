@@ -42,7 +42,9 @@ import { EventBusService } from './event-bus.service';
                     ],
                     queues,
                     uri: config.get<string>('RABBITMQ_URI') || config.get<string>('RABBITMQ_URL') || 'amqp://ecommerce:ecommerce_password@localhost:5672',
-                    connectionInitOptions: { wait: false },
+                    connectionInitOptions: {
+                        wait: false, // Don't block app startup - allow background connection retries
+                    },
                 };
             },
             inject: [ConfigService],

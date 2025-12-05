@@ -16,6 +16,8 @@ import { ProductReadModel } from './infrastructure/persistence/read-models/produ
 // Repositories
 import { CategoryRepository } from './infrastructure/persistence/repositories/category.repository';
 import { ProductRepository } from './infrastructure/persistence/repositories/product.repository';
+// Repository tokens
+import { PRODUCT_REPOSITORY_TOKEN, CATEGORY_REPOSITORY_TOKEN } from './domain/repositories/repository.tokens';
 
 // Controllers - API
 import { CategoryController } from './presentation/controllers/category.controller';
@@ -82,11 +84,11 @@ import {
   providers: [
     // Repositories
     {
-      provide: 'IProductRepository',
+      provide: PRODUCT_REPOSITORY_TOKEN,
       useClass: ProductRepository,
     },
     {
-      provide: 'ICategoryRepository',
+      provide: CATEGORY_REPOSITORY_TOKEN,
       useClass: CategoryRepository,
     },
     // Command Handlers
@@ -107,8 +109,8 @@ import {
     InventoryReleasedEventHandler,
   ],
   exports: [
-    'IProductRepository',
-    'ICategoryRepository',
+    PRODUCT_REPOSITORY_TOKEN,
+    CATEGORY_REPOSITORY_TOKEN,
   ],
 })
 export class ProductCatalogModule { }

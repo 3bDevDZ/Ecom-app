@@ -71,16 +71,18 @@ export class OutboxProcessorService {
         await this.moveToDeadLetter(record);
         return;
       }
-      await this.outboxRepo.update(record.id, {
-        processed: true,
-        processedAt: new Date(),
-      });
 
       // Compute routing key from config (e.g., 'order.placed.queue')
       const routingKey = getQueueForEvent(record.eventType);
 
-      // Only mark as processed AFTER successful publish
+      // 1. Publish FIRST ✅ (Critical: publish before marking as processed)
       await this.eventBus.publishNow(routingKey, record.payload);
+
+      // 2. Mark as processed ONLY if publish succeeds ✅
+      await this.outboxRepo.update(record.id, {
+        processed: true,
+        processedAt: new Date(),
+      });
 
       this.logger.debug(
         `Event ${record.id} (${record.eventType}) published to '${routingKey}'`,
@@ -89,6 +91,7 @@ export class OutboxProcessorService {
       const message = error instanceof Error ? error.message : String(error);
       this.logger.error(`Failed to publish event ${record.id} (${record.eventType}):`, message);
 
+      // Increment retry count but keep processed = false
       await this.outBoxService.markAsFailed(record.id, message);
     }
   }

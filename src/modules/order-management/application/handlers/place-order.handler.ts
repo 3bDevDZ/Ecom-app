@@ -1,8 +1,7 @@
 import { BadRequestException, Inject, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { EventBusService } from '../../../../shared/event/event-bus.service';
-import { UnitOfWorkService } from '../../../../shared/infrastructure/uow/uow.service';
 import { Order } from '../../domain/aggregates/order';
+import { CART_REPOSITORY_TOKEN, ORDER_REPOSITORY_TOKEN } from '../../domain/repositories/repository.tokens';
 import { ICartRepository } from '../../domain/repositories/icart-repository';
 import { IOrderRepository } from '../../domain/repositories/iorder-repository';
 import { Address } from '../../domain/value-objects/address';
@@ -14,62 +13,59 @@ export class PlaceOrderCommandHandler
   implements ICommandHandler<PlaceOrderCommand, OrderDto>
 {
   constructor(
-    @Inject('ICartRepository')
+    @Inject(CART_REPOSITORY_TOKEN)
     private readonly cartRepository: ICartRepository,
-    @Inject('IOrderRepository')
+    @Inject(ORDER_REPOSITORY_TOKEN)
     private readonly orderRepository: IOrderRepository,
-    private readonly eventBus: EventBusService, // ← Interface (better for testability)
-    private readonly unitOfWork: UnitOfWorkService,
   ) { }
 
   async execute(command: PlaceOrderCommand): Promise<OrderDto> {
     const { userId, shippingAddress } = command;
 
-    return this.unitOfWork.run(async (uow) => {
-      // --- 1. Load data (within transaction) ---
-      const cart = await this.cartRepository.findActiveByUserId(userId);
-      if (!cart) {
-        throw new NotFoundException('Cart not found');
-      }
+    // --- 1. Load data ---
+    const cart = await this.cartRepository.findActiveByUserId(userId);
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
 
-      if (cart.isEmpty()) {
-        throw new BadRequestException('Cannot place order from empty cart');
-      }
+    if (cart.isEmpty()) {
+      throw new BadRequestException('Cannot place order from empty cart');
+    }
 
-      // --- 2. Domain logic ---
-      const shipping = Address.create(shippingAddress);
+    // --- 2. Domain logic ---
+    const shipping = Address.create(shippingAddress);
 
-      const order = Order.create({
-        userId,
-        cartId: cart.id,
-        items: cart.items.map((item) => ({
-          productId: item.productId,
-          productName: item.productName,
-          sku: item.sku,
-          quantity: item.quantity,
-          unitPrice: item.unitPrice,
-          currency: item.currency,
-        })),
-        shippingAddress: shipping,
-        billingAddress: shipping,
-      });
-
-      // --- 3. Mutate aggregates ---
-      cart.convert(); // emits CartConvertedEvent
-
-      // --- 4. Save via repositories (using uow's manager) ---
-      await this.orderRepository.save(order, uow.queryRunner.manager);
-      await this.cartRepository.save(cart);
-
-      // For now we only add order events to the UoW context
-      [...order.getDomainEvents()].forEach((event) => uow.addEvent(event));
-      // Optional: clear events (if aggregates retain them)
-      order.clearDomainEvents();
-      cart.clearDomainEvents();
-
-      // --- 5. Convert to DTO ---
-      return this.toDto(order);
+    const order = Order.create({
+      userId,
+      cartId: cart.id,
+      items: cart.items.map((item) => ({
+        productId: item.productId,
+        productName: item.productName,
+        sku: item.sku,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        currency: item.currency,
+      })),
+      shippingAddress: shipping,
+      billingAddress: shipping,
     });
+
+    // --- 3. Save via repository (transaction, event dispatch, and outbox are handled in base save()) ---
+    // The save() method in BaseRepository:
+    // - Starts a transaction
+    // - Persists the entity
+    // - Tracks the aggregate
+    // - Collects domain events
+    // - Dispatches events via EventBus (synchronously)
+    // - Saves events to outbox
+    // - Commits transaction
+    await this.orderRepository.save(order);
+
+    // Note: Cart conversion is handled by OrderPlacedCartConverterHandler
+    // which listens to OrderPlaced domain event (separation of concerns)
+
+    // --- 4. Convert to DTO ---
+    return this.toDto(order);
   }
 
   private toDto(order: Order): OrderDto {

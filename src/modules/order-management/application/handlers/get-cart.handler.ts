@@ -1,6 +1,7 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { GetCartQuery } from '../queries/get-cart.query';
+import { CART_REPOSITORY_TOKEN } from '../../domain/repositories/repository.tokens';
 import { ICartRepository } from '../../domain/repositories/icart-repository';
 import { CartDto } from '../dtos/cart.dto';
 import { CartItemDto } from '../dtos/cart-item.dto';
@@ -8,7 +9,7 @@ import { CartItemDto } from '../dtos/cart-item.dto';
 @QueryHandler(GetCartQuery)
 export class GetCartQueryHandler implements IQueryHandler<GetCartQuery> {
   constructor(
-    @Inject('ICartRepository')
+    @Inject(CART_REPOSITORY_TOKEN)
     private readonly cartRepository: ICartRepository,
   ) {}
 

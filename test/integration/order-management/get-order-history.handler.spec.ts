@@ -1,5 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
+import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { GetOrderHistoryQueryHandler } from '../../../src/modules/order-management/application/handlers/get-order-history.handler';
@@ -10,6 +11,10 @@ import { OrderItemEntity } from '../../../src/modules/order-management/infrastru
 import { TestDatabaseHelper } from '../../helpers/database.helper';
 import { Order } from '../../../src/modules/order-management/domain/aggregates/order';
 import { Address } from '../../../src/modules/order-management/domain/value-objects/address';
+import { UnitOfWorkContextService } from '../../../src/shared/infrastructure/uow/uow-context.service';
+import { EventBusService } from '../../../src/shared/event/event-bus.service';
+import { OutboxEntity } from '../../../src/shared/infrastructure/outbox/outbox.entity';
+import { OutboxService } from '../../../src/shared/infrastructure/outbox/outbox.service';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('GetOrderHistoryQueryHandler (Integration)', () => {
@@ -58,23 +63,38 @@ describe('GetOrderHistoryQueryHandler (Integration)', () => {
         CqrsModule,
         TypeOrmModule.forRoot({
           type: 'postgres',
-          host: process.env.TEST_DB_HOST || 'localhost',
-          port: parseInt(process.env.TEST_DB_PORT || '5432', 10),
-          username: process.env.TEST_DB_USERNAME || 'postgres',
-          password: process.env.TEST_DB_PASSWORD || 'postgres',
+          host: process.env.TEST_DB_HOST || process.env.DATABASE_HOST || 'localhost',
+          port: parseInt(process.env.TEST_DB_PORT || process.env.DATABASE_PORT || '5432', 10),
+          username: process.env.TEST_DB_USERNAME || process.env.DATABASE_USER || 'ecommerce',
+          password: process.env.TEST_DB_PASSWORD || process.env.DATABASE_PASSWORD || 'ecommerce_password',
           database: dataSource.options.database as string,
-          entities: [OrderEntity, OrderItemEntity],
+          entities: [OrderEntity, OrderItemEntity, OutboxEntity],
           synchronize: true,
           logging: false,
         }),
-        TypeOrmModule.forFeature([OrderEntity, OrderItemEntity]),
+        TypeOrmModule.forFeature([OrderEntity, OrderItemEntity, OutboxEntity]),
       ],
       providers: [
         GetOrderHistoryQueryHandler,
         OrderRepository,
+        UnitOfWorkContextService,
+        OutboxService,
+        EventBusService,
         {
           provide: 'IOrderRepository',
           useClass: OrderRepository,
+        },
+        {
+          provide: 'AmqpConnection',
+          useValue: {
+            publish: jest.fn().mockResolvedValue(undefined),
+          },
+        },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue(undefined),
+          },
         },
       ],
     }).compile();

@@ -1,5 +1,4 @@
 import { Category } from '../aggregates/category';
-import { IBaseRepository } from '../../../../shared/infrastructure/database/base.repository';
 
 /**
  * Category Repository Interface
@@ -8,7 +7,47 @@ import { IBaseRepository } from '../../../../shared/infrastructure/database/base
  * This interface belongs to the domain layer and will be implemented
  * by the infrastructure layer using TypeORM.
  */
-export interface ICategoryRepository extends IBaseRepository<Category> {
+export interface ICategoryRepository {
+  /**
+   * Find a category by its ID
+   * @param id - The category ID
+   * @returns The category or null if not found
+   */
+  findById(id: string): Promise<Category | null>;
+
+  /**
+   * Save a category (create or update)
+   * @param category - The category to save
+   * @returns The saved category
+   */
+  save(category: Category): Promise<Category>;
+
+  /**
+   * Delete a category by its ID
+   * @param id - The category ID
+   */
+  delete(id: string): Promise<void>;
+
+  /**
+   * Check if a category exists by its ID
+   * @param id - The category ID
+   * @returns True if the category exists
+   */
+  exists(id: string): Promise<boolean>;
+
+  /**
+   * Count all categories
+   * @returns Total number of categories
+   */
+  count(): Promise<number>;
+
+  /**
+   * Find all categories with pagination
+   * @param skip - Number of records to skip
+   * @param take - Number of records to take
+   * @returns Array of categories
+   */
+  findAll(skip?: number, take?: number): Promise<Category[]>;
   /**
    * Find a category by its slug
    * @param slug - The category slug (URL-friendly identifier)

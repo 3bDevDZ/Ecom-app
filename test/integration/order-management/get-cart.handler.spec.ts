@@ -1,15 +1,20 @@
-import { Test } from '@nestjs/testing';
+import { ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
+import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 import { GetCartQueryHandler } from '../../../src/modules/order-management/application/handlers/get-cart.handler';
 import { GetCartQuery } from '../../../src/modules/order-management/application/queries/get-cart.query';
-import { CartRepository } from '../../../src/modules/order-management/infrastructure/persistence/repositories/cart.repository';
-import { CartEntity } from '../../../src/modules/order-management/infrastructure/persistence/entities/cart.entity';
-import { CartItemEntity } from '../../../src/modules/order-management/infrastructure/persistence/entities/cart-item.entity';
-import { TestDatabaseHelper } from '../../helpers/database.helper';
 import { Cart } from '../../../src/modules/order-management/domain/aggregates/cart';
-import { v4 as uuidv4 } from 'uuid';
+import { CartItemEntity } from '../../../src/modules/order-management/infrastructure/persistence/entities/cart-item.entity';
+import { CartEntity } from '../../../src/modules/order-management/infrastructure/persistence/entities/cart.entity';
+import { CartRepository } from '../../../src/modules/order-management/infrastructure/persistence/repositories/cart.repository';
+import { EventBusService } from '../../../src/shared/event/event-bus.service';
+import { OutboxEntity } from '../../../src/shared/infrastructure/outbox/outbox.entity';
+import { OutboxService } from '../../../src/shared/infrastructure/outbox/outbox.service';
+import { UnitOfWorkContextService } from '../../../src/shared/infrastructure/uow/uow-context.service';
+import { TestDatabaseHelper } from '../../helpers/database.helper';
 
 describe('GetCartQueryHandler (Integration)', () => {
   let dataSource: DataSource;
@@ -28,23 +33,38 @@ describe('GetCartQueryHandler (Integration)', () => {
         CqrsModule,
         TypeOrmModule.forRoot({
           type: 'postgres',
-          host: process.env.TEST_DB_HOST || 'localhost',
-          port: parseInt(process.env.TEST_DB_PORT || '5432', 10),
-          username: process.env.TEST_DB_USERNAME || 'postgres',
-          password: process.env.TEST_DB_PASSWORD || 'postgres',
+          host: process.env.TEST_DB_HOST || process.env.DATABASE_HOST || 'localhost',
+          port: parseInt(process.env.TEST_DB_PORT || process.env.DATABASE_PORT || '5432', 10),
+          username: process.env.TEST_DB_USERNAME || process.env.DATABASE_USER || 'ecommerce',
+          password: process.env.TEST_DB_PASSWORD || process.env.DATABASE_PASSWORD || 'ecommerce_password',
           database: dataSource.options.database as string,
-          entities: [CartEntity, CartItemEntity],
+          entities: [CartEntity, CartItemEntity, OutboxEntity],
           synchronize: true,
           logging: false,
         }),
-        TypeOrmModule.forFeature([CartEntity, CartItemEntity]),
+        TypeOrmModule.forFeature([CartEntity, CartItemEntity, OutboxEntity]),
       ],
       providers: [
         GetCartQueryHandler,
         CartRepository,
+        UnitOfWorkContextService,
+        OutboxService,
+        EventBusService,
         {
           provide: 'ICartRepository',
           useClass: CartRepository,
+        },
+        {
+          provide: 'AmqpConnection',
+          useValue: {
+            publish: jest.fn().mockResolvedValue(undefined),
+          },
+        },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue(undefined),
+          },
         },
       ],
     }).compile();

@@ -1,8 +1,8 @@
 import { Cart } from '../../../domain/aggregates/cart';
 import { CartItem } from '../../../domain/entities/cart-item';
 import { CartStatus } from '../../../domain/value-objects/cart-status';
-import { CartEntity } from '../entities/cart.entity';
 import { CartItemEntity } from '../entities/cart-item.entity';
+import { CartEntity } from '../entities/cart.entity';
 
 export class CartMapper {
   static toDomain(entity: CartEntity): Cart {
@@ -35,6 +35,10 @@ export class CartMapper {
     entity.status = cart.status.value;
     entity.createdAt = cart.createdAt;
     entity.updatedAt = cart.updatedAt;
+    // Preserve version for optimistic locking (TypeORM will auto-increment on save)
+    if (existingEntity?.version !== undefined) {
+      entity.version = existingEntity.version;
+    }
 
     // Set expiresAt: 7 days from creation for new carts, preserve existing for updates
     if (existingEntity?.expiresAt) {

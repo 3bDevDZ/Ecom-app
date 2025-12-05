@@ -3,6 +3,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from '../../domain/aggregates/order';
+import { ORDER_REPOSITORY_TOKEN } from '../../domain/repositories/repository.tokens';
 import { IOrderRepository } from '../../domain/repositories/iorder-repository';
 import { OrderEntity } from '../../infrastructure/persistence/entities/order.entity';
 import { OrderDto } from '../dtos/order.dto';
@@ -17,7 +18,7 @@ import { GetOrderByIdQuery } from '../queries/get-order-by-id.query';
 @QueryHandler(GetOrderByIdQuery)
 export class GetOrderByIdQueryHandler implements IQueryHandler<GetOrderByIdQuery> {
   constructor(
-    @Inject('IOrderRepository')
+    @Inject(ORDER_REPOSITORY_TOKEN)
     private readonly orderRepository: IOrderRepository,
     @InjectRepository(OrderEntity)
     private readonly orderEntityRepository: Repository<OrderEntity>,

@@ -1,5 +1,6 @@
 import { Inject, NotFoundException } from '@nestjs/common';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CART_REPOSITORY_TOKEN } from '../../domain/repositories/repository.tokens';
 import { ICartRepository } from '../../domain/repositories/icart-repository';
 import { RemoveFromCartCommand } from '../commands/remove-from-cart.command';
 import { CartDto } from '../dtos/cart.dto';
@@ -9,7 +10,7 @@ export class RemoveFromCartCommandHandler
   implements ICommandHandler<RemoveFromCartCommand>
 {
   constructor(
-    @Inject('ICartRepository')
+    @Inject(CART_REPOSITORY_TOKEN)
     private readonly cartRepository: ICartRepository,
     private readonly eventBus: EventBus,
   ) { }

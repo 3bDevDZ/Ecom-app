@@ -1,5 +1,4 @@
 import { Product } from '../aggregates/product';
-import { IBaseRepository } from '../../../../shared/infrastructure/database/base.repository';
 
 /**
  * Product Repository Interface
@@ -8,7 +7,47 @@ import { IBaseRepository } from '../../../../shared/infrastructure/database/base
  * This interface belongs to the domain layer and will be implemented
  * by the infrastructure layer using TypeORM.
  */
-export interface IProductRepository extends IBaseRepository<Product> {
+export interface IProductRepository {
+  /**
+   * Find a product by its ID
+   * @param id - The product ID
+   * @returns The product or null if not found
+   */
+  findById(id: string): Promise<Product | null>;
+
+  /**
+   * Save a product (create or update)
+   * @param product - The product to save
+   * @returns The saved product
+   */
+  save(product: Product): Promise<Product>;
+
+  /**
+   * Delete a product by its ID
+   * @param id - The product ID
+   */
+  delete(id: string): Promise<void>;
+
+  /**
+   * Check if a product exists by its ID
+   * @param id - The product ID
+   * @returns True if the product exists
+   */
+  exists(id: string): Promise<boolean>;
+
+  /**
+   * Count all products
+   * @returns Total number of products
+   */
+  count(): Promise<number>;
+
+  /**
+   * Find all products with pagination
+   * @param skip - Number of records to skip
+   * @param take - Number of records to take
+   * @returns Array of products
+   */
+  findAll(skip?: number, take?: number): Promise<Product[]>;
   /**
    * Find a product by its SKU
    * @param sku - The product SKU

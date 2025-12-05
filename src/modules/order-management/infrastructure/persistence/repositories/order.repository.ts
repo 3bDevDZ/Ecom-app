@@ -1,32 +1,57 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { IOrderRepository } from '../../../domain/repositories/iorder-repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { EventBus } from '@nestjs/cqrs';
+import { DataSource, EntityManager } from 'typeorm';
+import { EventBusService } from '../../../../../shared/event/event-bus.service';
+import { BaseRepository } from '../../../../../shared/infrastructure/database/base.repository';
+import { UnitOfWorkContextService } from '../../../../../shared/infrastructure/uow/uow-context.service';
 import { Order } from '../../../domain/aggregates/order';
-import { OrderEntity } from '../entities/order.entity';
+import { IOrderRepository } from '../../../domain/repositories/iorder-repository';
 import { OrderItemEntity } from '../entities/order-item.entity';
+import { OrderEntity } from '../entities/order.entity';
 import { OrderMapper } from '../mappers/order.mapper';
 
 @Injectable()
-export class OrderRepository implements IOrderRepository {
+export class OrderRepository
+  extends BaseRepository<OrderEntity, Order>
+  implements IOrderRepository {
   constructor(
-    @InjectRepository(OrderEntity)
-    private readonly orderEntityRepository: Repository<OrderEntity>,
-    @InjectRepository(OrderItemEntity)
-    private readonly orderItemEntityRepository: Repository<OrderItemEntity>,
-  ) {}
+    @Inject(DataSource)
+    dataSource: DataSource,
+    @Inject(UnitOfWorkContextService)
+    uowContextService: UnitOfWorkContextService,
+    @Inject(EventBus)
+    eventBus: EventBus,
+    @Inject(EventBusService)
+    outboxEventBus: EventBusService,
+  ) {
+    super(dataSource, uowContextService, eventBus, outboxEventBus);
+  }
 
-  async save(order: Order): Promise<void> {
-    const entity = OrderMapper.toPersistence(order);
+  /**
+   * Implementation of doSave() - persists the order entity
+   * Called by base save() method within a transaction
+   */
+  protected async doSave(order: Order, manager: EntityManager): Promise<void> {
+    const orderRepo = manager.getRepository(OrderEntity);
+    const itemRepo = manager.getRepository(OrderItemEntity);
+
+    // Load existing entity to preserve version for optimistic locking
+    const existingEntity = await orderRepo.findOne({
+      where: { id: order.id },
+    });
+
+    const entity = OrderMapper.toPersistence(order, existingEntity);
 
     // Delete existing items and save new ones
-    await this.orderItemEntityRepository.delete({ orderId: order.id });
+    await itemRepo.delete({ orderId: order.id });
 
-    await this.orderEntityRepository.save(entity);
+    await orderRepo.save(entity);
   }
 
   async findById(id: string): Promise<Order | null> {
-    const entity = await this.orderEntityRepository.findOne({
+    const orderRepo = this.getRepository(OrderEntity);
+
+    const entity = await orderRepo.findOne({
       where: { id },
       relations: ['items'],
     });
@@ -48,7 +73,9 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findByOrderNumber(orderNumber: string): Promise<Order | null> {
-    const entity = await this.orderEntityRepository.findOne({
+    const orderRepo = this.getRepository(OrderEntity);
+
+    const entity = await orderRepo.findOne({
       where: { orderNumber },
       relations: ['items'],
     });
@@ -61,7 +88,9 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findByUserId(userId: string): Promise<Order[]> {
-    const entities = await this.orderEntityRepository.find({
+    const orderRepo = this.getRepository(OrderEntity);
+
+    const entities = await orderRepo.find({
       where: { userId },
       relations: ['items'],
       order: { createdAt: 'DESC' },
@@ -92,7 +121,9 @@ export class OrderRepository implements IOrderRepository {
     page: number,
     limit: number,
   ): Promise<{ orders: Order[]; total: number }> {
-    const [entities, total] = await this.orderEntityRepository.findAndCount({
+    const orderRepo = this.getRepository(OrderEntity);
+
+    const [entities, total] = await orderRepo.findAndCount({
       where: { userId },
       relations: ['items'],
       order: { createdAt: 'DESC' },
@@ -105,4 +136,3 @@ export class OrderRepository implements IOrderRepository {
     return { orders, total };
   }
 }
-

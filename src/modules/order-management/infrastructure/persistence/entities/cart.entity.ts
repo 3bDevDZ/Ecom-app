@@ -1,10 +1,11 @@
 import {
-  Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
+  Entity,
   OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn,
+  VersionColumn,
 } from 'typeorm';
 import { CartItemEntity } from './cart-item.entity';
 
@@ -30,5 +31,8 @@ export class CartEntity {
 
   @Column({ type: 'timestamp' })
   expiresAt: Date;
+
+  @VersionColumn()
+  version: number;
 }
 

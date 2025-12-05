@@ -1,8 +1,9 @@
 import { Inject, NotFoundException } from '@nestjs/common';
-import { CommandHandler, EventBus, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { GetProductByIdQuery } from '../../../product-catalog/application/queries/get-product-by-id.query';
-import { GetCartQuery } from '../queries/get-cart.query';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { PRODUCT_REPOSITORY_TOKEN } from '../../../product-catalog/domain/repositories/repository.tokens';
+import { IProductRepository } from '../../../product-catalog/domain/repositories/product.repository.interface';
 import { Cart } from '../../domain/aggregates/cart';
+import { CART_REPOSITORY_TOKEN } from '../../domain/repositories/repository.tokens';
 import { ICartRepository } from '../../domain/repositories/icart-repository';
 import { AddToCartCommand } from '../commands/add-to-cart.command';
 import { CartDto } from '../dtos/cart.dto';
@@ -12,17 +13,18 @@ export class AddToCartCommandHandler
   implements ICommandHandler<AddToCartCommand>
 {
   constructor(
-    @Inject('ICartRepository')
+    @Inject(CART_REPOSITORY_TOKEN)
     private readonly cartRepository: ICartRepository,
+    @Inject(PRODUCT_REPOSITORY_TOKEN)
+    private readonly productRepository: IProductRepository,
     private readonly eventBus: EventBus,
-    private readonly queryBus: QueryBus,
   ) { }
 
   async execute(command: AddToCartCommand): Promise<CartDto> {
     const { userId, productId, quantity, variantId } = command;
 
     // Fetch product details from Product Catalog
-    const product = await this.queryBus.execute(new GetProductByIdQuery(productId));
+    const product = await this.productRepository.findById(productId);
     if (!product) {
       throw new NotFoundException(`Product with ID ${productId} not found`);
     }
@@ -35,14 +37,16 @@ export class AddToCartCommandHandler
     }
 
     // Determine price and SKU (handle variants if needed)
-    let unitPrice = product.basePrice;
-    let sku = product.sku;
+    let unitPrice = product.basePrice.amount;
+    let sku = product.sku.value;
 
-    if (variantId && product.variants) {
-      const variant = product.variants.find((v: any) => v.id === variantId);
+    if (variantId && product.variants.length > 0) {
+      const variant = product.variants.find((v) => v.id === variantId);
       if (variant) {
-        unitPrice = variant.priceDelta ? product.basePrice + variant.priceDelta : product.basePrice;
-        sku = variant.sku;
+        // Use the variant's calculatePrice method for proper price calculation
+        const variantPrice = variant.calculatePrice(product.basePrice);
+        unitPrice = variantPrice.amount;
+        sku = variant.sku.value;
       }
     }
 
@@ -53,7 +57,7 @@ export class AddToCartCommandHandler
       sku,
       quantity,
       unitPrice,
-      currency: product.currency || 'USD',
+      currency: product.basePrice.currency || 'USD',
     });
 
     // Save cart

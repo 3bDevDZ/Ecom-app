@@ -56,8 +56,8 @@ export class OrderMapper {
     );
   }
 
-  static toPersistence(order: Order): OrderEntity {
-    const entity = new OrderEntity();
+  static toPersistence(order: Order, existingEntity?: OrderEntity): OrderEntity {
+    const entity = existingEntity || new OrderEntity();
     entity.id = order.id;
     entity.orderNumber = order.orderNumber.value;
     entity.userId = order.userId;
@@ -67,6 +67,10 @@ export class OrderMapper {
     entity.updatedAt = order.updatedAt;
     entity.deliveredAt = order.deliveredAt;
     entity.cancellationReason = order.cancellationReason;
+    // Preserve version for optimistic locking (TypeORM will auto-increment on save)
+    if (existingEntity?.version !== undefined) {
+      entity.version = existingEntity.version;
+    }
 
     // Calculate financial fields
     const subtotal = order.items.reduce((sum, item) => sum + item.lineTotal, 0);

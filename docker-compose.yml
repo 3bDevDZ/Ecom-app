@@ -137,14 +137,21 @@ services:
       - ecommerce-network
 
 volumes:
+  # Named volumes persist data even when containers are stopped or removed
+  # Data survives 'docker-compose down' and 'docker-compose up'
+  # To completely remove data, use: docker-compose down -v
   postgres_data:
     driver: local
+    name: b2b-ecommerce-postgres-data
   rabbitmq_data:
     driver: local
+    name: b2b-ecommerce-rabbitmq-data
   keycloak_data:
     driver: local
+    name: b2b-ecommerce-keycloak-data
   minio_data:
     driver: local
+    name: b2b-ecommerce-minio-data
 
 networks:
   ecommerce-network:

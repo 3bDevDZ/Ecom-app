@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -27,6 +27,7 @@ import { OrderViewController } from './presentation/controllers/order-view.contr
 import { AddToCartCommandHandler } from './application/handlers/add-to-cart.handler';
 import { CancelOrderCommandHandler } from './application/handlers/cancel-order.handler';
 import { ClearCartCommandHandler } from './application/handlers/clear-cart.handler';
+import { OrderPlacedCartConverterHandler } from './application/handlers/order-placed-domain.handler';
 import { PlaceOrderCommandHandler } from './application/handlers/place-order.handler';
 import { RemoveFromCartCommandHandler } from './application/handlers/remove-from-cart.handler';
 import { ReorderCommandHandler } from './application/handlers/reorder.handler';
@@ -42,6 +43,7 @@ import { GetOrderHistoryQueryHandler } from './application/handlers/get-order-hi
 import { OrderPlacementSaga } from './application/sagas/order-placement.saga';
 
 // Repository tokens
+import { CART_REPOSITORY_TOKEN, ORDER_REPOSITORY_TOKEN } from './domain/repositories/repository.tokens';
 
 // Infrastructure - Event Handlers
 import { OrderEventHandlers } from './infrastructure/events/order-event.handlers';
@@ -105,7 +107,7 @@ const sagas = [OrderPlacementSaga];
       OrderEntity,
       OrderItemEntity,
     ]),
-    ProductCatalogModule, // For product lookup during cart operations
+    forwardRef(() => ProductCatalogModule), // For product lookup during cart operations
     OutboxModule, // For event publishing via Outbox pattern
     StorageModule, // For file storage (receipts, documents)
 
@@ -127,19 +129,21 @@ const sagas = [OrderPlacementSaga];
     ...OrderEventHandlers,
     // Repository providers
     {
-      provide: 'ICartRepository',
+      provide: CART_REPOSITORY_TOKEN,
       useClass: CartRepository,
     },
     {
-      provide: 'IOrderRepository',
+      provide: ORDER_REPOSITORY_TOKEN,
       useClass: OrderRepository,
     },
     // Services
     OrderEmailService,
     ReceiptService,
     CartPresenter,
+    // Domain Event Handlers (registered via @EventsHandler decorator)
+    OrderPlacedCartConverterHandler,
   ],
-  exports: ['ICartRepository', 'IOrderRepository', CartPresenter],
+  exports: [CART_REPOSITORY_TOKEN, ORDER_REPOSITORY_TOKEN, CartPresenter],
 })
 export class OrderManagementModule { }
 

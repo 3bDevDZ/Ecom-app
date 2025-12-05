@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
 import { Inject, NotFoundException } from '@nestjs/common';
 import { ClearCartCommand } from '../commands/clear-cart.command';
+import { CART_REPOSITORY_TOKEN } from '../../domain/repositories/repository.tokens';
 import { ICartRepository } from '../../domain/repositories/icart-repository';
 
 @CommandHandler(ClearCartCommand)
@@ -8,7 +9,7 @@ export class ClearCartCommandHandler
   implements ICommandHandler<ClearCartCommand>
 {
   constructor(
-    @Inject('ICartRepository')
+    @Inject(CART_REPOSITORY_TOKEN)
     private readonly cartRepository: ICartRepository,
     private readonly eventBus: EventBus,
   ) {}

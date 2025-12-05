@@ -31,13 +31,18 @@ export class TestDatabaseHelper {
 
     try {
       // First, connect to default postgres database to create test database
+      // Use ecommerce user by default (from docker-compose)
+      const adminUser = process.env.TEST_DB_USERNAME || process.env.DATABASE_USER || 'ecommerce';
+      const adminPassword = process.env.TEST_DB_PASSWORD || process.env.DATABASE_PASSWORD || 'ecommerce_password';
+      const adminDb = process.env.DATABASE_NAME || 'b2b_ecommerce';
+
       const adminDataSource = new DataSource({
         type: 'postgres',
-        host: process.env.TEST_DB_HOST || 'localhost',
-        port: parseInt(process.env.TEST_DB_PORT || '5432', 10),
-        username: process.env.TEST_DB_USERNAME || 'postgres',
-        password: process.env.TEST_DB_PASSWORD || 'postgres',
-        database: 'postgres',
+        host: process.env.TEST_DB_HOST || process.env.DATABASE_HOST || 'localhost',
+        port: parseInt(process.env.TEST_DB_PORT || process.env.DATABASE_PORT || '5432', 10),
+        username: adminUser,
+        password: adminPassword,
+        database: adminDb,
       });
 
       await adminDataSource.initialize();
@@ -47,10 +52,10 @@ export class TestDatabaseHelper {
       // Now connect to the test database
       const testDataSourceOptions: DataSourceOptions = {
         type: 'postgres',
-        host: process.env.TEST_DB_HOST || 'localhost',
-        port: parseInt(process.env.TEST_DB_PORT || '5432', 10),
-        username: process.env.TEST_DB_USERNAME || 'postgres',
-        password: process.env.TEST_DB_PASSWORD || 'postgres',
+        host: process.env.TEST_DB_HOST || process.env.DATABASE_HOST || 'localhost',
+        port: parseInt(process.env.TEST_DB_PORT || process.env.DATABASE_PORT || '5432', 10),
+        username: process.env.TEST_DB_USERNAME || process.env.DATABASE_USER || 'ecommerce',
+        password: process.env.TEST_DB_PASSWORD || process.env.DATABASE_PASSWORD || 'ecommerce_password',
         database: testDbName,
         entities: entities || [],
         synchronize: true, // OK for tests - creates schema automatically
@@ -90,13 +95,17 @@ export class TestDatabaseHelper {
     await dataSource.destroy();
 
     // Connect to postgres database to drop the test database
+    const adminUser = process.env.TEST_DB_USERNAME || process.env.DATABASE_USER || 'ecommerce';
+    const adminPassword = process.env.TEST_DB_PASSWORD || process.env.DATABASE_PASSWORD || 'ecommerce_password';
+    const adminDb = process.env.DATABASE_NAME || 'b2b_ecommerce';
+
     const adminDataSource = new DataSource({
       type: 'postgres',
-      host: process.env.TEST_DB_HOST || 'localhost',
-      port: parseInt(process.env.TEST_DB_PORT || '5432', 10),
-      username: process.env.TEST_DB_USERNAME || 'postgres',
-      password: process.env.TEST_DB_PASSWORD || 'postgres',
-      database: 'postgres',
+      host: process.env.TEST_DB_HOST || process.env.DATABASE_HOST || 'localhost',
+      port: parseInt(process.env.TEST_DB_PORT || process.env.DATABASE_PORT || '5432', 10),
+      username: adminUser,
+      password: adminPassword,
+      database: adminDb,
     });
 
     try {

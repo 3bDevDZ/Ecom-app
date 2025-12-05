@@ -1,6 +1,6 @@
 // src/shared/event/event-bus.service.ts
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
@@ -9,6 +9,8 @@ import { OutboxEntity } from '../infrastructure/outbox/outbox.entity';
 
 @Injectable()
 export class EventBusService {
+    private readonly logger = new Logger(EventBusService.name);
+
     constructor(
         private readonly amqpConnection: AmqpConnection,
         @InjectRepository(OutboxEntity)
@@ -41,20 +43,33 @@ export class EventBusService {
     }
 
     async publishNow(routingKey: string, payload: any): Promise<void> {
-        await this.amqpConnection.publish('domain.events', routingKey, payload,
-            {
-                persistent: true,
-                messageId: `evt-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-                timestamp: Date.now(),
-            });
+        try {
+            await this.amqpConnection.publish('domain.events', routingKey, payload,
+                {
+                    persistent: true,
+                    messageId: `evt-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                    timestamp: Date.now(),
+                });
+        } catch (error: any) {
+            this.logger.error(`Failed to publish event to RabbitMQ: ${error?.message || error}`, error?.stack);
+            // Re-throw to allow caller to handle
+            throw error;
+        }
     }
+
     async publishToDeadLetter(routingKey: string, payload: any): Promise<void> {
-        const deadLetterExchange = this.configService.get<string>('RABBITMQ_DEAD_LETTER_EXCHANGE');
-        await this.amqpConnection.publish(deadLetterExchange, routingKey, payload,
-            {
-                persistent: true,
-                messageId: `evt-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-                timestamp: Date.now(),
-            });
+        try {
+            const deadLetterExchange = this.configService.get<string>('RABBITMQ_DEAD_LETTER_EXCHANGE') || 'dead.letter';
+            await this.amqpConnection.publish(deadLetterExchange, routingKey, payload,
+                {
+                    persistent: true,
+                    messageId: `evt-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                    timestamp: Date.now(),
+                });
+        } catch (error: any) {
+            this.logger.error(`Failed to publish event to dead letter queue: ${error?.message || error}`, error?.stack);
+            // Re-throw to allow caller to handle
+            throw error;
+        }
     }
 }
